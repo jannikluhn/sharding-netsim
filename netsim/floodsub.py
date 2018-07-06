@@ -1,5 +1,5 @@
-from typing import NamedTuple, Generator, List, DefaultDict
 from collections import defaultdict
+from typing import NamedTuple, Generator, List, DefaultDict
 
 from simpy import Environment, Event
 
@@ -8,6 +8,7 @@ from netsim.network import Network, Node, Message, MessageID, NodeID
 
 class MessageRecord(NamedTuple):
     message_id: MessageID
+    relayer: NodeID
     timestamp: int
 
 
@@ -19,21 +20,27 @@ class FloodSubNode(Node):
         self.seen_messages: DefaultDict[NodeID, List[MessageRecord]] = defaultdict(list)
         self.seen_message_ttl = seen_message_ttl
 
+        self.received_messages: DefaultDict[MessageID, List[MessageRecord]] = defaultdict(list)
+
     def has_seen(self, peer, message):
         seen_message_ids = [record.message_id for record in self.seen_messages[peer.id]]
         return message.id in seen_message_ids
 
     def set_seen(self, peer, message):
         if not self.has_seen(peer, message):
-            record = MessageRecord(message.id, self.env.now)
+            record = MessageRecord(message.id, self.id, self.env.now)
             self.seen_messages[peer.id].append(record)
 
     def receive(self, sender: Node, message: Message) -> Generator[Event, None, None]:
+        self.received_messages[message.id].append(MessageRecord(message.id, sender.id, self.env.now))
+
         yield self.env.process(super().receive(sender, message))
         self.set_seen(sender, message)
         yield self.env.process(self.flood(message))
 
     def flood(self, message: Message) -> Generator[Event, None, None]:
+        self.received_messages[message.id].append(MessageRecord(message.id, None, self.env.now))
+
         processes = [
             self.env.process(self.send(peer, message))
             for peer in self.peers

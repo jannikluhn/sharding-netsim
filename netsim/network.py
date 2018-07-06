@@ -43,7 +43,6 @@ class Node:
         yield self.env.process(self.network.send(self, receiver, message))
 
     def receive(self, sender: Node, message: Message) -> Generator[Event, None, None]:
-        self.logger.info("receiving message", msg=message)
         yield self.env.timeout(0)
 
     @property
@@ -80,12 +79,5 @@ class Network(nx.Graph):
             raise ValueError("{} and {} not connected".format(sender, receiver))
 
         delay = 0.1
-        self.logger.info(
-            "sending message",
-            msg=message,
-            sender=sender,
-            receiver=receiver,
-            delay=delay,
-        )
         yield self.env.timeout(delay)
         yield self.env.process(receiver.receive(sender, message))
