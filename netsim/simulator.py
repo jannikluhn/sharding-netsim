@@ -2,7 +2,7 @@ from typing import Generator, List, Dict, Any
 
 from simpy import Environment, Event
 
-from network import Network
+from netsim.network import Network
 
 
 class Simulator:

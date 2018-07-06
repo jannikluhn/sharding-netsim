@@ -2,10 +2,10 @@ import random
 
 import numpy as np
 
-from network import Message
-from connections import BasicConnectionManager
-from floodsub import FloodSubNode
-from simulator import Simulator
+from netsim.network import Message
+from netsim.connections import BasicConnectionManager
+from netsim.floodsub import FloodSubNode
+from netsim.simulator import Simulator
 
 
 class FloodSubSimulator(Simulator):

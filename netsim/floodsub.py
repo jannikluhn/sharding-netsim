@@ -3,7 +3,7 @@ from collections import defaultdict
 
 from simpy import Environment, Event
 
-from network import Network, Node, Message, MessageID, NodeID
+from netsim.network import Network, Node, Message, MessageID, NodeID
 
 
 class MessageRecord(NamedTuple):

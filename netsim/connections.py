@@ -5,7 +5,7 @@ from statistics import median
 import structlog
 from simpy import Environment, Event
 
-from network import Network
+from netsim.network import Network
 
 
 class ConnectionManager:
