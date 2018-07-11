@@ -2,7 +2,7 @@
 # OMNeT++/OMNEST Makefile for omnet
 #
 # This file was generated with the command:
-#  opp_makemake
+#  opp_makemake -f
 #
 
 # Name of target to be created (-o option)
@@ -30,10 +30,11 @@ PROJECTRELATIVE_PATH =
 O = $(PROJECT_OUTPUT_DIR)/$(CONFIGNAME)/$(PROJECTRELATIVE_PATH)
 
 # Object files for local .cc, .msg and .sm files
-OBJS = $O/floodsub.o
+OBJS = $O/floodsub.o $O/floodsub_m.o
 
 # Message files
-MSGFILES =
+MSGFILES = \
+    floodsub.msg
 
 # SM files
 SMFILES =

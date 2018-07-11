@@ -1,18 +1,33 @@
-network FloodSub
+module FloodSubNode
 {
-    types:
-        channel Channel extends ned.DelayChannel {
-            delay = 100ms;
-        }
+    parameters:
+        double txRate;
+
+    gates:
+        inout port[];
 
     submodules:
-        node[2]: FloodSubNode {
-            parameters:
-                txRate = 1.0;
+        msgSource: MsgSource {
+            rate = txRate / sizeof(port);
         }
+        seenMsgFilter[sizeof(port)]: SeenMsgFilter;
+        flooder: Flooder;
 
     connections:
-        node[0].port++ <--> Channel <--> node[1].port++;
+        // connect ports with filters
+        for i=0..sizeof(port) - 1 {
+            port$i[i] --> seenMsgFilter[i].in;
+            seenMsgFilter[i].filteredOut --> port$o[i];
+        }
+
+        // connect filters with flooder
+        for i=0..sizeof(port) - 1 {
+            seenMsgFilter[i].filteredIn --> flooder.in++;
+            flooder.out++ --> seenMsgFilter[i].out;
+        }
+
+        // connect msg source to flooder
+        msgSource.out --> flooder.in++;
 }
 
 // Create messages randomly with a certain average rate.
@@ -39,40 +54,10 @@ simple SeenMsgFilter
 // Send input coming from any incoming port to all outgoing ports
 simple Flooder
 {
-    gates:
-        input forwardInput[];
-        output out[];
-        input sourceInput;
-}
-
-module FloodSubNode
-{
     parameters:
-        double txRate;
-
+        @signal[msgReceived](type="long");
+        @statistic[hopCount](title="hop count"; source="msgReceived"; record=vector,stats; interpolationmode=none);
     gates:
-        inout port[];
-
-    submodules:
-        msgSource: MsgSource {
-            rate = txRate / sizeof(port);
-        }
-        seenMsgFilter[sizeof(port)]: SeenMsgFilter;
-        flooder: Flooder;
-
-    connections:
-        // connect ports with filters
-        for i=0..sizeof(port) - 1 {
-            port$i[i] --> seenMsgFilter[i].in;
-            seenMsgFilter[i].filteredOut --> port$o[i];
-        }
-
-        // connect filters with flooder
-        for i=0..sizeof(port) - 1 {
-            seenMsgFilter[i].filteredIn --> flooder.forwardInput++;
-            flooder.out++ --> seenMsgFilter[i].out;
-        }
-
-        // connect msg source to flooder
-        msgSource.out --> flooder.sourceInput;
+        input in[];
+        output out[];
 }
