@@ -1,3 +1,12 @@
+network BaseFloodSubNetwork
+{
+    parameters:
+        @statistic[msgSpawned](title="message count"; record=count;);
+        @statistic[msgSent](title="message count"; record=count;);
+        @statistic[hopCount](title="hop count"; source="msgReceived"; record=histogram;);
+}
+
+
 module FloodSubNode
 {
     parameters:
@@ -8,7 +17,7 @@ module FloodSubNode
 
     submodules:
         msgSource: MsgSource {
-            rate = txRate / sizeof(port);
+            rate = txRate;
         }
         seenMsgFilter[sizeof(port)]: SeenMsgFilter;
         flooder: Flooder;
@@ -35,6 +44,7 @@ simple MsgSource
 {
     parameters:
         double rate;
+        @signal[msgSpawned](type="long");
 
     gates:
         output out;
@@ -56,7 +66,6 @@ simple Flooder
 {
     parameters:
         @signal[msgReceived](type="long");
-        @statistic[hopCount](title="hop count"; source="msgReceived"; record=vector,stats; interpolationmode=none);
     gates:
         input in[];
         output out[];

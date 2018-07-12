@@ -1,10 +1,20 @@
 import random
-from statistics import median
+random.seed(0)
+
+from statistics import (
+    median,
+)
 import sys
 
 import structlog
 import networkx as nx
 import numpy as np
+
+from toolz import (
+    assoc,
+    concat,
+    merge,
+)
 
 
 structlog.configure(
@@ -13,7 +23,7 @@ structlog.configure(
 logger = structlog.get_logger("setup")
 
 
-NETWORK_TEMPLATE = """network FloodSub
+NETWORK_TEMPLATE = """network FloodSub{index} extends BaseFloodSubNetwork
 {{
     parameters:
         int numNodes = {num_nodes};
@@ -22,7 +32,7 @@ NETWORK_TEMPLATE = """network FloodSub
     submodules:
         node[numNodes]: FloodSubNode {{
             parameters:
-                txRate = txRate;
+                txRate = txRate / numNodes;
         }}
 
     connections:
@@ -34,23 +44,28 @@ CONNECTION_TEMPLATE = "        node[{node1}].port++ <--> {{ delay = {latency}s; 
 
 
 config = {
-    "NUM_NODES": 10,
-    "MIN_PEERS": 2,
+    "NUM_NODES": 100,
+    "MIN_PEERS": 5,
     "MAX_PEERS": 25,
     "LATENCY_MEAN": 0.1,
     "LATENCY_STD": 0.05,
 }
 
 
-def format_network(graph):
+def format_network(graph, **kwargs):
     num_nodes = len(graph.nodes)
     connections = "\n".join(
-        CONNECTION_TEMPLATE.format(node1=edge[0], node2=edge[1], latency=g.edges[edge]["latency"])
+        CONNECTION_TEMPLATE.format(
+            node1=edge[0],
+            node2=edge[1],
+            latency=graph.edges[edge]["latency"]
+        )
         for edge in graph.edges
     )
     network = NETWORK_TEMPLATE.format(
         num_nodes=num_nodes,
         connections=connections,
+        **kwargs,
     )
     return network
 
@@ -95,5 +110,9 @@ def create_network(config):
 
 
 if __name__ == "__main__":
-    g = create_network(config)
-    print(format_network(g))
+    configs = concat([
+        [assoc(config, "NUM_NODES", n) for n in [10, 50, 100, 500, 1000]],
+        [merge(config, {"MIN_PEERS": n, "MAX_PEERS": 2 * n}) for n in [2, 5, 10, 25, 50]],
+    ])
+    graphs = [create_network(config) for config in configs]
+    print("\n\n".join(format_network(graph, index=i) for i, graph in enumerate(graphs)))

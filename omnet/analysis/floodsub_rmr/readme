@@ -1,0 +1,4 @@
+topicless floodsub
+uniform connections
+10msg/s total, sim time 600s
+count messages created and how often they are (re)transmitted
