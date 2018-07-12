@@ -102,3 +102,10 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# omnet
+Makefile
+*_m.h
+*_m.cc
+out/
+results/
