@@ -1,3 +1,6 @@
+package sharding.floodsub;
+
+
 network BaseFloodSubNetwork
 {
     parameters:

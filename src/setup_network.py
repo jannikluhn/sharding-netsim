@@ -27,13 +27,9 @@ NETWORK_TEMPLATE = """network FloodSub{index} extends BaseFloodSubNetwork
 {{
     parameters:
         int numNodes = {num_nodes};
-        double txRate;
 
     submodules:
-        node[numNodes]: FloodSubNode {{
-            parameters:
-                txRate = txRate / numNodes;
-        }}
+        node[numNodes]: Node
 
     connections:
 {connections}
@@ -110,9 +106,10 @@ def create_network(config):
 
 
 if __name__ == "__main__":
-    configs = concat([
-        [assoc(config, "NUM_NODES", n) for n in [10, 50, 100, 500, 1000]],
-        [merge(config, {"MIN_PEERS": n, "MAX_PEERS": 2 * n}) for n in [2, 5, 10, 25, 50]],
-    ])
+    #configs = concat([
+    #    [assoc(config, "NUM_NODES", n) for n in [10, 50, 100, 500, 1000]],
+    #    [merge(config, {"MIN_PEERS": n, "MAX_PEERS": 2 * n}) for n in [2, 5, 10, 25, 50]],
+    #])
+    configs = [config]
     graphs = [create_network(config) for config in configs]
     print("\n\n".join(format_network(graph, index=i) for i, graph in enumerate(graphs)))
