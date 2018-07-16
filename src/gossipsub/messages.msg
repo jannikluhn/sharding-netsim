@@ -1,16 +1,16 @@
 packet Gossip
 {
-    int id;
+    int contentId;
 };
 
 packet IHave
 {
-    int id;
+    int contentIds[];
 };
 
 packet Graft
 {
-    int id;
+    int contentIds[];
 };
 
 packet Prune

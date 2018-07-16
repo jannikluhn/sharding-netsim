@@ -1,4 +1,5 @@
 #include <set>
+#include <algorithm>
 #include <omnetpp.h>
 
 using namespace omnetpp;
@@ -20,14 +21,19 @@ class GossipSub : public cSimpleModule
     std::set<int> lazyInGateIds;
     std::set<int> lazyOutGateIds;
 
+    std::set<int> lazyNotificationQueue;
+    std::set<int> missingMessageQueue;
+    double lazyNotificationInterval;
+
   protected:
     virtual void initialize();
     virtual void handleMessage(cMessage *msg);
 
-    virtual void handleGossip(Gossip *msg);
-    virtual void handleIHave(IHave *msg);
-    virtual void handleGraft(Graft *msg);
-    virtual void handlePrune(Prune *msg);
+    void handleSelf(cMessage *msg);
+    void handleGossip(Gossip *msg);
+    void handleIHave(IHave *msg);
+    void handleGraft(Graft *msg);
+    void handlePrune(Prune *msg);
 
     int getResponseGateId(int arrivalGateId);
 };
@@ -44,10 +50,17 @@ void GossipSub::initialize()
         eagerOutGateIds.insert(outGateBaseId + i);
     }
     sourceGateId = gateBaseId("source");
+
+    cMessage *schedulerMsg = new cMessage();
+    scheduleAt(simTime() + 3, schedulerMsg);
 }
 
 void GossipSub::handleMessage(cMessage *msg)
 {
+    if (msg->isSelfMessage()) {
+        return handleSelf(msg);
+    }
+
     Gossip *gossipMsg = dynamic_cast<Gossip *>(msg);
     if (gossipMsg) {
         return handleGossip(gossipMsg);
@@ -72,29 +85,45 @@ void GossipSub::handleMessage(cMessage *msg)
     delete msg;
 }
 
+void GossipSub::handleSelf(cMessage *msg)
+{
+    if (!lazyNotificationQueue.empty()) {
+        for (auto gateId : lazyOutGateIds) {
+            IHave *msg = new IHave();
+            msg->setContentIdsArraySize(lazyNotificationQueue.size());
+            int i = 0;
+            for (auto contentId : lazyNotificationQueue) {
+                msg->setContentIds(i, contentId);
+                i++;
+            }
+            send(msg, gateId);
+        }
+
+        lazyNotificationQueue.clear();
+    }
+
+    scheduleAt(simTime() + 0.1, msg);
+}
+
 void GossipSub::handleGossip(Gossip *msg)
 {
     int arrivalGateId = msg->getArrivalGateId();
     int responseGateId = getResponseGateId(arrivalGateId);
 
-    int msgId = msg->getId();
-    bool seen = cache.find(msgId) != cache.end();
+    int contentId = msg->getContentId();
+    bool seen = cache.find(contentId) != cache.end();
 
-    // multicast message
     if (!seen) {
+        // multicast message
         for (auto gateId : eagerOutGateIds) {
             if (gateId != responseGateId) {
                 Gossip *dupMsg = msg->dup();
                 send(dupMsg, gateId);
             }
         }
-        for (auto gateId : lazyOutGateIds) {
-            if (gateId != responseGateId) {
-                IHave *iHaveMsg = new IHave();
-                iHaveMsg->setId(msgId);
-                send(iHaveMsg, gateId);
-            }
-        }
+
+        // notify lazy peers later
+        lazyNotificationQueue.insert(msg->getContentId());
     }
 
     // update peer status
@@ -111,7 +140,7 @@ void GossipSub::handleGossip(Gossip *msg)
         }
     }
 
-    cache.insert(msgId);
+    cache.insert(contentId);
     delete msg;
 }
 
@@ -120,12 +149,27 @@ void GossipSub::handleIHave(IHave *msg)
     int arrivalGateId = msg->getArrivalGateId();
     int responseGateId = getResponseGateId(arrivalGateId);
 
-    int msgId = msg->getId();
-    bool seen = cache.find(msgId) != cache.end();
+    std::set<int> contentIds;;
+    std::set<int> missingContentIds;
 
-    if (!seen) {
+    for (int i = 0; i < msg->getContentIdsArraySize(); i++) {
+        contentIds.insert(msg->getContentIds(i));
+    }
+    std::set_difference(
+        contentIds.begin(),
+        contentIds.end(),
+        cache.begin(),
+        cache.end(),
+        std::inserter(missingContentIds, missingContentIds.end())
+    );
+
+    if (!missingContentIds.empty()) {
         Graft *graftMsg = new Graft();
-        graftMsg->setId(msgId);
+        graftMsg->setContentIdsArraySize(missingContentIds.size());
+        int i = 0;
+        for (auto contentId : missingContentIds) {
+            graftMsg->setContentIds(i, contentId);
+        }
         send(graftMsg, responseGateId);
     }
 
@@ -137,13 +181,26 @@ void GossipSub::handleGraft(Graft *msg)
     int arrivalGateId = msg->getArrivalGateId();
     int responseGateId = getResponseGateId(arrivalGateId);
 
-    int msgId = msg->getId();
-    bool seen = cache.find(msgId) != cache.end();
+    std::set<int> contentIds;;
+    std::set<int> missingContentIds;
 
-    if (seen) {
+    for (int i = 0; i < msg->getContentIdsArraySize(); i++) {
+        contentIds.insert(msg->getContentIds(i));
+    }
+    std::set_difference(
+        contentIds.begin(),
+        contentIds.end(),
+        cache.begin(),
+        cache.end(),
+        std::inserter(missingContentIds, missingContentIds.end())
+    );
+
+    if (!missingContentIds.empty()) {
         Gossip *gossipMsg = new Gossip();
-        gossipMsg->setId(msgId);
-        send(gossipMsg, responseGateId);
+        for (auto contentId : missingContentIds) {
+            gossipMsg->setContentId(contentId);
+            send(gossipMsg, responseGateId);
+        }
     }
 
     eagerOutGateIds.insert(responseGateId);

@@ -29,7 +29,7 @@ void Source::initialize()
 void Source::handleMessage(cMessage *schedulerMsg)
 {
     Gossip *msg = new Gossip();
-    msg->setId(msg->getTreeId());
+    msg->setContentId(msg->getTreeId());
     send(msg, "out");
 
     scheduleAt(simTime() + exponential(1. / rate), schedulerMsg);
