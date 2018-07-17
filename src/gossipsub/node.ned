@@ -1,5 +1,13 @@
 package sharding.gossipsub;
 
+import sharding.gossipsub.receiver_dispatcher.ReceiverDispatcher;
+import sharding.gossipsub.type_dispatcher.TypeDispatcher;
+import sharding.gossipsub.source.Source;
+import sharding.gossipsub.cache.Cache;
+import sharding.gossipsub.multicaster.Multicaster;
+import sharding.gossipsub.gardener.Gardener;
+
+
 network TestNetwork
 {
     submodules:
@@ -17,112 +25,44 @@ module Node
         inout ports[];
 
     submodules:
-
         outgoingDispatcher: ReceiverDispatcher;
         incomingDispatcher: TypeDispatcher;
 
-        gossipReceiver: GossipReceiver;
-        iHaveReceiver: IHaveReceiver;
-        gardener: Gardener;
-
         source: Source;
         cache: Cache;
-        lazyNotifier: LazyNotifier;
+        gardener: Gardener;
+//      lazyNotifier: LazyNotifier;
+//      missingTracker: MissingTracker;
 
         eagerMulticaster: Multicaster;
         lazyMulticaster: Multicaster;
 
-
-    connections:
+    connections allowunconnected:
         for i=0..sizeof(ports) - 1 {
             ports$o[i] <-- outgoingDispatcher.outputs++;
             ports$i[i] --> incomingDispatcher.inputs++;
         }
 
-        gossipReceiver.in <-- incomingDispatcher.gossipOutputs++;
-        gossipReceiver.cacheQuery <--> cache.query++;
-        gossipReceiver.cacheAdd <--> cache.add++;
-        gossipReceiver.gardenerControl --> gardener.controlInputs++;
-        gossipReceiver.lazyNotifierOut --> lazyNotifier.in++;
+        cache.addGossipInputs++ <-- source.out;
+        cache.addGossipInputs++ <-- incomingDispatcher.gossipOutputs++;
+        cache.newGossipOutputs++ --> eagerMulticaster.inputs++;
+        cache.gardenerControlOutput --> gardener.controlInput;
 
-        gardener.graftIn <-- incomingDispatcher.graftOutputs++;
-        gardener.pruneIn <-- incomingDispatcher.pruneOutputs++;
-        gardener.eagerControl --> eagerMulticaster.control++;
-        gardener.lazyControl --> lazyMulticaster.control++;
+        gardener.graftInput <-- incomingDispatcher.graftOutputs++;
+        gardener.pruneInput <-- incomingDispatcher.pruneOutputs++;
+        gardener.cacheQueryPort <--> cache.queryPorts++;
+        gardener.graftResponseOutput --> outgoingDispatcher.inputs++;
+        gardener.eagerMulticastControlOutput --> eagerMulticaster.controlInput;
+        gardener.lazyMulticastControlOutput --> lazyMulticaster.controlInput;
 
-        lazyNotifier.inputs++ <-- incomingDispatcher.iHaveOutputs++;
-        lazyNotifier.out --> lazyMulticaster.in;
+//      lazyNotifier.iHaveInput <-- incomingDispatcher.iHaveOutput++;
+//      lazyNotifier.cacheQueryPort <--> cache.queryPorts++;
+//      lazyNotifier.notificationOutput --> lazyMulticaster.inputs++;
 
-        source.outputs++ --> eagerMulticaster.inputs++;
-        source.outputs++ --> lazyNotifier.inputs++;
-        source.cacheAdd --> cache.add++;
+//      missingTracker.iHaveInput <-- incomingDispatcher.iHaveOutputs++;
+//      missingTracker.cacheQueryPort <--> cache.queryPorts++;
+//      missingTracker.out --> outgoingDispatcher.inputs++;
 
         eagerMulticaster.out --> outgoingDispatcher.inputs++;
         lazyMulticaster.out --> outgoingDispatcher.inputs++;
-}
-
-simple Source
-{
-    gates:
-        output out;
-}
-
-simple Funnel
-{
-    gates:
-        input[] inputs;
-        output[] outputs;
-}
-
-simple ReceiverDispatcher
-{
-    gates:
-        input[] inputs;
-        output[] outputs;
-}
-
-simple TypeDispatcher
-{
-    gates:
-        input: in;
-        output: gossipOut;
-        output: iHaveOut;
-        output: pruneOut;
-        output: graftOut;
-}
-
-simple Cache
-{
-    gates:
-        input[]: add;
-        inout[]: cacheQuery;
-}
-
-simple GossipReceiver
-{
-    gates:
-        input: in;
-        output: gardenerControl;
-        inout: cacheQuery;
-        output: cacheAdd;
-        output: lazyNotifierOut;
-}
-
-simple Gardener
-{
-    gates:
-        input pruneIn;
-        input graftIn;
-        output out;
-        output eagerControl;
-        output lazyControl;
-        input[] controlInputs;
-}
-
-simple Multicaster
-{
-    gates:
-        input[] inputs;
-        output[] outputs;
-        input[] control;
 }
