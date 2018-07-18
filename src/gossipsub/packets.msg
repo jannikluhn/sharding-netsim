@@ -1,7 +1,8 @@
 packet AddressedPacket
 {
-    int sender;
-    int receiver;
+    // default to -1 to not clash with any module ids by accident
+    int sender = -1;
+    int receiver = -1;
 };
 
 packet Gossip extends AddressedPacket

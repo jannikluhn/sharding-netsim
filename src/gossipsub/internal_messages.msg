@@ -17,5 +17,6 @@ message CacheQuery
 
 message CacheQueryResponse
 {
+    int contentId;
     bool found;
 };
