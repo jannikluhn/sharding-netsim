@@ -24,9 +24,12 @@ void Multicaster::handleMessage(cMessage *msg)
 void Multicaster::handleMulticast(AddressedPacket *msg)
 {
     for (auto receiverId : receiverIds) {
-        AddressedPacket *multicastMsg = msg->dup();
-        multicastMsg->setReceiver(receiverId);
-        send(multicastMsg, "out");
+        if (receiverId != msg->getSender()) {
+            AddressedPacket *multicastMsg = msg->dup();
+            multicastMsg->setReceiver(receiverId);
+            multicastMsg->setSender(getParentModule()->getId());
+            send(multicastMsg, "out");
+        }
     }
 }
 

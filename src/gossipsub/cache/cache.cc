@@ -44,7 +44,11 @@ void Cache::handleAddGossip(Gossip *msg)
     if (!newContentIds.empty()) {
         // send new gossip to corresponding outputs
         Gossip *newGossipMsg = new Gossip();
+        // keeping the original sender prevents sending back to the relayer (will be set to the
+        // actual sender in multicaster)
+        newGossipMsg->setSender(msg->getSender());
         newGossipMsg->setContentIdsArraySize(newContentIds.size());
+
         int i = 0;
         for (auto contentId : newContentIds) {
             newGossipMsg->setContentIds(i, contentId);
@@ -55,6 +59,7 @@ void Cache::handleAddGossip(Gossip *msg)
         for (int i = 0; i < gateSize("newGossipOutputs"); i++) {
             send(newGossipMsg->dup(), newGossipBaseGateId + i);
         }
+
         delete newGossipMsg;
     }
 
