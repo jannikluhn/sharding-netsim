@@ -7,16 +7,14 @@ using namespace omnetpp;
 
 Define_Module(LazyNotifier);
 
-void LazyNotifier::initialize()
-{
+void LazyNotifier::initialize() {
     notification_interval = 1.0;
 
-    cMessage *schedulerMsg = new cMessage();
-    scheduleAt(simTime() + notification_interval, schedulerMsg);
+    cMessage *scheduler_msg = new cMessage();
+    scheduleAt(simTime() + notification_interval, scheduler_msg);
 }
 
-void LazyNotifier::handleMessage(cMessage *msg)
-{
+void LazyNotifier::handleMessage(cMessage *msg) {
     if (msg->isSelfMessage()) {
         handleSchedulerMessage(msg);
         // don't delete scheduler msg here as it's reused
@@ -29,27 +27,25 @@ void LazyNotifier::handleMessage(cMessage *msg)
     }
 }
 
-void LazyNotifier::handleNewGossip(Gossip *msg)
-{
+void LazyNotifier::handleNewGossip(Gossip *msg) {
     for (int i = 0; i < msg->getContentIdsArraySize(); i++) {
-        newGossip.insert(msg->getContentIds(i));
+        new_gossip.insert(msg->getContentIds(i));
     }
 }
 
-void LazyNotifier::handleSchedulerMessage(cMessage *schedulerMsg)
-{
-    if (!newGossip.empty()) {
-        IHave *iHave = new IHave();
-        iHave->setContentIdsArraySize(newGossip.size());
+void LazyNotifier::handleSchedulerMessage(cMessage *scheduler_msg) {
+    if (!new_gossip.empty()) {
+        IHave *i_have = new IHave();
+        i_have->setContentIdsArraySize(new_gossip.size());
         int i = 0;
-        for (auto contentId : newGossip) {
-            iHave->setContentIds(i, contentId);
+        for (auto content_id : new_gossip) {
+            i_have->setContentIds(i, content_id);
         }
 
-        newGossip.clear();
+        new_gossip.clear();
 
-        send(iHave, "notificationOutput");
+        send(i_have, "notificationOutput");
     }
 
-    scheduleAt(simTime() + notification_interval, schedulerMsg);
+    scheduleAt(simTime() + notification_interval, scheduler_msg);
 }

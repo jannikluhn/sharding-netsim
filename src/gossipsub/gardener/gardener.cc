@@ -9,23 +9,21 @@ using namespace omnetpp;
 Define_Module(Gardener);
 
 
-void Gardener::initialize()
-{
+void Gardener::initialize() {
     cModule *node = getParentModule();
     int peer_number = node->gateSize("ports");
 
     for (int i = 0; i < peer_number; i++) {
         cGate *gate = node->gate("ports$o", i);
-        cGate *receivingGate = gate->getNextGate();
-        cModule *receivingModule = receivingGate->getOwnerModule();
-        int receiverId = receivingModule->getId();
+        cGate *receiving_gate = gate->getNextGate();
+        cModule *receiving_module = receiving_gate->getOwnerModule();
+        int receiver_id = receiving_module->getId();
 
-        eagerReceivers.insert(receiverId);
+        eager_receivers.insert(receiver_id);
     }
 }
 
-void Gardener::handleMessage(cMessage *msg)
-{
+void Gardener::handleMessage(cMessage *msg) {
     if (msg->arrivedOn("graftInput")) {
         handleGraft(check_and_cast<Graft *>(msg));
     } else if (msg->arrivedOn("pruneInput")) {
@@ -42,66 +40,61 @@ void Gardener::handleMessage(cMessage *msg)
     delete msg;
 }
 
-void Gardener::handleGraft(Graft *msg)
-{
+void Gardener::handleGraft(Graft *msg) {
     // assume for the simulation that we know the message (otherwise an honest peer wouldn't have
     // sent GRAFT)
-    Gossip *gossipMsg = new Gossip();
-    int numContentIds = msg->getContentIdsArraySize();
-    gossipMsg->setContentIdsArraySize(numContentIds);
-    for (int i = 0; i < numContentIds; i++) {
-        gossipMsg->setContentIds(i, msg->getContentIds(i));
+    Gossip *gossip_msg = new Gossip();
+    int num_content_ids = msg->getContentIdsArraySize();
+    gossip_msg->setContentIdsArraySize(num_content_ids);
+    for (int i = 0; i < num_content_ids; i++) {
+        gossip_msg->setContentIds(i, msg->getContentIds(i));
     }
-    send(gossipMsg, "out");
+    send(gossip_msg, "out");
 
-    int senderId = msg->getSender();
-    eagerReceivers.insert(senderId);
-    lazyReceivers.erase(senderId);
+    int sender_id = msg->getSender();
+    eager_receivers.insert(sender_id);
+    lazy_receivers.erase(sender_id);
 }
 
-void Gardener::handlePrune(Prune *msg)
-{
-    int senderId = msg->getSender();
-    lazyReceivers.insert(senderId);
-    eagerReceivers.erase(senderId);
+void Gardener::handlePrune(Prune *msg) {
+    int sender_id = msg->getSender();
+    lazy_receivers.insert(sender_id);
+    eager_receivers.erase(sender_id);
 }
 
-void Gardener::handleControl(GardenerControl *msg)
-{
+void Gardener::handleControl(GardenerControl *msg) {
     for (int i = 0; i < msg->getGraftReceiversArraySize(); i++) {
-        int receiverId = msg->getGraftReceivers(i);
-        eagerReceivers.insert(receiverId);
-        lazyReceivers.erase(receiverId);
+        int receiver_id = msg->getGraftReceivers(i);
+        eager_receivers.insert(receiver_id);
+        lazy_receivers.erase(receiver_id);
     }
     for (int i = 0; i < msg->getPruneReceiversArraySize(); i++) {
-        int receiverId = msg->getPruneReceivers(i);
-        if (eagerReceivers.find(receiverId) != eagerReceivers.end()) {
-            eagerReceivers.erase(receiverId);
-            lazyReceivers.erase(receiverId);
-            Prune *pruneMsg = new Prune();
-            pruneMsg->setReceiver(receiverId);
-            send(pruneMsg, "out");
+        int receiver_id = msg->getPruneReceivers(i);
+        if (eager_receivers.find(receiver_id) != eager_receivers.end()) {
+            eager_receivers.erase(receiver_id);
+            lazy_receivers.erase(receiver_id);
+            Prune *prune_msg = new Prune();
+            prune_msg->setReceiver(receiver_id);
+            send(prune_msg, "out");
         }
     }
 }
 
-void Gardener::handleEagerMulticast(AddressedPacket *msg)
-{
-    int relayerId = msg->getSender();
-    for (auto receiverId : eagerReceivers) {
-        if (receiverId != relayerId) {
-            AddressedPacket *dupMsg = msg->dup();
-            dupMsg->setReceiver(receiverId);
-            send(dupMsg, "out");
+void Gardener::handleEagerMulticast(AddressedPacket *msg) {
+    int relayer_id = msg->getSender();
+    for (auto receiver_id : eager_receivers) {
+        if (receiver_id != relayer_id) {
+            AddressedPacket *dup_msg = msg->dup();
+            dup_msg->setReceiver(receiver_id);
+            send(dup_msg, "out");
         }
     }
 }
 
-void Gardener::handleLazyMulticast(AddressedPacket *msg)
-{
-    for (auto receiverId : lazyReceivers) {
-        AddressedPacket *dupMsg = msg->dup();
-        dupMsg->setReceiver(receiverId);
-        send(dupMsg, "out");
+void Gardener::handleLazyMulticast(AddressedPacket *msg) {
+    for (auto receiver_id : lazy_receivers) {
+        AddressedPacket *dup_msg = msg->dup();
+        dup_msg->setReceiver(receiver_id);
+        send(dup_msg, "out");
     }
 }

@@ -1,22 +1,22 @@
-#ifndef GOSSIPSUB_MISSINGTRACKER_H_
-#define GOSSIPSUB_MISSINGTRACKER_H_
+#ifndef GOSSIPSUB_MISSING_TRACKER_MISSING_TRACKER_H_
+#define GOSSIPSUB_MISSING_TRACKER_MISSING_TRACKER_H_
 
-#include <queue>
 #include <omnetpp.h>
+#include <queue>
+#include <map>
 #include "../packets_m.h"
 #include "../internal_messages_m.h"
 
 using namespace omnetpp;
 
 
-class MissingTracker : public cSimpleModule
-{
+class MissingTracker : public cSimpleModule {
   private:
-      std::map<int, std::queue<int>> content_ids_to_custodians;
+    std::map<int, std::queue<int>> content_ids_to_custodians;
 
-      void handleScheduler(cMessage *msg);
-      void handleIHave(IHave *msg);
-      void handleCacheQueryResponse(CacheQueryResponse *msg);
+    void handleScheduler(cMessage *msg);
+    void handleIHave(IHave *msg);
+    void handleCacheQueryResponse(CacheQueryResponse *msg);
 
   protected:
     virtual void initialize();
@@ -24,4 +24,4 @@ class MissingTracker : public cSimpleModule
 };
 
 
-#endif  // GOSSIPSUB_MISSINGTRACKER_H
+#endif  // GOSSIPSUB_MISSING_TRACKER_MISSING_TRACKER_H_

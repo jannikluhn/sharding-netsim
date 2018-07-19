@@ -1,19 +1,19 @@
-#ifndef GOSSIPSUB_GARDENER_H_
-#define GOSSIPSUB_GARDENER_H_
+#ifndef GOSSIPSUB_GARDENER_GARDENER_H_
+#define GOSSIPSUB_GARDENER_GARDENER_H_
 
 #include <omnetpp.h>
+#include <set>
 
 using namespace omnetpp;
 
 
-class Gardener : public cSimpleModule
-{
+class Gardener : public cSimpleModule {
   private:
-    std::set<int> lazyReceivers;
-    std::set<int> eagerReceivers;
+    std::set<int> lazy_receivers;
+    std::set<int> eager_receivers;
 
-    void prune(int receiverId);
-    void graft(int receiverId);
+    void prune(int receiver_id);
+    void graft(int receiver_id);
 
     void handleGraft(Graft *msg);
     void handlePrune(Prune *msg);
@@ -27,4 +27,4 @@ class Gardener : public cSimpleModule
 };
 
 
-#endif  // GOSSIPSUB_GARDENER_H
+#endif  // GOSSIPSUB_GARDENER_GARDENER_H_

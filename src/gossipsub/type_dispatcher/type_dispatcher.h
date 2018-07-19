@@ -1,16 +1,15 @@
-#ifndef GOSSIPSUB_TYPEDISPATCHER_H_
-#define GOSSIPSUB_TYPEDISPATCHER_H_
+#ifndef GOSSIPSUB_TYPE_DISPATCHER_TYPE_DISPATCHER_H_
+#define GOSSIPSUB_TYPE_DISPATCHER_TYPE_DISPATCHER_H_
 
 #include <omnetpp.h>
 
 using namespace omnetpp;
 
 
-class TypeDispatcher : public cSimpleModule
-{
+class TypeDispatcher : public cSimpleModule {
   protected:
     virtual void handleMessage(cMessage *msg);
 };
 
 
-#endif  // GOSSIPSUB_TYPEDISPATCHER_H
+#endif  // GOSSIPSUB_TYPE_DISPATCHER_TYPE_DISPATCHER_H_

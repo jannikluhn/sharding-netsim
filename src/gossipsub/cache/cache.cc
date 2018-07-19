@@ -9,12 +9,7 @@ using namespace omnetpp;
 Define_Module(Cache);
 
 
-void Cache::initialize()
-{
-}
-
-void Cache::handleMessage(cMessage *msg)
-{
+void Cache::handleMessage(cMessage *msg) {
     if (msg->arrivedOn("addGossipInputs")) {
         handleAddGossip(check_and_cast<Gossip *>(msg));
     } else if (msg->arrivedOn("queryPorts")) {
@@ -26,69 +21,67 @@ void Cache::handleMessage(cMessage *msg)
     delete msg;
 }
 
-void Cache::handleAddGossip(Gossip *msg)
-{
-    std::set<int> newContentIds;
+void Cache::handleAddGossip(Gossip *msg) {
+    std::set<int> new_content_ids;
 
     // insert content Ids and note which ones are new
     int n = msg->getContentIdsArraySize();
     for (int i = 0; i < n; i++) {
-        int contentId = msg->getContentIds(i);
-        if (contentIds.find(contentId) == contentIds.end()) {
+        int content_id = msg->getContentIds(i);
+        if (content_ids.find(content_id) == content_ids.end()) {
             // new entry
-            contentIds.insert(contentId);
-            newContentIds.insert(contentId);
+            content_ids.insert(content_id);
+            new_content_ids.insert(content_id);
         }
     }
 
-    if (!newContentIds.empty()) {
+    if (!new_content_ids.empty()) {
         // send new gossip to corresponding outputs
-        Gossip *newGossipMsg = new Gossip();
+        Gossip *new_gossip_msg = new Gossip();
         // keeping the original sender signals to gardener that it should not send it back to the
         // relayer
-        newGossipMsg->setSender(msg->getSender());
-        newGossipMsg->setContentIdsArraySize(newContentIds.size());
+        new_gossip_msg->setSender(msg->getSender());
+        new_gossip_msg->setContentIdsArraySize(new_content_ids.size());
 
         int i = 0;
-        for (auto contentId : newContentIds) {
-            newGossipMsg->setContentIds(i, contentId);
+        for (auto content_id : new_content_ids) {
+            new_gossip_msg->setContentIds(i, content_id);
             i++;
         }
 
-        int newGossipBaseGateId = gateBaseId("newGossipOutputs");
+        int gate_base_id = gateBaseId("newGossipOutputs");
         for (int i = 0; i < gateSize("newGossipOutputs"); i++) {
-            send(newGossipMsg->dup(), newGossipBaseGateId + i);
+            send(new_gossip_msg->dup(), gate_base_id + i);
         }
 
-        delete newGossipMsg;
+        delete new_gossip_msg;
     }
 
 
     if (msg->getSender() != getParentModule()->getId()) {
-        GardenerControl *gardenerControl = new GardenerControl();
+        GardenerControl *gardener_control = new GardenerControl();
         int sender = msg->getSender();
-        if (newContentIds.empty()) {
+        if (new_content_ids.empty()) {
             // make sender lazy
-            gardenerControl->setPruneReceiversArraySize(1);
-            gardenerControl->setPruneReceivers(0, sender);
+            gardener_control->setPruneReceiversArraySize(1);
+            gardener_control->setPruneReceivers(0, sender);
         } else {
             // make sender eager
-            gardenerControl->setGraftReceiversArraySize(1);
-            gardenerControl->setGraftReceivers(0, sender);
+            gardener_control->setGraftReceiversArraySize(1);
+            gardener_control->setGraftReceivers(0, sender);
         }
-        send(gardenerControl, "gardenerControlOutput");
+        send(gardener_control, "gardenerControlOutput");
     }
 }
 
-void Cache::handleQuery(CacheQuery *msg)
-{
-    int contentId = msg->getContentId();
-    bool found = contentIds.find(contentId) != contentIds.end();
+void Cache::handleQuery(CacheQuery *msg) {
+    int content_id = msg->getContentId();
+    bool found = content_ids.find(content_id) != content_ids.end();
 
     CacheQueryResponse *response = new CacheQueryResponse();
     response->setFound(found);
 
-    cGate *arrivalGate = msg->getArrivalGate();
-    int responseGateId = gateBaseId("queryPorts") + arrivalGate->getIndex();
-    send(response, responseGateId);
+    cGate *arrival_gate = msg->getArrivalGate();
+    int response_gate_id = gateBaseId("queryPorts") + arrival_gate->getIndex();
+    send(response, response_gate_id);
 }

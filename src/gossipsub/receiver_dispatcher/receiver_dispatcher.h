@@ -1,16 +1,16 @@
-#ifndef GOSSIPSUB_RECEIVERDISPATCHER_H_
-#define GOSSIPSUB_RECEIVERDISPATCHER_H_
+#ifndef GOSSIPSUB_RECEIVER_DISPATCHER_RECEIVER_DISPATCHER_H_
+#define GOSSIPSUB_RECEIVER_DISPATCHER_RECEIVER_DISPATCHER_H_
 
 #include <omnetpp.h>
+#include <map>
 
 using namespace omnetpp;
 
 
-class ReceiverDispatcher : public cSimpleModule
-{
+class ReceiverDispatcher : public cSimpleModule {
   private:
-    int nodeId;
-    std::map<int, int> receiverToGateMap;
+    int node_id;
+    std::map<int, int> receiver_to_gate_map;
 
   protected:
     virtual void initialize();
@@ -18,4 +18,4 @@ class ReceiverDispatcher : public cSimpleModule
 };
 
 
-#endif  // GOSSIPSUB_RECEIVERDISPATCHER_H
+#endif  // GOSSIPSUB_RECEIVER_DISPATCHER_RECEIVER_DISPATCHER_H_

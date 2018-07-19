@@ -8,29 +8,27 @@ using namespace omnetpp;
 Define_Module(ReceiverDispatcher);
 
 
-void ReceiverDispatcher::initialize()
-{
+void ReceiverDispatcher::initialize() {
     // note: requires the outputs to be directly connected to the ports of the node
     cModule *node = getParentModule();
-    int baseId = gateBaseId("outputs");
+    int base_id = gateBaseId("outputs");
 
     for (int i = 0; i < node->gateSize("ports"); i++) {
         cGate *gate = node->gate("ports$o", i);
-        cGate *receivingGate = gate->getNextGate();
-        cModule *receiver = receivingGate->getOwnerModule();
+        cGate *receiving_gate = gate->getNextGate();
+        cModule *receiver = receiving_gate->getOwnerModule();
 
-        receiverToGateMap[receiver->getId()] = baseId + i;
+        receiver_to_gate_map[receiver->getId()] = base_id + i;
     }
 
-    nodeId = node->getId();
+    node_id = node->getId();
 }
 
-void ReceiverDispatcher::handleMessage(cMessage *msg)
-{
+void ReceiverDispatcher::handleMessage(cMessage *msg) {
     AddressedPacket *addressed_packet = check_and_cast<AddressedPacket *>(msg);
     int receiver = addressed_packet->getReceiver();
-    int gateId = receiverToGateMap[receiver];
+    int gate_id = receiver_to_gate_map[receiver];
 
-    addressed_packet->setSender(nodeId);
-    send(addressed_packet, gateId);
+    addressed_packet->setSender(node_id);
+    send(addressed_packet, gate_id);
 }
