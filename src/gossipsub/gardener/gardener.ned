@@ -7,9 +7,9 @@ simple Gardener
     gates:
         input graftInput;
         input pruneInput;
+        input eagerMulticastInputs[];
+        input lazyMulticastInputs[];
         inout cacheQueryPort;
-        output graftResponseOutput;
-        output eagerMulticastControlOutput;
-        output lazyMulticastControlOutput;
+        output out;
         input controlInput;
 }

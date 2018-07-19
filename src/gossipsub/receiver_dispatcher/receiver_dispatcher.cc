@@ -21,6 +21,8 @@ void ReceiverDispatcher::initialize()
 
         receiverToGateMap[receiver->getId()] = baseId + i;
     }
+
+    nodeId = node->getId();
 }
 
 void ReceiverDispatcher::handleMessage(cMessage *msg)
@@ -28,5 +30,7 @@ void ReceiverDispatcher::handleMessage(cMessage *msg)
     AddressedPacket *addressed_packet = check_and_cast<AddressedPacket *>(msg);
     int receiver = addressed_packet->getReceiver();
     int gateId = receiverToGateMap[receiver];
-    send(msg, gateId);
+
+    addressed_packet->setSender(nodeId);
+    send(addressed_packet, gateId);
 }

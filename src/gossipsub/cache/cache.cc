@@ -44,8 +44,8 @@ void Cache::handleAddGossip(Gossip *msg)
     if (!newContentIds.empty()) {
         // send new gossip to corresponding outputs
         Gossip *newGossipMsg = new Gossip();
-        // keeping the original sender prevents sending back to the relayer (will be set to the
-        // actual sender in multicaster)
+        // keeping the original sender signals to gardener that it should not send it back to the
+        // relayer
         newGossipMsg->setSender(msg->getSender());
         newGossipMsg->setContentIdsArraySize(newContentIds.size());
 

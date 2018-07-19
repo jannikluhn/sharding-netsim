@@ -1,9 +1,3 @@
-message MulticastControl
-{
-    int addReceivers[];
-    int removeReceivers[];
-};
-
 message GardenerControl
 {
     int pruneReceivers[];

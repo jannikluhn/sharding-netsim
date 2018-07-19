@@ -4,7 +4,6 @@ import sharding.gossipsub.receiver_dispatcher.ReceiverDispatcher;
 import sharding.gossipsub.type_dispatcher.TypeDispatcher;
 import sharding.gossipsub.source.Source;
 import sharding.gossipsub.cache.Cache;
-import sharding.gossipsub.multicaster.Multicaster;
 import sharding.gossipsub.gardener.Gardener;
 import sharding.gossipsub.lazy_notifier.LazyNotifier;
 
@@ -35,9 +34,6 @@ module Node
         lazyNotifier: LazyNotifier;
 //      missingTracker: MissingTracker;
 
-        eagerMulticaster: Multicaster;
-        lazyMulticaster: Multicaster;
-
     connections allowunconnected:
         for i=0..sizeof(ports) - 1 {
             ports$o[i] <-- outgoingDispatcher.outputs++;
@@ -46,23 +42,18 @@ module Node
 
         cache.addGossipInputs++ <-- source.out;
         cache.addGossipInputs++ <-- incomingDispatcher.gossipOutputs++;
-        cache.newGossipOutputs++ --> eagerMulticaster.inputs++;
+        cache.newGossipOutputs++ --> gardener.eagerMulticastInputs++;
         cache.gardenerControlOutput --> gardener.controlInput;
 
         gardener.graftInput <-- incomingDispatcher.graftOutputs++;
         gardener.pruneInput <-- incomingDispatcher.pruneOutputs++;
         gardener.cacheQueryPort <--> cache.queryPorts++;
-        gardener.graftResponseOutput --> outgoingDispatcher.inputs++;
-        gardener.eagerMulticastControlOutput --> eagerMulticaster.controlInput;
-        gardener.lazyMulticastControlOutput --> lazyMulticaster.controlInput;
+        gardener.out --> outgoingDispatcher.inputs++;
 
         lazyNotifier.gossipInput <-- cache.newGossipOutputs++;
-        lazyNotifier.notificationOutput --> lazyMulticaster.inputs++;
+        lazyNotifier.notificationOutput --> gardener.lazyMulticastInputs++;
 
 //      missingTracker.iHaveInput <-- incomingDispatcher.iHaveOutputs++;
 //      missingTracker.cacheQueryPort <--> cache.queryPorts++;
 //      missingTracker.out --> outgoingDispatcher.inputs++;
-
-        eagerMulticaster.out --> outgoingDispatcher.inputs++;
-        lazyMulticaster.out --> outgoingDispatcher.inputs++;
 }
