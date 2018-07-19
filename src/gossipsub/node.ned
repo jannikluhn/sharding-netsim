@@ -6,6 +6,7 @@ import sharding.gossipsub.source.Source;
 import sharding.gossipsub.cache.Cache;
 import sharding.gossipsub.gardener.Gardener;
 import sharding.gossipsub.lazy_notifier.LazyNotifier;
+import sharding.gossipsub.missing_tracker.MissingTracker;
 
 
 network TestNetwork
@@ -32,7 +33,7 @@ module Node
         cache: Cache;
         gardener: Gardener;
         lazyNotifier: LazyNotifier;
-//      missingTracker: MissingTracker;
+        missingTracker: MissingTracker;
 
     connections allowunconnected:
         for i=0..sizeof(ports) - 1 {
@@ -53,7 +54,7 @@ module Node
         lazyNotifier.gossipInput <-- cache.newGossipOutputs++;
         lazyNotifier.notificationOutput --> gardener.lazyMulticastInputs++;
 
-//      missingTracker.iHaveInput <-- incomingDispatcher.iHaveOutputs++;
-//      missingTracker.cacheQueryPort <--> cache.queryPorts++;
-//      missingTracker.out --> outgoingDispatcher.inputs++;
+        missingTracker.iHaveInput <-- incomingDispatcher.iHaveOutputs++;
+        missingTracker.cacheQueryPort <--> cache.queryPorts++;
+        missingTracker.out --> outgoingDispatcher.inputs++;
 }
