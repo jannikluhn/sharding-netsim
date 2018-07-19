@@ -87,7 +87,7 @@ void Gardener::handleControl(GardenerControl *msg)
         prune(msg->getPruneReceivers(i));
     }
     for (int i = 0; i < msg->getGraftReceiversArraySize(); i++) {
-        prune(msg->getGraftReceivers(i));
+        graft(msg->getGraftReceivers(i));
     }
 }
 
