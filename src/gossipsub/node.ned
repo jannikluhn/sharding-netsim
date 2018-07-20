@@ -15,7 +15,7 @@ network TestNetwork
         double gossipRate @unit(Hz);
 
         @statistic[newGossipEmitted](record=count);
-        @statistic[newGossipReceived](record=count);
+        @statistic[newGossipReceived](record=count,mean,histogram);
         @statistic[messageSent](record=count);
 
     submodules:

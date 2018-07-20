@@ -22,6 +22,7 @@ void Source::handleMessage(cMessage *scheduler_msg) {
     msg->setContentIdsArraySize(1);
     msg->setContentIds(0, msg->getTreeId());
     msg->setSender(getParentModule()->getId());
+    msg->setHops(0);
 
     send(msg, "out");
     emit(new_gossip_emitted_signal, msg->getContentIds(0));

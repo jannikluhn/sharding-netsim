@@ -49,6 +49,7 @@ void Gardener::handleGraft(Graft *msg) {
     for (int i = 0; i < num_content_ids; i++) {
         gossip_msg->setContentIds(i, msg->getContentIds(i));
     }
+    gossip_msg->setHops(1);
     send(gossip_msg, "out");
 
     int sender_id = msg->getSender();

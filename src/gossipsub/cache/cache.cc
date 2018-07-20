@@ -36,7 +36,7 @@ void Cache::handleAddGossip(Gossip *msg) {
             // new entry
             content_ids.insert(content_id);
             new_content_ids.insert(content_id);
-            emit(new_gossip_received_signal, content_id);
+            emit(new_gossip_received_signal, msg->getHops());
         }
     }
 
@@ -47,6 +47,7 @@ void Cache::handleAddGossip(Gossip *msg) {
         // relayer
         new_gossip_msg->setSender(msg->getSender());
         new_gossip_msg->setContentIdsArraySize(new_content_ids.size());
+        new_gossip_msg->setHops(msg->getHops() + 1);
 
         int i = 0;
         for (auto content_id : new_content_ids) {

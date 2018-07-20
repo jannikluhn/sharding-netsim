@@ -8,6 +8,7 @@ packet AddressedPacket
 packet Gossip extends AddressedPacket
 {
     int contentIds[];
+    int hops;
 };
 
 packet IHave extends AddressedPacket
