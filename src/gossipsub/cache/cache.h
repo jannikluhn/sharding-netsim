@@ -10,10 +10,14 @@ using namespace omnetpp;
 class Cache : public cSimpleModule {
   private:
     std::set<int> content_ids;
+
+    simsignal_t new_gossip_received_signal;
+
     void handleAddGossip(Gossip *msg);
     void handleQuery(CacheQuery *msg);
 
   protected:
+    virtual void initialize();
     virtual void handleMessage(cMessage *msg);
 };
 

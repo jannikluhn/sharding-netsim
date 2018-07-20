@@ -11,8 +11,16 @@ import sharding.gossipsub.missing_tracker.MissingTracker;
 
 network TestNetwork
 {
+    parameters:
+        double gossipRate @unit(Hz);
+
+        @statistic[newGossipEmitted](record=count);
+        @statistic[newGossipReceived](record=count);
+
     submodules:
-        nodes[3]: Node;
+        nodes[3]: Node {
+            source.rate = gossipRate / 3;
+        }
 
     connections:
         nodes[0].ports++ <--> nodes[1].ports++;

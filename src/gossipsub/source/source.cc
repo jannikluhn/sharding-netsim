@@ -9,8 +9,12 @@ Define_Module(Source);
 
 
 void Source::initialize() {
+    rate = par("rate").doubleValue();
+
+    new_gossip_emitted_signal = registerSignal("newGossipEmitted");
+
     cMessage *scheduler_msg = new cMessage();
-    scheduleAt(simTime() + exponential(1.), scheduler_msg);
+    scheduleAt(simTime() + exponential(1 / rate), scheduler_msg);
 }
 
 void Source::handleMessage(cMessage *scheduler_msg) {
@@ -18,7 +22,9 @@ void Source::handleMessage(cMessage *scheduler_msg) {
     msg->setContentIdsArraySize(1);
     msg->setContentIds(0, msg->getTreeId());
     msg->setSender(getParentModule()->getId());
-    send(msg, "out");
 
-    scheduleAt(simTime() + exponential(1.), scheduler_msg);
+    send(msg, "out");
+    emit(new_gossip_emitted_signal, msg->getContentIds(0));
+
+    scheduleAt(simTime() + exponential(1 / rate), scheduler_msg);
 }

@@ -7,6 +7,10 @@ using namespace omnetpp;
 
 
 class Source : public cSimpleModule {
+  private:
+    double rate;
+    simsignal_t new_gossip_emitted_signal;
+
   protected:
     virtual void initialize();
     virtual void handleMessage(cMessage *msg);

@@ -9,6 +9,10 @@ using namespace omnetpp;
 Define_Module(Cache);
 
 
+void Cache::initialize() {
+    new_gossip_received_signal = registerSignal("newGossipReceived");
+}
+
 void Cache::handleMessage(cMessage *msg) {
     if (msg->arrivedOn("addGossipInputs")) {
         handleAddGossip(check_and_cast<Gossip *>(msg));
@@ -32,6 +36,7 @@ void Cache::handleAddGossip(Gossip *msg) {
             // new entry
             content_ids.insert(content_id);
             new_content_ids.insert(content_id);
+            emit(new_gossip_received_signal, content_id);
         }
     }
 
