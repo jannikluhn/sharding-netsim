@@ -12,7 +12,10 @@ using namespace omnetpp;
 
 class MissingTracker : public cSimpleModule {
   private:
-    std::map<int, std::queue<int>> content_ids_to_custodians;
+    double wait_time;
+
+    std::map<int, std::queue<int>> custodians;
+    std::map<int, simtime_t> first_seen_times;
 
     void handleScheduler(cMessage *msg);
     void handleIHave(IHave *msg);

@@ -10,8 +10,9 @@ Define_Module(MissingTracker);
 
 
 void MissingTracker::initialize() {
+    wait_time = par("waitTime").doubleValue();
     cMessage *scheduler_msg = new cMessage();
-    scheduleAt(simTime() + 2.5, scheduler_msg);
+    scheduleAt(simTime() + uniform(0, wait_time / 2), scheduler_msg);
 }
 
 void MissingTracker::handleMessage(cMessage *msg) {
@@ -27,14 +28,17 @@ void MissingTracker::handleMessage(cMessage *msg) {
 }
 
 void MissingTracker::handleScheduler(cMessage *msg) {
-    for (auto entry : content_ids_to_custodians) {
+    for (auto entry : custodians) {
         int content_id = entry.first;
-        CacheQuery *cache_query = new CacheQuery();
-        cache_query->setContentId(content_id);
-        send(cache_query, "cacheQueryPort$o");
+
+        if (first_seen_times[content_id] < simTime() - wait_time) {
+            CacheQuery *cache_query = new CacheQuery();
+            cache_query->setContentId(content_id);
+            send(cache_query, "cacheQueryPort$o");
+        }
     }
 
-    scheduleAt(simTime() + 2.5, msg);
+    scheduleAt(simTime() + wait_time / 2, msg);
 }
 
 void MissingTracker::handleIHave(IHave *msg) {
@@ -42,10 +46,11 @@ void MissingTracker::handleIHave(IHave *msg) {
     for (int i = 0; i < num_content_ids; i++) {
         int content_id = msg->getContentIds(i);
 
-        if (content_ids_to_custodians.count(content_id) == 0) {
-            content_ids_to_custodians[content_id] = std::queue<int>();
+        if (custodians.count(content_id) == 0) {
+            custodians[content_id] = std::queue<int>();
+            first_seen_times[content_id] = simTime();
         }
-        content_ids_to_custodians[content_id].push(msg->getSender());
+        custodians[content_id].push(msg->getSender());
     }
 }
 
@@ -54,10 +59,14 @@ void MissingTracker::handleCacheQueryResponse(CacheQueryResponse *msg) {
     int content_id = msg->getContentId();
 
     if (found) {
-        content_ids_to_custodians.erase(content_id);
+        custodians.erase(content_id);
+        first_seen_times.erase(content_id);
     } else {
-        int next_custodian = content_ids_to_custodians[content_id].front();
-        content_ids_to_custodians[content_id].pop();
+        int next_custodian = custodians[content_id].front();
+        custodians[content_id].pop();
+        if (custodians[content_id].empty()) {
+            first_seen_times.erase(content_id);
+        }
 
         Graft *graft_msg = new Graft();
         graft_msg->setContentIdsArraySize(1);

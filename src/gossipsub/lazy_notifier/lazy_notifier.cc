@@ -8,10 +8,10 @@ using namespace omnetpp;
 Define_Module(LazyNotifier);
 
 void LazyNotifier::initialize() {
-    notification_interval = 1.0;
+    notification_interval = par("notificationInterval").doubleValue();
 
     cMessage *scheduler_msg = new cMessage();
-    scheduleAt(simTime() + notification_interval, scheduler_msg);
+    scheduleAt(simTime() + uniform(0, notification_interval), scheduler_msg);
 }
 
 void LazyNotifier::handleMessage(cMessage *msg) {
