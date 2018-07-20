@@ -16,6 +16,7 @@ network TestNetwork
 
         @statistic[newGossipEmitted](record=count);
         @statistic[newGossipReceived](record=count);
+        @statistic[messageSent](record=count);
 
     submodules:
         nodes[3]: Node {

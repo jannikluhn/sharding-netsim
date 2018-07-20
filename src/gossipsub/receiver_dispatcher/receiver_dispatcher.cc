@@ -22,6 +22,8 @@ void ReceiverDispatcher::initialize() {
     }
 
     node_id = node->getId();
+
+    message_sent_signal = registerSignal("messageSent");
 }
 
 void ReceiverDispatcher::handleMessage(cMessage *msg) {
@@ -31,4 +33,5 @@ void ReceiverDispatcher::handleMessage(cMessage *msg) {
 
     addressed_packet->setSender(node_id);
     send(addressed_packet, gate_id);
+    emit(message_sent_signal, addressed_packet->getId());
 }

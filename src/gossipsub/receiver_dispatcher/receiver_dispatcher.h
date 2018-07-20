@@ -12,6 +12,8 @@ class ReceiverDispatcher : public cSimpleModule {
     int node_id;
     std::map<int, int> receiver_to_gate_map;
 
+    simsignal_t message_sent_signal;
+
   protected:
     virtual void initialize();
     virtual void handleMessage(cMessage *msg);
