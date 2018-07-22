@@ -9,26 +9,6 @@ import sharding.gossipsub.lazy_notifier.LazyNotifier;
 import sharding.gossipsub.missing_tracker.MissingTracker;
 
 
-network TestNetwork
-{
-    parameters:
-        double gossipRate @unit(Hz);
-
-        @statistic[newGossipEmitted](record=count);
-        @statistic[newGossipReceived](record=count,mean,histogram);
-        @statistic[messageSent](record=count);
-
-    submodules:
-        nodes[3]: Node {
-            source.rate = gossipRate / 3;
-        }
-
-    connections:
-        nodes[0].ports++ <--> nodes[1].ports++;
-        nodes[0].ports++ <--> nodes[2].ports++;
-        nodes[1].ports++ <--> nodes[2].ports++;
-}
-
 module Node
 {
     gates:

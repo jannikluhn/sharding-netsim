@@ -1,0 +1,52 @@
+version 2
+run Run1TestLargeNetwork-0-20180722-21:00:12-4641
+attr configname Run1TestLargeNetwork
+attr datetime 20180722-21:00:12
+attr experiment Run1TestLargeNetwork
+attr inifile omnetpp.ini
+attr iterationvars ""
+attr iterationvarsf ""
+attr measurement ""
+attr network sharding.runs.run1_test_large_network.Network
+attr processid 4641
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+param Network.gossipRate 10.0Hz
+param Network.nodes[*].lazyNotifier.notificationInterval 0.1s
+param Network.nodes[*].missingTracker.waitTime 2s
+
+scalar Network messageSent:count 18579494
+scalar Network newGossipReceived:count 2011847
+scalar Network newGossipReceived:mean 7.964053926566
+statistic Network newGossipReceived:histogram
+field count 2011847
+field mean 7.964053926566
+field stddev 1.7400502051051
+field min 0
+field max 16
+field sum 16022458
+field sqrsum 133695136
+bin	-inf	0
+bin	0	95
+bin	1	325
+bin	2	1508
+bin	3	7068
+bin	4	31436
+bin	5	106838
+bin	6	249922
+bin	7	401683
+bin	8	458714
+bin	9	380132
+bin	10	230818
+bin	11	102203
+bin	12	32528
+bin	13	7230
+bin	14	1186
+bin	15	153
+bin	16	8
+bin	17	0
+scalar Network newGossipEmitted:count 95
+
