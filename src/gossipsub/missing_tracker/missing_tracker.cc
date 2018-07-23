@@ -21,9 +21,11 @@ void MissingTracker::handleMessage(cMessage *msg) {
     } else if (msg->arrivedOn("iHaveInput")) {
         handleIHave(check_and_cast<IHave *>(msg));
         delete msg;
-    } else if (msg->arrivedOn("cacheQueryPort")) {
+    } else if (msg->arrivedOn("cacheQueryPort$i")) {
         handleCacheQueryResponse(check_and_cast<CacheQueryResponse *>(msg));
         delete msg;
+    } else {
+        EV_ERROR << "unhandled message\n";
     }
 }
 

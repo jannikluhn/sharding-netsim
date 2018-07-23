@@ -16,7 +16,7 @@ void Cache::initialize() {
 void Cache::handleMessage(cMessage *msg) {
     if (msg->arrivedOn("addGossipInputs")) {
         handleAddGossip(check_and_cast<Gossip *>(msg));
-    } else if (msg->arrivedOn("queryPorts")) {
+    } else if (msg->arrivedOn("queryPorts$i")) {
         handleQuery(check_and_cast<CacheQuery *>(msg));
     } else {
         EV_ERROR << "unhandled message\n";
@@ -88,6 +88,6 @@ void Cache::handleQuery(CacheQuery *msg) {
     response->setFound(found);
 
     cGate *arrival_gate = msg->getArrivalGate();
-    int response_gate_id = gateBaseId("queryPorts") + arrival_gate->getIndex();
+    int response_gate_id = gateBaseId("queryPorts$o") + arrival_gate->getIndex();
     send(response, response_gate_id);
 }
