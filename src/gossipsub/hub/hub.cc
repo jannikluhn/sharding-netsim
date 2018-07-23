@@ -24,6 +24,8 @@ void Hub::initialize() {
         receiver_to_gate_ids[receiver_id] = out_base_id + i;
         gate_to_sender_ids[in_base_id + i] = receiver_id;
     }
+
+    message_sent_signal = registerSignal("messageSent");
 }
 
 void Hub::handleMessage(cMessage *msg) {

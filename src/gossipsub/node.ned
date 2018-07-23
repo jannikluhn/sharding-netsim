@@ -17,6 +17,10 @@ network Network
         int nodeCount;
         double gossipRate @unit(Hz);
 
+        @statistic[newGossipEmitted](record=count);
+        @statistic[newGossipReceived](record=count,mean,histogram);
+        @statistic[messageSent](record=count);
+
     submodules:
         nodes[nodeCount]: Node {
             source.rate = gossipRate / nodeCount;

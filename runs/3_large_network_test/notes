@@ -1,0 +1,1 @@
+First test with dynamic membership. Something's wrong with the protocol, but performance is similar (simsec/sec) to static one. Total simulation time much shorter as topology does not have to be loaded from ned file.
