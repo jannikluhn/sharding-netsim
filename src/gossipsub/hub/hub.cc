@@ -13,8 +13,6 @@ void Hub::initialize() {
     int out_base_id = gateBaseId("ports$o");
     int gate_size = gateSize("ports");
 
-    EV << "out base id " << out_base_id << "\n";
-
     node_ids.reserve(gate_size);
     for (int i = 0; i < gate_size; i++) {
         cGate *out_gate = gate("ports$o", i);
@@ -43,7 +41,6 @@ void Hub::handleMessage(cMessage *msg) {
     }
 
     int gate_id = receiver_to_gate_ids[receiver_id];
-    EV << gate_id << " " << receiver_id << "\n";
     send(addressed_packet, gate_id);
 
     emit(message_sent_signal, addressed_packet->getId());
