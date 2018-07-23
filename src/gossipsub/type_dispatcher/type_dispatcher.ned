@@ -5,9 +5,11 @@ package sharding.gossipsub.type_dispatcher;
 simple TypeDispatcher
 {
     gates:
-        input inputs[];
+        input in;
         output gossipOutputs[];
         output iHaveOutputs[];
         output graftOutputs[];
         output pruneOutputs[];
+        output joinOutputs[];
+        output joinResponseOutputs[];
 }

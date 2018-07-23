@@ -9,20 +9,6 @@ using namespace omnetpp;
 Define_Module(Gardener);
 
 
-void Gardener::initialize() {
-    cModule *node = getParentModule();
-    int peer_number = node->gateSize("ports");
-
-    for (int i = 0; i < peer_number; i++) {
-        cGate *gate = node->gate("ports$o", i);
-        cGate *receiving_gate = gate->getNextGate();
-        cModule *receiving_module = receiving_gate->getOwnerModule();
-        int receiver_id = receiving_module->getId();
-
-        eager_receivers.insert(receiver_id);
-    }
-}
-
 void Gardener::handleMessage(cMessage *msg) {
     if (msg->arrivedOn("graftInput")) {
         handleGraft(check_and_cast<Graft *>(msg));
@@ -34,6 +20,8 @@ void Gardener::handleMessage(cMessage *msg) {
         handleEagerMulticast(check_and_cast<AddressedPacket *>(msg));
     } else if (msg->arrivedOn("lazyMulticastInputs")) {
         handleLazyMulticast(check_and_cast<AddressedPacket *>(msg));
+    } else if (msg->arrivedOn("newPeerInput")) {
+        handleNewPeer(check_and_cast<NewPeer *>(msg));
     } else {
         EV_ERROR << "unhandled message\n";
     }
@@ -98,4 +86,8 @@ void Gardener::handleLazyMulticast(AddressedPacket *msg) {
         dup_msg->setReceiver(receiver_id);
         send(dup_msg, "out");
     }
+}
+
+void Gardener::handleNewPeer(NewPeer *msg) {
+    eager_receivers.insert(msg->getPeerId());    
 }

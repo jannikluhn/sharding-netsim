@@ -25,3 +25,13 @@ packet Prune extends AddressedPacket
 {
 
 };
+
+packet Join extends AddressedPacket
+{
+
+};
+
+packet JoinResponse extends AddressedPacket
+{
+    bool success;
+};

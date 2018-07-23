@@ -14,3 +14,8 @@ message CacheQueryResponse
     int contentId;
     bool found;
 };
+
+message NewPeer
+{
+    int peerId;
+};

@@ -10,6 +10,7 @@ simple Gardener
         input eagerMulticastInputs[];
         input lazyMulticastInputs[];
         inout cacheQueryPort;
+        input newPeerInput;
         output out;
         input controlInput;
 }

@@ -41,6 +41,19 @@ void TypeDispatcher::handleMessage(cMessage *msg) {
         recognized_message = true;
     }
 
+    Join *join = dynamic_cast<Join *>(msg);
+    if (join) {
+        base_id = gateBaseId("joinOutputs");
+        size = gateSize("joinOutputs");
+        recognized_message = true;
+    }
+    JoinResponse *join_response = dynamic_cast<JoinResponse *>(msg);
+    if (join_response) {
+        base_id = gateBaseId("joinResponseOutputs");
+        size = gateSize("joinResponseOutputs");
+        recognized_message = true;
+    }
+
     if (recognized_message) {
         for (int i = 0; i < size; i++) {
             send(msg->dup(), base_id + i);
