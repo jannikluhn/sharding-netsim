@@ -6,10 +6,14 @@ simple TypeDispatcher
 {
     gates:
         input in;
+
+        output getNodesOutputs[];
+        output nodesOutputs[];
+        output joinOutputs[];
+        output joinResponseOutputs[];
+
         output gossipOutputs[];
         output iHaveOutputs[];
         output graftOutputs[];
         output pruneOutputs[];
-        output joinOutputs[];
-        output joinResponseOutputs[];
 }

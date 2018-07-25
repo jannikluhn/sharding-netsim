@@ -7,6 +7,9 @@ using namespace omnetpp;
 
 
 class TypeDispatcher : public cSimpleModule {
+  private:
+    void sendToOutputs(int base_id, int size, cMessage *msg);
+
   protected:
     virtual void handleMessage(cMessage *msg);
 };

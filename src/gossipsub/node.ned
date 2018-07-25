@@ -29,7 +29,7 @@ network Network
 
     connections:
         for i=0..nodeCount-1 {
-            nodes[i].port <--> hub.ports++;
+            nodes[i].port <--> { delay=100ms; } <--> hub.ports++;
         }
 }
 
@@ -72,6 +72,8 @@ module Node
         missingTracker.cacheQueryPort <--> cache.queryPorts++;
         missingTracker.out --> outputFunnel.inputs++;
 
+        connectionManager.getNodesInput <-- inputDispatcher.getNodesOutputs++;
+        connectionManager.nodesInput <-- inputDispatcher.nodesOutputs++;
         connectionManager.joinInput <-- inputDispatcher.joinOutputs++;
         connectionManager.joinResponseInput <-- inputDispatcher.joinResponseOutputs++;
         connectionManager.out --> outputFunnel.inputs++;

@@ -9,7 +9,11 @@ simple ConnectionManager
 
     gates:
         output out;
+
+        input getNodesInput;
+        input nodesInput;
         input joinInput;
         input joinResponseInput;
+
         output newPeerOutputs[];
 }

@@ -5,6 +5,33 @@ packet AddressedPacket
     int receiver = -1;
 };
 
+packet GetNodes extends AddressedPacket
+{
+
+};
+
+packet Nodes extends AddressedPacket
+{
+    int peers[];
+};
+
+packet Join extends AddressedPacket
+{
+    int peer;
+    int ttl;
+};
+
+packet ForwardJoin extends AddressedPacket
+{
+    int peer;
+    int ttl;
+};
+
+packet Neighbor extends AddressedPacket
+{
+    int peer;
+};
+
 packet Gossip extends AddressedPacket
 {
     int contentIds[];
@@ -26,12 +53,3 @@ packet Prune extends AddressedPacket
 
 };
 
-packet Join extends AddressedPacket
-{
-
-};
-
-packet JoinResponse extends AddressedPacket
-{
-    bool success;
-};
