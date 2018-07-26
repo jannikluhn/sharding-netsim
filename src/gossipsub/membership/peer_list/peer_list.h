@@ -1,5 +1,5 @@
-#ifndef GOSSIPSUB_MEMBERSHIP_PEER_LIST_MANAGER_PEER_LIST_MANAGER_H_
-#define GOSSIPSUB_MEMBERSHIP_PEER_LIST_MANAGER_PEER_LIST_MANAGER_H_
+#ifndef GOSSIPSUB_MEMBERSHIP_PEER_LIST_PEER_LIST_H_
+#define GOSSIPSUB_MEMBERSHIP_PEER_LIST_PEER_LIST_H_
 
 #include <omnetpp.h>
 #include <vector>
@@ -7,10 +7,13 @@
 using namespace omnetpp;
 
 
-class PeerListManager : public cSimpleModule {
+class PeerList : public cSimpleModule {
   private:
     std::vector<int> active_peers;
     std::vector<int> passive_peers;
+
+  protected:
+    virtual void initialize();
 
   public:
     void addActivePeer(int peer_id);
@@ -23,10 +26,18 @@ class PeerListManager : public cSimpleModule {
     bool isActive(int peer_id);
     bool isPassive(int peer_id);
 
+    int getPeerListSize();
+    int getActiveListSize();
+    int getPassiveListSize();
+
+    int getPeerByIndex(int index);
+    int getActivePeerByIndex(int index);
+    int getPassivePeerByIndex(int index);
+
     int getRandomPeer();
     int getRandomActivePeer();
     int getRandomPassivePeer();
 };
 
 
-#endif  // GOSSIPSUB_MEMBERSHIP_PEER_LIST_MANAGER_PEER_LIST_MANAGER_H_
+#endif  // GOSSIPSUB_MEMBERSHIP_PEER_LIST_PEER_LIST_H_
