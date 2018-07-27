@@ -13,13 +13,22 @@ class PassiveListManager : public cSimpleModule {
     PeerList *peer_list;
     int node_id;
 
-    int c_rand;
+    int shuffle_interval;
+    int active_shuffling_size;
+    int passive_shuffling_size;
+    int shuffle_ttl;
 
     bool view_initialization_finished;
-    std::set<int> outstanding_getnodes_requests;
+    std::set<int> pending_getnodes_requests;
+    int num_pending_shuffle_requests;
 
     void startViewInitialization();
-    void handleNodes(Nodes *msg);
+    void handleNodes(Nodes *nodes);
+
+    void handleHeartbeat(cMessage *msg);
+    void initiateShuffle();
+    void handleShuffle(Shuffle *shuffle);
+    void handleShuffleReply(ShuffleReply *shuffle_reply);
 
   protected:
     void initialize();

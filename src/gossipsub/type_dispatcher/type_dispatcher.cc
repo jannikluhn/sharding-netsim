@@ -19,7 +19,17 @@ void TypeDispatcher::handleMessage(cMessage *msg) {
         return sendToOutputs(gateBaseId("nodesOutputs"), gateSize("nodesOutputs"), msg);
     }
 
-    Join *join = dynamic_cast<Join *>(msg);
+    Shuffle *shuffle = dynamic_cast<Shuffle *>(msg);
+    if (shuffle) {
+        return sendToOutputs(gateBaseId("shuffleOutputs"), gateSize("shuffleOutputs"), msg);
+    }
+
+    ShuffleReply *shuffle_reply = dynamic_cast<ShuffleReply *>(msg);
+    if (shuffle_reply) {
+        return sendToOutputs(gateBaseId("shuffleReplyOutputs"), gateSize("shuffleReplyOutputs"), msg);
+    }
+
+/*    Join *join = dynamic_cast<Join *>(msg);
     if (join) {
         return sendToOutputs(gateBaseId("joinOutputs"), gateSize("joinOutputs"), msg);
     }
@@ -27,7 +37,7 @@ void TypeDispatcher::handleMessage(cMessage *msg) {
     ForwardJoin *forward_join = dynamic_cast<ForwardJoin *>(msg);
     if (forward_join) {
         return sendToOutputs(gateBaseId("forwardJoinOutputs"), gateSize("forwardJoinOutputs"), msg);
-    }
+    }*/
 
     Gossip *gossip = dynamic_cast<Gossip *>(msg);
     if (gossip) {

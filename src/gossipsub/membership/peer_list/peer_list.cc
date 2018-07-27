@@ -71,6 +71,13 @@ void PeerList::passivatePeer(int peer_id) {
     }
 }
 
+void PeerList::dropRandomPassivePeer() {
+    Enter_Method_Silent();
+
+    int index = intuniform(0, getPassiveListSize() - 1);
+    passive_peers.erase(passive_peers.begin() + index);
+}
+
 bool PeerList::isPeer(int peer_id) {
     Enter_Method_Silent();
 
@@ -102,9 +109,21 @@ int PeerList::getActiveListSize() {
 }
 
 int PeerList::getPassiveListSize() {
-    Enter_Method("getPassiveListSize");
+    Enter_Method_Silent();
 
     return passive_peers.size();
+}
+
+int PeerList::isActiveListFull() {
+    Enter_Method_Silent();
+
+    return false;  // TODO: figure out max list size
+}
+
+int PeerList::isPassiveListFull() {
+    Enter_Method_Silent();
+
+    return false;  // TODO: figure out max list size
 }
 
 int PeerList::getPeerByIndex(int index) {
@@ -162,4 +181,35 @@ int PeerList::getRandomPassivePeer() {
     }
     int index = intuniform(0, passive_peers.size() - 1);
     return passive_peers[index];
+}
+
+
+    std::vector<int> getPeerShuffling();
+    std::vector<int> getActivePeerShuffling();
+    std::vector<int> getPassivePeerShuffling();
+
+
+std::vector<int> PeerList::shuffle(std::vector<int> v) {
+    // shuffle manually so that omnet++'s RNGs are used (see
+    // https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#The_modern_algorithm)
+    int n = getPassiveListSize();
+    for (int i = n - 1; i >= 1; i++) {
+        int j = intuniform(0, i);
+        int value = v[j];
+        v[j] = v[i];
+        v[i] = value;
+    }
+    return v;
+}
+
+std::vector<int> PeerList::getActiveListShuffling() {
+    Enter_Method_Silent();
+
+    return shuffle(active_peers);
+}
+
+std::vector<int> PeerList::getPassiveListShuffling() {
+    Enter_Method_Silent();
+
+    return shuffle(passive_peers);
 }

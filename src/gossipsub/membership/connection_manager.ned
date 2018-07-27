@@ -14,6 +14,11 @@ module ConnectionManager
         int nodeId;
         string contactNodes;
 
+        int shuffleInterval;
+        int activeShufflingSize;
+        int passiveShufflingSize;
+        int shuffleTTL;
+
 
     gates:
         inout port;
@@ -33,6 +38,11 @@ module ConnectionManager
             parameters:
                 nodeId = nodeId;
                 peerListPath = "^.peerList";
+
+                shuffleInterval = shuffleInterval;
+                activeShufflingSize = activeShufflingSize;
+                passiveShufflingSize = passiveShufflingSize;
+                shuffleTTL = shuffleTTL;
         };
         getNodesHandler: GetNodesHandler {
             parameters:
@@ -47,6 +57,8 @@ module ConnectionManager
           port$o <-- outputFunnel.out;
 
           passiveListManager.nodesInput <-- inputDispatcher.nodesOutputs++;
+          passiveListManager.shuffleInput <-- inputDispatcher.shuffleOutputs++;
+          passiveListManager.shuffleReplyInput <-- inputDispatcher.shuffleReplyOutputs++;
           passiveListManager.out --> outputFunnel.inputs++;
 
           getNodesHandler.getNodesInput <-- inputDispatcher.getNodesOutputs++;

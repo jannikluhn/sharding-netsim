@@ -9,8 +9,10 @@ simple TypeDispatcher
 
         output getNodesOutputs[];
         output nodesOutputs[];
-        output joinOutputs[];
-        output joinResponseOutputs[];
+        output shuffleOutputs[];
+        output shuffleReplyOutputs[];
+        //output joinOutputs[];
+        //output joinResponseOutputs[];
 
         output gossipOutputs[];
         output iHaveOutputs[];

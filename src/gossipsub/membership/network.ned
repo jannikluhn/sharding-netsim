@@ -4,13 +4,12 @@ import sharding.gossipsub.hub.Hub;
 
 network TestNetwork {
     parameters:
-        int nodeCount = 4;
+        int nodeCount;
 
     submodules:
         nodes[nodeCount]: ConnectionManager {
             parameters:
                 nodeId = index;
-                contactNodes = "0 1 2";
         };
         hub: Hub;
 

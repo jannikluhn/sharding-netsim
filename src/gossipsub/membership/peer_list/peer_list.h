@@ -14,6 +14,8 @@ class PeerList : public cSimpleModule {
     std::vector<int> active_peers;
     std::vector<int> passive_peers;
 
+    std::vector<int> shuffle(std::vector<int> v);
+
   protected:
     virtual void initialize();
 
@@ -24,6 +26,8 @@ class PeerList : public cSimpleModule {
     void activatePeer(int peer_id);
     void passivatePeer(int peer_id);
 
+    void dropRandomPassivePeer();
+
     bool isPeer(int peer_id);
     bool isActive(int peer_id);
     bool isPassive(int peer_id);
@@ -32,6 +36,9 @@ class PeerList : public cSimpleModule {
     int getActiveListSize();
     int getPassiveListSize();
 
+    int isActiveListFull();
+    int isPassiveListFull();
+
     int getPeerByIndex(int index);
     int getActivePeerByIndex(int index);
     int getPassivePeerByIndex(int index);
@@ -39,6 +46,9 @@ class PeerList : public cSimpleModule {
     int getRandomPeer();
     int getRandomActivePeer();
     int getRandomPassivePeer();
+
+    std::vector<int> getActiveListShuffling();
+    std::vector<int> getPassiveListShuffling();
 };
 
 
