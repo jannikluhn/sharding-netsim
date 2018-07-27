@@ -4,9 +4,10 @@ simple PassiveListManager
 {
     parameters:
         string peerListPath;
+        int nodeId;
 
     gates:
         input nodesInput;
-        output viewInitializationCompleteOutputs[];
+        output viewInitializationFinishedOutputs[];
         output out;
 };

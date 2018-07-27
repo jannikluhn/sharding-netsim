@@ -11,9 +11,8 @@ import sharding.gossipsub.membership.get_nodes_handler.GetNodesHandler;
 module ConnectionManager
 {
     parameters:
-        string networkPath;
+        int nodeId;
         string contactNodes;
-        string nodeName;
 
 
     gates:
@@ -23,19 +22,22 @@ module ConnectionManager
     submodules:
         peerList: PeerList {
             parameters:
-                networkPath = "^." + networkPath;
+                nodeId = nodeId;
                 contactNodes = contactNodes;
-                nodeName = nodeName;
         };
 
         outputFunnel: Funnel;
         inputDispatcher: TypeDispatcher;
 
         passiveListManager: PassiveListManager {
-            peerListPath = "^.peerList";
+            parameters:
+                nodeId = nodeId;
+                peerListPath = "^.peerList";
         };
         getNodesHandler: GetNodesHandler {
-            peerListPath = "^.peerList";
+            parameters:
+                nodeId = nodeId;
+                peerListPath = "^.peerList";
         };
 
 

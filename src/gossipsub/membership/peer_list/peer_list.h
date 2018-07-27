@@ -9,6 +9,8 @@ using namespace omnetpp;
 
 class PeerList : public cSimpleModule {
   private:
+    int node_id;
+
     std::vector<int> active_peers;
     std::vector<int> passive_peers;
 

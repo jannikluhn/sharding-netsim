@@ -4,6 +4,7 @@ simple GetNodesHandler
 {
     parameters:
         string peerListPath;
+        int nodeId;
 
     gates:
         input getNodesInput;

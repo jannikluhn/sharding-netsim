@@ -9,8 +9,7 @@ network TestNetwork {
     submodules:
         nodes[nodeCount]: ConnectionManager {
             parameters:
-                networkPath = "^";
-                nodeName = "nodes";
+                nodeId = index;
                 contactNodes = "0 1 2";
         };
         hub: Hub;

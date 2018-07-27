@@ -11,7 +11,7 @@ Define_Module(PassiveListManager);
 
 void PassiveListManager::initialize() {
     view_initialization_finished = false;
-    node_id = getParentModule()->getId();
+    node_id = par("nodeId").intValue();
 
     const char *peer_list_path = par("peerListPath").stringValue();
     peer_list = check_and_cast<PeerList *>(getModuleByPath(peer_list_path));
@@ -33,7 +33,7 @@ void PassiveListManager::handleMessage(cMessage *msg) {
 // View initialization
 //
 void PassiveListManager::startViewInitialization() {
-    // send GETNODES to all passive peers (which right should be just the contact nodes)
+    // send GETNODES to all passive peers (which at the moment should be just the contact nodes)
     for (int i = 0; i < peer_list->getPassiveListSize(); i++) {
         int receiver = peer_list->getPassivePeerByIndex(i);
 

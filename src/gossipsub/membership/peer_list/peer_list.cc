@@ -9,19 +9,14 @@ Define_Module(PeerList);
 
 
 void PeerList::initialize() {
-    const char *contact_node_string = par("contactNodes").stringValue();
-    std::vector<int> contact_node_indices = cStringTokenizer(contact_node_string).asIntVector();
-    if (contact_node_indices.size() == 0) {
-        error("Empty contact node list");
-    }
+    node_id = par("nodeId").intValue();
 
-    int my_id = getId();
-    cModule *network = getModuleByPath(par("networkPath").stringValue());
-    const char *node_name = par("nodeName").stringValue();
-    for (auto contact_node_index : contact_node_indices) {
-        int node_id = network->getSubmodule(node_name, contact_node_index)->getId();
-        if (node_id != my_id) {
-            addPassivePeer(node_id);
+    const char *contact_node_string = par("contactNodes").stringValue();
+    std::vector<int> contact_nodes = cStringTokenizer(contact_node_string).asIntVector();
+
+    for (int contact_node : contact_nodes) {
+        if (contact_node != node_id) {
+            addPassivePeer(contact_node);
         }
     }
 }

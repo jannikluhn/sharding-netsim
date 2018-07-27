@@ -18,7 +18,7 @@ void Hub::initialize() {
         cGate *out_gate = gate("ports$o", i);
         cGate *receiving_gate = out_gate->getNextGate();
         cModule *receiver = receiving_gate->getOwnerModule();
-        int receiver_id = receiver->getId();
+        int receiver_id = receiver->getIndex();
 
         node_ids.push_back(receiver_id);
         receiver_to_gate_ids[receiver_id] = out_base_id + i;
