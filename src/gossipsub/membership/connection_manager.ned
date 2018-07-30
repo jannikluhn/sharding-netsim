@@ -28,6 +28,9 @@ module ConnectionManager
         int joinTTL;
         int forwardJoinTTL;
 
+        @statistic[passiveListUpdate](record=vector);
+        @statistic[activeListUpdate](record=vector);
+
 
     gates:
         inout port;

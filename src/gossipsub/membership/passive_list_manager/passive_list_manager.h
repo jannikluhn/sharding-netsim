@@ -19,6 +19,8 @@ class PassiveListManager : public cSimpleModule {
     int shuffle_ttl;
     int passive_list_size;
 
+    simsignal_t passive_list_update_signal;
+
     bool view_initialization_finished;
     std::set<int> pending_getnodes_requests;
     int num_pending_shuffle_requests;

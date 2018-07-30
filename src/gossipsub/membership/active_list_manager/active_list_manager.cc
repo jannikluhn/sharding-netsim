@@ -21,6 +21,8 @@ void ActiveListManager::initialize() {
     heartbeat_interval = par("heartbeatInterval").doubleValue();
 
     is_heart_beating = false;
+
+    active_list_update_signal = registerSignal("activeListUpdate");
 }
 
 void ActiveListManager::handleMessage(cMessage *msg) {
@@ -147,6 +149,7 @@ void ActiveListManager::handleNeighbor(Neighbor *neighbor) {
         } else if (!peer_list->isActive(node)) {
             peer_list->addActivePeer(node);
         }
+        emit(active_list_update_signal, peer_list->getActiveListSize());
     } else {
         // if they requested check if we want to connect and send reply accordingly
         if (peer_list->getActiveListSize() < num_neighbors) {
@@ -157,6 +160,7 @@ void ActiveListManager::handleNeighbor(Neighbor *neighbor) {
             } else if (!peer_list->isActive(node)) {
                 peer_list->addActivePeer(node);
             }
+            emit(active_list_update_signal, peer_list->getActiveListSize());
 
             Neighbor *reply = new Neighbor();
             reply->setReceiver(node);

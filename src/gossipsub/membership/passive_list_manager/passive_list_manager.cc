@@ -22,6 +22,8 @@ void PassiveListManager::initialize() {
 
     num_pending_shuffle_requests = 0;
 
+    passive_list_update_signal = registerSignal("passiveListUpdate");
+
     const char *peer_list_path = par("peerListPath").stringValue();
     peer_list = check_and_cast<PeerList *>(getModuleByPath(peer_list_path));
 
@@ -82,6 +84,7 @@ void PassiveListManager::handleNodes(Nodes *nodes) {
             peer_list->addPassivePeer(nodes->getPeers(i));
         }
     }
+    emit(passive_list_update_signal, peer_list->getPassiveListSize());
 
     if (pending_getnodes_requests.empty()) {
         EV_INFO << "View initialization complete. Passive list size: "
@@ -178,6 +181,7 @@ void PassiveListManager::handleShuffle(Shuffle *shuffle) {
             }
             peer_list->addPassivePeer(peer);
         }
+        emit(passive_list_update_signal, peer_list->getPassiveListSize());
 
         delete shuffle;
     }
@@ -204,5 +208,6 @@ void PassiveListManager::handleShuffleReply(ShuffleReply *shuffle_reply) {
         peer_list->addPassivePeer(peer);
     }
 
+    emit(passive_list_update_signal, peer_list->getPassiveListSize());
     delete shuffle_reply;
 }

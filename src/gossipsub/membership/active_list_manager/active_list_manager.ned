@@ -12,6 +12,8 @@ simple ActiveListManager
         int joinTTL;
         int forwardJoinTTL;
 
+        @signal[activeListUpdate](type=long);
+
     gates:
         input joinInput;
         input neighborInput;

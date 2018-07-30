@@ -12,6 +12,8 @@ simple PassiveListManager
         int shuffleTTL;
         int passiveListSize;
 
+        @signal[passiveListUpdate](type=long);
+
     gates:
         input nodesInput;
         input shuffleInput;
