@@ -43,7 +43,7 @@ void ActiveListManager::handleMessage(cMessage *msg) {
 }
 
 void ActiveListManager::sendInitialJoins() {
-    int num_receivers = std::max(num_random_neighbors, peer_list->getPassiveListSize());
+    int num_receivers = std::min(num_random_neighbors, peer_list->getPassiveListSize());
     if (num_receivers == 0) {
         error("No contact nodes to join with");
     }
@@ -82,12 +82,16 @@ void ActiveListManager::handleHeartbeat(cMessage *heartbeat) {
     } else if (peer_list->getActiveListSize() < num_neighbors && neighbor_requests.size() == 0) {
         EV_DEBUG << "Too few active peers, activating random one\n";
         // connect to random passive peer
-        int peer = peer_list->getRandomPassivePeer();
-        Neighbor *neighbor = new Neighbor();
-        neighbor->setReceiver(peer);
-        send(neighbor, "out");
+        if (peer_list->getPassiveListSize() > 0) {
+            int peer = peer_list->getRandomPassivePeer();
+            Neighbor *neighbor = new Neighbor();
+            neighbor->setReceiver(peer);
+            send(neighbor, "out");
 
-        neighbor_requests.insert(peer);
+            neighbor_requests.insert(peer);
+        } else {
+            EV_WARN << "Passive list empty" << endl;
+        }
     }
 }
 
