@@ -62,7 +62,6 @@ void Joiner::sendInitialJoins() {
 }
 
 void Joiner::startHeartbeat() {
-    EV_INFO << "starting active view management\n";
     scheduleAt(simTime() + uniform(0, heartbeat_interval), new cMessage());
 }
 
@@ -70,7 +69,7 @@ void Joiner::handleHeartbeat(cMessage *heartbeat) {
     scheduleAt(simTime() + heartbeat_interval, heartbeat);
 
     if (peer_list->getActiveListSize() > num_neighbors) {
-        EV_INFO << "Too many active peers, passivating random one\n";
+        EV_DEBUG << "Too many active peers, passivating random one\n";
         // disconnect from random peer
         int peer = peer_list->getRandomActivePeer();
         Disconnect *disconnect = new Disconnect();
@@ -79,7 +78,7 @@ void Joiner::handleHeartbeat(cMessage *heartbeat) {
 
         peer_list->passivatePeer(peer);
     } else if (peer_list->getActiveListSize() < num_neighbors && neighbor_requests.size() == 0) {
-        EV_INFO << "Too few active peers, activating random one\n";
+        EV_DEBUG << "Too few active peers, activating random one\n";
         // connect to random passive peer
         int peer = peer_list->getRandomPassivePeer();
         Neighbor *neighbor = new Neighbor();
@@ -95,7 +94,7 @@ void Joiner::handleJoin(Join *join) {
     int node = join->getNode();
 
     if (ttl > 0 && peer_list->getActiveListSize() >= num_neighbors) {
-        EV_INFO << "forwarding received join\n";
+        EV_DEBUG << "forwarding received join\n";
 
         // forward join to random active peer
         join->setTtl(ttl - 1);
@@ -105,7 +104,7 @@ void Joiner::handleJoin(Join *join) {
 
         send(join, "out");
     } else if (peer_list->isActive(node)) {
-        EV_INFO << "received join from already active peer, forwarding\n";
+        EV_DEBUG << "received join from already active peer, forwarding\n";
 
         // forward join to random active peer, without decrementing TTL
         do {
@@ -114,7 +113,7 @@ void Joiner::handleJoin(Join *join) {
 
         send(join, "out");
     } else {
-        EV_INFO << "accepting join\n";
+        EV_DEBUG << "accepting join\n";
 
         // accept join
         Neighbor *neighbor = new Neighbor();
@@ -135,12 +134,11 @@ void Joiner::handleJoin(Join *join) {
 }
 
 void Joiner::handleNeighbor(Neighbor *neighbor) {
-    //EV_INFO << "hello\n";
     // TODO: accept if peer has too few neighbors and if it is "near"
     int node = neighbor->getSender();
 
     if (neighbor_requests.count(node) > 0) {
-        EV_INFO << "received positive response to neighbor request\n";
+        EV_DEBUG << "received positive response to neighbor request\n";
 
         // if we requested to connect just add the peer if we haven't already
         neighbor_requests.erase(node);
@@ -152,7 +150,7 @@ void Joiner::handleNeighbor(Neighbor *neighbor) {
     } else {
         // if they requested check if we want to connect and send reply accordingly
         if (peer_list->getActiveListSize() < num_neighbors) {
-            EV_INFO << "accepting neighbor request\n";
+            EV_DEBUG << "accepting neighbor request\n";
             // accept
             if (peer_list->isPassive(node)) {
                 peer_list->activatePeer(node);
@@ -164,7 +162,7 @@ void Joiner::handleNeighbor(Neighbor *neighbor) {
             reply->setReceiver(node);
             send(reply, "out");
         } else {
-            EV_INFO << "rejecting neighbor request\n";
+            EV_DEBUG << "rejecting neighbor request\n";
             // reject
             Disconnect *reply = new Disconnect();
             reply->setReceiver(node);
@@ -181,7 +179,7 @@ void Joiner::handleNeighbor(Neighbor *neighbor) {
 }
 
 void Joiner::handleDisconnect(Disconnect *disconnect) {
-    EV_INFO << "received disconnect request, removing peer\n";
+    EV_DEBUG << "received disconnect request, removing peer\n";
     neighbor_requests.erase(disconnect->getSender());
     delete disconnect;
 }
@@ -192,7 +190,7 @@ void Joiner::handleForwardJoin(ForwardJoin *forward_join) {
 
     // add node to passive list
     if (!peer_list->isPeer(node)) {
-        EV_INFO << "adding passive peer from FORWARDJOIN\n";
+        EV_DEBUG << "adding passive peer from FORWARDJOIN\n";
         peer_list->addPassivePeer(node);
     }
 

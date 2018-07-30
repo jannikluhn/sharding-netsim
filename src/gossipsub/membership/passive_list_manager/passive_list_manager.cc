@@ -104,12 +104,13 @@ void PassiveListManager::handleNodes(Nodes *nodes) {
 //
 void PassiveListManager::initiateShuffle() {
     // send SHUFFLE to random active peer with some of our active and passive peers
-    
+
     if (peer_list->getActiveListSize() == 0) {
         return;
     }
 
     int receiver = peer_list->getRandomActivePeer();
+    EV_INFO << "initiateing passive list shuffle with " << receiver << "\n";
 
     Shuffle *shuffle = new Shuffle();
     shuffle->setReceiver(receiver);
@@ -117,11 +118,11 @@ void PassiveListManager::initiateShuffle() {
     shuffle->setTtl(shuffle_ttl);
 
     int num_active_peers = peer_list->getActiveListSize();
-    int num_active = std::max(num_active_peers, active_shuffling_size);
+    int num_active = std::min(num_active_peers, active_shuffling_size);
     std::vector<int> active_shuffling = peer_list->getActiveListShuffling();
 
     int num_passive_peers = peer_list->getPassiveListSize();
-    int num_passive = std::max(num_passive_peers, passive_shuffling_size);
+    int num_passive = std::min(num_passive_peers, passive_shuffling_size);
     std::vector<int> passive_shuffling = peer_list->getPassiveListShuffling();
 
     shuffle->setPeersArraySize(num_active + num_passive);
@@ -140,17 +141,21 @@ void PassiveListManager::handleShuffle(Shuffle *shuffle) {
     int ttl = shuffle->getTtl();
     if (ttl > 0 && peer_list->getActiveListSize() > 1) {
         // forward SHUFFLE to random active peer
+        EV_DEBUG << "forwarding alive SHUFFLE" << endl;
         shuffle->setTtl(ttl - 1);
         do {
             shuffle->setReceiver(peer_list->getRandomActivePeer());
         } while (shuffle->getReceiver() == shuffle->getSender());
         send(shuffle, "out");
     } else {
+        int node = shuffle->getNode();
+        EV_DEBUG << "responding to dead shuffle from " << node << endl;
+
         // send SHUFFLEREPLY
         ShuffleReply *shuffle_reply = new ShuffleReply();
-        shuffle_reply->setReceiver(shuffle->getNode());
+        shuffle_reply->setReceiver(node);
 
-        int num_peers = std::max(
+        int num_peers = std::min(
             peer_list->getPassiveListSize(),
             static_cast<int>(shuffle->getPeersArraySize())
         );
@@ -183,6 +188,8 @@ void PassiveListManager::handleShuffleReply(ShuffleReply *shuffle_reply) {
         error("received unexpected SHUFFLE");
     }
     num_pending_shuffle_requests--;
+
+    EV_DEBUG << "received shuffle reply from " << shuffle_reply->getSender() << endl;
 
     // add peers to passive list
     for (int i = 0; i < shuffle_reply->getPeersArraySize(); i++) {
