@@ -1,14 +1,14 @@
 #include <omnetpp.h>
-#include "joiner.h"
+#include "active_list_manager.h"
 #include "../../packets_m.h"
 
 using namespace omnetpp;
 
 
-Define_Module(Joiner);
+Define_Module(ActiveListManager);
 
 
-void Joiner::initialize() {
+void ActiveListManager::initialize() {
     const char *peer_list_path = par("peerListPath").stringValue();
     peer_list = check_and_cast<PeerList *>(getModuleByPath(peer_list_path));
 
@@ -23,7 +23,7 @@ void Joiner::initialize() {
     is_heart_beating = false;
 }
 
-void Joiner::handleMessage(cMessage *msg) {
+void ActiveListManager::handleMessage(cMessage *msg) {
     if (msg->isSelfMessage()) {
         handleHeartbeat(msg);
     } else if (msg->arrivedOn("joinInput")) {
@@ -40,7 +40,7 @@ void Joiner::handleMessage(cMessage *msg) {
     }
 }
 
-void Joiner::sendInitialJoins() {
+void ActiveListManager::sendInitialJoins() {
     int num_receivers = std::max(num_random_neighbors, peer_list->getPassiveListSize());
     if (num_receivers == 0) {
         error("No contact nodes to join with");
@@ -61,11 +61,11 @@ void Joiner::sendInitialJoins() {
     }
 }
 
-void Joiner::startHeartbeat() {
+void ActiveListManager::startHeartbeat() {
     scheduleAt(simTime() + uniform(0, heartbeat_interval), new cMessage());
 }
 
-void Joiner::handleHeartbeat(cMessage *heartbeat) {
+void ActiveListManager::handleHeartbeat(cMessage *heartbeat) {
     scheduleAt(simTime() + heartbeat_interval, heartbeat);
 
     if (peer_list->getActiveListSize() > num_neighbors) {
@@ -89,7 +89,7 @@ void Joiner::handleHeartbeat(cMessage *heartbeat) {
     }
 }
 
-void Joiner::handleJoin(Join *join) {
+void ActiveListManager::handleJoin(Join *join) {
     int ttl = join->getTtl();
     int node = join->getNode();
 
@@ -133,7 +133,7 @@ void Joiner::handleJoin(Join *join) {
     }
 }
 
-void Joiner::handleNeighbor(Neighbor *neighbor) {
+void ActiveListManager::handleNeighbor(Neighbor *neighbor) {
     // TODO: accept if peer has too few neighbors and if it is "near"
     int node = neighbor->getSender();
 
@@ -178,13 +178,13 @@ void Joiner::handleNeighbor(Neighbor *neighbor) {
     }
 }
 
-void Joiner::handleDisconnect(Disconnect *disconnect) {
+void ActiveListManager::handleDisconnect(Disconnect *disconnect) {
     EV_DEBUG << "received disconnect request, removing peer\n";
     neighbor_requests.erase(disconnect->getSender());
     delete disconnect;
 }
 
-void Joiner::handleForwardJoin(ForwardJoin *forward_join) {
+void ActiveListManager::handleForwardJoin(ForwardJoin *forward_join) {
     int node = forward_join->getNode();
     int ttl = forward_join->getTtl();
 

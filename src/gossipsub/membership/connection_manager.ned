@@ -6,7 +6,7 @@ import sharding.gossipsub.type_dispatcher.TypeDispatcher;
 import sharding.gossipsub.membership.peer_list.PeerList;
 import sharding.gossipsub.membership.passive_list_manager.PassiveListManager;
 import sharding.gossipsub.membership.get_nodes_handler.GetNodesHandler;
-import sharding.gossipsub.membership.joiner.Joiner;
+import sharding.gossipsub.membership.active_list_manager.ActiveListManager;
 
 
 module ConnectionManager
@@ -59,7 +59,7 @@ module ConnectionManager
                 nodeId = nodeId;
                 peerListPath = "^.peerList";
         };
-        joiner: Joiner {
+        active_list_manager: ActiveListManager {
             parameters:
                 peerListPath = "^.peerList";
                 nodeId = nodeId;
@@ -84,17 +84,10 @@ module ConnectionManager
           getNodesHandler.getNodesInput <-- inputDispatcher.getNodesOutputs++;
           getNodesHandler.out --> outputFunnel.inputs++;
 
-          joiner.joinInput <-- inputDispatcher.joinOutputs++;
-          joiner.neighborInput <-- inputDispatcher.neighborOutputs++;
-          joiner.disconnectInput <-- inputDispatcher.disconnectOutputs++;
-          joiner.forwardJoinInput <-- inputDispatcher.forwardJoinOutputs++;
-          joiner.startInput <-- passiveListManager.viewInitializationFinishedOutputs++;
-          joiner.out --> outputFunnel.inputs++;
-
-
-//        joiner: Joiner;
-//        getNodesHandler: GetNodesHandler;
-//        joinHandler: GetNodesHandler;
-//        activeListManager: ActiveListManager;
-//        rttTracker: RTTTracker;
+          active_list_manager.joinInput <-- inputDispatcher.joinOutputs++;
+          active_list_manager.neighborInput <-- inputDispatcher.neighborOutputs++;
+          active_list_manager.disconnectInput <-- inputDispatcher.disconnectOutputs++;
+          active_list_manager.forwardJoinInput <-- inputDispatcher.forwardJoinOutputs++;
+          active_list_manager.startInput <-- passiveListManager.viewInitializationFinishedOutputs++;
+          active_list_manager.out --> outputFunnel.inputs++;
 }

@@ -1,5 +1,5 @@
-#ifndef GOSSIPSUB_MEMBERSHIP_JOINER_JOINER_H_
-#define GOSSIPSUB_MEMBERSHIP_JOINER_JOINER_H_
+#ifndef GOSSIPSUB_MEMBERSHIP_ACTIVE_LIST_MANAGER_ACTIVE_LIST_MANAGER_H_
+#define GOSSIPSUB_MEMBERSHIP_ACTIVE_LIST_MANAGER_ACTIVE_LIST_MANAGER_H_
 
 #include <omnetpp.h>
 #include "../peer_list/peer_list.h"
@@ -9,7 +9,7 @@
 using namespace omnetpp;
 
 
-class Joiner : public cSimpleModule {
+class ActiveListManager : public cSimpleModule {
   private:
     PeerList *peer_list;
 
@@ -39,5 +39,4 @@ class Joiner : public cSimpleModule {
 };
 
 
-#endif  // GOSSIPSUB_MEMBERSHIP_JOINER_JOINER_H_
-
+#endif  // GOSSIPSUB_MEMBERSHIP_ACTIVE_LIST_MANAGER_ACTIVE_LIST_MANAGER_H_

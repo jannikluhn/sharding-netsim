@@ -1,7 +1,7 @@
-package sharding.gossipsub.membership.joiner;
+package sharding.gossipsub.membership.active_list_manager;
 
 
-simple Joiner
+simple ActiveListManager
 {
     parameters:
         string peerListPath;
