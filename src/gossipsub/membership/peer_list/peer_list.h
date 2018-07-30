@@ -36,9 +36,6 @@ class PeerList : public cSimpleModule {
     int getActiveListSize();
     int getPassiveListSize();
 
-    int isActiveListFull();
-    int isPassiveListFull();
-
     int getPeerByIndex(int index);
     int getActivePeerByIndex(int index);
     int getPassivePeerByIndex(int index);

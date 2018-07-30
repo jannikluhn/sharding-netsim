@@ -14,10 +14,11 @@ void PassiveListManager::initialize() {
     view_initialization_finished = false;
     node_id = par("nodeId").intValue();
 
-    shuffle_interval = par("shuffleInterval").intValue();
+    shuffle_interval = par("shuffleInterval").doubleValue();
     active_shuffling_size = par("activeShufflingSize").intValue();
     passive_shuffling_size = par("passiveShufflingSize").intValue();
     shuffle_ttl = par("shuffleTTL").intValue();
+    passive_list_size = par("passiveListSize").intValue();
 
     num_pending_shuffle_requests = 0;
 
@@ -167,7 +168,7 @@ void PassiveListManager::handleShuffle(Shuffle *shuffle) {
                 continue;
             }
 
-            if (peer_list->isPassiveListFull()) {
+            if (peer_list->getPassiveListSize() > passive_list_size) {
                 peer_list->dropRandomPassivePeer();
             }
             peer_list->addPassivePeer(peer);
@@ -190,7 +191,7 @@ void PassiveListManager::handleShuffleReply(ShuffleReply *shuffle_reply) {
             continue;
         }
 
-        if (peer_list->isPassiveListFull()) {
+        if (peer_list->getPassiveListSize() > passive_list_size) {
             peer_list->dropRandomPassivePeer();
         }
         peer_list->addPassivePeer(peer);

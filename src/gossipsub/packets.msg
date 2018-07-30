@@ -15,17 +15,39 @@ packet Nodes extends AddressedPacket
     int peers[];
 };
 
+packet Join extends AddressedPacket
+{
+    int node;
+    int ttl;
+};
+
+packet Neighbor extends AddressedPacket
+{
+
+};
+
+packet Disconnect extends AddressedPacket
+{
+
+};
+
+packet ForwardJoin extends AddressedPacket
+{
+    int node;
+    int ttl;
+};
+
 packet Shuffle extends AddressedPacket
 {
     int node;
     int peers[];
     int ttl;
-}
+};
 
 packet ShuffleReply extends AddressedPacket
 {
     int peers[];
-}
+};
 
 packet Gossip extends AddressedPacket
 {

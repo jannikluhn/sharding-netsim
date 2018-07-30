@@ -29,15 +29,25 @@ void TypeDispatcher::handleMessage(cMessage *msg) {
         return sendToOutputs(gateBaseId("shuffleReplyOutputs"), gateSize("shuffleReplyOutputs"), msg);
     }
 
-/*    Join *join = dynamic_cast<Join *>(msg);
+    Join *join = dynamic_cast<Join *>(msg);
     if (join) {
         return sendToOutputs(gateBaseId("joinOutputs"), gateSize("joinOutputs"), msg);
+    }
+
+    Neighbor *neighbor = dynamic_cast<Neighbor *>(msg);
+    if (neighbor) {
+        return sendToOutputs(gateBaseId("neighborOutputs"), gateSize("neighborOutputs"), msg);
+    }
+
+    Disconnect *disconnect = dynamic_cast<Disconnect *>(msg);
+    if (disconnect) {
+        return sendToOutputs(gateBaseId("disconnectOutputs"), gateSize("disconnectOutputs"), msg);
     }
 
     ForwardJoin *forward_join = dynamic_cast<ForwardJoin *>(msg);
     if (forward_join) {
         return sendToOutputs(gateBaseId("forwardJoinOutputs"), gateSize("forwardJoinOutputs"), msg);
-    }*/
+    }
 
     Gossip *gossip = dynamic_cast<Gossip *>(msg);
     if (gossip) {

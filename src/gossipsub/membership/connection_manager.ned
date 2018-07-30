@@ -6,6 +6,7 @@ import sharding.gossipsub.type_dispatcher.TypeDispatcher;
 import sharding.gossipsub.membership.peer_list.PeerList;
 import sharding.gossipsub.membership.passive_list_manager.PassiveListManager;
 import sharding.gossipsub.membership.get_nodes_handler.GetNodesHandler;
+import sharding.gossipsub.membership.joiner.Joiner;
 
 
 module ConnectionManager
@@ -14,10 +15,18 @@ module ConnectionManager
         int nodeId;
         string contactNodes;
 
-        int shuffleInterval;
+        int numRandomNeighbors;
+        int numNearNeighbors;
+        int passiveListSize;
+
+        double shuffleInterval;
         int activeShufflingSize;
         int passiveShufflingSize;
         int shuffleTTL;
+
+        double activeHeartbeatInterval;
+        int joinTTL;
+        int forwardJoinTTL;
 
 
     gates:
@@ -43,11 +52,22 @@ module ConnectionManager
                 activeShufflingSize = activeShufflingSize;
                 passiveShufflingSize = passiveShufflingSize;
                 shuffleTTL = shuffleTTL;
+                passiveListSize = passiveListSize;
         };
         getNodesHandler: GetNodesHandler {
             parameters:
                 nodeId = nodeId;
                 peerListPath = "^.peerList";
+        };
+        joiner: Joiner {
+            parameters:
+                peerListPath = "^.peerList";
+                nodeId = nodeId;
+                numRandomNeighbors = numRandomNeighbors;
+                numNearNeighbors = numNearNeighbors;
+                heartbeatInterval = activeHeartbeatInterval;
+                joinTTL = joinTTL;
+                forwardJoinTTL = forwardJoinTTL;
         };
 
 
@@ -63,6 +83,13 @@ module ConnectionManager
 
           getNodesHandler.getNodesInput <-- inputDispatcher.getNodesOutputs++;
           getNodesHandler.out --> outputFunnel.inputs++;
+
+          joiner.joinInput <-- inputDispatcher.joinOutputs++;
+          joiner.neighborInput <-- inputDispatcher.neighborOutputs++;
+          joiner.disconnectInput <-- inputDispatcher.disconnectOutputs++;
+          joiner.forwardJoinInput <-- inputDispatcher.forwardJoinOutputs++;
+          joiner.startInput <-- passiveListManager.viewInitializationFinishedOutputs++;
+          joiner.out --> outputFunnel.inputs++;
 
 
 //        joiner: Joiner;

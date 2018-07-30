@@ -114,18 +114,6 @@ int PeerList::getPassiveListSize() {
     return passive_peers.size();
 }
 
-int PeerList::isActiveListFull() {
-    Enter_Method_Silent();
-
-    return false;  // TODO: figure out max list size
-}
-
-int PeerList::isPassiveListFull() {
-    Enter_Method_Silent();
-
-    return false;  // TODO: figure out max list size
-}
-
 int PeerList::getPeerByIndex(int index) {
     Enter_Method_Silent();
 
@@ -192,8 +180,7 @@ int PeerList::getRandomPassivePeer() {
 std::vector<int> PeerList::shuffle(std::vector<int> v) {
     // shuffle manually so that omnet++'s RNGs are used (see
     // https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#The_modern_algorithm)
-    int n = getPassiveListSize();
-    for (int i = n - 1; i >= 1; i++) {
+    for (int i = v.size() - 1; i >= 1; i--) {
         int j = intuniform(0, i);
         int value = v[j];
         v[j] = v[i];

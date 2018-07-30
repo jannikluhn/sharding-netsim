@@ -6,10 +6,11 @@ simple PassiveListManager
         string peerListPath;
         int nodeId;
 
-        int shuffleInterval;
+        double shuffleInterval;
         int activeShufflingSize;  // k_a
         int passiveShufflingSize;  // k_p
         int shuffleTTL;
+        int passiveListSize;
 
     gates:
         input nodesInput;
