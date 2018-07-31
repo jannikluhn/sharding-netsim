@@ -36,10 +36,7 @@ void Hub::handleMessage(cMessage *msg) {
 
     int receiver_id = addressed_packet->getReceiver();
     if (receiver_id == -1) {
-        // choose random node (for JOIN), but not sender
-        do {
-            receiver_id = node_ids[intuniform(0, node_ids.size() - 1)];
-        } while (receiver_id == sender_id);
+        error("no receiver specified");
     }
 
     int gate_id = receiver_to_gate_ids[receiver_id];

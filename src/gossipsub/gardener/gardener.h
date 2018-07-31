@@ -20,7 +20,8 @@ class Gardener : public cSimpleModule {
     void handleControl(GardenerControl *msg);
     void handleEagerMulticast(AddressedPacket *msg);
     void handleLazyMulticast(AddressedPacket *msg);
-    void handleNewPeer(NewPeer *msg);
+    void handleAddedActivePeer(ActiveListChange *msg);
+    void handleRemovedActivePeer(ActiveListChange *msg);
 
   protected:
     virtual void handleMessage(cMessage *msg);

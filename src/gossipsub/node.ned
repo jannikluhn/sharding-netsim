@@ -8,7 +8,7 @@ import sharding.gossipsub.cache.Cache;
 import sharding.gossipsub.gardener.Gardener;
 import sharding.gossipsub.lazy_notifier.LazyNotifier;
 import sharding.gossipsub.missing_tracker.MissingTracker;
-import sharding.gossipsub.connection_manager.ConnectionManager;
+import sharding.gossipsub.membership.ConnectionManager;
 
 
 network Network
@@ -24,11 +24,12 @@ network Network
     submodules:
         nodes[nodeCount]: Node {
             source.rate = gossipRate / nodeCount;
+            nodeId = index;
         }
         hub: Hub;
 
     connections:
-        for i=0..nodeCount-1 {
+        for i=0..sizeof(nodes)-1 {
             nodes[i].port <--> { delay=100ms; } <--> hub.ports++;
         }
 }
@@ -36,6 +37,9 @@ network Network
 
 module Node
 {
+    parameters:
+        int nodeId;
+
     gates:
         inout port;
 
@@ -48,7 +52,10 @@ module Node
         gardener: Gardener;
         lazyNotifier: LazyNotifier;
         missingTracker: MissingTracker;
-        connectionManager: ConnectionManager;
+
+        connectionManager: ConnectionManager {
+            nodeId = nodeId;
+        };
 
     connections:
         port$i --> inputDispatcher.in;
@@ -62,7 +69,8 @@ module Node
         gardener.graftInput <-- inputDispatcher.graftOutputs++;
         gardener.pruneInput <-- inputDispatcher.pruneOutputs++;
         gardener.cacheQueryPort <--> cache.queryPorts++;
-        gardener.newPeerInput <-- connectionManager.newPeerOutputs++;
+        gardener.addedActivePeerInput <-- connectionManager.addedActivePeerOutput;
+        gardener.removedActivePeerInput <-- connectionManager.removedActivePeerOutput;
         gardener.out --> outputFunnel.inputs++;
 
         lazyNotifier.gossipInput <-- cache.newGossipOutputs++;
@@ -75,6 +83,10 @@ module Node
         connectionManager.getNodesInput <-- inputDispatcher.getNodesOutputs++;
         connectionManager.nodesInput <-- inputDispatcher.nodesOutputs++;
         connectionManager.joinInput <-- inputDispatcher.joinOutputs++;
-        connectionManager.joinResponseInput <-- inputDispatcher.joinResponseOutputs++;
+        connectionManager.forwardJoinInput <-- inputDispatcher.forwardJoinOutputs++;
+        connectionManager.neighborInput <-- inputDispatcher.neighborOutputs++;
+        connectionManager.disconnectInput <-- inputDispatcher.disconnectOutputs++;
+        connectionManager.shuffleInput <-- inputDispatcher.shuffleOutputs++;
+        connectionManager.shuffleReplyInput <-- inputDispatcher.shuffleReplyOutputs++;
         connectionManager.out --> outputFunnel.inputs++;
 }

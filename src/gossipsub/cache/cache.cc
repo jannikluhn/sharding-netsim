@@ -63,7 +63,6 @@ void Cache::handleAddGossip(Gossip *msg) {
         delete new_gossip_msg;
     }
 
-
     if (msg->getSender() != getParentModule()->getId()) {
         GardenerControl *gardener_control = new GardenerControl();
         int sender = msg->getSender();

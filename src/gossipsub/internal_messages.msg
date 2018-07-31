@@ -15,9 +15,10 @@ message CacheQueryResponse
     bool found;
 };
 
-message NewPeer
+message ActiveListChange
 {
-    int peerId;
+    int added;
+    int removed;
 };
 
 message ViewInitializationComplete

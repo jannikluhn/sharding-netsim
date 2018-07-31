@@ -21,4 +21,6 @@ simple ActiveListManager
         input disconnectInput;
         input startInput;
         output out;
+        output addedActivePeerOutput;
+        output removedActivePeerOutput;
 }

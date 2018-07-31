@@ -101,6 +101,7 @@ def plot(fig, active_df, passive_df):
     ax2.set_xlabel("Active peers")
     ax2.set_ylabel("Number of nodes")
 
+
 if __name__ == "__main__":
     active_df, passive_df = load_data(DATA_FILENAME)
     fig = plt.figure()

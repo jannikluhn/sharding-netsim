@@ -20,8 +20,10 @@ void Gardener::handleMessage(cMessage *msg) {
         handleEagerMulticast(check_and_cast<AddressedPacket *>(msg));
     } else if (msg->arrivedOn("lazyMulticastInputs")) {
         handleLazyMulticast(check_and_cast<AddressedPacket *>(msg));
-    } else if (msg->arrivedOn("newPeerInput")) {
-        handleNewPeer(check_and_cast<NewPeer *>(msg));
+    } else if (msg->arrivedOn("addedActivePeerInput")) {
+        handleAddedActivePeer(check_and_cast<ActiveListChange *>(msg));
+    } else if (msg->arrivedOn("removedActivePeerInput")) {
+        handleRemovedActivePeer(check_and_cast<ActiveListChange *>(msg));
     } else {
         EV_ERROR << "unhandled message\n";
     }
@@ -32,12 +34,14 @@ void Gardener::handleGraft(Graft *msg) {
     // assume for the simulation that we know the message (otherwise an honest peer wouldn't have
     // sent GRAFT)
     Gossip *gossip_msg = new Gossip();
+    gossip_msg->setReceiver(msg->getSender());
+
     int num_content_ids = msg->getContentIdsArraySize();
     gossip_msg->setContentIdsArraySize(num_content_ids);
     for (int i = 0; i < num_content_ids; i++) {
         gossip_msg->setContentIds(i, msg->getContentIds(i));
     }
-    gossip_msg->setHops(1);
+    gossip_msg->setHops(0);
     send(gossip_msg, "out");
 
     int sender_id = msg->getSender();
@@ -88,6 +92,12 @@ void Gardener::handleLazyMulticast(AddressedPacket *msg) {
     }
 }
 
-void Gardener::handleNewPeer(NewPeer *msg) {
-    eager_receivers.insert(msg->getPeerId());    
+void Gardener::handleAddedActivePeer(ActiveListChange *msg) {
+    eager_receivers.insert(msg->getAdded());
+}
+
+void Gardener::handleRemovedActivePeer(ActiveListChange *msg) {
+    int peer = msg->getRemoved();
+    eager_receivers.erase(peer);
+    lazy_receivers.erase(peer);
 }

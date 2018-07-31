@@ -30,9 +30,8 @@ void MissingTracker::handleMessage(cMessage *msg) {
 }
 
 void MissingTracker::handleScheduler(cMessage *msg) {
-    for (auto entry : custodians) {
+    for (auto const entry : custodians) {
         int content_id = entry.first;
-
         if (first_seen_times[content_id] < simTime() - wait_time) {
             CacheQuery *cache_query = new CacheQuery();
             cache_query->setContentId(content_id);
@@ -63,7 +62,7 @@ void MissingTracker::handleCacheQueryResponse(CacheQueryResponse *msg) {
     if (found) {
         custodians.erase(content_id);
         first_seen_times.erase(content_id);
-    } else {
+    } else if (!custodians[content_id].empty()) {
         int next_custodian = custodians[content_id].front();
         custodians[content_id].pop();
         if (custodians[content_id].empty()) {

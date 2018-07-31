@@ -1,6 +1,7 @@
 #include <omnetpp.h>
 #include "active_list_manager.h"
 #include "../../packets_m.h"
+#include "../../internal_messages_m.h"
 
 using namespace omnetpp;
 
@@ -61,6 +62,7 @@ void ActiveListManager::sendInitialJoins() {
         join->setReceiver(receiver);
         send(join, "out");
     }
+    delete join_template;
 }
 
 void ActiveListManager::startHeartbeat() {
@@ -80,6 +82,10 @@ void ActiveListManager::handleHeartbeat(cMessage *heartbeat) {
 
         peer_list->passivatePeer(peer);
         emit(active_list_update_signal, peer_list->getActiveListSize());
+
+        ActiveListChange *active_list_change = new ActiveListChange();
+        active_list_change->setRemoved(peer);
+        send(active_list_change, "removedActivePeerOutput");
     } else if (peer_list->getActiveListSize() < num_neighbors && neighbor_requests.size() == 0) {
         EV_DEBUG << "Too few active peers, activating random one\n";
         // connect to random passive peer
@@ -155,6 +161,10 @@ void ActiveListManager::handleNeighbor(Neighbor *neighbor) {
             peer_list->addActivePeer(node);
         }
         emit(active_list_update_signal, peer_list->getActiveListSize());
+
+        ActiveListChange *active_list_change = new ActiveListChange();
+        active_list_change->setAdded(node);
+        send(active_list_change, "addedActivePeerOutput");
     } else {
         // if they requested check if we want to connect and send reply accordingly
         if (peer_list->getActiveListSize() < num_neighbors) {
@@ -166,6 +176,10 @@ void ActiveListManager::handleNeighbor(Neighbor *neighbor) {
                 peer_list->addActivePeer(node);
             }
             emit(active_list_update_signal, peer_list->getActiveListSize());
+
+            ActiveListChange *active_list_change = new ActiveListChange();
+            active_list_change->setAdded(node);
+            send(active_list_change, "addedActivePeerOutput");
 
             Neighbor *reply = new Neighbor();
             reply->setReceiver(node);
