@@ -79,6 +79,7 @@ void ActiveListManager::handleHeartbeat(cMessage *heartbeat) {
         send(disconnect, "out");
 
         peer_list->passivatePeer(peer);
+        emit(active_list_update_signal, peer_list->getActiveListSize());
     } else if (peer_list->getActiveListSize() < num_neighbors && neighbor_requests.size() == 0) {
         EV_DEBUG << "Too few active peers, activating random one\n";
         // connect to random passive peer

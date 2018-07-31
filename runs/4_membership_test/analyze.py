@@ -34,13 +34,13 @@ def load_data(filename):
         "size": 0,
         "node": active_df["node"],
     })
-    active_last_size = active_df.groupby("node")["size"].max()
+    active_last_size = active_df.groupby("node")["size"].last()
     post_active = pd.DataFrame({
         "time": SIM_TIME,
         "size": active_last_size,
         "node": active_last_size.index,
     })
-    passive_last_size = passive_df.groupby("node")["size"].max()
+    passive_last_size = passive_df.groupby("node")["size"].last()
     post_passive = pd.DataFrame({
         "time": SIM_TIME,
         "size": passive_last_size,
@@ -57,14 +57,13 @@ def load_data(filename):
 
 
 def plot(fig, active_df, passive_df):
-    # plot number of connections over time for last n nodes (all nodes should look about the same,
-    # just the first couple are bootstrap nodes)
+    # plot number of connections over time for first n nodes (includes bootstrap nodes)
     ax1 = fig.add_subplot(211)
 
     colormap = mpl.cm.get_cmap('Set1')
     legend_handles = []
     for i in range(10):
-        node = NODE_COUNT - i - 1
+        node = i
         active_sample = active_df[active_df["node"] == node]
         legend_handles.append(ax1.plot(
             active_sample["time"],
@@ -94,7 +93,13 @@ def plot(fig, active_df, passive_df):
     passive_connections = passive_df.groupby("node")["size"].last()
     passive_hist, passive_bins = np.histogram(passive_connections, bins=100)
 
-    ax2.bar(bins[:-1], active_hist)
+    ax2.bar(
+        bins[:-1],
+        active_hist,
+        width=1,
+    )
+    ax2.set_xlabel("Active peers")
+    ax2.set_ylabel("Number of nodes")
 
 if __name__ == "__main__":
     active_df, passive_df = load_data(DATA_FILENAME)
