@@ -23,8 +23,8 @@ network Network
 
     submodules:
         nodes[nodeCount]: Node {
-            source.rate = gossipRate / nodeCount;
             nodeId = index;
+            source.rate = gossipRate / nodeCount;
         }
         hub: Hub;
 
@@ -47,8 +47,12 @@ module Node
         outputFunnel: Funnel;
         inputDispatcher: TypeDispatcher;
 
-        source: Source;
-        cache: Cache;
+        source: Source {
+            nodeId = nodeId;
+        };
+        cache: Cache {
+            nodeId = nodeId;
+        }
         gardener: Gardener;
         lazyNotifier: LazyNotifier;
         missingTracker: MissingTracker;

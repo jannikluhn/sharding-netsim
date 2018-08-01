@@ -22,7 +22,7 @@ void LazyNotifier::handleMessage(cMessage *msg) {
         handleNewGossip(check_and_cast<Gossip *>(msg));
         delete msg;
     } else {
-        EV_ERROR << "unhandled message\n";
+        error("unhandled message");
         delete msg;
     }
 }

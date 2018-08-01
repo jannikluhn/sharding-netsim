@@ -25,7 +25,7 @@ void Gardener::handleMessage(cMessage *msg) {
     } else if (msg->arrivedOn("removedActivePeerInput")) {
         handleRemovedActivePeer(check_and_cast<ActiveListChange *>(msg));
     } else {
-        EV_ERROR << "unhandled message\n";
+        error("unhandled message");
     }
     delete msg;
 }

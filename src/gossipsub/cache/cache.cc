@@ -10,6 +10,7 @@ Define_Module(Cache);
 
 
 void Cache::initialize() {
+    node_id = par("nodeId").intValue();
     new_gossip_received_signal = registerSignal("newGossipReceived");
 }
 
@@ -19,7 +20,7 @@ void Cache::handleMessage(cMessage *msg) {
     } else if (msg->arrivedOn("queryPorts$i")) {
         handleQuery(check_and_cast<CacheQuery *>(msg));
     } else {
-        EV_ERROR << "unhandled message\n";
+        error("unhandled message");
     }
 
     delete msg;
@@ -63,7 +64,9 @@ void Cache::handleAddGossip(Gossip *msg) {
         delete new_gossip_msg;
     }
 
-    if (msg->getSender() != getParentModule()->getId()) {
+    // make sender eager or lazy depending on if the message is new or not (unless its coming
+    // from source)
+    if (msg->getSender() != node_id) {
         GardenerControl *gardener_control = new GardenerControl();
         int sender = msg->getSender();
         if (new_content_ids.empty()) {

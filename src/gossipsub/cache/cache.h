@@ -9,6 +9,8 @@ using namespace omnetpp;
 
 class Cache : public cSimpleModule {
   private:
+    int node_id;
+
     std::set<int> content_ids;
 
     simsignal_t new_gossip_received_signal;

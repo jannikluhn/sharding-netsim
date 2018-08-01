@@ -25,7 +25,7 @@ void MissingTracker::handleMessage(cMessage *msg) {
         handleCacheQueryResponse(check_and_cast<CacheQueryResponse *>(msg));
         delete msg;
     } else {
-        EV_ERROR << "unhandled message\n";
+        error("unhandled message");
     }
 }
 
@@ -74,5 +74,7 @@ void MissingTracker::handleCacheQueryResponse(CacheQueryResponse *msg) {
         graft_msg->setContentIds(0, content_id);
         graft_msg->setReceiver(next_custodian);
         send(graft_msg, "out");
+    } else {
+        error("no custodian");
     }
 }

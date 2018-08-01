@@ -70,7 +70,7 @@ void TypeDispatcher::handleMessage(cMessage *msg) {
     }
 
     // if we end up here something went wrong
-    EV_ERROR << "invalid packet type\n";
+    error("invalid packet type");
     delete msg;
 }
 

@@ -5,6 +5,7 @@ package sharding.gossipsub.cache;
 simple Cache
 {
     parameters:
+        int nodeId;
         @signal[newGossipReceived](long);
 
     gates:
