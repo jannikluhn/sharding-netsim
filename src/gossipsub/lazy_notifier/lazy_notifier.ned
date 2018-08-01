@@ -8,6 +8,6 @@ simple LazyNotifier
         double notificationInterval @unit(s);
 
     gates:
-        input gossipInput;
+        input gossipInputs[];
         output notificationOutput;
 }

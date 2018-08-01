@@ -4,6 +4,7 @@
 #include <omnetpp.h>
 #include <queue>
 #include <map>
+#include "../cache/cache.h"
 #include "../packets_m.h"
 #include "../internal_messages_m.h"
 
@@ -12,14 +13,16 @@ using namespace omnetpp;
 
 class MissingTracker : public cSimpleModule {
   private:
+    Cache *cache;
+
     double wait_time;
 
+    std::set<int> they_have_content_ids;
     std::map<int, std::queue<int>> custodians;
-    std::map<int, simtime_t> first_seen_times;
+    std::map<int, simtime_t> first_seen_timestamps;
 
     void handleScheduler(cMessage *msg);
     void handleIHave(IHave *msg);
-    void handleCacheQueryResponse(CacheQueryResponse *msg);
 
   protected:
     virtual void initialize();

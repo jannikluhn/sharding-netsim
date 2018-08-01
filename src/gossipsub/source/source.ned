@@ -5,6 +5,8 @@ package sharding.gossipsub.source;
 simple Source
 {
     parameters:
+        string cachePath;
+
         int nodeId;
         bool active = default(false);
         double rate @unit(Hz);
@@ -13,5 +15,5 @@ simple Source
         @signal[newGossipEmitted](long);
 
     gates:
-        output out;
+        output outputs[];
 }

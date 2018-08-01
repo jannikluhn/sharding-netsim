@@ -9,6 +9,9 @@ Define_Module(Source);
 
 
 void Source::initialize() {
+    const char *cache_path = par("cachePath").stringValue();
+    cache = check_and_cast<Cache *>(getModuleByPath(cache_path));
+
     active = par("active").boolValue();
     rate = par("rate").doubleValue();
     start_time = par("startTime").doubleValue();
@@ -24,13 +27,24 @@ void Source::initialize() {
 
 void Source::handleMessage(cMessage *scheduler_msg) {
     Gossip *msg = new Gossip();
+    int content_id = msg->getTreeId();
+
+    EV_DEBUG << "spawning new gossip with id " << content_id << endl;
+
     msg->setContentIdsArraySize(1);
     msg->setContentIds(0, msg->getTreeId());
     msg->setSender(node_id);
     msg->setHops(0);
 
-    send(msg, "out");
-    emit(new_gossip_emitted_signal, msg->getContentIds(0));
+    int gate_base_id = gateBaseId("outputs");
+    for (int i = 0; i < gateSize("outputs"); i++) {
+        int gate_id = gate_base_id + i;
+        send(msg->dup(), gate_id);
+    }
+    delete msg;
+
+    cache->insert(content_id);
+    emit(new_gossip_emitted_signal, content_id);
 
     scheduleAt(simTime() + exponential(1 / rate), scheduler_msg);
 }

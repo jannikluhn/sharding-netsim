@@ -5,10 +5,10 @@ package sharding.gossipsub.missing_tracker;
 simple MissingTracker
 {
     parameters:
+        string cachePath;
         double waitTime @unit(s);
 
     gates:
         input iHaveInput;
-        inout cacheQueryPort;
         output out;
 }

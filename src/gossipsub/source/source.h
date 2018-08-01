@@ -2,12 +2,15 @@
 #define GOSSIPSUB_SOURCE_SOURCE_H_
 
 #include <omnetpp.h>
+#include "../cache/cache.h"
 
 using namespace omnetpp;
 
 
 class Source : public cSimpleModule {
   private:
+    Cache *cache;
+
     int node_id;
     bool active;
     double start_time;

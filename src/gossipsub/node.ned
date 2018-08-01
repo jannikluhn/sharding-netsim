@@ -48,14 +48,17 @@ module Node
         inputDispatcher: TypeDispatcher;
 
         source: Source {
+            cachePath = "^.cache";
             nodeId = nodeId;
         };
-        cache: Cache {
-            nodeId = nodeId;
-        }
-        gardener: Gardener;
+        cache: Cache;
+        gardener: Gardener {
+            cachePath = "^.cache";
+        };
         lazyNotifier: LazyNotifier;
-        missingTracker: MissingTracker;
+        missingTracker: MissingTracker {
+            cachePath = "^.cache";
+        };
 
         connectionManager: ConnectionManager {
             nodeId = nodeId;
@@ -65,23 +68,19 @@ module Node
         port$i --> inputDispatcher.in;
         port$o <-- outputFunnel.out;
 
-        cache.addGossipInputs++ <-- source.out;
-        cache.addGossipInputs++ <-- inputDispatcher.gossipOutputs++;
-        cache.newGossipOutputs++ --> gardener.eagerMulticastInputs++;
-        cache.gardenerControlOutput --> gardener.controlInput;
+        source.outputs++ --> gardener.eagerMulticastInputs++;
+        source.outputs++ --> lazyNotifier.gossipInputs++;
 
         gardener.graftInput <-- inputDispatcher.graftOutputs++;
         gardener.pruneInput <-- inputDispatcher.pruneOutputs++;
-        gardener.cacheQueryPort <--> cache.queryPorts++;
+        gardener.gossipInput <-- inputDispatcher.gossipOutputs++;
         gardener.addedActivePeerInput <-- connectionManager.addedActivePeerOutput;
         gardener.removedActivePeerInput <-- connectionManager.removedActivePeerOutput;
         gardener.out --> outputFunnel.inputs++;
 
-        lazyNotifier.gossipInput <-- cache.newGossipOutputs++;
         lazyNotifier.notificationOutput --> gardener.lazyMulticastInputs++;
 
         missingTracker.iHaveInput <-- inputDispatcher.iHaveOutputs++;
-        missingTracker.cacheQueryPort <--> cache.queryPorts++;
         missingTracker.out --> outputFunnel.inputs++;
 
         connectionManager.getNodesInput <-- inputDispatcher.getNodesOutputs++;
