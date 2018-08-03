@@ -5,7 +5,7 @@
 #include <set>
 #include "../../packets_m.h"
 #include "../../hyparview/internal_messages_m.h"
-#include "../cache/cache.h"
+#include "../../utils/cache/cache.h"
 
 using namespace omnetpp;
 

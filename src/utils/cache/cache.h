@@ -1,5 +1,5 @@
-#ifndef GOSSIPSUB_CACHE_CACHE_H_
-#define GOSSIPSUB_CACHE_CACHE_H_
+#ifndef UTILS_CACHE_CACHE_H_
+#define UTILS_CACHE_CACHE_H_
 
 #include <omnetpp.h>
 #include <set>
@@ -17,4 +17,4 @@ class Cache : public cSimpleModule {
 };
 
 
-#endif  // GOSSIPSUB_CACHE_CACHE_H_
+#endif  // UTILS_CACHE_CACHE_H_

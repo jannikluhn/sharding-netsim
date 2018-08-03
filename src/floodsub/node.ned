@@ -1,18 +1,16 @@
-package sharding.gossipsub;
+package sharding.floodsub;
 
 import sharding.utils.funnel.Funnel;
 import sharding.utils.type_dispatcher.TypeDispatcher;
 import sharding.utils.source.Source;
 import sharding.utils.cache.Cache;
 
-import sharding.gossipsub.gardener.Gardener;
-import sharding.gossipsub.lazy_notifier.LazyNotifier;
-import sharding.gossipsub.missing_tracker.MissingTracker;
-
 import sharding.hyparview.ConnectionManager;
 
+import sharding.floodsub.flooder.Flooder;
 
-module GossipSubNode
+
+module FloodSubNode
 {
     parameters:
         int nodeId;
@@ -24,41 +22,28 @@ module GossipSubNode
         outputFunnel: Funnel;
         inputDispatcher: TypeDispatcher;
 
+        cache: Cache;
         source: Source {
             cachePath = "^.cache";
             nodeId = nodeId;
         };
-        cache: Cache;
-        gardener: Gardener {
-            cachePath = "^.cache";
-        };
-        lazyNotifier: LazyNotifier;
-        missingTracker: MissingTracker {
-            cachePath = "^.cache";
-        };
+        flooder: Flooder;
 
-        connectionManager: ConnectionManager {
+        connection_manager: ConnectionManager {
             nodeId = nodeId;
         };
+
 
     connections:
         port$i --> inputDispatcher.in;
         port$o <-- outputFunnel.out;
 
-        source.outputs++ --> gardener.eagerMulticastInputs++;
-        source.outputs++ --> lazyNotifier.gossipInputs++;
+        source.outputs++ --> flooder.sourceInput;
 
-        gardener.graftInput <-- inputDispatcher.graftOutputs++;
-        gardener.pruneInput <-- inputDispatcher.pruneOutputs++;
-        gardener.gossipInput <-- inputDispatcher.gossipOutputs++;
-        gardener.addedActivePeerInput <-- connectionManager.addedActivePeerOutput;
-        gardener.removedActivePeerInput <-- connectionManager.removedActivePeerOutput;
-        gardener.out --> outputFunnel.inputs++;
-
-        lazyNotifier.notificationOutput --> gardener.lazyMulticastInputs++;
-
-        missingTracker.iHaveInput <-- inputDispatcher.iHaveOutputs++;
-        missingTracker.out --> outputFunnel.inputs++;
+        flooder.gossipInput <-- inputDispatcher.gossipOutputs++;
+        flooder.addedActivePeerInput <-- connectionManager.addedActivePeerOutput;
+        flooder.removedActivePeerInput <-- connectionManager.removedActivePeerOutput;
+        flooder.out --> outputFunnel.inputs++
 
         connectionManager.getNodesInput <-- inputDispatcher.getNodesOutputs++;
         connectionManager.nodesInput <-- inputDispatcher.nodesOutputs++;

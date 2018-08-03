@@ -1,5 +1,5 @@
-#ifndef GOSSIPSUB_FUNNEL_FUNNEL_H_
-#define GOSSIPSUB_FUNNEL_FUNNEL_H_
+#ifndef UTILS_FUNNEL_FUNNEL_H_
+#define UTILS_FUNNEL_FUNNEL_H_
 
 #include <omnetpp.h>
 
@@ -12,4 +12,4 @@ class Funnel : public cSimpleModule {
 };
 
 
-#endif  // GOSSIPSUB_FUNNEL_FUNNEL_H_
+#endif  // UTILS_FUNNEL_FUNNEL_H_

@@ -1,5 +1,5 @@
-#ifndef GOSSIPSUB_SOURCE_SOURCE_H_
-#define GOSSIPSUB_SOURCE_SOURCE_H_
+#ifndef UTILS_SOURCE_SOURCE_H_
+#define UTILS_SOURCE_SOURCE_H_
 
 #include <omnetpp.h>
 #include "../cache/cache.h"
@@ -24,4 +24,4 @@ class Source : public cSimpleModule {
 };
 
 
-#endif  // GOSSIPSUB_SOURCE_SOURCE_H_
+#endif  // UTILS_SOURCE_SOURCE_H_

@@ -1,4 +1,4 @@
-package sharding.gossipsub.source;
+package sharding.utils.source;
 
 
 // Module that creates messages in random intervals and sends them to its only output.

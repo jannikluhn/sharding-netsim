@@ -1,5 +1,5 @@
-#ifndef GOSSIPSUB_HUB_HUB_H_
-#define GOSSIPSUB_HUB_HUB_H_
+#ifndef UTILS_HUB_HUB_H_
+#define UTILS_HUB_HUB_H_
 
 #include <omnetpp.h>
 
@@ -19,4 +19,4 @@ class Hub : public cSimpleModule {
 };
 
 
-#endif  // GOSSIPSUB_HUB_HUB_H_
+#endif  // UTILS_HUB_HUB_H_

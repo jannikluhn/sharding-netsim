@@ -4,7 +4,7 @@
 #include <omnetpp.h>
 #include <queue>
 #include <map>
-#include "../cache/cache.h"
+#include "../../utils/cache/cache.h"
 #include "../../packets_m.h"
 
 using namespace omnetpp;

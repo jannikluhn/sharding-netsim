@@ -1,4 +1,4 @@
-package sharding.gossipsub.cache;
+package sharding.utils.cache;
 
 
 // Module that stores gossip.
