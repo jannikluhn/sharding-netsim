@@ -1,4 +1,4 @@
-package sharding.gossipsub.type_dispatcher;
+package sharding.utils.type_dispatcher;
 
 
 // Module that dispatches packets according to their type to corresponding outputs.

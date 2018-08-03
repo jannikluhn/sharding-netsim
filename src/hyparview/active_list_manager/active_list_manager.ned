@@ -1,4 +1,4 @@
-package sharding.gossipsub.membership.active_list_manager;
+package sharding.hyparview.active_list_manager;
 
 
 simple ActiveListManager

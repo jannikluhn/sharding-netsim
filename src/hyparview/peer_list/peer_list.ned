@@ -1,4 +1,5 @@
-package sharding.gossipsub.membership.peer_list;
+package sharding.hyparview.peer_list;
+
 
 simple PeerList
 {

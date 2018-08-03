@@ -1,11 +1,11 @@
-package sharding.gossipsub.membership;
+package sharding.hyparview;
 
-import sharding.gossipsub.funnel.Funnel;
+import sharding.utils.funnel.Funnel;
 
-import sharding.gossipsub.membership.peer_list.PeerList;
-import sharding.gossipsub.membership.passive_list_manager.PassiveListManager;
-import sharding.gossipsub.membership.get_nodes_handler.GetNodesHandler;
-import sharding.gossipsub.membership.active_list_manager.ActiveListManager;
+import sharding.hyparview.peer_list.PeerList;
+import sharding.hyparview.passive_list_manager.PassiveListManager;
+import sharding.hyparview.get_nodes_handler.GetNodesHandler;
+import sharding.hyparview.active_list_manager.ActiveListManager;
 
 
 module ConnectionManager

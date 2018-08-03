@@ -1,7 +1,7 @@
 #include <omnetpp.h>
 #include <algorithm>
 #include "../../packets_m.h"
-#include "../../internal_messages_m.h"
+#include "../internal_messages_m.h"
 #include "passive_list_manager.h"
 
 using namespace omnetpp;

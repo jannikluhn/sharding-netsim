@@ -1,6 +1,5 @@
 #include <omnetpp.h>
-#include "../packets_m.h"
-#include "../internal_messages_m.h"
+#include "../../packets_m.h"
 #include "cache.h"
 
 using namespace omnetpp;

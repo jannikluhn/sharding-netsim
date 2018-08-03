@@ -5,6 +5,10 @@ packet AddressedPacket
     int receiver = -1;
 };
 
+
+//
+// HyParView
+//
 packet GetNodes extends AddressedPacket
 {
 
@@ -49,6 +53,10 @@ packet ShuffleReply extends AddressedPacket
     int peers[];
 };
 
+
+//
+// Broadcast Tree Gossipsub
+//
 packet Gossip extends AddressedPacket
 {
     int contentIds[];
@@ -69,4 +77,3 @@ packet Prune extends AddressedPacket
 {
 
 };
-

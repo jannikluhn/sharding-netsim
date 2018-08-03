@@ -3,7 +3,7 @@
 
 #include <omnetpp.h>
 #include <set>
-#include "../packets_m.h"
+#include "../../packets_m.h"
 
 using namespace omnetpp;
 

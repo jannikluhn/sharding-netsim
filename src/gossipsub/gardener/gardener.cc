@@ -1,6 +1,6 @@
 #include <omnetpp.h>
-#include "../packets_m.h"
-#include "../internal_messages_m.h"
+#include "../../packets_m.h"
+#include "../../hyparview/internal_messages_m.h"
 #include "gardener.h"
 
 using namespace omnetpp;

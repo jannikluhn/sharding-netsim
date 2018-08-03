@@ -1,4 +1,4 @@
-package sharding.gossipsub.membership.passive_list_manager;
+package sharding.hyparview.passive_list_manager;
 
 simple PassiveListManager
 {

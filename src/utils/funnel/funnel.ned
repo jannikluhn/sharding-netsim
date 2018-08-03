@@ -1,4 +1,4 @@
-package sharding.gossipsub.funnel;
+package sharding.utils.funnel;
 
 
 // Module that funnels messages from many inputs to a single output.

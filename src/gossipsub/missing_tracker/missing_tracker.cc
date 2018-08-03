@@ -1,6 +1,5 @@
 #include <omnetpp.h>
-#include "../packets_m.h"
-#include "../internal_messages_m.h"
+#include "../../packets_m.h"
 #include "missing_tracker.h"
 
 using namespace omnetpp;

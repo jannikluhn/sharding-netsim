@@ -1,5 +1,5 @@
 #include <omnetpp.h>
-#include "../packets_m.h"
+#include "../../packets_m.h"
 #include "type_dispatcher.h"
 
 using namespace omnetpp;

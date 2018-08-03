@@ -1,4 +1,4 @@
-package sharding.gossipsub.hub;
+package sharding.utils.hub;
 
 
 // Virtual hub through which all packets are routed.

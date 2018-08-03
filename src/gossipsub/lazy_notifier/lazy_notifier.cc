@@ -1,5 +1,5 @@
 #include <omnetpp.h>
-#include "../packets_m.h"
+#include "../../packets_m.h"
 #include "lazy_notifier.h"
 
 using namespace omnetpp;

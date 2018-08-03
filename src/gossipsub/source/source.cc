@@ -1,5 +1,5 @@
 #include <omnetpp.h>
-#include "../packets_m.h"
+#include "../../packets_m.h"
 #include "source.h"
 
 using namespace omnetpp;
@@ -47,7 +47,7 @@ void Source::handleMessage(cMessage *scheduler_msg) {
     cache->insert(content_id);
     emit(new_gossip_emitted_signal, content_id);
 
-    double next_message_time = simTime() + exponential(1 / rate);
+    simtime_t next_message_time = simTime() + exponential(1 / rate);
     if (stop_time < 0 || next_message_time < stop_time) {
         scheduleAt(simTime() + exponential(1 / rate), scheduler_msg);
     } else {
