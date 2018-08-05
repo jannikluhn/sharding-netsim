@@ -1,6 +1,6 @@
 package sharding;
 
-import sharding.gossipsub.GossipSubNode;
+import sharding.floodsub.FloodSubNode;
 import sharding.utils.hub.Hub;
 
 
@@ -15,7 +15,7 @@ network Network
         @statistic[messageSent](record=count);
 
     submodules:
-        nodes[nodeCount]: GossipSubNode {
+        nodes[nodeCount]: FloodSubNode {
             nodeId = index;
             source.rate = gossipRate / nodeCount;
         }

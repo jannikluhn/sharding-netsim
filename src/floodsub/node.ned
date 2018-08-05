@@ -27,9 +27,11 @@ module FloodSubNode
             cachePath = "^.cache";
             nodeId = nodeId;
         };
-        flooder: Flooder;
+        flooder: Flooder {
+            cachePath = "^.cache";
+        };
 
-        connection_manager: ConnectionManager {
+        connectionManager: ConnectionManager {
             nodeId = nodeId;
         };
 
@@ -43,7 +45,7 @@ module FloodSubNode
         flooder.gossipInput <-- inputDispatcher.gossipOutputs++;
         flooder.addedActivePeerInput <-- connectionManager.addedActivePeerOutput;
         flooder.removedActivePeerInput <-- connectionManager.removedActivePeerOutput;
-        flooder.out --> outputFunnel.inputs++
+        flooder.out --> outputFunnel.inputs++;
 
         connectionManager.getNodesInput <-- inputDispatcher.getNodesOutputs++;
         connectionManager.nodesInput <-- inputDispatcher.nodesOutputs++;

@@ -82,8 +82,10 @@ void Flooder::handleExternalGossip(Gossip *gossip) {
 
 void Flooder::handleAddedActivePeer(ActiveListChange *active_list_change) {
     peers.insert(active_list_change->getAdded());
+    delete active_list_change;
 }
 
 void Flooder::handleRemovedActivePeer(ActiveListChange *active_list_change) {
     peers.erase(active_list_change->getRemoved());
+    delete active_list_change;
 }
