@@ -49,7 +49,6 @@ void Gardener::handleGraft(Graft *msg) {
     for (int i = 0; i < num_content_ids; i++) {
         int content_id = msg->getContentIds(i);
         if (!cache->contains(content_id)) {
-            EV_ERROR << content_id << endl;
             error("Received GRAFT for content we do not have");
         }
         gossip_msg->setContentIds(i, content_id);
