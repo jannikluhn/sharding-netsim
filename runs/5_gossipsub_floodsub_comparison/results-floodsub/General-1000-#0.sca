@@ -1,0 +1,54 @@
+version 2
+run General-2-20180805-11:40:35-26306
+attr configname General
+attr datetime 20180805-11:40:35
+attr experiment General
+attr inifile floodsub.ini
+attr iterationvars $0=1000
+attr iterationvarsf 1000-
+attr measurement $0=1000
+attr network sharding.FloodSubNetwork
+attr processid 26306
+attr repetition 0
+attr replication #0
+attr resultdir results-floodsub
+attr runnumber 2
+attr seedset 2
+param *Network.nodeCount 1000
+param *Network.gossipRate 10.0Hz
+param *Network.nodes[*].source.active true
+param *Network.nodes[*].source.startTime 20s
+param *Network.nodes[*].source.stopTime 580s
+param *Network.nodes[*].lazyNotifier.notificationInterval 0.1s
+param *Network.nodes[*].missingTracker.waitTime 1s
+param *Network.nodes[*].connectionManager.numRandomNeighbors 5
+param *Network.nodes[*].connectionManager.numNearNeighbors 5
+param *Network.nodes[*].connectionManager.passiveListSize 20
+param *Network.nodes[*].connectionManager.contactNodes "\"0 1 2\""
+param *Network.nodes[*].connectionManager.activeHeartbeatInterval 2.0
+param *Network.nodes[*].connectionManager.joinTTL 1
+param *Network.nodes[*].connectionManager.forwardJoinTTL 1
+param *Network.nodes[*].connectionManager.shuffleInterval 2.0
+param *Network.nodes[*].connectionManager.activeShufflingSize 5
+param *Network.nodes[*].connectionManager.passiveShufflingSize 5
+param *Network.nodes[*].connectionManager.shuffleTTL 1
+
+scalar FloodSubNetwork messageSent:count 164614417
+scalar FloodSubNetwork newGossipReceived:count 4993002
+statistic FloodSubNetwork newGossipReceived:histogram
+field count 4993002
+field mean 1.3363571654888
+field stddev 0.53315523257461
+field min 0
+field max 4
+field sum 6672434
+field sqrsum 10336038
+bin	-inf	0
+bin	0	60414
+bin	1	3284676
+bin	2	1556000
+bin	3	91890
+bin	4	22
+bin	5	0
+scalar FloodSubNetwork newGossipEmitted:count 5000
+

@@ -1,0 +1,2037 @@
+file 9859477 1533508068                                         
+version 2
+run General-1-20180806-00:27:10-1966
+attr configname General
+attr datetime 20180806-00:27:10
+attr experiment General
+attr inifile gossipsub.ini
+attr iterationvars $0=500
+attr iterationvarsf 500-
+attr measurement $0=500
+attr network sharding.GossipSubNetwork
+attr processid 1966
+attr repetition 0
+attr replication #0
+attr resultdir results-gossipsub
+attr runnumber 1
+attr seedset 1
+param *Network.nodeCount 500
+param *Network.gossipRate 10.0Hz
+param *Network.nodes[*].source.active true
+param *Network.nodes[*].source.startTime 20s
+param *Network.nodes[*].source.stopTime 580s
+param *Network.nodes[*].lazyNotifier.notificationInterval 0.1s
+param *Network.nodes[*].missingTracker.waitTime 2s
+param *Network.nodes[*].connectionManager.numRandomNeighbors 5
+param *Network.nodes[*].connectionManager.numNearNeighbors 5
+param *Network.nodes[*].connectionManager.passiveListSize 20
+param *Network.nodes[*].connectionManager.contactNodes "\"0 1 2\""
+param *Network.nodes[*].connectionManager.activeHeartbeatInterval 2.0
+param *Network.nodes[*].connectionManager.joinTTL 1
+param *Network.nodes[*].connectionManager.forwardJoinTTL 1
+param *Network.nodes[*].connectionManager.shuffleInterval 2.0
+param *Network.nodes[*].connectionManager.activeShufflingSize 5
+param *Network.nodes[*].connectionManager.passiveShufflingSize 5
+param *Network.nodes[*].connectionManager.shuffleTTL 1
+
+vector 0 GossipSubNetwork.nodes[38].connectionManager passiveListUpdate:vector ETV
+vector 1 GossipSubNetwork.nodes[246].connectionManager passiveListUpdate:vector ETV
+vector 2 GossipSubNetwork.nodes[50].connectionManager passiveListUpdate:vector ETV
+vector 3 GossipSubNetwork.nodes[166].connectionManager passiveListUpdate:vector ETV
+vector 4 GossipSubNetwork.nodes[121].connectionManager passiveListUpdate:vector ETV
+vector 5 GossipSubNetwork.nodes[149].connectionManager passiveListUpdate:vector ETV
+vector 6 GossipSubNetwork.nodes[344].connectionManager passiveListUpdate:vector ETV
+vector 7 GossipSubNetwork.nodes[478].connectionManager passiveListUpdate:vector ETV
+vector 8 GossipSubNetwork.nodes[44].connectionManager passiveListUpdate:vector ETV
+vector 9 GossipSubNetwork.nodes[213].connectionManager passiveListUpdate:vector ETV
+vector 10 GossipSubNetwork.nodes[142].connectionManager passiveListUpdate:vector ETV
+vector 11 GossipSubNetwork.nodes[448].connectionManager passiveListUpdate:vector ETV
+vector 12 GossipSubNetwork.nodes[28].connectionManager passiveListUpdate:vector ETV
+vector 13 GossipSubNetwork.nodes[393].connectionManager passiveListUpdate:vector ETV
+vector 14 GossipSubNetwork.nodes[332].connectionManager passiveListUpdate:vector ETV
+vector 15 GossipSubNetwork.nodes[153].connectionManager passiveListUpdate:vector ETV
+vector 16 GossipSubNetwork.nodes[220].connectionManager passiveListUpdate:vector ETV
+vector 17 GossipSubNetwork.nodes[443].connectionManager passiveListUpdate:vector ETV
+vector 18 GossipSubNetwork.nodes[106].connectionManager passiveListUpdate:vector ETV
+vector 19 GossipSubNetwork.nodes[283].connectionManager passiveListUpdate:vector ETV
+vector 20 GossipSubNetwork.nodes[114].connectionManager passiveListUpdate:vector ETV
+vector 21 GossipSubNetwork.nodes[119].connectionManager passiveListUpdate:vector ETV
+vector 22 GossipSubNetwork.nodes[181].connectionManager passiveListUpdate:vector ETV
+vector 23 GossipSubNetwork.nodes[27].connectionManager passiveListUpdate:vector ETV
+vector 24 GossipSubNetwork.nodes[297].connectionManager passiveListUpdate:vector ETV
+vector 25 GossipSubNetwork.nodes[335].connectionManager passiveListUpdate:vector ETV
+vector 26 GossipSubNetwork.nodes[475].connectionManager passiveListUpdate:vector ETV
+vector 27 GossipSubNetwork.nodes[374].connectionManager passiveListUpdate:vector ETV
+vector 28 GossipSubNetwork.nodes[123].connectionManager passiveListUpdate:vector ETV
+vector 29 GossipSubNetwork.nodes[326].connectionManager passiveListUpdate:vector ETV
+vector 30 GossipSubNetwork.nodes[184].connectionManager passiveListUpdate:vector ETV
+vector 31 GossipSubNetwork.nodes[499].connectionManager passiveListUpdate:vector ETV
+vector 32 GossipSubNetwork.nodes[128].connectionManager passiveListUpdate:vector ETV
+vector 33 GossipSubNetwork.nodes[150].connectionManager passiveListUpdate:vector ETV
+vector 34 GossipSubNetwork.nodes[129].connectionManager passiveListUpdate:vector ETV
+vector 35 GossipSubNetwork.nodes[243].connectionManager passiveListUpdate:vector ETV
+vector 36 GossipSubNetwork.nodes[4].connectionManager passiveListUpdate:vector ETV
+vector 37 GossipSubNetwork.nodes[177].connectionManager passiveListUpdate:vector ETV
+vector 38 GossipSubNetwork.nodes[154].connectionManager passiveListUpdate:vector ETV
+vector 39 GossipSubNetwork.nodes[22].connectionManager passiveListUpdate:vector ETV
+vector 40 GossipSubNetwork.nodes[48].connectionManager passiveListUpdate:vector ETV
+vector 41 GossipSubNetwork.nodes[233].connectionManager passiveListUpdate:vector ETV
+vector 42 GossipSubNetwork.nodes[120].connectionManager passiveListUpdate:vector ETV
+vector 43 GossipSubNetwork.nodes[183].connectionManager passiveListUpdate:vector ETV
+vector 44 GossipSubNetwork.nodes[494].connectionManager passiveListUpdate:vector ETV
+vector 45 GossipSubNetwork.nodes[269].connectionManager passiveListUpdate:vector ETV
+vector 46 GossipSubNetwork.nodes[277].connectionManager passiveListUpdate:vector ETV
+vector 47 GossipSubNetwork.nodes[196].connectionManager passiveListUpdate:vector ETV
+vector 48 GossipSubNetwork.nodes[271].connectionManager passiveListUpdate:vector ETV
+vector 49 GossipSubNetwork.nodes[309].connectionManager passiveListUpdate:vector ETV
+vector 50 GossipSubNetwork.nodes[35].connectionManager passiveListUpdate:vector ETV
+vector 51 GossipSubNetwork.nodes[299].connectionManager passiveListUpdate:vector ETV
+vector 52 GossipSubNetwork.nodes[247].connectionManager passiveListUpdate:vector ETV
+vector 53 GossipSubNetwork.nodes[276].connectionManager passiveListUpdate:vector ETV
+vector 54 GossipSubNetwork.nodes[384].connectionManager passiveListUpdate:vector ETV
+vector 55 GossipSubNetwork.nodes[425].connectionManager passiveListUpdate:vector ETV
+vector 56 GossipSubNetwork.nodes[312].connectionManager passiveListUpdate:vector ETV
+vector 57 GossipSubNetwork.nodes[472].connectionManager passiveListUpdate:vector ETV
+vector 58 GossipSubNetwork.nodes[383].connectionManager passiveListUpdate:vector ETV
+vector 59 GossipSubNetwork.nodes[216].connectionManager passiveListUpdate:vector ETV
+vector 60 GossipSubNetwork.nodes[353].connectionManager passiveListUpdate:vector ETV
+vector 61 GossipSubNetwork.nodes[219].connectionManager passiveListUpdate:vector ETV
+vector 62 GossipSubNetwork.nodes[5].connectionManager passiveListUpdate:vector ETV
+vector 63 GossipSubNetwork.nodes[141].connectionManager passiveListUpdate:vector ETV
+vector 64 GossipSubNetwork.nodes[361].connectionManager passiveListUpdate:vector ETV
+vector 65 GossipSubNetwork.nodes[215].connectionManager passiveListUpdate:vector ETV
+vector 66 GossipSubNetwork.nodes[212].connectionManager passiveListUpdate:vector ETV
+vector 67 GossipSubNetwork.nodes[101].connectionManager passiveListUpdate:vector ETV
+vector 68 GossipSubNetwork.nodes[122].connectionManager passiveListUpdate:vector ETV
+vector 69 GossipSubNetwork.nodes[408].connectionManager passiveListUpdate:vector ETV
+vector 70 GossipSubNetwork.nodes[160].connectionManager passiveListUpdate:vector ETV
+vector 71 GossipSubNetwork.nodes[339].connectionManager passiveListUpdate:vector ETV
+vector 72 GossipSubNetwork.nodes[240].connectionManager passiveListUpdate:vector ETV
+vector 73 GossipSubNetwork.nodes[284].connectionManager passiveListUpdate:vector ETV
+vector 74 GossipSubNetwork.nodes[313].connectionManager passiveListUpdate:vector ETV
+vector 75 GossipSubNetwork.nodes[322].connectionManager passiveListUpdate:vector ETV
+vector 76 GossipSubNetwork.nodes[371].connectionManager passiveListUpdate:vector ETV
+vector 77 GossipSubNetwork.nodes[433].connectionManager passiveListUpdate:vector ETV
+vector 78 GossipSubNetwork.nodes[14].connectionManager passiveListUpdate:vector ETV
+vector 79 GossipSubNetwork.nodes[278].connectionManager passiveListUpdate:vector ETV
+vector 80 GossipSubNetwork.nodes[53].connectionManager passiveListUpdate:vector ETV
+vector 81 GossipSubNetwork.nodes[320].connectionManager passiveListUpdate:vector ETV
+vector 82 GossipSubNetwork.nodes[352].connectionManager passiveListUpdate:vector ETV
+vector 83 GossipSubNetwork.nodes[6].connectionManager passiveListUpdate:vector ETV
+vector 84 GossipSubNetwork.nodes[65].connectionManager passiveListUpdate:vector ETV
+vector 85 GossipSubNetwork.nodes[179].connectionManager passiveListUpdate:vector ETV
+vector 86 GossipSubNetwork.nodes[71].connectionManager passiveListUpdate:vector ETV
+vector 87 GossipSubNetwork.nodes[265].connectionManager passiveListUpdate:vector ETV
+vector 88 GossipSubNetwork.nodes[190].connectionManager passiveListUpdate:vector ETV
+vector 89 GossipSubNetwork.nodes[492].connectionManager passiveListUpdate:vector ETV
+vector 90 GossipSubNetwork.nodes[465].connectionManager passiveListUpdate:vector ETV
+vector 91 GossipSubNetwork.nodes[369].connectionManager passiveListUpdate:vector ETV
+vector 92 GossipSubNetwork.nodes[402].connectionManager passiveListUpdate:vector ETV
+vector 93 GossipSubNetwork.nodes[273].connectionManager passiveListUpdate:vector ETV
+vector 94 GossipSubNetwork.nodes[441].connectionManager passiveListUpdate:vector ETV
+vector 95 GossipSubNetwork.nodes[55].connectionManager passiveListUpdate:vector ETV
+vector 96 GossipSubNetwork.nodes[349].connectionManager passiveListUpdate:vector ETV
+vector 97 GossipSubNetwork.nodes[268].connectionManager passiveListUpdate:vector ETV
+vector 98 GossipSubNetwork.nodes[486].connectionManager passiveListUpdate:vector ETV
+vector 99 GossipSubNetwork.nodes[224].connectionManager passiveListUpdate:vector ETV
+vector 100 GossipSubNetwork.nodes[84].connectionManager passiveListUpdate:vector ETV
+vector 101 GossipSubNetwork.nodes[206].connectionManager passiveListUpdate:vector ETV
+vector 102 GossipSubNetwork.nodes[252].connectionManager passiveListUpdate:vector ETV
+vector 103 GossipSubNetwork.nodes[60].connectionManager passiveListUpdate:vector ETV
+vector 104 GossipSubNetwork.nodes[292].connectionManager passiveListUpdate:vector ETV
+vector 105 GossipSubNetwork.nodes[419].connectionManager passiveListUpdate:vector ETV
+vector 106 GossipSubNetwork.nodes[110].connectionManager passiveListUpdate:vector ETV
+vector 107 GossipSubNetwork.nodes[442].connectionManager passiveListUpdate:vector ETV
+vector 108 GossipSubNetwork.nodes[12].connectionManager passiveListUpdate:vector ETV
+vector 109 GossipSubNetwork.nodes[423].connectionManager passiveListUpdate:vector ETV
+vector 110 GossipSubNetwork.nodes[205].connectionManager passiveListUpdate:vector ETV
+vector 111 GossipSubNetwork.nodes[49].connectionManager passiveListUpdate:vector ETV
+vector 112 GossipSubNetwork.nodes[288].connectionManager passiveListUpdate:vector ETV
+vector 113 GossipSubNetwork.nodes[387].connectionManager passiveListUpdate:vector ETV
+vector 114 GossipSubNetwork.nodes[245].connectionManager passiveListUpdate:vector ETV
+vector 115 GossipSubNetwork.nodes[459].connectionManager passiveListUpdate:vector ETV
+vector 116 GossipSubNetwork.nodes[165].connectionManager passiveListUpdate:vector ETV
+vector 117 GossipSubNetwork.nodes[314].connectionManager passiveListUpdate:vector ETV
+vector 118 GossipSubNetwork.nodes[411].connectionManager passiveListUpdate:vector ETV
+vector 119 GossipSubNetwork.nodes[421].connectionManager passiveListUpdate:vector ETV
+vector 120 GossipSubNetwork.nodes[394].connectionManager passiveListUpdate:vector ETV
+vector 121 GossipSubNetwork.nodes[238].connectionManager passiveListUpdate:vector ETV
+vector 122 GossipSubNetwork.nodes[304].connectionManager passiveListUpdate:vector ETV
+vector 123 GossipSubNetwork.nodes[204].connectionManager passiveListUpdate:vector ETV
+vector 124 GossipSubNetwork.nodes[437].connectionManager passiveListUpdate:vector ETV
+vector 125 GossipSubNetwork.nodes[30].connectionManager passiveListUpdate:vector ETV
+vector 126 GossipSubNetwork.nodes[325].connectionManager passiveListUpdate:vector ETV
+vector 127 GossipSubNetwork.nodes[89].connectionManager passiveListUpdate:vector ETV
+vector 128 GossipSubNetwork.nodes[161].connectionManager passiveListUpdate:vector ETV
+vector 129 GossipSubNetwork.nodes[422].connectionManager passiveListUpdate:vector ETV
+vector 130 GossipSubNetwork.nodes[328].connectionManager passiveListUpdate:vector ETV
+vector 131 GossipSubNetwork.nodes[180].connectionManager passiveListUpdate:vector ETV
+vector 132 GossipSubNetwork.nodes[317].connectionManager passiveListUpdate:vector ETV
+vector 133 GossipSubNetwork.nodes[336].connectionManager passiveListUpdate:vector ETV
+vector 134 GossipSubNetwork.nodes[172].connectionManager passiveListUpdate:vector ETV
+vector 135 GossipSubNetwork.nodes[42].connectionManager passiveListUpdate:vector ETV
+vector 136 GossipSubNetwork.nodes[406].connectionManager passiveListUpdate:vector ETV
+vector 137 GossipSubNetwork.nodes[33].connectionManager passiveListUpdate:vector ETV
+vector 138 GossipSubNetwork.nodes[10].connectionManager passiveListUpdate:vector ETV
+vector 139 GossipSubNetwork.nodes[316].connectionManager passiveListUpdate:vector ETV
+vector 140 GossipSubNetwork.nodes[372].connectionManager passiveListUpdate:vector ETV
+vector 141 GossipSubNetwork.nodes[473].connectionManager passiveListUpdate:vector ETV
+vector 142 GossipSubNetwork.nodes[147].connectionManager passiveListUpdate:vector ETV
+vector 143 GossipSubNetwork.nodes[303].connectionManager passiveListUpdate:vector ETV
+vector 144 GossipSubNetwork.nodes[201].connectionManager passiveListUpdate:vector ETV
+vector 145 GossipSubNetwork.nodes[399].connectionManager passiveListUpdate:vector ETV
+vector 146 GossipSubNetwork.nodes[254].connectionManager passiveListUpdate:vector ETV
+vector 147 GossipSubNetwork.nodes[174].connectionManager passiveListUpdate:vector ETV
+vector 148 GossipSubNetwork.nodes[99].connectionManager passiveListUpdate:vector ETV
+vector 149 GossipSubNetwork.nodes[125].connectionManager passiveListUpdate:vector ETV
+vector 150 GossipSubNetwork.nodes[449].connectionManager passiveListUpdate:vector ETV
+vector 151 GossipSubNetwork.nodes[98].connectionManager passiveListUpdate:vector ETV
+vector 152 GossipSubNetwork.nodes[289].connectionManager passiveListUpdate:vector ETV
+vector 153 GossipSubNetwork.nodes[488].connectionManager passiveListUpdate:vector ETV
+vector 154 GossipSubNetwork.nodes[428].connectionManager passiveListUpdate:vector ETV
+vector 155 GossipSubNetwork.nodes[392].connectionManager passiveListUpdate:vector ETV
+vector 156 GossipSubNetwork.nodes[94].connectionManager passiveListUpdate:vector ETV
+vector 157 GossipSubNetwork.nodes[409].connectionManager passiveListUpdate:vector ETV
+vector 158 GossipSubNetwork.nodes[291].connectionManager passiveListUpdate:vector ETV
+vector 159 GossipSubNetwork.nodes[191].connectionManager passiveListUpdate:vector ETV
+vector 160 GossipSubNetwork.nodes[66].connectionManager passiveListUpdate:vector ETV
+vector 161 GossipSubNetwork.nodes[92].connectionManager passiveListUpdate:vector ETV
+vector 162 GossipSubNetwork.nodes[267].connectionManager passiveListUpdate:vector ETV
+vector 163 GossipSubNetwork.nodes[438].connectionManager passiveListUpdate:vector ETV
+vector 164 GossipSubNetwork.nodes[237].connectionManager passiveListUpdate:vector ETV
+vector 165 GossipSubNetwork.nodes[137].connectionManager passiveListUpdate:vector ETV
+vector 166 GossipSubNetwork.nodes[64].connectionManager passiveListUpdate:vector ETV
+vector 167 GossipSubNetwork.nodes[75].connectionManager passiveListUpdate:vector ETV
+vector 168 GossipSubNetwork.nodes[306].connectionManager passiveListUpdate:vector ETV
+vector 169 GossipSubNetwork.nodes[260].connectionManager passiveListUpdate:vector ETV
+vector 170 GossipSubNetwork.nodes[479].connectionManager passiveListUpdate:vector ETV
+vector 171 GossipSubNetwork.nodes[103].connectionManager passiveListUpdate:vector ETV
+vector 172 GossipSubNetwork.nodes[214].connectionManager passiveListUpdate:vector ETV
+vector 173 GossipSubNetwork.nodes[358].connectionManager passiveListUpdate:vector ETV
+vector 174 GossipSubNetwork.nodes[279].connectionManager passiveListUpdate:vector ETV
+vector 175 GossipSubNetwork.nodes[178].connectionManager passiveListUpdate:vector ETV
+vector 176 GossipSubNetwork.nodes[133].connectionManager passiveListUpdate:vector ETV
+vector 177 GossipSubNetwork.nodes[315].connectionManager passiveListUpdate:vector ETV
+vector 178 GossipSubNetwork.nodes[221].connectionManager passiveListUpdate:vector ETV
+vector 179 GossipSubNetwork.nodes[404].connectionManager passiveListUpdate:vector ETV
+vector 180 GossipSubNetwork.nodes[365].connectionManager passiveListUpdate:vector ETV
+vector 181 GossipSubNetwork.nodes[295].connectionManager passiveListUpdate:vector ETV
+vector 182 GossipSubNetwork.nodes[403].connectionManager passiveListUpdate:vector ETV
+vector 183 GossipSubNetwork.nodes[146].connectionManager passiveListUpdate:vector ETV
+vector 184 GossipSubNetwork.nodes[152].connectionManager passiveListUpdate:vector ETV
+vector 185 GossipSubNetwork.nodes[439].connectionManager passiveListUpdate:vector ETV
+vector 186 GossipSubNetwork.nodes[170].connectionManager passiveListUpdate:vector ETV
+vector 187 GossipSubNetwork.nodes[58].connectionManager passiveListUpdate:vector ETV
+vector 188 GossipSubNetwork.nodes[381].connectionManager passiveListUpdate:vector ETV
+vector 189 GossipSubNetwork.nodes[79].connectionManager passiveListUpdate:vector ETV
+vector 190 GossipSubNetwork.nodes[250].connectionManager passiveListUpdate:vector ETV
+vector 191 GossipSubNetwork.nodes[228].connectionManager passiveListUpdate:vector ETV
+vector 192 GossipSubNetwork.nodes[264].connectionManager passiveListUpdate:vector ETV
+vector 193 GossipSubNetwork.nodes[16].connectionManager passiveListUpdate:vector ETV
+vector 194 GossipSubNetwork.nodes[97].connectionManager passiveListUpdate:vector ETV
+vector 195 GossipSubNetwork.nodes[420].connectionManager passiveListUpdate:vector ETV
+vector 196 GossipSubNetwork.nodes[111].connectionManager passiveListUpdate:vector ETV
+vector 197 GossipSubNetwork.nodes[396].connectionManager passiveListUpdate:vector ETV
+vector 198 GossipSubNetwork.nodes[458].connectionManager passiveListUpdate:vector ETV
+vector 199 GossipSubNetwork.nodes[173].connectionManager passiveListUpdate:vector ETV
+vector 200 GossipSubNetwork.nodes[145].connectionManager passiveListUpdate:vector ETV
+vector 201 GossipSubNetwork.nodes[230].connectionManager passiveListUpdate:vector ETV
+vector 202 GossipSubNetwork.nodes[231].connectionManager passiveListUpdate:vector ETV
+vector 203 GossipSubNetwork.nodes[261].connectionManager passiveListUpdate:vector ETV
+vector 204 GossipSubNetwork.nodes[331].connectionManager passiveListUpdate:vector ETV
+vector 205 GossipSubNetwork.nodes[90].connectionManager passiveListUpdate:vector ETV
+vector 206 GossipSubNetwork.nodes[487].connectionManager passiveListUpdate:vector ETV
+vector 207 GossipSubNetwork.nodes[100].connectionManager passiveListUpdate:vector ETV
+vector 208 GossipSubNetwork.nodes[155].connectionManager passiveListUpdate:vector ETV
+vector 209 GossipSubNetwork.nodes[319].connectionManager passiveListUpdate:vector ETV
+vector 210 GossipSubNetwork.nodes[385].connectionManager passiveListUpdate:vector ETV
+vector 211 GossipSubNetwork.nodes[463].connectionManager passiveListUpdate:vector ETV
+vector 212 GossipSubNetwork.nodes[235].connectionManager passiveListUpdate:vector ETV
+vector 213 GossipSubNetwork.nodes[26].connectionManager passiveListUpdate:vector ETV
+vector 214 GossipSubNetwork.nodes[182].connectionManager passiveListUpdate:vector ETV
+vector 215 GossipSubNetwork.nodes[164].connectionManager passiveListUpdate:vector ETV
+vector 216 GossipSubNetwork.nodes[45].connectionManager passiveListUpdate:vector ETV
+vector 217 GossipSubNetwork.nodes[77].connectionManager passiveListUpdate:vector ETV
+vector 218 GossipSubNetwork.nodes[318].connectionManager passiveListUpdate:vector ETV
+vector 219 GossipSubNetwork.nodes[202].connectionManager passiveListUpdate:vector ETV
+vector 220 GossipSubNetwork.nodes[410].connectionManager passiveListUpdate:vector ETV
+vector 221 GossipSubNetwork.nodes[132].connectionManager passiveListUpdate:vector ETV
+vector 222 GossipSubNetwork.nodes[59].connectionManager passiveListUpdate:vector ETV
+vector 223 GossipSubNetwork.nodes[270].connectionManager passiveListUpdate:vector ETV
+vector 224 GossipSubNetwork.nodes[74].connectionManager passiveListUpdate:vector ETV
+vector 225 GossipSubNetwork.nodes[388].connectionManager passiveListUpdate:vector ETV
+vector 226 GossipSubNetwork.nodes[390].connectionManager passiveListUpdate:vector ETV
+vector 227 GossipSubNetwork.nodes[185].connectionManager passiveListUpdate:vector ETV
+vector 228 GossipSubNetwork.nodes[301].connectionManager passiveListUpdate:vector ETV
+vector 229 GossipSubNetwork.nodes[135].connectionManager passiveListUpdate:vector ETV
+vector 230 GossipSubNetwork.nodes[157].connectionManager passiveListUpdate:vector ETV
+vector 231 GossipSubNetwork.nodes[363].connectionManager passiveListUpdate:vector ETV
+vector 232 GossipSubNetwork.nodes[337].connectionManager passiveListUpdate:vector ETV
+vector 233 GossipSubNetwork.nodes[63].connectionManager passiveListUpdate:vector ETV
+vector 234 GossipSubNetwork.nodes[483].connectionManager passiveListUpdate:vector ETV
+vector 235 GossipSubNetwork.nodes[144].connectionManager passiveListUpdate:vector ETV
+vector 236 GossipSubNetwork.nodes[407].connectionManager passiveListUpdate:vector ETV
+vector 237 GossipSubNetwork.nodes[116].connectionManager passiveListUpdate:vector ETV
+vector 238 GossipSubNetwork.nodes[290].connectionManager passiveListUpdate:vector ETV
+vector 239 GossipSubNetwork.nodes[197].connectionManager passiveListUpdate:vector ETV
+vector 240 GossipSubNetwork.nodes[236].connectionManager passiveListUpdate:vector ETV
+vector 241 GossipSubNetwork.nodes[117].connectionManager passiveListUpdate:vector ETV
+vector 242 GossipSubNetwork.nodes[389].connectionManager passiveListUpdate:vector ETV
+vector 243 GossipSubNetwork.nodes[68].connectionManager passiveListUpdate:vector ETV
+vector 244 GossipSubNetwork.nodes[457].connectionManager passiveListUpdate:vector ETV
+vector 245 GossipSubNetwork.nodes[257].connectionManager passiveListUpdate:vector ETV
+vector 246 GossipSubNetwork.nodes[19].connectionManager passiveListUpdate:vector ETV
+vector 247 GossipSubNetwork.nodes[87].connectionManager passiveListUpdate:vector ETV
+vector 248 GossipSubNetwork.nodes[294].connectionManager passiveListUpdate:vector ETV
+vector 249 GossipSubNetwork.nodes[34].connectionManager passiveListUpdate:vector ETV
+vector 250 GossipSubNetwork.nodes[140].connectionManager passiveListUpdate:vector ETV
+vector 251 GossipSubNetwork.nodes[258].connectionManager passiveListUpdate:vector ETV
+vector 252 GossipSubNetwork.nodes[426].connectionManager passiveListUpdate:vector ETV
+vector 253 GossipSubNetwork.nodes[287].connectionManager passiveListUpdate:vector ETV
+vector 254 GossipSubNetwork.nodes[17].connectionManager passiveListUpdate:vector ETV
+vector 255 GossipSubNetwork.nodes[256].connectionManager passiveListUpdate:vector ETV
+vector 256 GossipSubNetwork.nodes[323].connectionManager passiveListUpdate:vector ETV
+vector 257 GossipSubNetwork.nodes[462].connectionManager passiveListUpdate:vector ETV
+vector 258 GossipSubNetwork.nodes[455].connectionManager passiveListUpdate:vector ETV
+vector 259 GossipSubNetwork.nodes[380].connectionManager passiveListUpdate:vector ETV
+vector 260 GossipSubNetwork.nodes[211].connectionManager passiveListUpdate:vector ETV
+vector 261 GossipSubNetwork.nodes[95].connectionManager passiveListUpdate:vector ETV
+vector 262 GossipSubNetwork.nodes[207].connectionManager passiveListUpdate:vector ETV
+vector 263 GossipSubNetwork.nodes[210].connectionManager passiveListUpdate:vector ETV
+vector 264 GossipSubNetwork.nodes[46].connectionManager passiveListUpdate:vector ETV
+vector 265 GossipSubNetwork.nodes[460].connectionManager passiveListUpdate:vector ETV
+vector 266 GossipSubNetwork.nodes[395].connectionManager passiveListUpdate:vector ETV
+vector 267 GossipSubNetwork.nodes[43].connectionManager passiveListUpdate:vector ETV
+vector 268 GossipSubNetwork.nodes[91].connectionManager passiveListUpdate:vector ETV
+vector 269 GossipSubNetwork.nodes[7].connectionManager passiveListUpdate:vector ETV
+vector 270 GossipSubNetwork.nodes[347].connectionManager passiveListUpdate:vector ETV
+vector 271 GossipSubNetwork.nodes[222].connectionManager passiveListUpdate:vector ETV
+vector 272 GossipSubNetwork.nodes[158].connectionManager passiveListUpdate:vector ETV
+vector 273 GossipSubNetwork.nodes[169].connectionManager passiveListUpdate:vector ETV
+vector 274 GossipSubNetwork.nodes[450].connectionManager passiveListUpdate:vector ETV
+vector 275 GossipSubNetwork.nodes[298].connectionManager passiveListUpdate:vector ETV
+vector 276 GossipSubNetwork.nodes[379].connectionManager passiveListUpdate:vector ETV
+vector 277 GossipSubNetwork.nodes[405].connectionManager passiveListUpdate:vector ETV
+vector 278 GossipSubNetwork.nodes[72].connectionManager passiveListUpdate:vector ETV
+vector 279 GossipSubNetwork.nodes[424].connectionManager passiveListUpdate:vector ETV
+vector 280 GossipSubNetwork.nodes[470].connectionManager passiveListUpdate:vector ETV
+vector 281 GossipSubNetwork.nodes[468].connectionManager passiveListUpdate:vector ETV
+vector 282 GossipSubNetwork.nodes[431].connectionManager passiveListUpdate:vector ETV
+vector 283 GossipSubNetwork.nodes[351].connectionManager passiveListUpdate:vector ETV
+vector 284 GossipSubNetwork.nodes[255].connectionManager passiveListUpdate:vector ETV
+vector 285 GossipSubNetwork.nodes[41].connectionManager passiveListUpdate:vector ETV
+vector 286 GossipSubNetwork.nodes[253].connectionManager passiveListUpdate:vector ETV
+vector 287 GossipSubNetwork.nodes[143].connectionManager passiveListUpdate:vector ETV
+vector 288 GossipSubNetwork.nodes[357].connectionManager passiveListUpdate:vector ETV
+vector 289 GossipSubNetwork.nodes[401].connectionManager passiveListUpdate:vector ETV
+vector 290 GossipSubNetwork.nodes[467].connectionManager passiveListUpdate:vector ETV
+vector 291 GossipSubNetwork.nodes[109].connectionManager passiveListUpdate:vector ETV
+vector 292 GossipSubNetwork.nodes[307].connectionManager passiveListUpdate:vector ETV
+vector 293 GossipSubNetwork.nodes[194].connectionManager passiveListUpdate:vector ETV
+vector 294 GossipSubNetwork.nodes[482].connectionManager passiveListUpdate:vector ETV
+vector 295 GossipSubNetwork.nodes[54].connectionManager passiveListUpdate:vector ETV
+vector 296 GossipSubNetwork.nodes[248].connectionManager passiveListUpdate:vector ETV
+vector 297 GossipSubNetwork.nodes[18].connectionManager passiveListUpdate:vector ETV
+vector 298 GossipSubNetwork.nodes[296].connectionManager passiveListUpdate:vector ETV
+vector 299 GossipSubNetwork.nodes[469].connectionManager passiveListUpdate:vector ETV
+vector 300 GossipSubNetwork.nodes[134].connectionManager passiveListUpdate:vector ETV
+vector 301 GossipSubNetwork.nodes[105].connectionManager passiveListUpdate:vector ETV
+vector 302 GossipSubNetwork.nodes[375].connectionManager passiveListUpdate:vector ETV
+vector 303 GossipSubNetwork.nodes[31].connectionManager passiveListUpdate:vector ETV
+vector 304 GossipSubNetwork.nodes[171].connectionManager passiveListUpdate:vector ETV
+vector 305 GossipSubNetwork.nodes[391].connectionManager passiveListUpdate:vector ETV
+vector 306 GossipSubNetwork.nodes[57].connectionManager passiveListUpdate:vector ETV
+vector 307 GossipSubNetwork.nodes[82].connectionManager passiveListUpdate:vector ETV
+vector 308 GossipSubNetwork.nodes[13].connectionManager passiveListUpdate:vector ETV
+vector 309 GossipSubNetwork.nodes[83].connectionManager passiveListUpdate:vector ETV
+vector 310 GossipSubNetwork.nodes[227].connectionManager passiveListUpdate:vector ETV
+vector 311 GossipSubNetwork.nodes[127].connectionManager passiveListUpdate:vector ETV
+vector 312 GossipSubNetwork.nodes[242].connectionManager passiveListUpdate:vector ETV
+vector 313 GossipSubNetwork.nodes[52].connectionManager passiveListUpdate:vector ETV
+vector 314 GossipSubNetwork.nodes[416].connectionManager passiveListUpdate:vector ETV
+vector 315 GossipSubNetwork.nodes[355].connectionManager passiveListUpdate:vector ETV
+vector 316 GossipSubNetwork.nodes[186].connectionManager passiveListUpdate:vector ETV
+vector 317 GossipSubNetwork.nodes[112].connectionManager passiveListUpdate:vector ETV
+vector 318 GossipSubNetwork.nodes[485].connectionManager passiveListUpdate:vector ETV
+vector 319 GossipSubNetwork.nodes[489].connectionManager passiveListUpdate:vector ETV
+vector 320 GossipSubNetwork.nodes[176].connectionManager passiveListUpdate:vector ETV
+vector 321 GossipSubNetwork.nodes[330].connectionManager passiveListUpdate:vector ETV
+vector 322 GossipSubNetwork.nodes[156].connectionManager passiveListUpdate:vector ETV
+vector 323 GossipSubNetwork.nodes[266].connectionManager passiveListUpdate:vector ETV
+vector 324 GossipSubNetwork.nodes[124].connectionManager passiveListUpdate:vector ETV
+vector 325 GossipSubNetwork.nodes[432].connectionManager passiveListUpdate:vector ETV
+vector 326 GossipSubNetwork.nodes[341].connectionManager passiveListUpdate:vector ETV
+vector 327 GossipSubNetwork.nodes[413].connectionManager passiveListUpdate:vector ETV
+vector 328 GossipSubNetwork.nodes[130].connectionManager passiveListUpdate:vector ETV
+vector 329 GossipSubNetwork.nodes[113].connectionManager passiveListUpdate:vector ETV
+vector 330 GossipSubNetwork.nodes[218].connectionManager passiveListUpdate:vector ETV
+vector 331 GossipSubNetwork.nodes[88].connectionManager passiveListUpdate:vector ETV
+vector 332 GossipSubNetwork.nodes[329].connectionManager passiveListUpdate:vector ETV
+vector 333 GossipSubNetwork.nodes[377].connectionManager passiveListUpdate:vector ETV
+vector 334 GossipSubNetwork.nodes[139].connectionManager passiveListUpdate:vector ETV
+vector 335 GossipSubNetwork.nodes[343].connectionManager passiveListUpdate:vector ETV
+vector 336 GossipSubNetwork.nodes[378].connectionManager passiveListUpdate:vector ETV
+vector 337 GossipSubNetwork.nodes[282].connectionManager passiveListUpdate:vector ETV
+vector 338 GossipSubNetwork.nodes[435].connectionManager passiveListUpdate:vector ETV
+vector 339 GossipSubNetwork.nodes[272].connectionManager passiveListUpdate:vector ETV
+vector 340 GossipSubNetwork.nodes[73].connectionManager passiveListUpdate:vector ETV
+vector 341 GossipSubNetwork.nodes[62].connectionManager passiveListUpdate:vector ETV
+vector 342 GossipSubNetwork.nodes[56].connectionManager passiveListUpdate:vector ETV
+vector 343 GossipSubNetwork.nodes[412].connectionManager passiveListUpdate:vector ETV
+vector 344 GossipSubNetwork.nodes[493].connectionManager passiveListUpdate:vector ETV
+vector 345 GossipSubNetwork.nodes[338].connectionManager passiveListUpdate:vector ETV
+vector 346 GossipSubNetwork.nodes[47].connectionManager passiveListUpdate:vector ETV
+vector 347 GossipSubNetwork.nodes[476].connectionManager passiveListUpdate:vector ETV
+vector 348 GossipSubNetwork.nodes[367].connectionManager passiveListUpdate:vector ETV
+vector 349 GossipSubNetwork.nodes[11].connectionManager passiveListUpdate:vector ETV
+vector 350 GossipSubNetwork.nodes[23].connectionManager passiveListUpdate:vector ETV
+vector 351 GossipSubNetwork.nodes[480].connectionManager passiveListUpdate:vector ETV
+vector 352 GossipSubNetwork.nodes[148].connectionManager passiveListUpdate:vector ETV
+vector 353 GossipSubNetwork.nodes[187].connectionManager passiveListUpdate:vector ETV
+vector 354 GossipSubNetwork.nodes[321].connectionManager passiveListUpdate:vector ETV
+vector 355 GossipSubNetwork.nodes[497].connectionManager passiveListUpdate:vector ETV
+vector 356 GossipSubNetwork.nodes[118].connectionManager passiveListUpdate:vector ETV
+vector 357 GossipSubNetwork.nodes[108].connectionManager passiveListUpdate:vector ETV
+vector 358 GossipSubNetwork.nodes[370].connectionManager passiveListUpdate:vector ETV
+vector 359 GossipSubNetwork.nodes[417].connectionManager passiveListUpdate:vector ETV
+vector 360 GossipSubNetwork.nodes[37].connectionManager passiveListUpdate:vector ETV
+vector 361 GossipSubNetwork.nodes[415].connectionManager passiveListUpdate:vector ETV
+vector 362 GossipSubNetwork.nodes[192].connectionManager passiveListUpdate:vector ETV
+vector 363 GossipSubNetwork.nodes[115].connectionManager passiveListUpdate:vector ETV
+vector 364 GossipSubNetwork.nodes[360].connectionManager passiveListUpdate:vector ETV
+vector 365 GossipSubNetwork.nodes[81].connectionManager passiveListUpdate:vector ETV
+vector 366 GossipSubNetwork.nodes[293].connectionManager passiveListUpdate:vector ETV
+vector 367 GossipSubNetwork.nodes[259].connectionManager passiveListUpdate:vector ETV
+vector 368 GossipSubNetwork.nodes[209].connectionManager passiveListUpdate:vector ETV
+vector 369 GossipSubNetwork.nodes[471].connectionManager passiveListUpdate:vector ETV
+vector 370 GossipSubNetwork.nodes[76].connectionManager passiveListUpdate:vector ETV
+vector 371 GossipSubNetwork.nodes[225].connectionManager passiveListUpdate:vector ETV
+vector 372 GossipSubNetwork.nodes[167].connectionManager passiveListUpdate:vector ETV
+vector 373 GossipSubNetwork.nodes[3].connectionManager passiveListUpdate:vector ETV
+vector 374 GossipSubNetwork.nodes[327].connectionManager passiveListUpdate:vector ETV
+vector 375 GossipSubNetwork.nodes[354].connectionManager passiveListUpdate:vector ETV
+vector 376 GossipSubNetwork.nodes[324].connectionManager passiveListUpdate:vector ETV
+vector 377 GossipSubNetwork.nodes[446].connectionManager passiveListUpdate:vector ETV
+vector 378 GossipSubNetwork.nodes[440].connectionManager passiveListUpdate:vector ETV
+vector 379 GossipSubNetwork.nodes[67].connectionManager passiveListUpdate:vector ETV
+vector 380 GossipSubNetwork.nodes[356].connectionManager passiveListUpdate:vector ETV
+vector 381 GossipSubNetwork.nodes[86].connectionManager passiveListUpdate:vector ETV
+vector 382 GossipSubNetwork.nodes[451].connectionManager passiveListUpdate:vector ETV
+vector 383 GossipSubNetwork.nodes[151].connectionManager passiveListUpdate:vector ETV
+vector 384 GossipSubNetwork.nodes[8].connectionManager passiveListUpdate:vector ETV
+vector 385 GossipSubNetwork.nodes[484].connectionManager passiveListUpdate:vector ETV
+vector 386 GossipSubNetwork.nodes[368].connectionManager passiveListUpdate:vector ETV
+vector 387 GossipSubNetwork.nodes[223].connectionManager passiveListUpdate:vector ETV
+vector 388 GossipSubNetwork.nodes[199].connectionManager passiveListUpdate:vector ETV
+vector 389 GossipSubNetwork.nodes[302].connectionManager passiveListUpdate:vector ETV
+vector 390 GossipSubNetwork.nodes[490].connectionManager passiveListUpdate:vector ETV
+vector 391 GossipSubNetwork.nodes[275].connectionManager passiveListUpdate:vector ETV
+vector 392 GossipSubNetwork.nodes[61].connectionManager passiveListUpdate:vector ETV
+vector 393 GossipSubNetwork.nodes[188].connectionManager passiveListUpdate:vector ETV
+vector 394 GossipSubNetwork.nodes[168].connectionManager passiveListUpdate:vector ETV
+vector 395 GossipSubNetwork.nodes[32].connectionManager passiveListUpdate:vector ETV
+vector 396 GossipSubNetwork.nodes[305].connectionManager passiveListUpdate:vector ETV
+vector 397 GossipSubNetwork.nodes[198].connectionManager passiveListUpdate:vector ETV
+vector 398 GossipSubNetwork.nodes[39].connectionManager passiveListUpdate:vector ETV
+vector 399 GossipSubNetwork.nodes[345].connectionManager passiveListUpdate:vector ETV
+vector 400 GossipSubNetwork.nodes[232].connectionManager passiveListUpdate:vector ETV
+vector 401 GossipSubNetwork.nodes[311].connectionManager passiveListUpdate:vector ETV
+vector 402 GossipSubNetwork.nodes[244].connectionManager passiveListUpdate:vector ETV
+vector 403 GossipSubNetwork.nodes[9].connectionManager passiveListUpdate:vector ETV
+vector 404 GossipSubNetwork.nodes[131].connectionManager passiveListUpdate:vector ETV
+vector 405 GossipSubNetwork.nodes[286].connectionManager passiveListUpdate:vector ETV
+vector 406 GossipSubNetwork.nodes[78].connectionManager passiveListUpdate:vector ETV
+vector 407 GossipSubNetwork.nodes[274].connectionManager passiveListUpdate:vector ETV
+vector 408 GossipSubNetwork.nodes[285].connectionManager passiveListUpdate:vector ETV
+vector 409 GossipSubNetwork.nodes[464].connectionManager passiveListUpdate:vector ETV
+vector 410 GossipSubNetwork.nodes[0].connectionManager passiveListUpdate:vector ETV
+vector 411 GossipSubNetwork.nodes[2].connectionManager passiveListUpdate:vector ETV
+vector 412 GossipSubNetwork.nodes[398].connectionManager passiveListUpdate:vector ETV
+vector 413 GossipSubNetwork.nodes[333].connectionManager passiveListUpdate:vector ETV
+vector 414 GossipSubNetwork.nodes[136].connectionManager passiveListUpdate:vector ETV
+vector 415 GossipSubNetwork.nodes[308].connectionManager passiveListUpdate:vector ETV
+vector 416 GossipSubNetwork.nodes[430].connectionManager passiveListUpdate:vector ETV
+vector 417 GossipSubNetwork.nodes[359].connectionManager passiveListUpdate:vector ETV
+vector 418 GossipSubNetwork.nodes[491].connectionManager passiveListUpdate:vector ETV
+vector 419 GossipSubNetwork.nodes[234].connectionManager passiveListUpdate:vector ETV
+vector 420 GossipSubNetwork.nodes[70].connectionManager passiveListUpdate:vector ETV
+vector 421 GossipSubNetwork.nodes[342].connectionManager passiveListUpdate:vector ETV
+vector 422 GossipSubNetwork.nodes[362].connectionManager passiveListUpdate:vector ETV
+vector 423 GossipSubNetwork.nodes[454].connectionManager passiveListUpdate:vector ETV
+vector 424 GossipSubNetwork.nodes[310].connectionManager passiveListUpdate:vector ETV
+vector 425 GossipSubNetwork.nodes[452].connectionManager passiveListUpdate:vector ETV
+vector 426 GossipSubNetwork.nodes[346].connectionManager passiveListUpdate:vector ETV
+vector 427 GossipSubNetwork.nodes[69].connectionManager passiveListUpdate:vector ETV
+vector 428 GossipSubNetwork.nodes[36].connectionManager passiveListUpdate:vector ETV
+vector 429 GossipSubNetwork.nodes[382].connectionManager passiveListUpdate:vector ETV
+vector 430 GossipSubNetwork.nodes[226].connectionManager passiveListUpdate:vector ETV
+vector 431 GossipSubNetwork.nodes[418].connectionManager passiveListUpdate:vector ETV
+vector 432 GossipSubNetwork.nodes[340].connectionManager passiveListUpdate:vector ETV
+vector 433 GossipSubNetwork.nodes[249].connectionManager passiveListUpdate:vector ETV
+vector 434 GossipSubNetwork.nodes[334].connectionManager passiveListUpdate:vector ETV
+vector 435 GossipSubNetwork.nodes[414].connectionManager passiveListUpdate:vector ETV
+vector 436 GossipSubNetwork.nodes[348].connectionManager passiveListUpdate:vector ETV
+vector 437 GossipSubNetwork.nodes[193].connectionManager passiveListUpdate:vector ETV
+vector 438 GossipSubNetwork.nodes[496].connectionManager passiveListUpdate:vector ETV
+vector 439 GossipSubNetwork.nodes[20].connectionManager passiveListUpdate:vector ETV
+vector 440 GossipSubNetwork.nodes[93].connectionManager passiveListUpdate:vector ETV
+vector 441 GossipSubNetwork.nodes[126].connectionManager passiveListUpdate:vector ETV
+vector 442 GossipSubNetwork.nodes[397].connectionManager passiveListUpdate:vector ETV
+vector 443 GossipSubNetwork.nodes[477].connectionManager passiveListUpdate:vector ETV
+vector 444 GossipSubNetwork.nodes[262].connectionManager passiveListUpdate:vector ETV
+vector 445 GossipSubNetwork.nodes[189].connectionManager passiveListUpdate:vector ETV
+vector 446 GossipSubNetwork.nodes[29].connectionManager passiveListUpdate:vector ETV
+vector 447 GossipSubNetwork.nodes[498].connectionManager passiveListUpdate:vector ETV
+vector 448 GossipSubNetwork.nodes[203].connectionManager passiveListUpdate:vector ETV
+vector 449 GossipSubNetwork.nodes[80].connectionManager passiveListUpdate:vector ETV
+vector 450 GossipSubNetwork.nodes[429].connectionManager passiveListUpdate:vector ETV
+vector 451 GossipSubNetwork.nodes[15].connectionManager passiveListUpdate:vector ETV
+vector 452 GossipSubNetwork.nodes[159].connectionManager passiveListUpdate:vector ETV
+vector 453 GossipSubNetwork.nodes[102].connectionManager passiveListUpdate:vector ETV
+vector 454 GossipSubNetwork.nodes[51].connectionManager passiveListUpdate:vector ETV
+vector 455 GossipSubNetwork.nodes[263].connectionManager passiveListUpdate:vector ETV
+vector 456 GossipSubNetwork.nodes[162].connectionManager passiveListUpdate:vector ETV
+vector 457 GossipSubNetwork.nodes[138].connectionManager passiveListUpdate:vector ETV
+vector 458 GossipSubNetwork.nodes[195].connectionManager passiveListUpdate:vector ETV
+vector 459 GossipSubNetwork.nodes[447].connectionManager passiveListUpdate:vector ETV
+vector 460 GossipSubNetwork.nodes[85].connectionManager passiveListUpdate:vector ETV
+vector 461 GossipSubNetwork.nodes[40].connectionManager passiveListUpdate:vector ETV
+vector 462 GossipSubNetwork.nodes[1].connectionManager passiveListUpdate:vector ETV
+vector 463 GossipSubNetwork.nodes[175].connectionManager passiveListUpdate:vector ETV
+vector 464 GossipSubNetwork.nodes[373].connectionManager passiveListUpdate:vector ETV
+vector 465 GossipSubNetwork.nodes[376].connectionManager passiveListUpdate:vector ETV
+vector 466 GossipSubNetwork.nodes[239].connectionManager passiveListUpdate:vector ETV
+vector 467 GossipSubNetwork.nodes[386].connectionManager passiveListUpdate:vector ETV
+vector 468 GossipSubNetwork.nodes[104].connectionManager passiveListUpdate:vector ETV
+vector 469 GossipSubNetwork.nodes[96].connectionManager passiveListUpdate:vector ETV
+vector 470 GossipSubNetwork.nodes[300].connectionManager passiveListUpdate:vector ETV
+vector 471 GossipSubNetwork.nodes[281].connectionManager passiveListUpdate:vector ETV
+vector 472 GossipSubNetwork.nodes[461].connectionManager passiveListUpdate:vector ETV
+vector 473 GossipSubNetwork.nodes[400].connectionManager passiveListUpdate:vector ETV
+vector 474 GossipSubNetwork.nodes[241].connectionManager passiveListUpdate:vector ETV
+vector 475 GossipSubNetwork.nodes[163].connectionManager passiveListUpdate:vector ETV
+vector 476 GossipSubNetwork.nodes[25].connectionManager passiveListUpdate:vector ETV
+vector 477 GossipSubNetwork.nodes[444].connectionManager passiveListUpdate:vector ETV
+vector 478 GossipSubNetwork.nodes[208].connectionManager passiveListUpdate:vector ETV
+vector 479 GossipSubNetwork.nodes[350].connectionManager passiveListUpdate:vector ETV
+vector 480 GossipSubNetwork.nodes[24].connectionManager passiveListUpdate:vector ETV
+vector 481 GossipSubNetwork.nodes[427].connectionManager passiveListUpdate:vector ETV
+vector 482 GossipSubNetwork.nodes[481].connectionManager passiveListUpdate:vector ETV
+vector 483 GossipSubNetwork.nodes[107].connectionManager passiveListUpdate:vector ETV
+vector 484 GossipSubNetwork.nodes[251].connectionManager passiveListUpdate:vector ETV
+vector 485 GossipSubNetwork.nodes[21].connectionManager passiveListUpdate:vector ETV
+vector 486 GossipSubNetwork.nodes[474].connectionManager passiveListUpdate:vector ETV
+vector 487 GossipSubNetwork.nodes[434].connectionManager passiveListUpdate:vector ETV
+vector 488 GossipSubNetwork.nodes[445].connectionManager passiveListUpdate:vector ETV
+vector 489 GossipSubNetwork.nodes[280].connectionManager passiveListUpdate:vector ETV
+vector 490 GossipSubNetwork.nodes[495].connectionManager passiveListUpdate:vector ETV
+vector 491 GossipSubNetwork.nodes[453].connectionManager passiveListUpdate:vector ETV
+vector 492 GossipSubNetwork.nodes[229].connectionManager passiveListUpdate:vector ETV
+vector 493 GossipSubNetwork.nodes[200].connectionManager passiveListUpdate:vector ETV
+vector 494 GossipSubNetwork.nodes[436].connectionManager passiveListUpdate:vector ETV
+vector 495 GossipSubNetwork.nodes[456].connectionManager passiveListUpdate:vector ETV
+vector 496 GossipSubNetwork.nodes[217].connectionManager passiveListUpdate:vector ETV
+vector 497 GossipSubNetwork.nodes[364].connectionManager passiveListUpdate:vector ETV
+vector 498 GossipSubNetwork.nodes[466].connectionManager passiveListUpdate:vector ETV
+vector 499 GossipSubNetwork.nodes[366].connectionManager passiveListUpdate:vector ETV
+vector 500 GossipSubNetwork.nodes[38].connectionManager activeListUpdate:vector ETV
+vector 501 GossipSubNetwork.nodes[246].connectionManager activeListUpdate:vector ETV
+vector 502 GossipSubNetwork.nodes[50].connectionManager activeListUpdate:vector ETV
+vector 503 GossipSubNetwork.nodes[166].connectionManager activeListUpdate:vector ETV
+vector 504 GossipSubNetwork.nodes[121].connectionManager activeListUpdate:vector ETV
+vector 505 GossipSubNetwork.nodes[149].connectionManager activeListUpdate:vector ETV
+vector 506 GossipSubNetwork.nodes[344].connectionManager activeListUpdate:vector ETV
+vector 507 GossipSubNetwork.nodes[478].connectionManager activeListUpdate:vector ETV
+vector 508 GossipSubNetwork.nodes[44].connectionManager activeListUpdate:vector ETV
+vector 509 GossipSubNetwork.nodes[213].connectionManager activeListUpdate:vector ETV
+vector 510 GossipSubNetwork.nodes[142].connectionManager activeListUpdate:vector ETV
+vector 511 GossipSubNetwork.nodes[448].connectionManager activeListUpdate:vector ETV
+vector 512 GossipSubNetwork.nodes[28].connectionManager activeListUpdate:vector ETV
+vector 513 GossipSubNetwork.nodes[393].connectionManager activeListUpdate:vector ETV
+vector 514 GossipSubNetwork.nodes[332].connectionManager activeListUpdate:vector ETV
+vector 515 GossipSubNetwork.nodes[153].connectionManager activeListUpdate:vector ETV
+vector 516 GossipSubNetwork.nodes[220].connectionManager activeListUpdate:vector ETV
+vector 517 GossipSubNetwork.nodes[443].connectionManager activeListUpdate:vector ETV
+vector 518 GossipSubNetwork.nodes[106].connectionManager activeListUpdate:vector ETV
+vector 519 GossipSubNetwork.nodes[283].connectionManager activeListUpdate:vector ETV
+vector 520 GossipSubNetwork.nodes[114].connectionManager activeListUpdate:vector ETV
+vector 521 GossipSubNetwork.nodes[119].connectionManager activeListUpdate:vector ETV
+vector 522 GossipSubNetwork.nodes[2].connectionManager activeListUpdate:vector ETV
+vector 523 GossipSubNetwork.nodes[181].connectionManager activeListUpdate:vector ETV
+vector 524 GossipSubNetwork.nodes[27].connectionManager activeListUpdate:vector ETV
+vector 525 GossipSubNetwork.nodes[297].connectionManager activeListUpdate:vector ETV
+vector 526 GossipSubNetwork.nodes[335].connectionManager activeListUpdate:vector ETV
+vector 527 GossipSubNetwork.nodes[475].connectionManager activeListUpdate:vector ETV
+vector 528 GossipSubNetwork.nodes[374].connectionManager activeListUpdate:vector ETV
+vector 529 GossipSubNetwork.nodes[123].connectionManager activeListUpdate:vector ETV
+vector 530 GossipSubNetwork.nodes[326].connectionManager activeListUpdate:vector ETV
+vector 531 GossipSubNetwork.nodes[184].connectionManager activeListUpdate:vector ETV
+vector 532 GossipSubNetwork.nodes[499].connectionManager activeListUpdate:vector ETV
+vector 533 GossipSubNetwork.nodes[128].connectionManager activeListUpdate:vector ETV
+vector 534 GossipSubNetwork.nodes[150].connectionManager activeListUpdate:vector ETV
+vector 535 GossipSubNetwork.nodes[129].connectionManager activeListUpdate:vector ETV
+vector 536 GossipSubNetwork.nodes[243].connectionManager activeListUpdate:vector ETV
+vector 537 GossipSubNetwork.nodes[4].connectionManager activeListUpdate:vector ETV
+vector 538 GossipSubNetwork.nodes[177].connectionManager activeListUpdate:vector ETV
+vector 539 GossipSubNetwork.nodes[154].connectionManager activeListUpdate:vector ETV
+vector 540 GossipSubNetwork.nodes[22].connectionManager activeListUpdate:vector ETV
+vector 541 GossipSubNetwork.nodes[48].connectionManager activeListUpdate:vector ETV
+vector 542 GossipSubNetwork.nodes[233].connectionManager activeListUpdate:vector ETV
+vector 543 GossipSubNetwork.nodes[120].connectionManager activeListUpdate:vector ETV
+vector 544 GossipSubNetwork.nodes[183].connectionManager activeListUpdate:vector ETV
+vector 545 GossipSubNetwork.nodes[494].connectionManager activeListUpdate:vector ETV
+vector 546 GossipSubNetwork.nodes[269].connectionManager activeListUpdate:vector ETV
+vector 547 GossipSubNetwork.nodes[277].connectionManager activeListUpdate:vector ETV
+vector 548 GossipSubNetwork.nodes[196].connectionManager activeListUpdate:vector ETV
+vector 549 GossipSubNetwork.nodes[271].connectionManager activeListUpdate:vector ETV
+vector 550 GossipSubNetwork.nodes[309].connectionManager activeListUpdate:vector ETV
+vector 551 GossipSubNetwork.nodes[35].connectionManager activeListUpdate:vector ETV
+vector 552 GossipSubNetwork.nodes[299].connectionManager activeListUpdate:vector ETV
+vector 553 GossipSubNetwork.nodes[247].connectionManager activeListUpdate:vector ETV
+vector 554 GossipSubNetwork.nodes[276].connectionManager activeListUpdate:vector ETV
+vector 555 GossipSubNetwork.nodes[384].connectionManager activeListUpdate:vector ETV
+vector 556 GossipSubNetwork.nodes[425].connectionManager activeListUpdate:vector ETV
+vector 557 GossipSubNetwork.nodes[312].connectionManager activeListUpdate:vector ETV
+vector 558 GossipSubNetwork.nodes[472].connectionManager activeListUpdate:vector ETV
+vector 559 GossipSubNetwork.nodes[383].connectionManager activeListUpdate:vector ETV
+vector 560 GossipSubNetwork.nodes[216].connectionManager activeListUpdate:vector ETV
+vector 561 GossipSubNetwork.nodes[353].connectionManager activeListUpdate:vector ETV
+vector 562 GossipSubNetwork.nodes[219].connectionManager activeListUpdate:vector ETV
+vector 563 GossipSubNetwork.nodes[5].connectionManager activeListUpdate:vector ETV
+vector 564 GossipSubNetwork.nodes[141].connectionManager activeListUpdate:vector ETV
+vector 565 GossipSubNetwork.nodes[361].connectionManager activeListUpdate:vector ETV
+vector 566 GossipSubNetwork.nodes[215].connectionManager activeListUpdate:vector ETV
+vector 567 GossipSubNetwork.nodes[212].connectionManager activeListUpdate:vector ETV
+vector 568 GossipSubNetwork.nodes[101].connectionManager activeListUpdate:vector ETV
+vector 569 GossipSubNetwork.nodes[122].connectionManager activeListUpdate:vector ETV
+vector 570 GossipSubNetwork.nodes[408].connectionManager activeListUpdate:vector ETV
+vector 571 GossipSubNetwork.nodes[160].connectionManager activeListUpdate:vector ETV
+vector 572 GossipSubNetwork.nodes[339].connectionManager activeListUpdate:vector ETV
+vector 573 GossipSubNetwork.nodes[240].connectionManager activeListUpdate:vector ETV
+vector 574 GossipSubNetwork.nodes[284].connectionManager activeListUpdate:vector ETV
+vector 575 GossipSubNetwork.nodes[313].connectionManager activeListUpdate:vector ETV
+vector 576 GossipSubNetwork.nodes[322].connectionManager activeListUpdate:vector ETV
+vector 577 GossipSubNetwork.nodes[371].connectionManager activeListUpdate:vector ETV
+vector 578 GossipSubNetwork.nodes[433].connectionManager activeListUpdate:vector ETV
+vector 579 GossipSubNetwork.nodes[14].connectionManager activeListUpdate:vector ETV
+vector 580 GossipSubNetwork.nodes[278].connectionManager activeListUpdate:vector ETV
+vector 581 GossipSubNetwork.nodes[53].connectionManager activeListUpdate:vector ETV
+vector 582 GossipSubNetwork.nodes[320].connectionManager activeListUpdate:vector ETV
+vector 583 GossipSubNetwork.nodes[352].connectionManager activeListUpdate:vector ETV
+vector 584 GossipSubNetwork.nodes[6].connectionManager activeListUpdate:vector ETV
+vector 585 GossipSubNetwork.nodes[65].connectionManager activeListUpdate:vector ETV
+vector 586 GossipSubNetwork.nodes[179].connectionManager activeListUpdate:vector ETV
+vector 587 GossipSubNetwork.nodes[71].connectionManager activeListUpdate:vector ETV
+vector 588 GossipSubNetwork.nodes[265].connectionManager activeListUpdate:vector ETV
+vector 589 GossipSubNetwork.nodes[190].connectionManager activeListUpdate:vector ETV
+vector 590 GossipSubNetwork.nodes[492].connectionManager activeListUpdate:vector ETV
+vector 591 GossipSubNetwork.nodes[465].connectionManager activeListUpdate:vector ETV
+vector 592 GossipSubNetwork.nodes[369].connectionManager activeListUpdate:vector ETV
+vector 593 GossipSubNetwork.nodes[402].connectionManager activeListUpdate:vector ETV
+vector 594 GossipSubNetwork.nodes[273].connectionManager activeListUpdate:vector ETV
+vector 595 GossipSubNetwork.nodes[441].connectionManager activeListUpdate:vector ETV
+vector 596 GossipSubNetwork.nodes[55].connectionManager activeListUpdate:vector ETV
+vector 597 GossipSubNetwork.nodes[349].connectionManager activeListUpdate:vector ETV
+vector 598 GossipSubNetwork.nodes[268].connectionManager activeListUpdate:vector ETV
+vector 599 GossipSubNetwork.nodes[486].connectionManager activeListUpdate:vector ETV
+vector 600 GossipSubNetwork.nodes[224].connectionManager activeListUpdate:vector ETV
+vector 601 GossipSubNetwork.nodes[84].connectionManager activeListUpdate:vector ETV
+vector 602 GossipSubNetwork.nodes[206].connectionManager activeListUpdate:vector ETV
+vector 603 GossipSubNetwork.nodes[252].connectionManager activeListUpdate:vector ETV
+vector 604 GossipSubNetwork.nodes[60].connectionManager activeListUpdate:vector ETV
+vector 605 GossipSubNetwork.nodes[292].connectionManager activeListUpdate:vector ETV
+vector 606 GossipSubNetwork.nodes[419].connectionManager activeListUpdate:vector ETV
+vector 607 GossipSubNetwork.nodes[110].connectionManager activeListUpdate:vector ETV
+vector 608 GossipSubNetwork.nodes[442].connectionManager activeListUpdate:vector ETV
+vector 609 GossipSubNetwork.nodes[12].connectionManager activeListUpdate:vector ETV
+vector 610 GossipSubNetwork.nodes[423].connectionManager activeListUpdate:vector ETV
+vector 611 GossipSubNetwork.nodes[205].connectionManager activeListUpdate:vector ETV
+vector 612 GossipSubNetwork.nodes[49].connectionManager activeListUpdate:vector ETV
+vector 613 GossipSubNetwork.nodes[288].connectionManager activeListUpdate:vector ETV
+vector 614 GossipSubNetwork.nodes[387].connectionManager activeListUpdate:vector ETV
+vector 615 GossipSubNetwork.nodes[245].connectionManager activeListUpdate:vector ETV
+vector 616 GossipSubNetwork.nodes[459].connectionManager activeListUpdate:vector ETV
+vector 617 GossipSubNetwork.nodes[165].connectionManager activeListUpdate:vector ETV
+vector 618 GossipSubNetwork.nodes[314].connectionManager activeListUpdate:vector ETV
+vector 619 GossipSubNetwork.nodes[411].connectionManager activeListUpdate:vector ETV
+vector 620 GossipSubNetwork.nodes[421].connectionManager activeListUpdate:vector ETV
+vector 621 GossipSubNetwork.nodes[394].connectionManager activeListUpdate:vector ETV
+vector 622 GossipSubNetwork.nodes[238].connectionManager activeListUpdate:vector ETV
+vector 623 GossipSubNetwork.nodes[304].connectionManager activeListUpdate:vector ETV
+vector 624 GossipSubNetwork.nodes[204].connectionManager activeListUpdate:vector ETV
+vector 625 GossipSubNetwork.nodes[437].connectionManager activeListUpdate:vector ETV
+vector 626 GossipSubNetwork.nodes[30].connectionManager activeListUpdate:vector ETV
+vector 627 GossipSubNetwork.nodes[325].connectionManager activeListUpdate:vector ETV
+vector 628 GossipSubNetwork.nodes[89].connectionManager activeListUpdate:vector ETV
+vector 629 GossipSubNetwork.nodes[161].connectionManager activeListUpdate:vector ETV
+vector 630 GossipSubNetwork.nodes[422].connectionManager activeListUpdate:vector ETV
+vector 631 GossipSubNetwork.nodes[328].connectionManager activeListUpdate:vector ETV
+vector 632 GossipSubNetwork.nodes[317].connectionManager activeListUpdate:vector ETV
+vector 633 GossipSubNetwork.nodes[336].connectionManager activeListUpdate:vector ETV
+vector 634 GossipSubNetwork.nodes[172].connectionManager activeListUpdate:vector ETV
+vector 635 GossipSubNetwork.nodes[42].connectionManager activeListUpdate:vector ETV
+vector 636 GossipSubNetwork.nodes[406].connectionManager activeListUpdate:vector ETV
+vector 637 GossipSubNetwork.nodes[33].connectionManager activeListUpdate:vector ETV
+vector 638 GossipSubNetwork.nodes[10].connectionManager activeListUpdate:vector ETV
+vector 639 GossipSubNetwork.nodes[372].connectionManager activeListUpdate:vector ETV
+vector 640 GossipSubNetwork.nodes[473].connectionManager activeListUpdate:vector ETV
+vector 641 GossipSubNetwork.nodes[201].connectionManager activeListUpdate:vector ETV
+vector 642 GossipSubNetwork.nodes[399].connectionManager activeListUpdate:vector ETV
+vector 643 GossipSubNetwork.nodes[174].connectionManager activeListUpdate:vector ETV
+vector 644 GossipSubNetwork.nodes[125].connectionManager activeListUpdate:vector ETV
+vector 645 GossipSubNetwork.nodes[449].connectionManager activeListUpdate:vector ETV
+vector 646 GossipSubNetwork.nodes[98].connectionManager activeListUpdate:vector ETV
+vector 647 GossipSubNetwork.nodes[428].connectionManager activeListUpdate:vector ETV
+vector 648 GossipSubNetwork.nodes[392].connectionManager activeListUpdate:vector ETV
+vector 649 GossipSubNetwork.nodes[94].connectionManager activeListUpdate:vector ETV
+vector 650 GossipSubNetwork.nodes[409].connectionManager activeListUpdate:vector ETV
+vector 651 GossipSubNetwork.nodes[191].connectionManager activeListUpdate:vector ETV
+vector 652 GossipSubNetwork.nodes[92].connectionManager activeListUpdate:vector ETV
+vector 653 GossipSubNetwork.nodes[267].connectionManager activeListUpdate:vector ETV
+vector 654 GossipSubNetwork.nodes[137].connectionManager activeListUpdate:vector ETV
+vector 655 GossipSubNetwork.nodes[64].connectionManager activeListUpdate:vector ETV
+vector 656 GossipSubNetwork.nodes[75].connectionManager activeListUpdate:vector ETV
+vector 657 GossipSubNetwork.nodes[306].connectionManager activeListUpdate:vector ETV
+vector 658 GossipSubNetwork.nodes[103].connectionManager activeListUpdate:vector ETV
+vector 659 GossipSubNetwork.nodes[214].connectionManager activeListUpdate:vector ETV
+vector 660 GossipSubNetwork.nodes[178].connectionManager activeListUpdate:vector ETV
+vector 661 GossipSubNetwork.nodes[133].connectionManager activeListUpdate:vector ETV
+vector 662 GossipSubNetwork.nodes[221].connectionManager activeListUpdate:vector ETV
+vector 663 GossipSubNetwork.nodes[404].connectionManager activeListUpdate:vector ETV
+vector 664 GossipSubNetwork.nodes[295].connectionManager activeListUpdate:vector ETV
+vector 665 GossipSubNetwork.nodes[146].connectionManager activeListUpdate:vector ETV
+vector 666 GossipSubNetwork.nodes[439].connectionManager activeListUpdate:vector ETV
+vector 667 GossipSubNetwork.nodes[170].connectionManager activeListUpdate:vector ETV
+vector 668 GossipSubNetwork.nodes[250].connectionManager activeListUpdate:vector ETV
+vector 669 GossipSubNetwork.nodes[16].connectionManager activeListUpdate:vector ETV
+vector 670 GossipSubNetwork.nodes[420].connectionManager activeListUpdate:vector ETV
+vector 671 GossipSubNetwork.nodes[111].connectionManager activeListUpdate:vector ETV
+vector 672 GossipSubNetwork.nodes[396].connectionManager activeListUpdate:vector ETV
+vector 673 GossipSubNetwork.nodes[458].connectionManager activeListUpdate:vector ETV
+vector 674 GossipSubNetwork.nodes[173].connectionManager activeListUpdate:vector ETV
+vector 675 GossipSubNetwork.nodes[145].connectionManager activeListUpdate:vector ETV
+vector 676 GossipSubNetwork.nodes[90].connectionManager activeListUpdate:vector ETV
+vector 677 GossipSubNetwork.nodes[487].connectionManager activeListUpdate:vector ETV
+vector 678 GossipSubNetwork.nodes[100].connectionManager activeListUpdate:vector ETV
+vector 679 GossipSubNetwork.nodes[385].connectionManager activeListUpdate:vector ETV
+vector 680 GossipSubNetwork.nodes[463].connectionManager activeListUpdate:vector ETV
+vector 681 GossipSubNetwork.nodes[26].connectionManager activeListUpdate:vector ETV
+vector 682 GossipSubNetwork.nodes[164].connectionManager activeListUpdate:vector ETV
+vector 683 GossipSubNetwork.nodes[77].connectionManager activeListUpdate:vector ETV
+vector 684 GossipSubNetwork.nodes[318].connectionManager activeListUpdate:vector ETV
+vector 685 GossipSubNetwork.nodes[410].connectionManager activeListUpdate:vector ETV
+vector 686 GossipSubNetwork.nodes[388].connectionManager activeListUpdate:vector ETV
+vector 687 GossipSubNetwork.nodes[390].connectionManager activeListUpdate:vector ETV
+vector 688 GossipSubNetwork.nodes[135].connectionManager activeListUpdate:vector ETV
+vector 689 GossipSubNetwork.nodes[144].connectionManager activeListUpdate:vector ETV
+vector 690 GossipSubNetwork.nodes[407].connectionManager activeListUpdate:vector ETV
+vector 691 GossipSubNetwork.nodes[197].connectionManager activeListUpdate:vector ETV
+vector 692 GossipSubNetwork.nodes[236].connectionManager activeListUpdate:vector ETV
+vector 693 GossipSubNetwork.nodes[19].connectionManager activeListUpdate:vector ETV
+vector 694 GossipSubNetwork.nodes[488].connectionManager activeListUpdate:vector ETV
+vector 695 GossipSubNetwork.nodes[258].connectionManager activeListUpdate:vector ETV
+vector 696 GossipSubNetwork.nodes[426].connectionManager activeListUpdate:vector ETV
+vector 697 GossipSubNetwork.nodes[316].connectionManager activeListUpdate:vector ETV
+vector 698 GossipSubNetwork.nodes[323].connectionManager activeListUpdate:vector ETV
+vector 699 GossipSubNetwork.nodes[462].connectionManager activeListUpdate:vector ETV
+vector 700 GossipSubNetwork.nodes[180].connectionManager activeListUpdate:vector ETV
+vector 701 GossipSubNetwork.nodes[95].connectionManager activeListUpdate:vector ETV
+vector 702 GossipSubNetwork.nodes[460].connectionManager activeListUpdate:vector ETV
+vector 703 GossipSubNetwork.nodes[254].connectionManager activeListUpdate:vector ETV
+vector 704 GossipSubNetwork.nodes[222].connectionManager activeListUpdate:vector ETV
+vector 705 GossipSubNetwork.nodes[99].connectionManager activeListUpdate:vector ETV
+vector 706 GossipSubNetwork.nodes[303].connectionManager activeListUpdate:vector ETV
+vector 707 GossipSubNetwork.nodes[450].connectionManager activeListUpdate:vector ETV
+vector 708 GossipSubNetwork.nodes[379].connectionManager activeListUpdate:vector ETV
+vector 709 GossipSubNetwork.nodes[479].connectionManager activeListUpdate:vector ETV
+vector 710 GossipSubNetwork.nodes[72].connectionManager activeListUpdate:vector ETV
+vector 711 GossipSubNetwork.nodes[315].connectionManager activeListUpdate:vector ETV
+vector 712 GossipSubNetwork.nodes[147].connectionManager activeListUpdate:vector ETV
+vector 713 GossipSubNetwork.nodes[289].connectionManager activeListUpdate:vector ETV
+vector 714 GossipSubNetwork.nodes[237].connectionManager activeListUpdate:vector ETV
+vector 715 GossipSubNetwork.nodes[143].connectionManager activeListUpdate:vector ETV
+vector 716 GossipSubNetwork.nodes[152].connectionManager activeListUpdate:vector ETV
+vector 717 GossipSubNetwork.nodes[307].connectionManager activeListUpdate:vector ETV
+vector 718 GossipSubNetwork.nodes[58].connectionManager activeListUpdate:vector ETV
+vector 719 GossipSubNetwork.nodes[18].connectionManager activeListUpdate:vector ETV
+vector 720 GossipSubNetwork.nodes[66].connectionManager activeListUpdate:vector ETV
+vector 721 GossipSubNetwork.nodes[79].connectionManager activeListUpdate:vector ETV
+vector 722 GossipSubNetwork.nodes[97].connectionManager activeListUpdate:vector ETV
+vector 723 GossipSubNetwork.nodes[57].connectionManager activeListUpdate:vector ETV
+vector 724 GossipSubNetwork.nodes[438].connectionManager activeListUpdate:vector ETV
+vector 725 GossipSubNetwork.nodes[403].connectionManager activeListUpdate:vector ETV
+vector 726 GossipSubNetwork.nodes[260].connectionManager activeListUpdate:vector ETV
+vector 727 GossipSubNetwork.nodes[279].connectionManager activeListUpdate:vector ETV
+vector 728 GossipSubNetwork.nodes[291].connectionManager activeListUpdate:vector ETV
+vector 729 GossipSubNetwork.nodes[365].connectionManager activeListUpdate:vector ETV
+vector 730 GossipSubNetwork.nodes[186].connectionManager activeListUpdate:vector ETV
+vector 731 GossipSubNetwork.nodes[330].connectionManager activeListUpdate:vector ETV
+vector 732 GossipSubNetwork.nodes[228].connectionManager activeListUpdate:vector ETV
+vector 733 GossipSubNetwork.nodes[381].connectionManager activeListUpdate:vector ETV
+vector 734 GossipSubNetwork.nodes[358].connectionManager activeListUpdate:vector ETV
+vector 735 GossipSubNetwork.nodes[230].connectionManager activeListUpdate:vector ETV
+vector 736 GossipSubNetwork.nodes[155].connectionManager activeListUpdate:vector ETV
+vector 737 GossipSubNetwork.nodes[290].connectionManager activeListUpdate:vector ETV
+vector 738 GossipSubNetwork.nodes[270].connectionManager activeListUpdate:vector ETV
+vector 739 GossipSubNetwork.nodes[264].connectionManager activeListUpdate:vector ETV
+vector 740 GossipSubNetwork.nodes[63].connectionManager activeListUpdate:vector ETV
+vector 741 GossipSubNetwork.nodes[389].connectionManager activeListUpdate:vector ETV
+vector 742 GossipSubNetwork.nodes[294].connectionManager activeListUpdate:vector ETV
+vector 743 GossipSubNetwork.nodes[132].connectionManager activeListUpdate:vector ETV
+vector 744 GossipSubNetwork.nodes[256].connectionManager activeListUpdate:vector ETV
+vector 745 GossipSubNetwork.nodes[0].connectionManager activeListUpdate:vector ETV
+vector 746 GossipSubNetwork.nodes[45].connectionManager activeListUpdate:vector ETV
+vector 747 GossipSubNetwork.nodes[363].connectionManager activeListUpdate:vector ETV
+vector 748 GossipSubNetwork.nodes[74].connectionManager activeListUpdate:vector ETV
+vector 749 GossipSubNetwork.nodes[235].connectionManager activeListUpdate:vector ETV
+vector 750 GossipSubNetwork.nodes[207].connectionManager activeListUpdate:vector ETV
+vector 751 GossipSubNetwork.nodes[231].connectionManager activeListUpdate:vector ETV
+vector 752 GossipSubNetwork.nodes[43].connectionManager activeListUpdate:vector ETV
+vector 753 GossipSubNetwork.nodes[347].connectionManager activeListUpdate:vector ETV
+vector 754 GossipSubNetwork.nodes[117].connectionManager activeListUpdate:vector ETV
+vector 755 GossipSubNetwork.nodes[7].connectionManager activeListUpdate:vector ETV
+vector 756 GossipSubNetwork.nodes[261].connectionManager activeListUpdate:vector ETV
+vector 757 GossipSubNetwork.nodes[185].connectionManager activeListUpdate:vector ETV
+vector 758 GossipSubNetwork.nodes[337].connectionManager activeListUpdate:vector ETV
+vector 759 GossipSubNetwork.nodes[17].connectionManager activeListUpdate:vector ETV
+vector 760 GossipSubNetwork.nodes[182].connectionManager activeListUpdate:vector ETV
+vector 761 GossipSubNetwork.nodes[483].connectionManager activeListUpdate:vector ETV
+vector 762 GossipSubNetwork.nodes[380].connectionManager activeListUpdate:vector ETV
+vector 763 GossipSubNetwork.nodes[331].connectionManager activeListUpdate:vector ETV
+vector 764 GossipSubNetwork.nodes[59].connectionManager activeListUpdate:vector ETV
+vector 765 GossipSubNetwork.nodes[202].connectionManager activeListUpdate:vector ETV
+vector 766 GossipSubNetwork.nodes[116].connectionManager activeListUpdate:vector ETV
+vector 767 GossipSubNetwork.nodes[210].connectionManager activeListUpdate:vector ETV
+vector 768 GossipSubNetwork.nodes[301].connectionManager activeListUpdate:vector ETV
+vector 769 GossipSubNetwork.nodes[351].connectionManager activeListUpdate:vector ETV
+vector 770 GossipSubNetwork.nodes[457].connectionManager activeListUpdate:vector ETV
+vector 771 GossipSubNetwork.nodes[46].connectionManager activeListUpdate:vector ETV
+vector 772 GossipSubNetwork.nodes[34].connectionManager activeListUpdate:vector ETV
+vector 773 GossipSubNetwork.nodes[140].connectionManager activeListUpdate:vector ETV
+vector 774 GossipSubNetwork.nodes[157].connectionManager activeListUpdate:vector ETV
+vector 775 GossipSubNetwork.nodes[469].connectionManager activeListUpdate:vector ETV
+vector 776 GossipSubNetwork.nodes[105].connectionManager activeListUpdate:vector ETV
+vector 777 GossipSubNetwork.nodes[467].connectionManager activeListUpdate:vector ETV
+vector 778 GossipSubNetwork.nodes[319].connectionManager activeListUpdate:vector ETV
+vector 779 GossipSubNetwork.nodes[391].connectionManager activeListUpdate:vector ETV
+vector 780 GossipSubNetwork.nodes[248].connectionManager activeListUpdate:vector ETV
+vector 781 GossipSubNetwork.nodes[255].connectionManager activeListUpdate:vector ETV
+vector 782 GossipSubNetwork.nodes[257].connectionManager activeListUpdate:vector ETV
+vector 783 GossipSubNetwork.nodes[455].connectionManager activeListUpdate:vector ETV
+vector 784 GossipSubNetwork.nodes[395].connectionManager activeListUpdate:vector ETV
+vector 785 GossipSubNetwork.nodes[405].connectionManager activeListUpdate:vector ETV
+vector 786 GossipSubNetwork.nodes[68].connectionManager activeListUpdate:vector ETV
+vector 787 GossipSubNetwork.nodes[431].connectionManager activeListUpdate:vector ETV
+vector 788 GossipSubNetwork.nodes[211].connectionManager activeListUpdate:vector ETV
+vector 789 GossipSubNetwork.nodes[87].connectionManager activeListUpdate:vector ETV
+vector 790 GossipSubNetwork.nodes[489].connectionManager activeListUpdate:vector ETV
+vector 791 GossipSubNetwork.nodes[31].connectionManager activeListUpdate:vector ETV
+vector 792 GossipSubNetwork.nodes[169].connectionManager activeListUpdate:vector ETV
+vector 793 GossipSubNetwork.nodes[109].connectionManager activeListUpdate:vector ETV
+vector 794 GossipSubNetwork.nodes[424].connectionManager activeListUpdate:vector ETV
+vector 795 GossipSubNetwork.nodes[287].connectionManager activeListUpdate:vector ETV
+vector 796 GossipSubNetwork.nodes[416].connectionManager activeListUpdate:vector ETV
+vector 797 GossipSubNetwork.nodes[482].connectionManager activeListUpdate:vector ETV
+vector 798 GossipSubNetwork.nodes[54].connectionManager activeListUpdate:vector ETV
+vector 799 GossipSubNetwork.nodes[296].connectionManager activeListUpdate:vector ETV
+vector 800 GossipSubNetwork.nodes[41].connectionManager activeListUpdate:vector ETV
+vector 801 GossipSubNetwork.nodes[127].connectionManager activeListUpdate:vector ETV
+vector 802 GossipSubNetwork.nodes[52].connectionManager activeListUpdate:vector ETV
+vector 803 GossipSubNetwork.nodes[375].connectionManager activeListUpdate:vector ETV
+vector 804 GossipSubNetwork.nodes[83].connectionManager activeListUpdate:vector ETV
+vector 805 GossipSubNetwork.nodes[468].connectionManager activeListUpdate:vector ETV
+vector 806 GossipSubNetwork.nodes[156].connectionManager activeListUpdate:vector ETV
+vector 807 GossipSubNetwork.nodes[227].connectionManager activeListUpdate:vector ETV
+vector 808 GossipSubNetwork.nodes[130].connectionManager activeListUpdate:vector ETV
+vector 809 GossipSubNetwork.nodes[485].connectionManager activeListUpdate:vector ETV
+vector 810 GossipSubNetwork.nodes[355].connectionManager activeListUpdate:vector ETV
+vector 811 GossipSubNetwork.nodes[218].connectionManager activeListUpdate:vector ETV
+vector 812 GossipSubNetwork.nodes[357].connectionManager activeListUpdate:vector ETV
+vector 813 GossipSubNetwork.nodes[158].connectionManager activeListUpdate:vector ETV
+vector 814 GossipSubNetwork.nodes[13].connectionManager activeListUpdate:vector ETV
+vector 815 GossipSubNetwork.nodes[412].connectionManager activeListUpdate:vector ETV
+vector 816 GossipSubNetwork.nodes[134].connectionManager activeListUpdate:vector ETV
+vector 817 GossipSubNetwork.nodes[113].connectionManager activeListUpdate:vector ETV
+vector 818 GossipSubNetwork.nodes[298].connectionManager activeListUpdate:vector ETV
+vector 819 GossipSubNetwork.nodes[82].connectionManager activeListUpdate:vector ETV
+vector 820 GossipSubNetwork.nodes[253].connectionManager activeListUpdate:vector ETV
+vector 821 GossipSubNetwork.nodes[91].connectionManager activeListUpdate:vector ETV
+vector 822 GossipSubNetwork.nodes[1].connectionManager activeListUpdate:vector ETV
+vector 823 GossipSubNetwork.nodes[329].connectionManager activeListUpdate:vector ETV
+vector 824 GossipSubNetwork.nodes[47].connectionManager activeListUpdate:vector ETV
+vector 825 GossipSubNetwork.nodes[176].connectionManager activeListUpdate:vector ETV
+vector 826 GossipSubNetwork.nodes[493].connectionManager activeListUpdate:vector ETV
+vector 827 GossipSubNetwork.nodes[266].connectionManager activeListUpdate:vector ETV
+vector 828 GossipSubNetwork.nodes[470].connectionManager activeListUpdate:vector ETV
+vector 829 GossipSubNetwork.nodes[480].connectionManager activeListUpdate:vector ETV
+vector 830 GossipSubNetwork.nodes[378].connectionManager activeListUpdate:vector ETV
+vector 831 GossipSubNetwork.nodes[148].connectionManager activeListUpdate:vector ETV
+vector 832 GossipSubNetwork.nodes[435].connectionManager activeListUpdate:vector ETV
+vector 833 GossipSubNetwork.nodes[242].connectionManager activeListUpdate:vector ETV
+vector 834 GossipSubNetwork.nodes[171].connectionManager activeListUpdate:vector ETV
+vector 835 GossipSubNetwork.nodes[401].connectionManager activeListUpdate:vector ETV
+vector 836 GossipSubNetwork.nodes[88].connectionManager activeListUpdate:vector ETV
+vector 837 GossipSubNetwork.nodes[194].connectionManager activeListUpdate:vector ETV
+vector 838 GossipSubNetwork.nodes[259].connectionManager activeListUpdate:vector ETV
+vector 839 GossipSubNetwork.nodes[343].connectionManager activeListUpdate:vector ETV
+vector 840 GossipSubNetwork.nodes[417].connectionManager activeListUpdate:vector ETV
+vector 841 GossipSubNetwork.nodes[73].connectionManager activeListUpdate:vector ETV
+vector 842 GossipSubNetwork.nodes[432].connectionManager activeListUpdate:vector ETV
+vector 843 GossipSubNetwork.nodes[23].connectionManager activeListUpdate:vector ETV
+vector 844 GossipSubNetwork.nodes[187].connectionManager activeListUpdate:vector ETV
+vector 845 GossipSubNetwork.nodes[272].connectionManager activeListUpdate:vector ETV
+vector 846 GossipSubNetwork.nodes[56].connectionManager activeListUpdate:vector ETV
+vector 847 GossipSubNetwork.nodes[338].connectionManager activeListUpdate:vector ETV
+vector 848 GossipSubNetwork.nodes[62].connectionManager activeListUpdate:vector ETV
+vector 849 GossipSubNetwork.nodes[139].connectionManager activeListUpdate:vector ETV
+vector 850 GossipSubNetwork.nodes[476].connectionManager activeListUpdate:vector ETV
+vector 851 GossipSubNetwork.nodes[115].connectionManager activeListUpdate:vector ETV
+vector 852 GossipSubNetwork.nodes[370].connectionManager activeListUpdate:vector ETV
+vector 853 GossipSubNetwork.nodes[367].connectionManager activeListUpdate:vector ETV
+vector 854 GossipSubNetwork.nodes[112].connectionManager activeListUpdate:vector ETV
+vector 855 GossipSubNetwork.nodes[124].connectionManager activeListUpdate:vector ETV
+vector 856 GossipSubNetwork.nodes[76].connectionManager activeListUpdate:vector ETV
+vector 857 GossipSubNetwork.nodes[413].connectionManager activeListUpdate:vector ETV
+vector 858 GossipSubNetwork.nodes[354].connectionManager activeListUpdate:vector ETV
+vector 859 GossipSubNetwork.nodes[360].connectionManager activeListUpdate:vector ETV
+vector 860 GossipSubNetwork.nodes[356].connectionManager activeListUpdate:vector ETV
+vector 861 GossipSubNetwork.nodes[377].connectionManager activeListUpdate:vector ETV
+vector 862 GossipSubNetwork.nodes[108].connectionManager activeListUpdate:vector ETV
+vector 863 GossipSubNetwork.nodes[321].connectionManager activeListUpdate:vector ETV
+vector 864 GossipSubNetwork.nodes[341].connectionManager activeListUpdate:vector ETV
+vector 865 GossipSubNetwork.nodes[282].connectionManager activeListUpdate:vector ETV
+vector 866 GossipSubNetwork.nodes[118].connectionManager activeListUpdate:vector ETV
+vector 867 GossipSubNetwork.nodes[151].connectionManager activeListUpdate:vector ETV
+vector 868 GossipSubNetwork.nodes[81].connectionManager activeListUpdate:vector ETV
+vector 869 GossipSubNetwork.nodes[327].connectionManager activeListUpdate:vector ETV
+vector 870 GossipSubNetwork.nodes[440].connectionManager activeListUpdate:vector ETV
+vector 871 GossipSubNetwork.nodes[415].connectionManager activeListUpdate:vector ETV
+vector 872 GossipSubNetwork.nodes[451].connectionManager activeListUpdate:vector ETV
+vector 873 GossipSubNetwork.nodes[11].connectionManager activeListUpdate:vector ETV
+vector 874 GossipSubNetwork.nodes[37].connectionManager activeListUpdate:vector ETV
+vector 875 GossipSubNetwork.nodes[39].connectionManager activeListUpdate:vector ETV
+vector 876 GossipSubNetwork.nodes[471].connectionManager activeListUpdate:vector ETV
+vector 877 GossipSubNetwork.nodes[192].connectionManager activeListUpdate:vector ETV
+vector 878 GossipSubNetwork.nodes[86].connectionManager activeListUpdate:vector ETV
+vector 879 GossipSubNetwork.nodes[285].connectionManager activeListUpdate:vector ETV
+vector 880 GossipSubNetwork.nodes[293].connectionManager activeListUpdate:vector ETV
+vector 881 GossipSubNetwork.nodes[167].connectionManager activeListUpdate:vector ETV
+vector 882 GossipSubNetwork.nodes[490].connectionManager activeListUpdate:vector ETV
+vector 883 GossipSubNetwork.nodes[9].connectionManager activeListUpdate:vector ETV
+vector 884 GossipSubNetwork.nodes[3].connectionManager activeListUpdate:vector ETV
+vector 885 GossipSubNetwork.nodes[8].connectionManager activeListUpdate:vector ETV
+vector 886 GossipSubNetwork.nodes[305].connectionManager activeListUpdate:vector ETV
+vector 887 GossipSubNetwork.nodes[209].connectionManager activeListUpdate:vector ETV
+vector 888 GossipSubNetwork.nodes[497].connectionManager activeListUpdate:vector ETV
+vector 889 GossipSubNetwork.nodes[324].connectionManager activeListUpdate:vector ETV
+vector 890 GossipSubNetwork.nodes[446].connectionManager activeListUpdate:vector ETV
+vector 891 GossipSubNetwork.nodes[78].connectionManager activeListUpdate:vector ETV
+vector 892 GossipSubNetwork.nodes[368].connectionManager activeListUpdate:vector ETV
+vector 893 GossipSubNetwork.nodes[198].connectionManager activeListUpdate:vector ETV
+vector 894 GossipSubNetwork.nodes[484].connectionManager activeListUpdate:vector ETV
+vector 895 GossipSubNetwork.nodes[340].connectionManager activeListUpdate:vector ETV
+vector 896 GossipSubNetwork.nodes[67].connectionManager activeListUpdate:vector ETV
+vector 897 GossipSubNetwork.nodes[168].connectionManager activeListUpdate:vector ETV
+vector 898 GossipSubNetwork.nodes[286].connectionManager activeListUpdate:vector ETV
+vector 899 GossipSubNetwork.nodes[61].connectionManager activeListUpdate:vector ETV
+vector 900 GossipSubNetwork.nodes[223].connectionManager activeListUpdate:vector ETV
+vector 901 GossipSubNetwork.nodes[188].connectionManager activeListUpdate:vector ETV
+vector 902 GossipSubNetwork.nodes[398].connectionManager activeListUpdate:vector ETV
+vector 903 GossipSubNetwork.nodes[20].connectionManager activeListUpdate:vector ETV
+vector 904 GossipSubNetwork.nodes[310].connectionManager activeListUpdate:vector ETV
+vector 905 GossipSubNetwork.nodes[225].connectionManager activeListUpdate:vector ETV
+vector 906 GossipSubNetwork.nodes[452].connectionManager activeListUpdate:vector ETV
+vector 907 GossipSubNetwork.nodes[430].connectionManager activeListUpdate:vector ETV
+vector 908 GossipSubNetwork.nodes[345].connectionManager activeListUpdate:vector ETV
+vector 909 GossipSubNetwork.nodes[199].connectionManager activeListUpdate:vector ETV
+vector 910 GossipSubNetwork.nodes[302].connectionManager activeListUpdate:vector ETV
+vector 911 GossipSubNetwork.nodes[348].connectionManager activeListUpdate:vector ETV
+vector 912 GossipSubNetwork.nodes[311].connectionManager activeListUpdate:vector ETV
+vector 913 GossipSubNetwork.nodes[244].connectionManager activeListUpdate:vector ETV
+vector 914 GossipSubNetwork.nodes[308].connectionManager activeListUpdate:vector ETV
+vector 915 GossipSubNetwork.nodes[342].connectionManager activeListUpdate:vector ETV
+vector 916 GossipSubNetwork.nodes[70].connectionManager activeListUpdate:vector ETV
+vector 917 GossipSubNetwork.nodes[32].connectionManager activeListUpdate:vector ETV
+vector 918 GossipSubNetwork.nodes[275].connectionManager activeListUpdate:vector ETV
+vector 919 GossipSubNetwork.nodes[232].connectionManager activeListUpdate:vector ETV
+vector 920 GossipSubNetwork.nodes[333].connectionManager activeListUpdate:vector ETV
+vector 921 GossipSubNetwork.nodes[80].connectionManager activeListUpdate:vector ETV
+vector 922 GossipSubNetwork.nodes[131].connectionManager activeListUpdate:vector ETV
+vector 923 GossipSubNetwork.nodes[234].connectionManager activeListUpdate:vector ETV
+vector 924 GossipSubNetwork.nodes[274].connectionManager activeListUpdate:vector ETV
+vector 925 GossipSubNetwork.nodes[464].connectionManager activeListUpdate:vector ETV
+vector 926 GossipSubNetwork.nodes[69].connectionManager activeListUpdate:vector ETV
+vector 927 GossipSubNetwork.nodes[498].connectionManager activeListUpdate:vector ETV
+vector 928 GossipSubNetwork.nodes[29].connectionManager activeListUpdate:vector ETV
+vector 929 GossipSubNetwork.nodes[454].connectionManager activeListUpdate:vector ETV
+vector 930 GossipSubNetwork.nodes[136].connectionManager activeListUpdate:vector ETV
+vector 931 GossipSubNetwork.nodes[346].connectionManager activeListUpdate:vector ETV
+vector 932 GossipSubNetwork.nodes[491].connectionManager activeListUpdate:vector ETV
+vector 933 GossipSubNetwork.nodes[226].connectionManager activeListUpdate:vector ETV
+vector 934 GossipSubNetwork.nodes[362].connectionManager activeListUpdate:vector ETV
+vector 935 GossipSubNetwork.nodes[93].connectionManager activeListUpdate:vector ETV
+vector 936 GossipSubNetwork.nodes[36].connectionManager activeListUpdate:vector ETV
+vector 937 GossipSubNetwork.nodes[418].connectionManager activeListUpdate:vector ETV
+vector 938 GossipSubNetwork.nodes[126].connectionManager activeListUpdate:vector ETV
+vector 939 GossipSubNetwork.nodes[359].connectionManager activeListUpdate:vector ETV
+vector 940 GossipSubNetwork.nodes[373].connectionManager activeListUpdate:vector ETV
+vector 941 GossipSubNetwork.nodes[376].connectionManager activeListUpdate:vector ETV
+vector 942 GossipSubNetwork.nodes[429].connectionManager activeListUpdate:vector ETV
+vector 943 GossipSubNetwork.nodes[382].connectionManager activeListUpdate:vector ETV
+vector 944 GossipSubNetwork.nodes[51].connectionManager activeListUpdate:vector ETV
+vector 945 GossipSubNetwork.nodes[96].connectionManager activeListUpdate:vector ETV
+vector 946 GossipSubNetwork.nodes[334].connectionManager activeListUpdate:vector ETV
+vector 947 GossipSubNetwork.nodes[193].connectionManager activeListUpdate:vector ETV
+vector 948 GossipSubNetwork.nodes[496].connectionManager activeListUpdate:vector ETV
+vector 949 GossipSubNetwork.nodes[262].connectionManager activeListUpdate:vector ETV
+vector 950 GossipSubNetwork.nodes[162].connectionManager activeListUpdate:vector ETV
+vector 951 GossipSubNetwork.nodes[203].connectionManager activeListUpdate:vector ETV
+vector 952 GossipSubNetwork.nodes[397].connectionManager activeListUpdate:vector ETV
+vector 953 GossipSubNetwork.nodes[239].connectionManager activeListUpdate:vector ETV
+vector 954 GossipSubNetwork.nodes[102].connectionManager activeListUpdate:vector ETV
+vector 955 GossipSubNetwork.nodes[477].connectionManager activeListUpdate:vector ETV
+vector 956 GossipSubNetwork.nodes[249].connectionManager activeListUpdate:vector ETV
+vector 957 GossipSubNetwork.nodes[175].connectionManager activeListUpdate:vector ETV
+vector 958 GossipSubNetwork.nodes[189].connectionManager activeListUpdate:vector ETV
+vector 959 GossipSubNetwork.nodes[263].connectionManager activeListUpdate:vector ETV
+vector 960 GossipSubNetwork.nodes[104].connectionManager activeListUpdate:vector ETV
+vector 961 GossipSubNetwork.nodes[159].connectionManager activeListUpdate:vector ETV
+vector 962 GossipSubNetwork.nodes[414].connectionManager activeListUpdate:vector ETV
+vector 963 GossipSubNetwork.nodes[15].connectionManager activeListUpdate:vector ETV
+vector 964 GossipSubNetwork.nodes[195].connectionManager activeListUpdate:vector ETV
+vector 965 GossipSubNetwork.nodes[25].connectionManager activeListUpdate:vector ETV
+vector 966 GossipSubNetwork.nodes[461].connectionManager activeListUpdate:vector ETV
+vector 967 GossipSubNetwork.nodes[241].connectionManager activeListUpdate:vector ETV
+vector 968 GossipSubNetwork.nodes[24].connectionManager activeListUpdate:vector ETV
+vector 969 GossipSubNetwork.nodes[427].connectionManager activeListUpdate:vector ETV
+vector 970 GossipSubNetwork.nodes[138].connectionManager activeListUpdate:vector ETV
+vector 971 GossipSubNetwork.nodes[444].connectionManager activeListUpdate:vector ETV
+vector 972 GossipSubNetwork.nodes[85].connectionManager activeListUpdate:vector ETV
+vector 973 GossipSubNetwork.nodes[386].connectionManager activeListUpdate:vector ETV
+vector 974 GossipSubNetwork.nodes[163].connectionManager activeListUpdate:vector ETV
+vector 975 GossipSubNetwork.nodes[481].connectionManager activeListUpdate:vector ETV
+vector 976 GossipSubNetwork.nodes[447].connectionManager activeListUpdate:vector ETV
+vector 977 GossipSubNetwork.nodes[281].connectionManager activeListUpdate:vector ETV
+vector 978 GossipSubNetwork.nodes[350].connectionManager activeListUpdate:vector ETV
+vector 979 GossipSubNetwork.nodes[300].connectionManager activeListUpdate:vector ETV
+vector 980 GossipSubNetwork.nodes[251].connectionManager activeListUpdate:vector ETV
+vector 981 GossipSubNetwork.nodes[200].connectionManager activeListUpdate:vector ETV
+vector 982 GossipSubNetwork.nodes[107].connectionManager activeListUpdate:vector ETV
+vector 983 GossipSubNetwork.nodes[208].connectionManager activeListUpdate:vector ETV
+vector 984 GossipSubNetwork.nodes[400].connectionManager activeListUpdate:vector ETV
+vector 985 GossipSubNetwork.nodes[436].connectionManager activeListUpdate:vector ETV
+vector 986 GossipSubNetwork.nodes[40].connectionManager activeListUpdate:vector ETV
+vector 987 GossipSubNetwork.nodes[474].connectionManager activeListUpdate:vector ETV
+vector 988 GossipSubNetwork.nodes[456].connectionManager activeListUpdate:vector ETV
+vector 989 GossipSubNetwork.nodes[280].connectionManager activeListUpdate:vector ETV
+vector 990 GossipSubNetwork.nodes[229].connectionManager activeListUpdate:vector ETV
+vector 991 GossipSubNetwork.nodes[445].connectionManager activeListUpdate:vector ETV
+vector 992 GossipSubNetwork.nodes[21].connectionManager activeListUpdate:vector ETV
+vector 993 GossipSubNetwork.nodes[453].connectionManager activeListUpdate:vector ETV
+vector 994 GossipSubNetwork.nodes[434].connectionManager activeListUpdate:vector ETV
+vector 995 GossipSubNetwork.nodes[364].connectionManager activeListUpdate:vector ETV
+vector 996 GossipSubNetwork.nodes[495].connectionManager activeListUpdate:vector ETV
+vector 997 GossipSubNetwork.nodes[466].connectionManager activeListUpdate:vector ETV
+vector 998 GossipSubNetwork.nodes[217].connectionManager activeListUpdate:vector ETV
+vector 999 GossipSubNetwork.nodes[366].connectionManager activeListUpdate:vector ETV
+0	86550 23337 5805 14557856 0.150718731229 598.450655510272 778 3 60 46380 2775328
+1	109887 16561 5888 14569643 0.153663584134 599.379676686037 553 3 27 14855 400765
+2	126448 21737 6070 14576268 0.159308894738 599.951460777355 725 3 34 24511 831811
+3	148185 18490 6096 14560015 0.160450560853 598.607541939733 618 3 22 13512 296692
+4	166675 15922 6185 14559143 0.164508571152 598.544815835127 533 3 21 11138 233716
+5	182597 17359 6237 14567723 0.165995952019 599.232953802172 580 3 23 13260 304572
+6	199956 20361 6257 14574147 0.16663107832 599.769986947237 680 3 26 17548 454860
+7	220317 21526 6382 14573985 0.170909712973 599.756379823868 720 3 26 18541 480285
+8	241843 19795 6407 14570896 0.171820932577 599.48657035969 661 3 23 15088 346290
+9	261638 16466 6563 14575427 0.176625014199 599.877968082975 550 3 21 11472 240510
+10	278104 22697 6598 14568865 0.178054151316 599.3179196332 733 3 26 18903 490001
+11	300801 18132 6668 14572289 0.179767908994 599.616674486881 587 3 23 13392 307468
+12	318933 19175 6711 14571722 0.180743116255 599.563992881307 620 3 23 14150 324808
+13	338108 25026 6717 14566239 0.181118259239 599.10630218918 804 3 21 16824 353042
+14	363134 17404 6957 14566786 0.187759956653 599.149159605984 562 3 21 11710 245380
+15	380538 15783 7003 14559486 0.188935181538 598.567681345823 511 3 21 10631 222777
+16	396321 16496 7025 14567744 0.189670477707 599.234842011449 532 3 92 48149 4380859
+17	412817 18127 7037 14573110 0.190030068918 599.685887564575 584 3 32 18601 594971
+18	430944 18217 7039 14565213 0.190220390295 599.020364072653 590 3 21 12299 257719
+19	449161 25702 7047 14559014 0.190534675943 598.537760929938 823 3 21 17204 360850
+20	474863 16137 7088 14570529 0.192182307115 599.452351739575 523 3 21 10908 228618
+21	491000 15329 7090 14575098 0.192213985184 599.851802065653 496 3 21 10275 215163
+22	506329 15418 7119 14562447 0.193751454528 598.797026216287 499 2 21 10389 217781
+23	521747 15638 7157 14558684 0.194858410377 598.513092350765 507 3 21 10527 220489
+24	537385 16497 7194 14574676 0.195832890452 599.818818141029 534 3 21 11121 232979
+25	553882 17113 7250 14574626 0.198352505879 599.813779304573 554 3 21 11541 241885
+26	570995 16697 7269 14557105 0.199009105975 598.400506274183 539 3 21 11226 235266
+27	587692 17545 7323 14565925 0.200373457994 599.079768506517 568 0 21 11806 247334
+28	605237 16348 7341 14574081 0.201019472294 599.764337073579 531 0 21 11000 230526
+29	621585 17388 7357 14572964 0.201790310489 599.670082310238 563 3 21 11733 245897
+30	638973 17355 7359 14565138 0.202256496232 599.014871160356 560 1 21 11648 244144
+31	656328 17167 7361 14569002 0.202270841096 599.327999166839 555 1 21 11523 241521
+32	673495 17449 7371 14561351 0.202625894519 598.713425673715 564 3 21 11737 245925
+33	690944 17156 7401 14553857 0.204077339249 598.199432793365 554 0 21 11549 242215
+34	708100 16157 7413 14574789 0.204826421475 599.829629152475 522 2 21 10850 227400
+35	724257 15247 7423 14571600 0.205596581723 599.552982681701 493 1 21 10226 214190
+36	739504 17761 7456 14557187 0.206884228604 598.405461225001 574 3 21 11975 250953
+37	757265 16588 7517 14561230 0.209322362509 598.701328556423 536 0 21 11155 233871
+38	773853 16460 7568 14562547 0.21055929458 598.805052505815 532 0 21 11036 231220
+39	790313 25439 7576 14571259 0.210858850042 599.524889038622 815 0 21 16999 356617
+40	815752 16218 7578 14576534 0.211035789764 599.976451371985 524 3 21 10950 229788
+41	831970 15971 7586 14557310 0.211882253045 598.415930796019 517 0 21 10736 225066
+42	847941 17244 7596 14569686 0.212553482356 599.383091461954 557 2 21 11572 242392
+43	865185 16019 7624 14573905 0.213710628841 599.749166163092 518 2 21 10784 226068
+44	881204 14569 7641 14556125 0.215026883793 598.33590500079 472 3 21 9837 206195
+45	895773 16365 7651 14563357 0.215577215071 598.869532709868 528 3 21 11008 230784
+46	912138 17089 7664 14575923 0.216039726569 599.921401873028 552 0 21 11442 239800
+47	929227 17958 7675 14575839 0.216730211347 599.913628524048 580 3 21 12083 253265
+48	947185 15570 7719 14560496 0.217888974645 598.641782675719 504 2 21 10471 219421
+49	962755 16339 7751 14557423 0.218564081728 598.422183892741 528 1 21 10986 230296
+50	979094 17099 7795 14576606 0.219598681266 599.982468612728 553 3 21 11523 241559
+51	996193 16287 7822 14566578 0.220481658014 599.130860555148 526 3 21 10960 229798
+52	1012480 17081 7865 14557503 0.221684399164 598.427950586549 550 3 21 11459 240201
+53	1029561 24303 7888 14576297 0.222120537148 599.95440924071 781 3 21 16307 341965
+54	1053864 15995 7894 14572090 0.222231575067 599.597941374162 517 2 21 10753 225343
+55	1069859 16028 7908 14561093 0.22244169817 598.68988574534 519 3 21 10800 226132
+56	1085887 17896 7917 14563664 0.222686805087 598.891951197952 578 2 21 12032 252168
+57	1103783 15619 7932 14571380 0.223133517152 599.534185454483 506 0 21 10474 219402
+58	1119402 18486 7954 14574824 0.223358462271 599.832193746027 598 3 21 12460 261220
+59	1137888 17029 7957 14572271 0.223582516021 599.615859652664 550 1 21 11443 239833
+60	1154917 18007 7973 14553634 0.224000855959 598.186308093015 582 0 22 12650 277424
+61	1172924 17085 7987 14568730 0.224608009824 599.307885180035 552 3 21 11508 241218
+62	1190009 16043 7995 14570507 0.224916885591 599.450242084973 519 1 21 10778 225838
+63	1206052 16576 8051 14569847 0.226521745941 599.39754469158 537 3 21 11167 234027
+64	1222628 18512 8075 14562630 0.227236844175 598.812640292759 597 0 21 12395 259847
+65	1241140 16742 8178 14565276 0.229924323037 599.025445710658 543 2 21 11264 235976
+66	1257882 16260 8253 14574796 0.231651193812 599.8301412418 526 1 21 10922 228902
+67	1274142 15276 8327 14562316 0.232931838143 598.783206831311 494 2 21 10256 214826
+68	1289418 15067 8344 14561635 0.233280451347 598.732851629782 487 2 21 10128 212228
+69	1304485 15889 8350 14567823 0.23333741975 599.241482569638 514 1 21 10655 223243
+70	1320374 17032 8352 14560054 0.233350361974 598.610159153529 549 2 21 11432 239646
+71	1337406 16373 8354 14561362 0.233507759266 598.714059124935 530 2 21 11027 231093
+72	1353779 14537 8450 14563130 0.235387833505 598.850322943302 471 3 21 9793 205129
+73	1368316 15164 8461 14552768 0.23549897853 598.135620098447 491 3 21 10185 213179
+74	1383480 15985 8469 14554169 0.235592937118 598.219256809624 517 3 21 10737 224747
+75	1399465 16627 8485 14566931 0.23579188898 599.16441824303 537 1 21 11183 234435
+76	1416092 15394 8549 14563276 0.237026594053 598.862854699732 498 3 21 10359 216977
+77	1431486 16416 8551 14568809 0.237044881008 599.315016887313 531 0 21 11000 230546
+78	1447902 16056 8561 14567970 0.237306856446 599.247113234521 519 1 21 10783 226053
+79	1463958 18374 8575 14564771 0.23754673231 598.984141385565 595 1 21 12362 259048
+80	1482332 16616 8586 14566225 0.237761651548 599.105750036202 537 3 21 11195 234591
+81	1498948 15965 8657 14553521 0.239283420569 598.178677994142 516 2 21 10710 224302
+82	1514913 16960 8659 14566248 0.239287742481 599.106770471881 548 3 21 11407 239007
+83	1531873 17144 8665 14563479 0.23940966266 598.87712518381 554 2 21 11507 241195
+84	1549017 24896 8727 14576798 0.240611763622 599.996807542687 798 3 21 16668 349594
+85	1573913 16398 8761 14570868 0.240879643271 599.484238552945 530 0 21 10988 230254
+86	1590311 15692 8774 14571037 0.241327931459 599.500938056677 507 0 21 10493 219887
+87	1606003 15849 8794 14571513 0.241570932735 599.545142307077 512 1 21 10625 222643
+88	1621852 18911 8801 14573138 0.241729027645 599.689006980564 610 1 21 12700 266248
+89	1640763 17617 8811 14565259 0.241830757726 599.023762156376 568 3 21 11836 248128
+90	1658380 14845 8840 14567570 0.242469508122 599.218864285881 480 1 21 9974 209072
+91	1673225 16484 8843 14563051 0.242708993715 598.844384329657 532 3 21 11081 232307
+92	1689709 16931 8887 14559579 0.243211009279 598.576076905872 548 2 21 11401 238991
+93	1706640 15748 8907 14562844 0.243473873751 598.831223739379 509 3 21 10606 222310
+94	1722388 17826 9031 14575657 0.247060749943 599.897265657349 577 1 21 12008 251748
+95	1740214 16286 9037 14562442 0.247077278304 598.796294403533 526 2 21 10949 229515
+96	1756500 24453 9044 14570120 0.24718877485 599.41959795462 785 3 21 16349 342721
+97	1780953 17083 9070 14573529 0.247595066069 599.720440309189 552 1 22 12004 263240
+98	1798036 16012 9077 14568536 0.247801741294 599.290720931217 518 1 21 10763 225539
+99	1814048 18225 9107 14567973 0.248256882375 599.247189819294 589 3 21 12271 257215
+100	1832273 17187 9109 14557237 0.248298734715 598.409421719072 539 3 21 11205 234705
+101	1849460 18123 9124 14561788 0.248630660402 598.743299285874 567 1 21 11799 247319
+102	1867583 16239 9148 14575247 0.249118721809 599.864318119126 508 0 21 10532 220750
+103	1883822 16675 9172 14570700 0.249883697869 599.466663114807 522 2 21 10866 227712
+104	1900497 16795 9178 14560885 0.249901908866 598.672245433451 526 2 21 10938 229222
+105	1917292 17080 9205 14574712 0.250222601841 599.822395019049 536 1 21 11127 233221
+106	1934372 16065 9255 14566547 0.251419244753 599.129625605678 504 3 21 10478 219492
+107	1950437 18561 9257 14572308 0.251423157791 599.618296473679 580 3 22 12616 276338
+108	1968998 17251 9278 14576746 0.251944475172 599.993184697552 540 1 21 11214 234976
+109	1986249 15336 9290 14574459 0.252417013778 599.799329131428 480 3 21 9978 208906
+110	2001585 18302 9309 14568447 0.252800785545 599.284461740965 573 0 21 11903 249525
+111	2019887 25625 9324 14573313 0.253121352771 599.699313213412 796 0 21 16562 347246
+112	2045512 17297 9340 14572778 0.253326528382 599.659666391008 542 2 21 11225 235119
+113	2062809 16109 9347 14564676 0.253567116787 598.974438880161 504 0 21 10453 219109
+114	2078918 16767 9364 14573034 0.254029156873 599.676671167149 526 1 21 10919 228785
+115	2095685 16069 9396 14573914 0.254532663026 599.749724271839 503 1 21 10429 218589
+116	2111754 16632 9417 14565257 0.25564905076 599.023760320677 521 3 21 10854 227540
+117	2128386 16027 9433 14569906 0.256251556682 599.402601445578 502 1 21 10415 218139
+118	2144413 17283 9472 14574504 0.257332309098 599.801582586583 541 1 21 11237 235543
+119	2161696 24743 9481 14574909 0.25772046397 599.837917079876 767 3 21 15996 335378
+120	2186439 15914 9483 14552723 0.257748882289 598.131978454842 498 1 21 10345 216865
+121	2202353 16680 9486 14570225 0.257804615006 599.427611654082 522 3 21 10863 227655
+122	2219033 17646 9489 14574977 0.257954461549 599.843074045306 553 3 21 11494 240760
+123	2236679 18201 9496 14551261 0.258168875889 598.04715644496 570 0 21 11839 248231
+124	2254880 17033 9535 14566469 0.25922823672 599.123934988718 533 3 21 11126 233336
+125	2271913 15373 9541 14555259 0.259340700947 598.282666211761 480 0 21 9958 208680
+126	2287286 17222 9548 14575541 0.259889435638 599.886700139131 538 0 21 11171 234211
+127	2304508 17301 9551 14566708 0.260033515159 599.142320216035 541 1 21 11262 236088
+128	2321809 17899 9565 14570284 0.260482333261 599.432992169602 559 1 21 11614 243460
+129	2339708 18755 9567 14552530 0.260520404368 598.120981920625 588 3 21 12245 256513
+130	2358463 18314 9588 14575124 0.260839182879 599.854873863046 574 3 21 11938 250176
+131	2376777 17625 9619 14560200 0.261476511161 598.619929036496 552 2 21 11477 240571
+132	2394402 16190 9670 14572085 0.263122523778 599.597776563726 507 0 21 10525 220583
+133	2410592 17408 9701 14573264 0.263742064978 599.694769608237 547 1 21 11365 238185
+134	2428000 17652 9752 14574475 0.265182855358 599.800346232649 554 2 21 11523 241495
+135	2445652 16422 9758 14574743 0.265318944699 599.825914643791 514 1 21 10642 223028
+136	2462074 17208 9762 14560121 0.265417623503 598.615272940907 538 3 21 11187 234395
+137	2479282 17667 9784 14565475 0.26602235199 599.042890129935 552 3 21 11502 241128
+138	2496949 16926 9795 14561865 0.266320166352 598.75007167482 530 0 21 10991 230305
+139	2513875 17437 9812 14561758 0.267175320678 598.741464709897 545 3 21 11334 237400
+140	2531312 16973 9814 14566038 0.26720528777 599.087378820516 533 0 22 11570 253844
+141	2548285 16916 9833 14574929 0.267753177085 599.840180685728 529 0 21 10939 229077
+142	2565201 16568 9875 14574597 0.269128632306 599.810327458368 518 1 21 10750 225260
+143	2581769 17227 9917 14562891 0.270469009352 598.833298225679 539 1 21 11201 234757
+144	2598996 18012 9923 14562786 0.271028397167 598.826757511634 564 2 21 11726 245710
+145	2617008 25291 9926 14573299 0.271081503473 599.697763464485 785 0 21 16349 342925
+146	2642299 17215 9939 14557095 0.271420857406 598.400001118682 538 3 21 11205 234827
+147	2659514 16476 9976 14576707 0.272122344849 599.989792527053 516 1 21 10681 223707
+148	2675990 16050 10006 14566581 0.272713306516 599.131127810192 502 2 21 10411 218021
+149	2692040 18741 10008 14556306 0.272800820926 598.346743916986 586 0 21 12184 255486
+150	2710781 16175 10015 14576016 0.273216431462 599.929583302299 508 1 21 10567 221529
+151	2726956 17466 10034 14565053 0.273654210483 599.00952994785 547 0 21 11252 235456
+152	2744422 16860 10053 14564609 0.273961121796 598.96989669919 528 2 21 10965 229765
+153	2761282 17240 10080 14573052 0.274611228081 599.679026534499 539 3 21 11217 234913
+154	2778522 15911 10088 14571980 0.274738204878 599.589384791747 498 0 21 10314 216062
+155	2794433 17042 10116 14563399 0.275478177448 598.872719875758 534 0 21 11080 232030
+156	2811475 16795 10119 14559534 0.275750416927 598.570751327777 526 2 21 10914 228654
+157	2828270 15059 10124 14571530 0.276082503155 599.546891763408 472 0 21 9802 205406
+158	2843329 17231 10127 14548946 0.276135054137 597.9140232561 539 1 21 11203 234835
+159	2860560 16223 10139 14564013 0.276775964836 598.920836876069 508 0 21 10522 220466
+160	2876783 16242 10202 14558536 0.278439931649 598.501385933297 508 3 21 10580 221694
+161	2893025 16913 10210 14564168 0.278688425291 598.933570821405 530 1 21 11011 230775
+162	2909938 15932 10233 14571047 0.279617922825 599.50165255633 500 0 21 10354 216860
+163	2925870 15974 10237 14569815 0.279721989187 599.394487505498 500 3 21 10422 218516
+164	2941844 18433 10239 14571108 0.279819290051 599.508354369425 578 3 21 12043 252469
+165	2960277 15484 10251 14563631 0.280311580671 598.888984876468 485 2 21 10086 211346
+166	2975761 17029 10253 14559981 0.28042515713 598.604635955661 533 3 21 11107 232827
+167	2992790 15974 10262 14569985 0.280801623157 599.409463435074 501 2 21 10402 217922
+168	3008764 18248 10279 14576675 0.281255814763 599.987894177783 571 1 21 11881 249051
+169	3027012 16228 10297 14562666 0.282007362582 598.81616877991 509 1 21 10558 221160
+170	3043240 20196 10309 14563551 0.282535014341 598.880936993576 632 1 21 13088 274274
+171	3063436 15889 10311 14573671 0.282545397046 599.732872990016 500 0 21 10341 216705
+172	3079325 16044 10317 14567589 0.282605541011 599.220351729967 502 0 21 10426 218492
+173	3095369 17770 10323 14560025 0.282630400108 598.608376466349 556 1 21 11556 242230
+174	3113139 17964 10334 14568182 0.282831755341 599.26552284168 562 3 21 11681 244707
+175	3131103 14635 10340 14561358 0.282998596591 598.713807309827 458 3 21 9524 199600
+176	3145738 24821 10355 14569609 0.283179785396 599.37731376403 770 0 21 16046 336622
+177	3170559 17032 10361 14556725 0.283388241813 598.373903953759 533 2 21 11079 232079
+178	3187591 18555 10375 14554140 0.283774312932 598.217728356178 581 3 21 12109 253767
+179	3206146 18614 10381 14573087 0.28410575743 599.68346449298 584 1 21 12127 254061
+180	3224760 16273 10392 14561981 0.284543182794 598.760049699124 509 1 21 10572 221572
+181	3241033 15726 10400 14567149 0.284780762671 599.180359658659 493 1 21 10236 214510
+182	3256759 16216 10406 14562043 0.28490947166 598.763887194022 507 1 21 10541 220901
+183	3272975 16946 10412 14574434 0.284947108759 599.796459691176 530 3 21 11018 230854
+184	3289921 16442 10418 14571052 0.285067355602 599.502287230922 514 3 21 10709 224461
+185	3306363 17110 10421 14569072 0.285404826182 599.332427214196 537 1 21 11175 234295
+186	3323473 16668 10451 14573469 0.286162705687 599.714365392557 522 1 21 10827 226807
+187	3340141 15214 10454 14568726 0.28634896908 599.307855467119 477 3 21 9900 207270
+188	3355355 16594 10457 14568362 0.286548580088 599.275733615564 518 2 21 10756 225380
+189	3371949 15364 10463 14575408 0.286693788504 599.876895717294 481 1 21 9954 208498
+190	3387313 17444 10544 14564028 0.289346912142 598.921608951764 546 1 21 11380 238668
+191	3404757 18824 10550 14574817 0.289465752388 599.831964266046 589 3 21 12268 257118
+192	3423581 16440 10557 14572420 0.28955486774 599.62834294629 514 2 21 10675 223589
+193	3440021 15888 10585 14576111 0.2904672352 599.93827616202 497 3 21 10332 216512
+194	3455909 15882 10588 14573323 0.290557398978 599.700173589974 496 2 21 10304 215830
+195	3471791 17777 10603 14564991 0.291192647307 599.003178855644 556 3 21 11576 242594
+196	3489568 15636 10610 14560755 0.291383698997 598.661539785778 490 3 21 10186 213472
+197	3505204 15974 10633 14571631 0.292082752632 599.555360198794 499 3 21 10387 217723
+198	3521178 16148 10654 14557370 0.292915241767 598.418238321051 506 1 21 10504 220016
+199	3537326 16307 10656 14559265 0.292918686362 598.551735673773 513 3 21 10686 223986
+200	3553633 16040 10658 14562104 0.293007540517 598.768355410905 503 0 21 10423 218391
+201	3569673 17549 10660 14573479 0.293074788081 599.715450703029 549 3 21 11444 239892
+202	3587222 16972 10669 14573727 0.293548606585 599.735773829268 531 3 21 11047 231369
+203	3604194 17965 10682 14559228 0.293913802732 598.548750136381 561 3 21 11677 244719
+204	3622159 17396 10689 14562510 0.294157954396 598.801481585223 544 2 21 11326 237418
+205	3639555 14959 10723 14575807 0.29508916635 599.910064943029 469 0 21 9735 203973
+206	3654514 17030 10739 14566428 0.295488282645 599.120887843199 533 0 21 11067 232023
+207	3671544 17405 10746 14575118 0.295698002693 599.854404259056 545 2 21 11327 237383
+208	3688949 15582 10748 14568894 0.295726146675 599.319909842914 488 2 21 10146 212602
+209	3704531 17193 10756 14571624 0.296012904858 599.555050913561 538 3 21 11215 235097
+210	3721724 17877 10762 14570273 0.296318189739 599.431648568273 559 0 21 11614 243424
+211	3739601 17615 10782 14575936 0.296844227496 599.923307810673 552 2 21 11442 239630
+212	3757216 17376 10785 14567601 0.296963194481 599.221729659712 544 1 21 11322 237322
+213	3774592 19651 10796 14555976 0.297290688101 598.329068174491 616 1 21 12803 268391
+214	3794243 15738 10798 14574343 0.297343982736 599.787436046264 493 3 21 10231 214139
+215	3809981 17434 10802 14575286 0.297544433854 599.866592947277 546 0 21 11349 237833
+216	3827415 16083 10819 14572158 0.297713049291 599.604116542057 505 3 21 10497 219849
+217	3843498 18010 10835 14565239 0.297992252531 599.021828407874 562 0 21 11678 244780
+218	3861508 16719 10841 14572958 0.298401343408 599.669885968293 523 3 21 10894 228386
+219	3878227 16275 10843 14558782 0.298814142174 598.520194332276 508 1 21 10543 220913
+220	3894502 16762 10849 14550497 0.299055066544 598.007994374412 525 2 21 10916 228826
+221	3911264 17072 10865 14553249 0.299709089152 598.161964816598 535 1 21 11083 232109
+222	3928336 18530 10880 14572782 0.300032144017 599.659775500847 579 1 21 12035 252245
+223	3946866 16816 10891 14570155 0.300435708566 599.422651666548 526 1 21 10930 229016
+224	3963682 17850 10907 14576558 0.300937860764 599.978191824725 559 3 21 11635 243837
+225	3981532 17789 10914 14575651 0.301053632477 599.896572051263 556 0 21 11542 241922
+226	3999321 18101 10919 14575850 0.301080449063 599.914528041987 565 3 21 11772 246800
+227	4017422 17529 10974 14561756 0.302963588194 598.741234242521 548 2 21 11394 238788
+228	4034951 17165 10976 14574611 0.302975044578 599.812708193848 537 2 22 11705 256957
+229	4052116 17914 10988 14561613 0.30336279972 598.731228275297 560 0 21 11632 243816
+230	4070030 17487 10995 14557991 0.303724381153 598.459718687087 547 1 21 11367 238217
+231	4087517 17419 10997 14576316 0.303795944297 599.956432847947 545 2 21 11318 237110
+232	4104936 17174 10999 14573667 0.303930639429 599.732863269265 537 2 21 11123 232997
+233	4122110 17426 11001 14558035 0.304113162596 598.463618394322 546 1 21 11366 238282
+234	4139536 17651 11008 14559620 0.304544222983 598.579420278388 551 3 22 12004 263190
+235	4157187 16054 11022 14554716 0.30516409805 598.249903476508 503 2 21 10421 218227
+236	4173241 16691 11024 14573547 0.305252008471 599.722248201872 522 1 21 10858 227604
+237	4189932 16204 11030 14561876 0.305416166154 598.751269536942 508 3 21 10588 221964
+238	4206136 15572 11036 14571505 0.305479934965 599.544141437832 488 2 21 10122 211874
+239	4221708 17947 11038 14554523 0.305496913009 598.237542885177 562 0 21 11650 244230
+240	4239655 18497 11071 14566405 0.306422548604 599.118754093405 578 0 21 12026 252104
+241	4258152 16658 11097 14571948 0.307096494611 599.587293382369 521 2 21 10844 227326
+242	4274810 18540 11108 14574704 0.307435671259 599.821958771821 580 3 21 12072 252914
+243	4293350 16081 11110 14573938 0.307447941078 599.751467509878 503 2 21 10463 219285
+244	4309431 16552 11116 14561401 0.307483558902 598.717914511809 517 2 21 10762 225586
+245	4325983 18524 11122 14565422 0.307680858089 599.037690715866 579 3 21 12077 253189
+246	4344507 18293 11132 14554138 0.307804023098 598.21771375949 572 0 21 11889 249259
+247	4362800 17797 11134 14563058 0.307807172297 598.844962010871 556 2 21 11555 242123
+248	4380597 18758 11144 14571668 0.308227119588 599.558647667971 588 3 21 12259 257001
+249	4399355 16308 11156 14563032 0.308656749511 598.842857621813 510 3 21 10609 222279
+250	4415663 18517 11174 14561428 0.309186450865 598.719107961122 579 2 21 12024 251948
+251	4434180 18263 11180 14553920 0.309328853172 598.201990059263 572 1 21 11902 249486
+252	4452443 17276 11183 14566748 0.30950275274 599.14597177196 541 1 21 11257 235983
+253	4469719 16770 11191 14574507 0.309637416643 599.802393726669 525 3 21 10909 228609
+254	4486489 17939 11193 14575848 0.309996628467 599.914264579913 560 1 21 11640 244030
+255	4504428 17077 11219 14570172 0.31045663214 599.424689018718 534 3 21 11127 233247
+256	4521505 15939 11226 14576037 0.310522945035 599.93184105224 499 3 21 10390 217802
+257	4537444 16925 11240 14576617 0.310879600388 599.983331697051 530 0 21 10992 230414
+258	4554369 16978 11246 14560325 0.311180054461 598.63014077171 532 1 21 11041 231265
+259	4571347 18162 11249 14547906 0.311364009518 597.848654175703 568 3 21 11844 248288
+260	4589509 19120 11259 14576130 0.311479344848 599.939910965695 598 3 21 12443 260709
+261	4608629 16099 11262 14570064 0.311791598238 599.415732607493 506 2 21 10519 220431
+262	4624728 18259 11269 14565901 0.312064020306 599.077499090645 571 3 21 11907 249611
+263	4642987 18386 11285 14555457 0.312494643281 598.297511954829 575 2 21 11943 250151
+264	4661373 17849 11293 14564491 0.312611120688 598.960850228862 559 3 21 11631 243765
+265	4679222 17710 11314 14570454 0.313302006304 599.447536812852 553 2 21 11496 240934
+266	4696932 17216 11320 14574706 0.313420713122 599.822085388561 539 3 21 11238 235640
+267	4714148 16931 11339 14561052 0.313739260598 598.686546758993 530 3 21 11026 231064
+268	4731079 16523 11347 14551896 0.314105220663 598.085082102344 517 3 21 10750 225202
+269	4747602 16714 11352 14572578 0.314402751031 599.642278248819 523 3 22 11391 249821
+270	4764316 16489 11358 14569832 0.314613270897 599.395798625107 517 3 21 10775 225847
+271	4780805 15575 11361 14567448 0.314637340745 599.208871715978 487 1 21 10103 211701
+272	4796380 15355 11369 14576837 0.315207073465 599.999603305556 481 3 21 9991 209295
+273	4811735 18071 11394 14556731 0.315903365202 598.374025377319 565 3 21 11775 246685
+274	4829806 16645 11405 14566286 0.316124642252 599.109675229353 521 3 21 10822 226734
+275	4846451 17212 11420 14574992 0.316430560867 599.844196282779 539 1 21 11211 234971
+276	4863663 18000 11443 14561720 0.316908566826 598.73938274763 563 2 21 11715 245589
+277	4881663 19440 11445 14573330 0.316969350264 599.700488724154 608 1 21 12651 265137
+278	4901103 15986 11455 14568373 0.317140676936 599.276518299164 500 2 21 10396 217886
+279	4917089 18699 11462 14568637 0.317258415557 599.299932434458 584 1 21 12161 254971
+280	4935788 15487 11486 14567055 0.317759589862 599.173293373616 484 3 21 10040 210212
+281	4951275 16988 11488 14558016 0.31779982907 598.461799706678 531 2 21 11057 231817
+282	4968263 18273 11495 14574395 0.317825355111 599.7937421036 572 3 21 11881 248811
+283	4986536 17571 11497 14568986 0.317853795556 599.327373757819 551 2 21 11445 239839
+284	5004107 18908 11517 14568528 0.318318178296 599.290145260036 590 1 21 12257 256921
+285	5023015 16699 11559 14576737 0.319732962672 599.992004274486 523 2 21 10882 228046
+286	5039714 18006 11605 14569902 0.321327137561 599.402426560522 564 3 21 11760 246554
+287	5057720 16432 11626 14572329 0.321751342998 599.619710333929 514 0 21 10677 223823
+288	5074152 16261 11635 14572298 0.322240498627 599.617561819183 512 1 21 10650 223162
+289	5090413 16934 11641 14575109 0.322300445082 599.853483936628 530 1 21 11029 231165
+290	5107347 18536 11662 14560694 0.323071583025 598.656655339132 579 3 21 12051 252585
+291	5125883 18476 11668 14564189 0.323259339777 598.93517900544 577 1 21 12010 251770
+292	5144359 16685 11695 14562430 0.324051181069 598.795113481558 522 1 21 10854 227508
+293	5161044 16796 11714 14563282 0.324248336023 598.863645231368 525 1 21 10921 228871
+294	5177840 17836 11720 14566365 0.324335246226 599.115748220308 557 2 21 11577 242651
+295	5195676 18355 11750 14573560 0.324714189205 599.724711824044 574 3 21 11966 250888
+296	5214031 16774 11763 14561740 0.325142902784 598.7403165032 525 3 21 10926 228968
+297	5230805 16020 11770 14569147 0.325318105326 599.339375534112 502 0 21 10394 217866
+298	5246825 15999 11784 14571658 0.32601367522 599.557857646983 501 3 21 10433 218653
+299	5262824 18287 11818 14576244 0.326553598421 599.949142634074 572 3 21 11898 249262
+300	5281111 16508 11839 14568412 0.327167355618 599.280918637708 516 2 21 10730 224878
+301	5297619 16624 11845 14565789 0.3272285773 599.068065036417 522 3 21 10864 227682
+302	5314243 17093 11853 14574083 0.327556461706 599.764347300108 534 3 21 11124 233156
+303	5331336 17706 11861 14561227 0.32757009201 598.701092215005 553 3 21 11491 240783
+304	5349042 17233 11892 14576344 0.328452478246 599.95975699712 539 3 21 11208 234818
+305	5366275 17046 11901 14555093 0.329051446915 598.270493852982 533 3 21 11107 232819
+306	5383321 18063 11921 14573978 0.329355520175 599.756126823316 564 0 21 11714 245484
+307	5401384 16404 11924 14561099 0.329630460835 598.690508513169 513 1 21 10663 223449
+308	5417788 18684 11940 14572786 0.330108692604 599.660025523257 584 3 21 12156 254766
+309	5436472 17915 11959 14568444 0.330862938198 599.284302313221 560 2 21 11641 244027
+310	5454387 16425 11994 14572071 0.332255192318 599.595991425717 514 3 21 10695 224087
+311	5470812 17922 11996 14575245 0.332260056017 599.864303642786 561 2 21 11647 244047
+312	5488734 17173 12007 14569840 0.332498858042 599.397215203992 537 2 21 11174 234222
+313	5505907 16214 12014 14576699 0.332553604356 599.988994725163 508 2 21 10557 221141
+314	5522121 16991 12024 14575643 0.332754282513 599.895730854762 531 3 21 11049 231517
+315	5539112 18899 12028 14562160 0.332917950578 598.772371413969 590 1 21 12290 257732
+316	5558011 16661 12030 14565117 0.332956626486 599.013468043437 523 2 21 10863 227671
+317	5574672 18681 12033 14569625 0.332974362864 599.378658545391 583 3 21 12158 254890
+318	5593353 18163 12043 14576171 0.333270300129 599.942356265209 568 3 21 11824 247630
+319	5611516 17609 12075 14567753 0.334078908811 599.235057106236 551 3 21 11488 240808
+320	5629125 18747 12077 14576063 0.334136120284 599.933715812194 586 3 21 12218 256140
+321	5647872 15619 12084 14571700 0.33434433775 599.562087732899 489 1 21 10133 212227
+322	5663491 16089 12099 14573870 0.334604601183 599.746999297891 503 2 21 10455 219159
+323	5679580 16193 12139 14573895 0.335288837196 599.748646299528 507 3 21 10549 221001
+324	5695773 18334 12232 14575626 0.337087384038 599.894479808359 572 3 21 11926 250054
+325	5714107 15990 12234 14567825 0.337131369133 599.241551035445 501 2 21 10396 217710
+326	5730097 15605 12244 14558580 0.337313758277 598.505422987607 489 3 21 10185 213443
+327	5745702 17012 12262 14559967 0.33820562548 598.603816116853 532 2 21 11071 232037
+328	5762714 18527 12268 14560655 0.338291008284 598.653751059152 580 3 21 12034 252120
+329	5781241 17008 12283 14550595 0.339192644842 598.016227005773 532 1 21 11064 231894
+330	5798249 16502 12286 14565930 0.339221718151 599.080704429484 516 3 21 10731 224881
+331	5814751 17210 12288 14564449 0.339264197417 598.957892204384 539 2 21 11180 234304
+332	5831961 17112 12309 14572207 0.339765318762 599.609249793063 536 1 21 11139 233523
+333	5849073 17122 12339 14571272 0.341166510912 599.525420635221 536 2 21 11153 233797
+334	5866195 15833 12342 14570076 0.341539427612 599.416441399624 496 1 21 10299 215821
+335	5882028 18048 12348 14566012 0.341647037957 599.086652465321 564 1 21 11749 246367
+336	5900076 18825 12359 14567380 0.342148408268 599.201571993539 589 1 21 12230 256262
+337	5918901 18878 12384 14557232 0.342453947261 598.409075163196 590 3 21 12268 257054
+338	5937779 17168 12389 14567613 0.342722360582 599.222547814681 537 3 21 11173 234123
+339	5954947 16680 12401 14560158 0.342974916564 598.618034141841 522 3 21 10875 227945
+340	5971627 17098 12408 14560096 0.343246458978 598.613652050296 535 2 21 11122 233000
+341	5988725 17903 12428 14559212 0.34366875866 598.548123179863 561 3 21 11682 244838
+342	6006628 18316 12432 14565073 0.343770108168 599.010815825407 572 2 21 11913 249725
+343	6024944 17147 12440 14571576 0.344235075284 599.55047033381 537 2 21 11186 234498
+344	6042091 19346 12467 14572434 0.34518401962 599.629363501163 604 3 21 12583 263725
+345	6061437 16303 12474 14566879 0.345261857453 599.15859938174 512 3 21 10632 222668
+346	6077740 15141 12477 14569396 0.345287934385 599.358779676314 474 3 21 9836 206072
+347	6092881 16600 12496 14575240 0.346004637995 599.863752734537 518 2 21 10786 226112
+348	6109481 16665 12551 14556412 0.346696631965 598.35332241635 522 3 21 10850 227184
+349	6126146 17183 12597 14575422 0.347461103681 599.877683088172 538 3 22 11711 256749
+350	6143329 17382 12605 14563379 0.347581378983 598.871280240544 543 2 21 11259 235807
+351	6160711 16550 12620 14565253 0.347995346265 599.023052112626 517 1 21 10731 224839
+352	6177261 18683 12624 14563383 0.348187528553 598.871684344234 584 1 21 12119 253883
+353	6195944 16731 12636 14570501 0.348528267827 599.450031202803 523 2 21 10852 227404
+354	6212675 17195 12661 14568215 0.349504612771 599.268157553976 538 3 21 11203 234793
+355	6229870 17385 12670 14574524 0.349740664456 599.804662413054 543 3 21 11308 237022
+356	6247255 17178 12706 14553133 0.35096632839 598.154952354905 537 1 21 11165 234041
+357	6264433 17010 12754 14572825 0.352978316746 599.663593346728 532 1 21 11064 231852
+358	6281443 16077 12757 14573021 0.353112848923 599.675284824597 504 3 21 10474 219462
+359	6297520 17760 12772 14573100 0.353711918681 599.684958335817 555 2 21 11544 241958
+360	6315280 16835 12777 14576512 0.353818569063 599.974497108313 528 1 21 10974 230016
+361	6332115 17554 12828 14571869 0.354656081805 599.578170698936 549 1 21 11429 239605
+362	6349669 16438 12867 14572235 0.355627041289 599.61239685243 515 1 21 10686 223900
+363	6366107 17660 12916 14567548 0.3566314011 599.217279264162 552 2 21 11482 240662
+364	6383767 16766 12962 14564921 0.357404969369 598.997174536921 523 1 21 10885 228219
+365	6400533 16592 12990 14574253 0.357942273244 599.778335227482 520 1 21 10785 225947
+366	6417125 17472 13005 14571110 0.358972437114 599.508439563921 546 1 21 11371 238413
+367	6434597 16510 13035 14573675 0.360138882571 599.733176090813 517 3 21 10758 225400
+368	6451107 16440 13052 14571779 0.36060935013 599.56911525901 515 3 21 10726 224818
+369	6467547 17914 13054 14574560 0.360688266671 599.807681416408 560 3 21 11682 244886
+370	6485461 16660 13063 14556456 0.360891433258 598.355448511494 522 1 21 10847 227297
+371	6502121 17024 13080 14571473 0.361898270338 599.542124575574 531 3 21 11066 231934
+372	6519145 16444 13118 14575896 0.36283825052 599.918761805591 515 3 21 10724 224706
+373	6535589 17491 13126 14571481 0.363034025039 599.542324056667 547 2 21 11366 238160
+374	6553080 17453 13128 14553550 0.363182470961 598.181253922803 545 1 21 11339 237649
+375	6570533 18533 13144 14559351 0.363589039685 598.558038302025 579 2 21 12041 252377
+376	6589066 16790 13157 14569957 0.363859791584 599.407242580573 525 3 21 10937 229251
+377	6605856 17493 13163 14561604 0.363916862819 598.73064008737 546 1 21 11369 238389
+378	6623349 15871 13166 14570961 0.36392764474 599.494086317896 497 1 21 10335 216577
+379	6639220 17451 13168 14551787 0.364040357657 598.077910708394 546 1 22 11879 260605
+380	6656671 15747 13174 14559160 0.36437316545 598.545348979668 493 3 21 10236 214390
+381	6672418 16221 13177 14566346 0.364404214178 599.114193887357 509 1 21 10555 221127
+382	6688639 16502 13258 14568997 0.365945820629 599.327893456637 516 1 21 10706 224386
+383	6705141 18496 13319 14575942 0.367576085269 599.923957884444 579 1 21 12032 252140
+384	6723637 17387 13346 14574951 0.368292712921 599.841373677246 544 3 21 11336 237630
+385	6741024 16516 13348 14565627 0.368444085754 599.055560680595 517 2 21 10745 225147
+386	6757540 17756 13362 14567533 0.36883613993 599.216425796484 556 3 21 11599 243239
+387	6775296 17752 13402 14559707 0.37025816557 598.585085331694 555 2 21 11543 241933
+388	6793048 18257 13427 14568258 0.370727292593 599.272057587327 572 3 21 11907 249503
+389	6811305 18559 13435 14559232 0.371087275459 598.549308359509 580 3 21 12095 253563
+390	6829864 18858 13476 14566549 0.372338527339 599.12966862653 589 2 21 12220 255724
+391	6848722 17410 13552 14551740 0.373423696305 598.07440863204 547 1 21 11379 238547
+392	6866132 17513 13562 14576656 0.373679601253 599.986444143788 547 3 21 11411 239281
+393	6883645 17288 13564 14551497 0.373734238956 598.063634550202 541 3 21 11252 235704
+394	6900933 16822 13599 14575762 0.374514042414 599.906647803337 526 3 21 10942 229236
+395	6917755 18314 13602 14572010 0.374645760762 599.591223337182 572 1 21 11906 249490
+396	6936069 17776 13620 14562028 0.374829679325 598.762594270303 555 3 21 11560 242288
+397	6953845 17770 13637 14571918 0.375229937536 599.585219458391 555 2 21 11548 242080
+398	6971615 18541 13640 14568834 0.375410231172 599.31678003729 579 3 21 12066 252968
+399	6990156 17466 13654 14575463 0.37549434532 599.880076526763 546 3 21 11358 237954
+400	7007622 15630 13663 14557630 0.375664708505 598.436948454714 490 1 21 10187 213489
+401	7023252 17367 13678 14562162 0.375843143922 598.772473515755 544 1 21 11315 237191
+402	7040619 16027 13680 14553695 0.375851359833 598.190459674143 502 1 21 10409 218045
+403	7056646 16691 13737 14563779 0.377272301423 598.901234936473 522 3 21 10857 227377
+404	7073337 16702 13743 14550283 0.377679389175 597.99971781093 523 2 21 10869 227809
+405	7090039 16308 13745 14550619 0.377692297359 598.017937315217 510 1 21 10554 221196
+406	7106347 17702 13751 14563796 0.377870859714 598.902394725271 554 1 21 11526 241634
+407	7124049 18113 13797 14562702 0.378929663359 598.819138120898 566 3 21 11796 247292
+408	7142162 17625 13801 14565309 0.379055573126 599.028205919273 550 1 21 11433 239697
+409	7159787 17008 13860 14557735 0.380594132536 598.443342376049 532 2 21 11055 231729
+410	7176795 389953 13909 14576470 0.382215758022 599.969883554471 11917 2 322 2039869 438130471
+411	7566748 174493 13910 14575468 0.382215758022 599.880707852778 5290 2 379 1650153 537866033
+412	7741241 16274 13919 14569614 0.382306968881 599.37754840499 510 1 21 10561 221315
+413	7757515 18080 13933 14552687 0.382931290304 598.129399796236 565 3 22 12329 270671
+414	7775595 18190 13958 14566295 0.383209658775 599.110108184147 568 2 21 11817 247713
+415	7793785 16720 14049 14564879 0.385120117213 598.993825676667 525 1 21 10892 228244
+416	7810505 17802 14078 14566522 0.385673621716 599.127179248007 558 1 21 11611 243391
+417	7828307 17216 14098 14567917 0.386017719615 599.243593211699 539 2 21 11222 235200
+418	7845523 17206 14109 14575177 0.38646492126 599.85819345922 539 3 21 11218 235054
+419	7862729 16524 14119 14556498 0.386651061911 598.357989405681 516 3 21 10745 225251
+420	7879253 18165 14151 14560137 0.387312918669 598.616490249141 569 3 21 11856 248478
+421	7897418 16305 14186 14575133 0.388558760034 599.855550756487 511 3 21 10635 222863
+422	7913723 17010 14207 14568697 0.389208501102 599.305104664707 531 3 21 11067 232013
+423	7930733 17112 14215 14567391 0.38939607499 599.202764945718 536 3 21 11170 234138
+424	7947845 15561 14217 14565129 0.38942432018 599.014081852239 488 1 21 10140 212502
+425	7963406 18418 14232 14576233 0.390148305504 599.947990437704 576 3 21 12004 251658
+426	7981824 18880 14238 14573023 0.3904713291 599.675824299506 589 3 21 12279 257403
+427	8000704 14098 14280 14567110 0.391646287683 599.176967560891 441 1 21 9165 192095
+428	8014802 18586 14282 14573353 0.391669218424 599.701736657417 581 3 21 12122 254196
+429	8033388 18704 14302 14556056 0.392804652478 598.332259044796 585 2 21 12158 254664
+430	8052092 17074 14308 14576839 0.39311065366 599.999692012516 534 3 21 11123 233151
+431	8069166 17963 14318 14559294 0.393455974143 598.554515339094 562 1 21 11689 245061
+432	8087129 19022 14378 14557688 0.395311188611 598.441462179672 595 1 21 12400 260038
+433	8106151 16959 14394 14563549 0.396036577051 598.880772422982 531 2 21 11053 231637
+434	8123110 16016 14410 14565786 0.396906955061 599.067956710691 502 3 21 10450 219008
+435	8139126 18193 14413 14567291 0.397130995472 599.195076685539 568 3 22 12407 272495
+436	8157319 16381 14417 14563879 0.39747215027 598.909868148635 513 2 21 10662 223374
+437	8173700 16811 14455 14563093 0.398328814499 598.8480654144 526 3 21 10969 230009
+438	8190511 17947 14467 14572755 0.39870674317 599.657178081744 561 1 21 11681 244859
+439	8208458 19718 14480 14551660 0.399642164032 598.069407956725 616 3 22 13436 294866
+440	8228176 18259 14490 14564965 0.400239115285 599.001419457383 571 1 21 11869 248761
+441	8246435 15781 14494 14569250 0.400283883731 599.347817094834 494 2 21 10262 214928
+442	8262216 17202 14531 14551865 0.403165285108 598.082425068643 539 3 21 11222 235122
+443	8279418 16870 14540 14572139 0.403782932426 599.601558157559 528 1 21 10973 230025
+444	8296288 17188 14549 14574722 0.404362545011 599.82331634064 537 3 21 11199 234833
+445	8313476 17728 14556 14563619 0.40497761492 598.887460131194 554 3 21 11528 241498
+446	8331204 17857 14558 14572592 0.405074593632 599.643225892291 559 2 21 11633 243855
+447	8349061 15627 14584 14562605 0.407189602773 598.809701145245 490 1 21 10192 213600
+448	8364688 16621 14599 14566378 0.408346476939 599.116969940933 521 1 21 10842 227284
+449	8381309 18184 14617 14571718 0.409297416683 599.56380586464 568 2 21 11803 247357
+450	8399493 17195 14648 14573045 0.410930745937 599.678368592662 538 3 22 11740 257748
+451	8416688 18929 14651 14575028 0.411153620998 599.847357585847 591 3 21 12321 258341
+452	8435617 15269 14658 14572954 0.411723941539 599.669652466257 478 2 21 9943 208415
+453	8450886 16587 14676 14563149 0.412947985889 598.851885638359 520 3 21 10832 227022
+454	8467473 16466 14680 14565679 0.413069067935 599.060693358083 514 1 21 10669 223611
+455	8483939 17072 14693 14558244 0.413560186238 598.478076554553 535 1 21 11121 233069
+456	8501011 16957 14703 14568901 0.414091699897 599.320542380266 531 3 21 11072 232162
+457	8517968 18854 14732 14565381 0.416421120646 599.034403521542 589 2 22 12857 282379
+458	8536822 17900 14745 14569282 0.417035763156 599.35013794564 559 3 21 11636 243922
+459	8554722 16886 14785 14555660 0.419067583718 598.310079904469 529 2 21 11009 230737
+460	8571608 17372 14840 14575915 0.422075277057 599.920308789126 544 3 21 11349 237977
+461	8588980 16998 14842 14568853 0.422215058969 599.317516444039 531 3 21 11055 231669
+462	8605978 420413 14852 14576712 0.422790515488 599.990066200851 12874 2 307 2011936 411748816
+463	9026391 17267 14883 14556406 0.424302883577 598.35295202483 540 1 21 11229 235405
+464	9043658 19306 14889 14571982 0.42453363328 599.589524870589 604 1 21 12583 263851
+465	9062964 18461 14910 14572406 0.425289556564 599.627619637603 578 2 21 12041 252405
+466	9081425 17234 14933 14575320 0.425898196029 599.86930385097 539 1 21 11209 234997
+467	9098659 16255 14935 14575351 0.425922619298 599.871348900809 508 3 21 10577 221617
+468	9114914 17410 14943 14566311 0.426232312616 599.111124670588 545 3 21 11343 237699
+469	9132324 17203 14951 14548071 0.426546267918 597.859962004606 539 3 21 11215 234995
+470	9149527 17271 14956 14560538 0.426881816908 598.644962270003 541 3 21 11281 236517
+471	9166798 15484 14978 14573600 0.42840937587 599.727516734667 485 2 21 10097 211675
+472	9182282 18016 14982 14571492 0.428611145083 599.543231898727 563 2 21 11731 245973
+473	9200298 17483 15027 14569369 0.430386699399 599.356404501498 547 3 22 11913 261295
+474	9217781 16464 15059 14569646 0.432158690416 599.379772646236 515 2 21 10712 224494
+475	9234245 18940 15093 14571026 0.434540959443 599.500787854481 592 2 21 12320 258264
+476	9253185 16811 15099 14563887 0.434838708577 598.910319484597 526 2 21 10953 229611
+477	9269996 17445 15111 14571254 0.435460030732 599.52469833528 547 2 21 11379 238505
+478	9287441 16967 15147 14573077 0.436669029987 599.681939886962 531 3 21 11057 231673
+479	9304408 18119 15167 14572679 0.437567151021 599.650760817459 566 3 21 11796 247248
+480	9322527 16007 15170 14575556 0.437840197442 599.888429139407 501 3 21 10426 218474
+481	9338534 15870 15173 14564037 0.437907330657 598.92249569732 497 3 21 10368 217404
+482	9354404 17117 15186 14570749 0.438676912347 599.471318556868 537 3 21 11169 234087
+483	9371521 17246 15257 14574981 0.441192670942 599.843102347231 540 3 22 11784 258716
+484	9388767 16400 15263 14565448 0.441497235643 599.040834795122 512 3 21 10663 223535
+485	9405167 18812 15291 14574822 0.442873843666 599.832042471084 588 3 21 12253 256831
+486	9423979 16308 15324 14571434 0.444633981853 599.538526885377 510 3 21 10633 222889
+487	9440287 15117 15349 14554696 0.446884964521 598.248189212005 473 2 21 9807 205265
+488	9455404 16356 15361 14566537 0.447047218348 599.128655694437 511 3 21 10649 223215
+489	9471760 18997 15467 14575363 0.450328583294 599.872974635483 595 3 22 13009 285775
+490	9490757 17121 15472 14555611 0.450921902417 598.307236704435 536 2 21 11168 234166
+491	9507878 15887 15606 14550855 0.456495219947 598.032575222657 498 3 21 10387 217765
+492	9523765 17026 15696 14568424 0.459890850777 599.281617560117 533 3 21 11100 232688
+493	9540791 17601 15722 14575640 0.460614559468 599.895270508532 551 3 21 11501 241169
+494	9558392 16790 15840 14573018 0.464639262457 599.675154501545 525 3 21 10945 229445
+495	9575182 16299 15895 14551828 0.466341195169 598.080725996282 509 3 21 10596 222056
+496	9591481 14371 15899 14570344 0.466379470476 599.439400737292 449 3 21 9351 195929
+497	9605852 15977 16040 14552387 0.471734378734 598.113141095096 499 3 21 10407 218165
+498	9621829 18323 16201 14561518 0.477392747139 598.726043745523 573 3 21 11931 250075
+499	9640152 17558 16262 14576173 0.479546330583 599.942390400383 549 3 21 11445 239879
+500	9657710 841 19288 265879 0.560626776136 19.240278352696 30 1 19 345 4715
+501	9658551 327 19538 82703 0.566516481946 3.530824326119 12 1 11 76 606
+502	9658878 555 20087 174007 0.577807103154 11.067981479094 20 1 15 180 1970
+503	9659433 439 20142 110904 0.580090435384 5.824715489684 16 1 13 124 1184
+504	9659872 270 20468 81619 0.588206455982 3.441820119124 10 1 10 55 385
+505	9660142 438 20562 123267 0.591181217716 6.810641384241 16 1 13 124 1184
+506	9660580 669 20658 204092 0.592451470318 13.695329462058 24 1 16 242 2932
+507	9661249 668 20993 209046 0.601008739624 14.135855766781 24 1 17 244 2996
+508	9661917 493 21075 144916 0.602831178832 8.599850968479 18 1 14 151 1549
+509	9662410 272 21405 107557 0.612439342076 5.543119563781 10 1 10 55 385
+510	9662682 669 21507 210148 0.61529761631 14.229517419207 24 1 17 244 2996
+511	9663351 439 21602 114985 0.618725131666 6.154234529873 16 1 13 124 1184
+512	9663790 438 21670 120451 0.620675546188 6.582073617797 16 1 13 124 1184
+513	9664228 327 21692 66344 0.621425832156 2.198046467733 12 1 11 76 606
+514	9664555 271 22213 84748 0.634709226984 3.698566600493 10 1 10 55 385
+515	9664826 271 22326 51694 0.637059676754 1.294210819316 10 1 10 55 385
+516	9665097 270 22397 77227 0.638530269092 3.080588704742 10 1 10 55 385
+517	9665367 271 22409 63915 0.639249451514 2.000965841606 10 1 10 55 385
+518	9665638 269 22421 88046 0.639630094268 3.971308932341 10 1 10 55 385
+519	9665907 275 22447 250542 0.640258665564 17.845524978525 10 1 10 55 385
+520	9666182 269 22566 81961 0.643553927908 3.468799524197 10 1 10 55 385
+521	9666451 270 22571 91098 0.643617284046 4.215622577973 10 1 10 55 385
+522	9666721 12341 22655 10273270 0.645516939877 398.396294410291 408 1 209 43636 6086004
+523	9679062 272 22717 101478 0.646692222734 5.043872740448 10 1 10 55 385
+524	9679334 270 22808 79828 0.648906134432 3.298967636705 10 1 10 55 385
+525	9679604 276 22878 266511 0.650855094582 19.299216589359 10 1 10 55 385
+526	9679880 272 23097 108179 0.655894325436 5.593297053785 10 1 10 55 385
+527	9680152 270 23169 91649 0.657207525628 4.257868136221 10 1 10 55 385
+528	9680422 267 23291 68729 0.659936229666 2.394304746178 10 1 10 55 385
+529	9680689 273 23323 126120 0.661228258266 7.042931070527 10 1 10 55 385
+530	9680962 269 23354 91652 0.662769934656 4.257917255233 10 1 10 55 385
+531	9681231 275 23403 164852 0.663702306142 10.287545237202 10 1 10 55 385
+532	9681506 278 23411 226538 0.66373099587 15.686821302984 10 1 10 55 385
+533	9681784 271 23450 98039 0.664441102716 4.768401387408 10 1 10 55 385
+534	9682055 274 23529 128935 0.667343992176 7.272399719488 10 1 10 55 385
+535	9682329 279 23579 922619 0.668842156628 41.799063689472 10 1 10 55 385
+536	9682608 273 23625 172386 0.670382477124 10.926309867717 10 1 10 55 385
+537	9682881 277 23711 436987 0.672957770886 23.548237153743 10 1 10 55 385
+538	9683158 274 23845 143395 0.677834038696 8.472179685185 10 1 10 55 385
+539	9683432 271 23930 141031 0.680307902838 8.279712166259 10 1 10 55 385
+540	9683703 275 23950 175403 0.680907013762 11.188626594912 10 1 10 55 385
+541	9683978 269 23976 60382 0.681260893206 1.703460899894 10 1 10 55 385
+542	9684247 281 24074 468430 0.682953819768 25.224275908622 10 1 10 55 385
+543	9684528 272 24149 117389 0.68429627839 6.339105968878 10 1 10 55 385
+544	9684800 270 24267 72491 0.68661057136 2.692808080499 10 1 10 55 385
+545	9685070 271 24359 99398 0.689243081264 4.875467331009 10 1 10 55 385
+546	9685341 279 24404 1785021 0.69034374382 74.144531167006 10 1 10 55 385
+547	9685620 280 24430 1231173 0.691268766816 54.105288322398 10 1 10 55 385
+548	9685900 272 24483 136869 0.692649736372 7.940113293322 10 1 10 55 385
+549	9686172 279 24578 501898 0.694967262968 26.492918753907 10 1 10 55 385
+550	9686451 279 24627 237727 0.696317477134 16.678571212958 10 1 10 55 385
+551	9686730 274 24749 180159 0.69838667621 11.609182819481 10 1 10 55 385
+552	9687004 278 24798 1429730 0.700152629706 62.047049799115 10 1 10 55 385
+553	9687282 287 24884 4518745 0.702558112006 180.719427309828 10 1 10 55 385
+554	9687569 273 24912 139461 0.703430387974 8.149732083235 10 1 10 55 385
+555	9687842 271 24924 129864 0.703652463812 7.349921383819 10 1 10 55 385
+556	9688113 280 24944 822430 0.704072710018 38.007809388419 10 1 10 55 385
+557	9688393 276 24957 549839 0.704562923852 28.195976595459 10 1 10 55 385
+558	9688669 273 24999 183483 0.705456347982 11.9036921543 10 1 10 55 385
+559	9688942 270 25010 121261 0.70590623822 6.645447870254 10 1 10 55 385
+560	9689212 272 25040 144147 0.70635434572 8.537683676102 10 1 10 55 385
+561	9689484 342 25079 702702 0.707191025596 34.059965864513 12 1 11 76 606
+562	9689826 271 25133 158684 0.708405333326 9.771041216615 10 1 10 55 385
+563	9690097 270 25151 97410 0.70902308486 4.715221244586 10 1 10 55 385
+564	9690367 274 25250 138352 0.71223280556 8.066550669972 10 1 10 55 385
+565	9690641 276 25298 452645 0.713663002028 24.495495467077 10 1 10 55 385
+566	9690917 272 25469 436060 0.719037959752 23.488780728155 10 1 10 55 385
+567	9691189 276 25607 311367 0.722491701302 20.715762134803 10 1 10 55 385
+568	9691465 281 25667 3392618 0.725052989964 135.815058318269 10 1 10 55 385
+569	9691746 279 25714 539732 0.725750216372 27.923340511721 10 1 10 55 385
+570	9692025 277 25722 760230 0.725864153178 36.264021501535 10 1 10 55 385
+571	9692302 278 25727 910439 0.725890037626 41.461408526481 10 1 10 55 385
+572	9692580 277 25738 904872 0.72620483221 41.259097984418 10 1 10 55 385
+573	9692857 281 25885 2585853 0.729964980688 103.591263117114 10 1 10 55 385
+574	9693138 274 25900 196283 0.730187270738 13.001893052588 10 1 10 55 385
+575	9693412 278 25909 252013 0.730375187914 17.976728888624 10 1 10 55 385
+576	9693690 273 25928 152830 0.730773091638 9.264697206315 10 1 10 55 385
+577	9693963 277 26018 671746 0.733242501784 32.711586256819 10 1 10 55 385
+578	9694240 281 26027 628761 0.733279075694 30.927106861505 10 1 10 55 385
+579	9694521 279 26047 470336 0.73380302657 25.284272619822 10 1 10 55 385
+580	9694800 276 26065 871862 0.734282778298 40.05828188342 10 1 10 55 385
+581	9695076 273 26084 140934 0.734712616774 8.272153919387 10 1 10 55 385
+582	9695349 281 26215 1565896 0.737756154816 65.765472807045 10 1 10 55 385
+583	9695630 280 26220 1034535 0.73776479864 44.881537324646 10 1 10 55 385
+584	9695910 277 26230 1159507 0.738008638998 51.377549828746 10 1 10 55 385
+585	9696187 282 26323 2862806 0.740412840922 115.923845921238 10 1 10 55 385
+586	9696469 276 26343 1045088 0.74094860022 45.56353917936 10 1 10 55 385
+587	9696745 281 26383 1129533 0.741845176596 49.872652670256 10 1 10 55 385
+588	9697026 275 26409 422734 0.742331179148 22.559264763657 10 1 10 55 385
+589	9697301 280 26424 1249803 0.742647368968 55.022470367762 10 1 10 55 385
+590	9697581 278 26431 741772 0.74285082913 35.649469480628 10 1 10 55 385
+591	9697859 277 26483 236541 0.744128329922 16.574761682832 10 1 10 55 385
+592	9698136 277 26512 699626 0.744607301108 33.898951746606 10 1 10 55 385
+593	9698413 277 26552 204549 0.745611332236 13.737907381823 10 1 10 55 385
+594	9698690 277 26568 172404 0.74613706118 10.927310936649 10 1 10 55 385
+595	9698967 280 26870 500057 0.753310813564 26.412010070823 10 1 10 55 385
+596	9699247 287 26876 3211307 0.753343870286 128.190135191008 10 1 10 55 385
+597	9699534 281 26888 1873169 0.753566863378 76.901539297615 10 1 10 55 385
+598	9699815 334 26925 321940 0.754379445816 20.779425113591 12 1 11 76 606
+599	9700149 278 26947 531052 0.754792796266 27.699570182601 10 1 10 55 385
+600	9700427 278 26977 443287 0.755703078428 24.000185553895 10 1 10 55 385
+601	9700705 275 26982 165673 0.755786783108 10.358351911038 10 1 10 55 385
+602	9700980 280 27019 1886802 0.756450634482 77.206863737993 10 1 10 55 385
+603	9701260 229 27047 5363815 0.757426757296 213.377750707815 8 1 8 36 204
+604	9701489 284 27095 9418569 0.758956709416 366.853020011222 10 1 10 55 385
+605	9701773 283 27104 2286199 0.75899313141 93.041457389461 10 1 10 55 385
+606	9702056 279 27132 217525 0.75963451736 14.877072782338 10 1 10 55 385
+607	9702335 285 27248 1556632 0.762027803184 65.281233277301 10 1 10 55 385
+608	9702620 346 27253 1099414 0.76203562926 48.566187636009 12 1 11 76 606
+609	9702966 275 27291 434621 0.763078264022 23.386991994848 10 1 10 55 385
+610	9703241 276 27327 148470 0.764023341234 8.892398315787 10 1 10 55 385
+611	9703517 283 27386 1404778 0.764790884768 60.89482077314 10 1 10 55 385
+612	9703800 276 27401 420957 0.76543201922 22.43224534519 10 1 10 55 385
+613	9704076 281 27418 242849 0.765842370442 17.143767904174 10 1 10 55 385
+614	9704357 284 27438 1620714 0.766323547252 68.297578597192 10 1 10 55 385
+615	9704641 279 27485 423383 0.767247627424 22.61092229876 10 1 10 55 385
+616	9704920 279 27520 461735 0.76825463973 24.989514912689 10 1 10 55 385
+617	9705199 281 27589 1109909 0.770487415198 48.982709770838 10 1 10 55 385
+618	9705480 281 27621 1056141 0.771692427042 46.348634045989 10 1 10 55 385
+619	9705761 283 27689 618832 0.773853931874 30.483582800537 10 1 10 55 385
+620	9706044 278 27742 272361 0.774630241618 19.839074930605 10 1 10 55 385
+621	9706322 282 27747 1582284 0.774687078256 66.489387835049 10 1 10 55 385
+622	9706604 277 27754 317969 0.77479854369 20.754030856514 10 1 10 55 385
+623	9706881 276 27778 217883 0.775098236776 14.909050264448 10 1 10 55 385
+624	9707157 283 27806 1305030 0.775527065456 56.924369879296 10 1 10 55 385
+625	9707440 279 27898 3899109 0.777645787118 158.863268334192 10 1 10 55 385
+626	9707719 291 27919 8993853 0.777870715572 352.115546092577 10 1 10 55 385
+627	9708010 283 27968 1827221 0.778968184954 75.627280015456 10 1 10 55 385
+628	9708293 279 27990 1523558 0.779256343996 63.817919746663 10 1 10 55 385
+629	9708572 279 28024 776728 0.7801539802 36.726727375078 10 1 10 55 385
+630	9708851 274 28030 270608 0.780230122414 19.673364291951 10 1 10 55 385
+631	9709125 277 28071 151765 0.780867679436 9.169607187174 10 1 10 55 385
+632	9709402 283 28252 1540574 0.785434361234 64.408641079021 10 1 10 55 385
+633	9709685 275 28296 161546 0.786673443634 10.015430268195 10 1 10 55 385
+634	9709960 278 28398 988062 0.789555024394 42.882965228827 10 1 10 55 385
+635	9710238 285 28417 2685539 0.789827203076 107.720987526299 10 1 10 55 385
+636	9710523 280 28424 253798 0.790024560684 18.140488565254 10 1 10 55 385
+637	9710803 279 28468 704155 0.791234017658 34.130247420311 10 1 10 55 385
+638	9711082 281 28490 1616178 0.791829646382 68.13223481955 10 1 10 55 385
+639	9711363 337 28573 201765 0.793599889218 13.488427753165 12 1 11 76 606
+640	9711700 283 28614 2360209 0.794695667848 95.755364814939 10 1 10 55 385
+641	9711983 272 28890 134821 0.801246108012 7.763167001855 10 1 10 55 385
+642	9712255 279 28900 238002 0.801352320624 16.7014542524 10 1 10 55 385
+643	9712534 282 28992 1131674 0.803434003376 49.965593777076 10 1 10 55 385
+644	9712816 280 29064 663613 0.80479095553 32.367555214925 10 1 10 55 385
+645	9713096 277 29119 236277 0.805622176602 16.551415831487 10 1 10 55 385
+646	9713373 282 29168 1825056 0.806497734644 75.51111015661 10 1 10 55 385
+647	9713655 283 29233 916906 0.808665723434 41.656118170912 10 1 10 55 385
+648	9713938 278 29316 542092 0.810145668574 27.987311058508 10 1 10 55 385
+649	9714216 278 29333 770485 0.810690147532 36.572409524598 10 1 10 55 385
+650	9714494 280 29376 1433521 0.811354319988 62.17532380121 10 1 10 55 385
+651	9714774 280 29441 1007389 0.81274124335 43.261613423825 10 1 10 55 385
+652	9715054 274 29585 148482 0.81656616426 8.893692718778 10 1 10 55 385
+653	9715328 280 29662 914437 0.818425159328 41.590417078621 10 1 10 55 385
+654	9715608 274 29757 131081 0.81981247502 7.452319172266 10 1 10 55 385
+655	9715882 275 29783 392901 0.820039627938 21.278440358818 10 1 10 55 385
+656	9716157 278 29824 1197854 0.820792559992 52.861686097996 10 1 10 55 385
+657	9716435 282 29877 492516 0.821700943204 26.152305967917 10 1 10 55 385
+658	9716717 280 29983 660265 0.82428010777 32.243676582088 10 1 10 55 385
+659	9716997 254 29996 11913195 0.8244003957 466.965631498132 9 1 9 45 285
+660	9717251 294 30032 13489822 0.82518650686 536.78920467002 10 1 10 55 385
+661	9717545 293 30048 7380542 0.82554888447 291.960893906406 10 1 10 55 385
+662	9717838 338 30106 1019020 0.826737939542 43.834252655668 12 1 11 76 606
+663	9718176 278 30137 228820 0.827400828538 15.896107161351 10 1 10 55 385
+664	9718454 285 30185 4282835 0.82875083902 171.830556958409 10 1 10 55 385
+665	9718739 279 30205 540995 0.829083531196 27.955276045755 10 1 10 55 385
+666	9719018 277 30259 218777 0.829998966042 14.987606179372 10 1 10 55 385
+667	9719295 281 30342 1298059 0.831514725052 56.760351307461 10 1 10 55 385
+668	9719576 276 30649 783574 0.837883137962 36.89735445151 10 1 10 55 385
+669	9719852 281 30744 666328 0.840123784078 32.489875603414 10 1 10 55 385
+670	9720133 273 30816 186082 0.841574608292 12.126921648983 10 1 10 55 385
+671	9720406 278 30833 435160 0.841956711672 23.431710406187 10 1 10 55 385
+672	9720684 281 30889 234926 0.843354818942 16.437881765467 10 1 10 55 385
+673	9720965 281 30986 1305599 0.845019797212 56.940000443835 10 1 10 55 385
+674	9721246 279 30991 716305 0.845026686402 34.621512185576 10 1 10 55 385
+675	9721525 280 30998 1828857 0.845204394712 75.704531050474 10 1 10 55 385
+676	9721805 280 31242 656026 0.849367646378 32.065090118558 10 1 10 55 385
+677	9722085 280 31270 1046967 0.850165878968 45.676352861648 10 1 10 55 385
+678	9722365 273 31292 144743 0.850585319064 8.584380405008 10 1 10 55 385
+679	9722638 275 31359 161094 0.851825693156 9.975682284006 10 1 10 55 385
+680	9722913 278 31423 212782 0.85287776867 14.455670528916 10 1 10 55 385
+681	9723191 286 31459 3627891 0.85377068988 145.985480419787 10 1 10 55 385
+682	9723477 283 31482 1848588 0.854278181386 76.269681778723 10 1 10 55 385
+683	9723760 289 31535 6286941 0.85517381874 249.234922900541 10 1 10 55 385
+684	9724049 277 31578 236885 0.855992000494 16.607363636727 10 1 10 55 385
+685	9724326 278 31656 254128 0.857299446766 18.170109030447 10 1 10 55 385
+686	9724604 281 31830 735097 0.861296578632 35.335645189553 10 1 10 55 385
+687	9724885 285 31841 2283102 0.861350211804 92.934028713238 10 1 10 55 385
+688	9725170 277 32084 547793 0.865914913118 28.13703542522 10 1 10 55 385
+689	9725447 283 32260 5647995 0.869517509778 224.752697354598 10 1 10 55 385
+690	9725730 279 32266 488732 0.86969333062 26.049323480237 10 1 10 55 385
+691	9726009 288 32289 2592707 0.870183139696 103.828709491609 10 1 10 55 385
+692	9726297 280 32391 224631 0.872034410886 15.517796999011 10 1 10 55 385
+693	9726577 285 32527 1221134 0.874797359874 53.682456341782 10 1 10 55 385
+694	9726862 278 32669 586244 0.877329900164 29.392783701064 10 1 10 55 385
+695	9727140 274 32684 248124 0.877847020022 17.625564977345 10 1 10 55 385
+696	9727414 280 32699 434065 0.878194819158 23.346073001417 10 1 10 55 385
+697	9727694 272 32705 114801 0.878370432449 6.139578124803 10 1 10 55 385
+698	9727966 282 32833 1626348 0.880235203748 68.526526286294 10 1 10 55 385
+699	9728248 281 32864 759408 0.880948514454 36.241241718003 10 1 10 55 385
+700	9728529 282 32895 525380 0.881459994334 27.527802937423 10 1 10 55 385
+701	9728811 279 32984 269979 0.882772510154 19.618302706582 10 1 10 55 385
+702	9729090 284 33131 1113593 0.885793326286 49.138155180957 10 1 10 55 385
+703	9729374 280 33215 687549 0.886861505905 33.320584828677 10 1 10 55 385
+704	9729654 258 33295 4262676 0.888463995168 170.78768740417 9 1 9 45 285
+705	9729912 280 33306 1823806 0.888811277824 75.449566086524 10 1 10 55 385
+706	9730192 274 33341 144396 0.88923644445 8.557868690889 10 1 10 55 385
+707	9730466 276 33413 620919 0.891438598182 30.591712659798 10 1 10 55 385
+708	9730742 284 33472 1019558 0.89300644733 43.879812419923 10 1 10 55 385
+709	9731026 277 33484 248890 0.893177472684 17.69397759593 10 1 10 55 385
+710	9731303 281 33505 458559 0.89347066755 24.817257908002 10 1 10 55 385
+711	9731584 282 33570 679817 0.894883927628 33.014376726568 10 1 10 55 385
+712	9731866 279 33594 416821 0.895413886379 22.162496916685 10 1 10 55 385
+713	9732145 283 33710 1266154 0.897131888942 55.904382057163 10 1 10 55 385
+714	9732428 275 33735 124332 0.897477853728 6.893604323826 10 1 10 55 385
+715	9732703 282 33980 1509770 0.902691999674 63.493773596176 10 1 10 55 385
+716	9732985 287 34140 7545097 0.906832318715 298.757666113309 10 1 10 55 385
+717	9733272 282 34181 525936 0.907291675816 27.544628715573 10 1 10 55 385
+718	9733554 279 34278 242789 0.909395545671 17.139896454597 10 1 10 55 385
+719	9733833 283 34294 1957477 0.90982552433 78.970433817805 10 1 10 55 385
+720	9734116 271 34549 117892 0.915011692326 6.37899301114 10 1 10 55 385
+721	9734387 273 34654 126437 0.917407368101 7.069504161467 10 1 10 55 385
+722	9734660 290 34684 9413653 0.917812405467 366.604808254447 10 1 10 55 385
+723	9734950 281 34689 578647 0.917900354028 29.148033495063 10 1 10 55 385
+724	9735231 281 34695 1061210 0.917950950386 46.724117024177 10 1 10 55 385
+725	9735512 280 34703 1399887 0.918117369066 60.68584316943 10 1 10 55 385
+726	9735792 277 34833 479064 0.921171346931 25.659848471361 10 1 10 55 385
+727	9736069 281 34968 1043704 0.924170482694 45.479836903933 10 1 10 55 385
+728	9736350 280 35000 783563 0.924517231424 36.897237769881 10 1 10 55 385
+729	9736630 273 35010 121801 0.924529229677 6.687165957254 10 1 10 55 385
+730	9736903 278 35042 234972 0.92510256665 16.441255891349 10 1 10 55 385
+731	9737181 280 35209 263755 0.927877989178 19.041818154828 10 1 10 55 385
+732	9737461 281 35224 562918 0.928141150126 28.612595248157 10 1 10 55 385
+733	9737742 286 35246 1213369 0.928540024265 53.391262012089 10 1 10 55 385
+734	9738028 275 35576 175158 0.934863498173 11.168542362626 10 1 10 55 385
+735	9738303 280 35604 276206 0.935359221512 20.186354457158 10 1 10 55 385
+736	9738583 279 35817 273294 0.939750719096 19.927809381313 10 1 10 55 385
+737	9738862 282 35965 1252770 0.942012166837 55.202678176604 10 1 10 55 385
+738	9739144 275 36059 219970 0.944256081924 15.096524662293 10 1 10 55 385
+739	9739419 274 36064 139896 0.944258404906 8.187128020465 10 1 10 55 385
+740	9739693 283 36106 429370 0.944923932703 23.052683542497 10 1 10 55 385
+741	9739976 281 36176 680972 0.945923639425 33.050081087967 10 1 10 55 385
+742	9740257 277 36255 158915 0.947506536083 9.789030615434 10 1 10 55 385
+743	9740534 282 36340 234707 0.948627823654 16.420300403139 10 1 10 55 385
+744	9740816 275 36380 244635 0.949020708282 17.309604534708 10 1 10 55 385
+745	9741091 23169 36446 14569943 0.950405170807 599.406243990773 762 1 461 199975 64033373
+746	9764260 277 36479 636444 0.950868962671 31.247802114212 10 1 10 55 385
+747	9764537 280 36494 234254 0.950976553386 16.37482751453 10 1 10 55 385
+748	9764817 278 36500 204536 0.951085366878 13.73667685928 10 1 10 55 385
+749	9765095 282 36558 1354913 0.95205821799 58.83115073736 10 1 10 55 385
+750	9765377 277 36563 191159 0.952235484614 12.552635115461 10 1 10 55 385
+751	9765654 272 36689 127808 0.954515994861 7.177000952717 10 1 10 55 385
+752	9765926 276 36745 419982 0.955585965198 22.381466217244 10 1 10 55 385
+753	9766202 274 36860 139157 0.957333985796 8.129732234411 10 1 10 55 385
+754	9766476 282 36889 227722 0.957577654014 15.793946074444 10 1 10 55 385
+755	9766758 340 37058 224163 0.959857798969 15.477362681502 12 1 11 76 606
+756	9767098 276 37074 194017 0.960074728614 12.800752494433 10 1 10 55 385
+757	9767374 283 37146 2859678 0.961370040477 115.8006042209 10 1 10 55 385
+758	9767657 273 37250 134430 0.963304142947 7.733032714531 10 1 10 55 385
+759	9767930 288 37298 3573048 0.964013048027 143.718363418101 10 1 10 55 385
+760	9768218 278 37322 183746 0.96425898536 11.926166161196 10 1 10 55 385
+761	9768496 343 37332 660995 0.964531310055 32.269475373592 12 1 11 76 606
+762	9768839 274 37346 202625 0.964625302961 13.565363568648 10 1 10 55 385
+763	9769113 276 37420 169329 0.966078079559 10.662599673061 10 1 10 55 385
+764	9769389 280 37445 217966 0.966388182345 14.914380045104 10 1 10 55 385
+765	9769669 278 37563 233294 0.968768451649 16.289790829238 10 1 10 55 385
+766	9769947 274 37582 134237 0.968964161336 7.716317823534 10 1 10 55 385
+767	9770221 278 37588 261503 0.969009077655 18.831608168413 10 1 10 55 385
+768	9770499 333 37753 165152 0.972273983467 10.317270851634 12 1 11 76 606
+769	9770832 275 37759 136571 0.972405198623 7.916206887767 10 1 10 55 385
+770	9771107 283 37797 6247874 0.973474089816 247.742679085168 10 1 10 55 385
+771	9771390 280 37855 259224 0.974431886726 18.624567536376 10 1 10 55 385
+772	9771670 273 37904 155204 0.97544532805 9.470688461548 10 1 10 55 385
+773	9771943 276 37910 182380 0.975529523497 11.801820507617 10 1 10 55 385
+774	9772219 278 38100 177496 0.979695885456 11.375271997391 10 1 10 55 385
+775	9772497 280 38176 262604 0.981214640844 18.935150573759 10 1 10 55 385
+776	9772777 279 38246 709860 0.982564598602 34.369046880124 10 1 10 55 385
+777	9773056 279 38258 182178 0.982840773561 11.783314649745 10 1 10 55 385
+778	9773335 277 38270 154100 0.98312515133 9.373848534391 10 1 10 55 385
+779	9773612 280 38416 236642 0.986210337832 16.585109647306 10 1 10 55 385
+780	9773892 277 38443 433575 0.986983413079 23.31117787254 10 1 10 55 385
+781	9774169 281 38624 237753 0.990650083564 16.680424072015 10 1 10 55 385
+782	9774450 279 38670 214751 0.991759534926 14.627825158548 10 1 10 55 385
+783	9774729 286 38681 4645246 0.99193112881 186.131068579629 10 1 10 55 385
+784	9775015 278 38687 207830 0.99199009567 14.032410347767 10 1 10 55 385
+785	9775293 277 38692 413462 0.992070529556 21.990647947101 10 1 10 55 385
+786	9775570 279 38726 215545 0.992658052923 14.691817949997 10 1 10 55 385
+787	9775849 278 38805 259583 0.99378253925 18.653086976882 10 1 10 55 385
+788	9776127 278 38820 175230 0.994098856997 11.175722382489 10 1 10 55 385
+789	9776405 284 38888 1127651 0.995628951886 49.785604111219 10 1 10 55 385
+790	9776689 275 38911 116041 0.996265261624 6.235262768613 10 1 10 55 385
+791	9776964 282 39036 1031407 0.998524848812 44.696610614291 10 1 10 55 385
+792	9777246 276 39082 1227592 0.999225512095 53.946883624345 10 1 10 55 385
+793	9777522 284 39190 2196584 1.001961543643 88.661577784474 10 1 10 55 385
+794	9777806 281 39208 253203 1.002125934182 18.091892255593 10 1 10 55 385
+795	9778087 277 39216 145899 1.002260127782 8.678061450219 10 1 10 55 385
+796	9778364 279 39255 754968 1.003347838652 36.126137251514 10 1 10 55 385
+797	9778643 281 39281 1201366 1.004113356541 52.981540414399 10 1 10 55 385
+798	9778924 279 39310 412507 1.004871242499 21.925172307412 10 1 10 55 385
+799	9779203 278 39366 422149 1.006041077412 22.520207068072 10 1 10 55 385
+800	9779481 279 39396 631348 1.007075028412 31.040536656818 10 1 10 55 385
+801	9779760 276 39430 259424 1.007904776826 18.640186326464 10 1 10 55 385
+802	9780036 274 39500 132292 1.009126999805 7.555411152089 10 1 10 55 385
+803	9780310 279 39587 272338 1.010555787501 19.836499585096 10 1 10 55 385
+804	9780589 279 39595 426479 1.010935521746 22.840796961078 10 1 10 55 385
+805	9780868 276 39633 167987 1.011997476888 10.548372384467 10 1 10 55 385
+806	9781144 276 39671 161493 1.012593867158 10.011580046328 10 1 10 55 385
+807	9781420 280 39689 440479 1.012808810382 23.817302662922 10 1 10 55 385
+808	9781700 279 39720 227142 1.013279624079 15.742122023828 10 1 10 55 385
+809	9781979 279 39796 209548 1.014839026004 14.178744936633 10 1 10 55 385
+810	9782258 278 39813 190320 1.015045546506 12.481881605292 10 1 10 55 385
+811	9782536 281 39877 682882 1.016282709928 33.117131489068 10 1 10 55 385
+812	9782817 274 39900 190888 1.016728120404 12.533095981703 10 1 10 55 385
+813	9783091 271 39956 145270 1.018362154283 8.627326454429 10 1 10 55 385
+814	9783362 278 39975 794407 1.01872435722 37.17054057544 10 1 10 55 385
+815	9783640 278 40017 159353 1.019522447475 9.831365430999 10 1 10 55 385
+816	9783918 275 40081 132354 1.020658605547 7.560023155178 10 1 10 55 385
+817	9784193 282 40180 642725 1.022405080777 31.462876969664 10 1 10 55 385
+818	9784475 281 40232 251288 1.023960463348 17.917681451112 10 1 10 55 385
+819	9784756 277 40304 226995 1.025584815981 15.731263677118 10 1 10 55 385
+820	9785033 278 40309 189257 1.025639569618 12.392550838564 10 1 10 55 385
+821	9785311 279 40345 214860 1.026080812113 14.635584092754 10 1 10 55 385
+822	9785590 24000 40369 14556556 1.026469961362 598.361290091736 791 1 492 223536 77019396
+823	9809590 276 40414 192556 1.02782906327 12.670986460781 10 1 10 55 385
+824	9809866 278 40430 781921 1.028415142396 36.855365710423 10 1 10 55 385
+825	9810144 279 40659 178345 1.033420909994 11.452120682903 10 1 10 55 385
+826	9810423 278 40721 474831 1.034387830333 25.47976753138 10 1 10 55 385
+827	9810701 276 40802 503566 1.036901568703 26.571104469617 10 1 10 55 385
+828	9810977 278 40849 451507 1.037824778088 24.438662339204 10 1 10 55 385
+829	9811255 279 40854 174557 1.037887976455 11.118641640971 10 1 10 55 385
+830	9811534 275 40943 167500 1.039739680625 10.511388586432 10 1 10 55 385
+831	9811809 276 40987 135838 1.040394848199 7.853048821554 10 1 10 55 385
+832	9812085 280 41105 845059 1.042601342931 38.903284854086 10 1 10 55 385
+833	9812365 280 41213 616666 1.044176739346 30.382052653891 10 1 10 55 385
+834	9812645 278 41263 212032 1.045152519307 14.393725507002 10 1 10 55 385
+835	9812923 279 41280 321396 1.045572118958 20.776879146064 10 1 10 55 385
+836	9813202 287 41285 2544619 1.045587585314 101.950412660395 10 1 10 55 385
+837	9813489 279 41386 418874 1.048005921967 22.2994619484 10 1 10 55 385
+838	9813768 279 41401 676926 1.048385209144 32.898312870685 10 1 10 55 385
+839	9814047 280 41408 789998 1.04844274534 37.064203219196 10 1 10 55 385
+840	9814327 282 41455 1134388 1.049321121287 50.095043995822 10 1 10 55 385
+841	9814609 280 41541 264505 1.051641587382 19.112799303361 10 1 10 55 385
+842	9814889 275 41567 164420 1.052024909033 10.253431868382 10 1 10 55 385
+843	9815164 291 41670 4751312 1.053669729978 190.244473374986 10 1 10 55 385
+844	9815455 280 41719 1926531 1.055188364682 77.956693693594 10 1 10 55 385
+845	9815735 280 41731 554597 1.055552531085 28.348080706646 10 1 10 55 385
+846	9816015 281 41789 652664 1.057111236224 31.90695559152 10 1 10 55 385
+847	9816296 277 41824 178175 1.057942496597 11.439401863216 10 1 10 55 385
+848	9816573 274 41881 202316 1.05958464047 13.5387976319 10 1 10 55 385
+849	9816847 278 41963 194617 1.061487040291 12.853182512989 10 1 10 55 385
+850	9817125 280 41972 1565018 1.061611973947 65.727479325556 10 1 10 55 385
+851	9817405 282 42004 564881 1.06247244755 28.668178406044 10 1 10 55 385
+852	9817687 281 42097 259858 1.064357526874 18.679663607259 10 1 10 55 385
+853	9817968 271 42104 130941 1.064533431231 7.443427784091 10 1 10 55 385
+854	9818239 274 42188 140420 1.066024243588 8.233309605797 10 1 10 55 385
+855	9818513 280 42252 254210 1.068293692196 18.177305167176 10 1 10 55 385
+856	9818793 280 42337 1250647 1.070081292262 55.073142675033 10 1 10 55 385
+857	9819073 277 42376 785699 1.07053017508 36.953056363758 10 1 10 55 385
+858	9819350 277 42411 173150 1.071197870463 10.993288400569 10 1 10 55 385
+859	9819627 290 42454 5652612 1.071966560505 224.984833324403 10 1 10 55 385
+860	9819917 279 42490 414114 1.072766121993 22.028561428844 10 1 10 55 385
+861	9820196 281 42520 1123743 1.073432363438 49.605865135708 10 1 10 55 385
+862	9820477 279 42534 255949 1.07356573656 18.331857369891 10 1 10 55 385
+863	9820756 276 42581 132026 1.074750444194 7.536052976755 10 1 10 55 385
+864	9821032 278 42685 485074 1.076933114918 25.932637363262 10 1 10 55 385
+865	9821310 280 42774 1657874 1.079026818642 69.633777457645 10 1 10 55 385
+866	9821590 278 42820 399639 1.080340841847 21.395720370959 10 1 10 55 385
+867	9821868 280 42935 409815 1.083450596284 21.752125542585 10 1 10 55 385
+868	9822148 278 42945 199277 1.083493649556 13.265030109703 10 1 10 55 385
+869	9822426 269 43013 91955 1.084871913934 4.28326907032 10 1 10 55 385
+870	9822695 280 43019 199557 1.085011911247 13.289830194356 10 1 10 55 385
+871	9822975 272 43072 127771 1.085709982358 7.174212086945 10 1 10 55 385
+872	9823247 264 43087 13483272 1.08590536823 536.493459293145 9 1 9 45 285
+873	9823511 340 43101 223526 1.086021548976 15.420231655613 12 1 11 76 606
+874	9823851 284 43113 1738673 1.086045323193 72.182914608654 10 1 10 55 385
+875	9824135 275 43254 174838 1.08865973597 11.14153926288 10 1 10 55 385
+876	9824410 278 43268 191076 1.088795315033 12.547298641588 10 1 10 55 385
+877	9824688 279 43416 421232 1.0927201346 22.452583539802 10 1 10 55 385
+878	9824967 282 43527 1562582 1.095867618836 65.605908767888 10 1 10 55 385
+879	9825249 279 43533 178070 1.095950419878 11.428489093577 10 1 10 55 385
+880	9825528 275 43586 227088 1.09712389749 15.738806404318 10 1 10 55 385
+881	9825803 275 43789 158821 1.101417719692 9.780526079291 10 1 10 55 385
+882	9826078 282 43808 694828 1.101833676445 33.659644388036 10 1 10 55 385
+883	9826360 276 43897 138202 1.103754248196 8.054003257079 10 1 10 55 385
+884	9826636 277 43902 187730 1.103830220845 12.263924662001 10 1 10 55 385
+885	9826913 282 44006 1902589 1.10615644573 77.528638163551 10 1 10 55 385
+886	9827195 282 44090 1262486 1.107791187678 55.757486162869 10 1 10 55 385
+887	9827477 277 44191 228171 1.109643202797 15.837688823042 10 1 10 55 385
+888	9827754 280 44228 547021 1.110207461435 28.118050605154 10 1 10 55 385
+889	9828034 275 44250 171059 1.110704877664 10.815735061813 10 1 10 55 385
+890	9828309 284 44260 1163076 1.110819020134 51.556015946817 10 1 10 55 385
+891	9828593 278 44344 161505 1.112898341195 10.012612018721 10 1 10 55 385
+892	9828871 273 44507 151604 1.116080464927 9.156419714028 10 1 10 55 385
+893	9829144 272 44548 118719 1.116783769383 6.445517030864 10 1 10 55 385
+894	9829416 274 44629 120743 1.11835422353 6.606916096837 10 1 10 55 385
+895	9829690 278 44656 204103 1.118729821224 13.696492329858 10 1 10 55 385
+896	9829968 338 44672 455999 1.119180056928 24.68009392052 12 1 11 76 606
+897	9830306 280 44904 231817 1.12476930348 16.161025187928 10 1 10 55 385
+898	9830586 282 45018 274721 1.126524762019 20.056310607782 10 1 10 55 385
+899	9830868 280 45038 204783 1.127018756375 13.757597487477 10 1 10 55 385
+900	9831148 277 45106 424783 1.128464338493 22.730560983713 10 1 10 55 385
+901	9831425 280 45139 652080 1.128934529934 31.879512395306 10 1 10 55 385
+902	9831705 283 45234 732588 1.130937832073 35.229142321338 10 1 10 55 385
+903	9831988 333 45459 208926 1.135981935575 14.126976797856 12 1 11 76 606
+904	9832321 282 45465 1648238 1.136005262127 69.330014536005 10 1 10 55 385
+905	9832603 276 45511 199736 1.136977142429 13.307343157554 10 1 10 55 385
+906	9832879 278 45574 181406 1.138428440036 11.720250364671 10 1 10 55 385
+907	9833157 279 45581 196609 1.138766025123 13.032325189605 10 1 10 55 385
+908	9833436 280 45658 669180 1.140930885769 32.609014519792 10 1 10 55 385
+909	9833716 279 45716 210991 1.14220176023 14.303457138229 10 1 10 55 385
+910	9833995 282 45766 890830 1.142921725962 40.782197233996 10 1 10 55 385
+911	9834277 281 45780 1270214 1.143242726286 56.035874102717 10 1 10 55 385
+912	9834558 278 45845 473937 1.14410188441 25.432507370135 10 1 10 55 385
+913	9834836 282 45853 266451 1.144118316232 19.294658325365 10 1 10 55 385
+914	9835118 277 45972 167720 1.146638053174 10.528631745116 10 1 10 55 385
+915	9835395 279 45977 191153 1.146720218025 12.551927413538 10 1 10 55 385
+916	9835674 278 46031 194046 1.147847440563 12.802981333923 10 1 10 55 385
+917	9835952 276 46054 272665 1.148800771445 19.866499978578 10 1 10 55 385
+918	9836228 274 46060 143756 1.148844115207 8.505341947479 10 1 10 55 385
+919	9836502 275 46139 141864 1.15094970485 8.349257861831 10 1 10 55 385
+920	9836777 331 46212 163231 1.15257365589 10.160998429702 12 1 11 76 606
+921	9837108 279 46384 660780 1.156434106992 32.261931713675 10 1 10 55 385
+922	9837387 272 46524 147174 1.159984335298 8.78279933404 10 1 10 55 385
+923	9837659 272 46530 147413 1.160013199104 8.805357958975 10 1 10 55 385
+924	9837931 280 46546 165852 1.160164925082 10.373574587042 10 1 10 55 385
+925	9838211 279 46571 551549 1.160808552912 28.245763636712 10 1 10 55 385
+926	9838490 293 46643 5470544 1.162471598628 217.566587042805 10 1 10 55 385
+927	9838783 278 46650 161556 1.162677631292 10.016241624109 10 1 10 55 385
+928	9839061 274 46723 156491 1.164162914236 9.581474149562 10 1 10 55 385
+929	9839335 278 46841 210362 1.167039712795 14.245234475093 10 1 10 55 385
+930	9839613 276 46851 203059 1.167166492594 13.606882199094 10 1 10 55 385
+931	9839889 274 46949 157043 1.169367160737 9.631753863884 10 1 10 55 385
+932	9840163 275 47111 172338 1.173452072445 10.92216528271 10 1 10 55 385
+933	9840438 272 47149 145384 1.174169314673 8.63574433655 10 1 10 55 385
+934	9840710 285 47207 1733922 1.175404396243 71.899560570877 10 1 10 55 385
+935	9840995 281 47251 249393 1.176876049318 17.740547566266 10 1 10 55 385
+936	9841276 275 47485 506256 1.184085611892 26.723284074185 10 1 10 55 385
+937	9841551 281 47721 464752 1.188908670883 25.096996129166 10 1 10 55 385
+938	9841832 277 47733 226329 1.188992269999 15.6671845711 10 1 10 55 385
+939	9842109 276 47763 193967 1.190303795274 12.79526248844 10 1 10 55 385
+940	9842385 275 47825 137618 1.192451931352 8.002516465508 10 1 10 55 385
+941	9842660 274 47894 118576 1.19396377792 6.434473174852 10 1 10 55 385
+942	9842934 335 48137 184109 1.200269676941 11.952393882173 12 1 11 76 606
+943	9843269 277 48325 183337 1.205467525851 11.889215741962 10 1 10 55 385
+944	9843546 278 48355 172393 1.205783344875 10.926636248953 10 1 10 55 385
+945	9843824 274 48418 121435 1.207106262808 6.657626488722 10 1 10 55 385
+946	9844098 275 48454 134588 1.208229216948 7.744784306029 10 1 10 55 385
+947	9844373 275 48514 150044 1.209545320301 9.024037649452 10 1 10 55 385
+948	9844648 273 48600 109719 1.211847080121 5.725243225585 10 1 10 55 385
+949	9844921 277 48633 171273 1.212635548736 10.833291426652 10 1 10 55 385
+950	9845198 276 48862 197315 1.218125594923 13.09288454249 10 1 10 55 385
+951	9845474 277 48893 230380 1.218689676475 16.0354567041 10 1 10 55 385
+952	9845751 279 48924 241070 1.219511171969 16.978700484155 10 1 10 55 385
+953	9846030 275 48997 126885 1.221367411946 7.105831135539 10 1 10 55 385
+954	9846305 277 49012 146933 1.221848766279 8.763934186274 10 1 10 55 385
+955	9846582 275 49031 219687 1.222501309935 15.071290565937 10 1 10 55 385
+956	9846857 273 49220 154926 1.227416328424 9.447392669408 10 1 10 55 385
+957	9847130 281 49273 545029 1.228620374446 28.065925830452 10 1 10 55 385
+958	9847411 273 49301 122498 1.229072970258 6.745850618486 10 1 10 55 385
+959	9847684 278 49324 433732 1.22942597084 23.321121418009 10 1 10 55 385
+960	9847962 280 49369 165607 1.230226795999 10.353278496244 10 1 10 55 385
+961	9848242 274 49385 132335 1.230760918888 7.559106052611 10 1 10 55 385
+962	9848516 331 49390 177320 1.230878940437 11.359474314496 12 1 11 76 606
+963	9848847 275 49468 150686 1.232976406116 9.078684232991 10 1 10 55 385
+964	9849122 274 49508 151440 1.233691814152 9.14259515321 10 1 10 55 385
+965	9849396 271 49635 148214 1.236736607634 8.86964053252 10 1 10 55 385
+966	9849667 276 49758 153212 1.241495231543 9.295371750597 10 1 10 55 385
+967	9849943 271 49773 118289 1.242079551599 6.409909918963 10 1 10 55 385
+968	9850214 276 49803 171593 1.242739585364 10.857626028965 10 1 10 55 385
+969	9850490 273 49820 141543 1.243423764382 8.326139364674 10 1 10 55 385
+970	9850763 337 50102 170943 1.249514374634 10.803552668759 12 1 11 76 606
+971	9851100 275 50132 142363 1.250099084726 8.389937414122 10 1 10 55 385
+972	9851375 274 50188 116352 1.251463589924 6.258832620748 10 1 10 55 385
+973	9851649 269 50213 121281 1.252367468521 6.64674891149 10 1 10 55 385
+974	9851918 329 50386 121230 1.257506421423 6.64352731186 12 1 11 76 606
+975	9852247 273 50532 127167 1.261626766071 7.12797820018 10 1 10 55 385
+976	9852520 276 50781 120785 1.267940893987 6.609680026847 10 1 10 55 385
+977	9852796 276 50951 127518 1.271969116061 7.15636094405 10 1 10 55 385
+978	9853072 273 50968 125220 1.272121696081 6.968427515019 10 1 10 55 385
+979	9853345 280 50982 253620 1.272480278048 18.127439900812 10 1 10 55 385
+980	9853625 271 51345 127068 1.28396570008 7.12019258619 10 1 10 55 385
+981	9853896 330 51507 126050 1.289152507652 7.036819509212 12 1 11 76 606
+982	9854226 330 51592 169017 1.291425248469 10.638180713962 12 1 11 76 606
+983	9854556 274 51679 123854 1.293937782026 6.853777604542 10 1 10 55 385
+984	9854830 336 51763 183753 1.29611657312 11.926386619768 12 1 11 76 606
+985	9855166 331 51858 129253 1.298849544802 7.302143953123 12 1 11 76 606
+986	9855497 276 51989 132018 1.302243987841 7.535876089901 10 1 10 55 385
+987	9855773 273 52052 138390 1.304418328027 8.067875745567 10 1 10 55 385
+988	9856046 269 52194 89582 1.309080209086 4.100758624189 10 1 10 55 385
+989	9856315 330 52250 130443 1.310977717504 7.398372813236 12 1 11 76 606
+990	9856645 268 52597 91696 1.323692160268 4.261041451095 10 1 10 55 385
+991	9856913 272 52621 107643 1.32460450224 5.54971697664 10 1 10 55 385
+992	9857185 332 52704 133215 1.326878465083 7.631406826735 12 1 11 76 606
+993	9857517 271 53061 100837 1.338677887382 4.995553597831 10 1 10 55 385
+994	9857788 269 53450 110969 1.351583798945 5.82759103661 10 1 10 55 385
+995	9858057 276 53932 163215 1.368659211535 10.159303352911 10 1 10 55 385
+996	9858333 331 53998 138502 1.370425164914 8.076303947466 12 1 11 76 606
+997	9858664 271 54079 92553 1.373053850322 4.334278051444 10 1 10 55 385
+998	9858935 269 54440 99738 1.386923618561 4.903584965544 10 1 10 55 385
+999	9859204 272 55081 101523 1.411959551387 5.04777204193 10 1 10 55 385
+

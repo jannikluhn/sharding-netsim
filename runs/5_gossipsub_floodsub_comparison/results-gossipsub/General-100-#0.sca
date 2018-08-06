@@ -1,0 +1,71 @@
+version 2
+run General-0-20180806-00:27:10-1965
+attr configname General
+attr datetime 20180806-00:27:10
+attr experiment General
+attr inifile gossipsub.ini
+attr iterationvars $0=100
+attr iterationvarsf 100-
+attr measurement $0=100
+attr network sharding.GossipSubNetwork
+attr processid 1965
+attr repetition 0
+attr replication #0
+attr resultdir results-gossipsub
+attr runnumber 0
+attr seedset 0
+param *Network.nodeCount 100
+param *Network.gossipRate 10.0Hz
+param *Network.nodes[*].source.active true
+param *Network.nodes[*].source.startTime 20s
+param *Network.nodes[*].source.stopTime 580s
+param *Network.nodes[*].lazyNotifier.notificationInterval 0.1s
+param *Network.nodes[*].missingTracker.waitTime 2s
+param *Network.nodes[*].connectionManager.numRandomNeighbors 5
+param *Network.nodes[*].connectionManager.numNearNeighbors 5
+param *Network.nodes[*].connectionManager.passiveListSize 20
+param *Network.nodes[*].connectionManager.contactNodes "\"0 1 2\""
+param *Network.nodes[*].connectionManager.activeHeartbeatInterval 2.0
+param *Network.nodes[*].connectionManager.joinTTL 1
+param *Network.nodes[*].connectionManager.forwardJoinTTL 1
+param *Network.nodes[*].connectionManager.shuffleInterval 2.0
+param *Network.nodes[*].connectionManager.activeShufflingSize 5
+param *Network.nodes[*].connectionManager.passiveShufflingSize 5
+param *Network.nodes[*].connectionManager.shuffleTTL 1
+
+scalar GossipSubNetwork messageSent:count 3068187
+scalar GossipSubNetwork newGossipReceived:count 384366
+statistic GossipSubNetwork newGossipReceived:histogram
+field count 384366
+field mean 3.0539511819464
+field stddev 2.4275798223527
+field min 0
+field max 21
+field sum 1173835
+field sqrsum 5849953
+bin	-inf	0
+bin	0	40461
+bin	1	72891
+bin	2	76528
+bin	3	61525
+bin	4	45715
+bin	5	31293
+bin	6	20706
+bin	7	13214
+bin	8	8609
+bin	9	5340
+bin	10	3551
+bin	11	2076
+bin	12	1195
+bin	13	618
+bin	14	326
+bin	15	177
+bin	16	74
+bin	17	37
+bin	18	14
+bin	19	6
+bin	20	6
+bin	21	4
+bin	22	0
+scalar GossipSubNetwork newGossipEmitted:count 5564
+

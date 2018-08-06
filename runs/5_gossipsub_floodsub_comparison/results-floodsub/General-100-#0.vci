@@ -1,0 +1,437 @@
+file 1925705 1533462077                                         
+version 2
+run General-0-20180805-11:40:35-26304
+attr configname General
+attr datetime 20180805-11:40:35
+attr experiment General
+attr inifile floodsub.ini
+attr iterationvars $0=100
+attr iterationvarsf 100-
+attr measurement $0=100
+attr network sharding.FloodSubNetwork
+attr processid 26304
+attr repetition 0
+attr replication #0
+attr resultdir results-floodsub
+attr runnumber 0
+attr seedset 0
+param *Network.nodeCount 100
+param *Network.gossipRate 10.0Hz
+param *Network.nodes[*].source.active true
+param *Network.nodes[*].source.startTime 20s
+param *Network.nodes[*].source.stopTime 580s
+param *Network.nodes[*].lazyNotifier.notificationInterval 0.1s
+param *Network.nodes[*].missingTracker.waitTime 1s
+param *Network.nodes[*].connectionManager.numRandomNeighbors 5
+param *Network.nodes[*].connectionManager.numNearNeighbors 5
+param *Network.nodes[*].connectionManager.passiveListSize 20
+param *Network.nodes[*].connectionManager.contactNodes "\"0 1 2\""
+param *Network.nodes[*].connectionManager.activeHeartbeatInterval 2.0
+param *Network.nodes[*].connectionManager.joinTTL 1
+param *Network.nodes[*].connectionManager.forwardJoinTTL 1
+param *Network.nodes[*].connectionManager.shuffleInterval 2.0
+param *Network.nodes[*].connectionManager.activeShufflingSize 5
+param *Network.nodes[*].connectionManager.passiveShufflingSize 5
+param *Network.nodes[*].connectionManager.shuffleTTL 1
+
+vector 0 FloodSubNetwork.nodes[99].connectionManager passiveListUpdate:vector ETV
+vector 1 FloodSubNetwork.nodes[97].connectionManager passiveListUpdate:vector ETV
+vector 2 FloodSubNetwork.nodes[82].connectionManager passiveListUpdate:vector ETV
+vector 3 FloodSubNetwork.nodes[90].connectionManager passiveListUpdate:vector ETV
+vector 4 FloodSubNetwork.nodes[34].connectionManager passiveListUpdate:vector ETV
+vector 5 FloodSubNetwork.nodes[16].connectionManager passiveListUpdate:vector ETV
+vector 6 FloodSubNetwork.nodes[14].connectionManager passiveListUpdate:vector ETV
+vector 7 FloodSubNetwork.nodes[30].connectionManager passiveListUpdate:vector ETV
+vector 8 FloodSubNetwork.nodes[77].connectionManager passiveListUpdate:vector ETV
+vector 9 FloodSubNetwork.nodes[75].connectionManager passiveListUpdate:vector ETV
+vector 10 FloodSubNetwork.nodes[60].connectionManager passiveListUpdate:vector ETV
+vector 11 FloodSubNetwork.nodes[94].connectionManager passiveListUpdate:vector ETV
+vector 12 FloodSubNetwork.nodes[46].connectionManager passiveListUpdate:vector ETV
+vector 13 FloodSubNetwork.nodes[95].connectionManager passiveListUpdate:vector ETV
+vector 14 FloodSubNetwork.nodes[50].connectionManager passiveListUpdate:vector ETV
+vector 15 FloodSubNetwork.nodes[28].connectionManager passiveListUpdate:vector ETV
+vector 16 FloodSubNetwork.nodes[88].connectionManager passiveListUpdate:vector ETV
+vector 17 FloodSubNetwork.nodes[57].connectionManager passiveListUpdate:vector ETV
+vector 18 FloodSubNetwork.nodes[32].connectionManager passiveListUpdate:vector ETV
+vector 19 FloodSubNetwork.nodes[26].connectionManager passiveListUpdate:vector ETV
+vector 20 FloodSubNetwork.nodes[49].connectionManager passiveListUpdate:vector ETV
+vector 21 FloodSubNetwork.nodes[33].connectionManager passiveListUpdate:vector ETV
+vector 22 FloodSubNetwork.nodes[67].connectionManager passiveListUpdate:vector ETV
+vector 23 FloodSubNetwork.nodes[6].connectionManager passiveListUpdate:vector ETV
+vector 24 FloodSubNetwork.nodes[15].connectionManager passiveListUpdate:vector ETV
+vector 25 FloodSubNetwork.nodes[53].connectionManager passiveListUpdate:vector ETV
+vector 26 FloodSubNetwork.nodes[74].connectionManager passiveListUpdate:vector ETV
+vector 27 FloodSubNetwork.nodes[35].connectionManager passiveListUpdate:vector ETV
+vector 28 FloodSubNetwork.nodes[85].connectionManager passiveListUpdate:vector ETV
+vector 29 FloodSubNetwork.nodes[78].connectionManager passiveListUpdate:vector ETV
+vector 30 FloodSubNetwork.nodes[92].connectionManager passiveListUpdate:vector ETV
+vector 31 FloodSubNetwork.nodes[61].connectionManager passiveListUpdate:vector ETV
+vector 32 FloodSubNetwork.nodes[42].connectionManager passiveListUpdate:vector ETV
+vector 33 FloodSubNetwork.nodes[79].connectionManager passiveListUpdate:vector ETV
+vector 34 FloodSubNetwork.nodes[36].connectionManager passiveListUpdate:vector ETV
+vector 35 FloodSubNetwork.nodes[66].connectionManager passiveListUpdate:vector ETV
+vector 36 FloodSubNetwork.nodes[24].connectionManager passiveListUpdate:vector ETV
+vector 37 FloodSubNetwork.nodes[45].connectionManager passiveListUpdate:vector ETV
+vector 38 FloodSubNetwork.nodes[54].connectionManager passiveListUpdate:vector ETV
+vector 39 FloodSubNetwork.nodes[9].connectionManager passiveListUpdate:vector ETV
+vector 40 FloodSubNetwork.nodes[59].connectionManager passiveListUpdate:vector ETV
+vector 41 FloodSubNetwork.nodes[47].connectionManager passiveListUpdate:vector ETV
+vector 42 FloodSubNetwork.nodes[29].connectionManager passiveListUpdate:vector ETV
+vector 43 FloodSubNetwork.nodes[63].connectionManager passiveListUpdate:vector ETV
+vector 44 FloodSubNetwork.nodes[18].connectionManager passiveListUpdate:vector ETV
+vector 45 FloodSubNetwork.nodes[48].connectionManager passiveListUpdate:vector ETV
+vector 46 FloodSubNetwork.nodes[58].connectionManager passiveListUpdate:vector ETV
+vector 47 FloodSubNetwork.nodes[7].connectionManager passiveListUpdate:vector ETV
+vector 48 FloodSubNetwork.nodes[12].connectionManager passiveListUpdate:vector ETV
+vector 49 FloodSubNetwork.nodes[40].connectionManager passiveListUpdate:vector ETV
+vector 50 FloodSubNetwork.nodes[62].connectionManager passiveListUpdate:vector ETV
+vector 51 FloodSubNetwork.nodes[71].connectionManager passiveListUpdate:vector ETV
+vector 52 FloodSubNetwork.nodes[22].connectionManager passiveListUpdate:vector ETV
+vector 53 FloodSubNetwork.nodes[37].connectionManager passiveListUpdate:vector ETV
+vector 54 FloodSubNetwork.nodes[11].connectionManager passiveListUpdate:vector ETV
+vector 55 FloodSubNetwork.nodes[87].connectionManager passiveListUpdate:vector ETV
+vector 56 FloodSubNetwork.nodes[43].connectionManager passiveListUpdate:vector ETV
+vector 57 FloodSubNetwork.nodes[5].connectionManager passiveListUpdate:vector ETV
+vector 58 FloodSubNetwork.nodes[65].connectionManager passiveListUpdate:vector ETV
+vector 59 FloodSubNetwork.nodes[72].connectionManager passiveListUpdate:vector ETV
+vector 60 FloodSubNetwork.nodes[4].connectionManager passiveListUpdate:vector ETV
+vector 61 FloodSubNetwork.nodes[73].connectionManager passiveListUpdate:vector ETV
+vector 62 FloodSubNetwork.nodes[69].connectionManager passiveListUpdate:vector ETV
+vector 63 FloodSubNetwork.nodes[51].connectionManager passiveListUpdate:vector ETV
+vector 64 FloodSubNetwork.nodes[39].connectionManager passiveListUpdate:vector ETV
+vector 65 FloodSubNetwork.nodes[96].connectionManager passiveListUpdate:vector ETV
+vector 66 FloodSubNetwork.nodes[64].connectionManager passiveListUpdate:vector ETV
+vector 67 FloodSubNetwork.nodes[55].connectionManager passiveListUpdate:vector ETV
+vector 68 FloodSubNetwork.nodes[80].connectionManager passiveListUpdate:vector ETV
+vector 69 FloodSubNetwork.nodes[98].connectionManager passiveListUpdate:vector ETV
+vector 70 FloodSubNetwork.nodes[89].connectionManager passiveListUpdate:vector ETV
+vector 71 FloodSubNetwork.nodes[25].connectionManager passiveListUpdate:vector ETV
+vector 72 FloodSubNetwork.nodes[56].connectionManager passiveListUpdate:vector ETV
+vector 73 FloodSubNetwork.nodes[8].connectionManager passiveListUpdate:vector ETV
+vector 74 FloodSubNetwork.nodes[83].connectionManager passiveListUpdate:vector ETV
+vector 75 FloodSubNetwork.nodes[76].connectionManager passiveListUpdate:vector ETV
+vector 76 FloodSubNetwork.nodes[44].connectionManager passiveListUpdate:vector ETV
+vector 77 FloodSubNetwork.nodes[81].connectionManager passiveListUpdate:vector ETV
+vector 78 FloodSubNetwork.nodes[41].connectionManager passiveListUpdate:vector ETV
+vector 79 FloodSubNetwork.nodes[3].connectionManager passiveListUpdate:vector ETV
+vector 80 FloodSubNetwork.nodes[84].connectionManager passiveListUpdate:vector ETV
+vector 81 FloodSubNetwork.nodes[86].connectionManager passiveListUpdate:vector ETV
+vector 82 FloodSubNetwork.nodes[20].connectionManager passiveListUpdate:vector ETV
+vector 83 FloodSubNetwork.nodes[23].connectionManager passiveListUpdate:vector ETV
+vector 84 FloodSubNetwork.nodes[2].connectionManager passiveListUpdate:vector ETV
+vector 85 FloodSubNetwork.nodes[0].connectionManager passiveListUpdate:vector ETV
+vector 86 FloodSubNetwork.nodes[91].connectionManager passiveListUpdate:vector ETV
+vector 87 FloodSubNetwork.nodes[31].connectionManager passiveListUpdate:vector ETV
+vector 88 FloodSubNetwork.nodes[68].connectionManager passiveListUpdate:vector ETV
+vector 89 FloodSubNetwork.nodes[93].connectionManager passiveListUpdate:vector ETV
+vector 90 FloodSubNetwork.nodes[1].connectionManager passiveListUpdate:vector ETV
+vector 91 FloodSubNetwork.nodes[21].connectionManager passiveListUpdate:vector ETV
+vector 92 FloodSubNetwork.nodes[10].connectionManager passiveListUpdate:vector ETV
+vector 93 FloodSubNetwork.nodes[27].connectionManager passiveListUpdate:vector ETV
+vector 94 FloodSubNetwork.nodes[19].connectionManager passiveListUpdate:vector ETV
+vector 95 FloodSubNetwork.nodes[13].connectionManager passiveListUpdate:vector ETV
+vector 96 FloodSubNetwork.nodes[17].connectionManager passiveListUpdate:vector ETV
+vector 97 FloodSubNetwork.nodes[38].connectionManager passiveListUpdate:vector ETV
+vector 98 FloodSubNetwork.nodes[70].connectionManager passiveListUpdate:vector ETV
+vector 99 FloodSubNetwork.nodes[52].connectionManager passiveListUpdate:vector ETV
+vector 100 FloodSubNetwork.nodes[99].connectionManager activeListUpdate:vector ETV
+vector 101 FloodSubNetwork.nodes[97].connectionManager activeListUpdate:vector ETV
+vector 102 FloodSubNetwork.nodes[82].connectionManager activeListUpdate:vector ETV
+vector 103 FloodSubNetwork.nodes[90].connectionManager activeListUpdate:vector ETV
+vector 104 FloodSubNetwork.nodes[34].connectionManager activeListUpdate:vector ETV
+vector 105 FloodSubNetwork.nodes[16].connectionManager activeListUpdate:vector ETV
+vector 106 FloodSubNetwork.nodes[14].connectionManager activeListUpdate:vector ETV
+vector 107 FloodSubNetwork.nodes[30].connectionManager activeListUpdate:vector ETV
+vector 108 FloodSubNetwork.nodes[77].connectionManager activeListUpdate:vector ETV
+vector 109 FloodSubNetwork.nodes[75].connectionManager activeListUpdate:vector ETV
+vector 110 FloodSubNetwork.nodes[60].connectionManager activeListUpdate:vector ETV
+vector 111 FloodSubNetwork.nodes[94].connectionManager activeListUpdate:vector ETV
+vector 112 FloodSubNetwork.nodes[46].connectionManager activeListUpdate:vector ETV
+vector 113 FloodSubNetwork.nodes[95].connectionManager activeListUpdate:vector ETV
+vector 114 FloodSubNetwork.nodes[50].connectionManager activeListUpdate:vector ETV
+vector 115 FloodSubNetwork.nodes[0].connectionManager activeListUpdate:vector ETV
+vector 116 FloodSubNetwork.nodes[28].connectionManager activeListUpdate:vector ETV
+vector 117 FloodSubNetwork.nodes[88].connectionManager activeListUpdate:vector ETV
+vector 118 FloodSubNetwork.nodes[57].connectionManager activeListUpdate:vector ETV
+vector 119 FloodSubNetwork.nodes[32].connectionManager activeListUpdate:vector ETV
+vector 120 FloodSubNetwork.nodes[26].connectionManager activeListUpdate:vector ETV
+vector 121 FloodSubNetwork.nodes[49].connectionManager activeListUpdate:vector ETV
+vector 122 FloodSubNetwork.nodes[33].connectionManager activeListUpdate:vector ETV
+vector 123 FloodSubNetwork.nodes[67].connectionManager activeListUpdate:vector ETV
+vector 124 FloodSubNetwork.nodes[6].connectionManager activeListUpdate:vector ETV
+vector 125 FloodSubNetwork.nodes[15].connectionManager activeListUpdate:vector ETV
+vector 126 FloodSubNetwork.nodes[53].connectionManager activeListUpdate:vector ETV
+vector 127 FloodSubNetwork.nodes[74].connectionManager activeListUpdate:vector ETV
+vector 128 FloodSubNetwork.nodes[35].connectionManager activeListUpdate:vector ETV
+vector 129 FloodSubNetwork.nodes[85].connectionManager activeListUpdate:vector ETV
+vector 130 FloodSubNetwork.nodes[78].connectionManager activeListUpdate:vector ETV
+vector 131 FloodSubNetwork.nodes[92].connectionManager activeListUpdate:vector ETV
+vector 132 FloodSubNetwork.nodes[61].connectionManager activeListUpdate:vector ETV
+vector 133 FloodSubNetwork.nodes[42].connectionManager activeListUpdate:vector ETV
+vector 134 FloodSubNetwork.nodes[79].connectionManager activeListUpdate:vector ETV
+vector 135 FloodSubNetwork.nodes[36].connectionManager activeListUpdate:vector ETV
+vector 136 FloodSubNetwork.nodes[66].connectionManager activeListUpdate:vector ETV
+vector 137 FloodSubNetwork.nodes[24].connectionManager activeListUpdate:vector ETV
+vector 138 FloodSubNetwork.nodes[45].connectionManager activeListUpdate:vector ETV
+vector 139 FloodSubNetwork.nodes[54].connectionManager activeListUpdate:vector ETV
+vector 140 FloodSubNetwork.nodes[9].connectionManager activeListUpdate:vector ETV
+vector 141 FloodSubNetwork.nodes[59].connectionManager activeListUpdate:vector ETV
+vector 142 FloodSubNetwork.nodes[47].connectionManager activeListUpdate:vector ETV
+vector 143 FloodSubNetwork.nodes[29].connectionManager activeListUpdate:vector ETV
+vector 144 FloodSubNetwork.nodes[63].connectionManager activeListUpdate:vector ETV
+vector 145 FloodSubNetwork.nodes[2].connectionManager activeListUpdate:vector ETV
+vector 146 FloodSubNetwork.nodes[18].connectionManager activeListUpdate:vector ETV
+vector 147 FloodSubNetwork.nodes[48].connectionManager activeListUpdate:vector ETV
+vector 148 FloodSubNetwork.nodes[58].connectionManager activeListUpdate:vector ETV
+vector 149 FloodSubNetwork.nodes[7].connectionManager activeListUpdate:vector ETV
+vector 150 FloodSubNetwork.nodes[12].connectionManager activeListUpdate:vector ETV
+vector 151 FloodSubNetwork.nodes[1].connectionManager activeListUpdate:vector ETV
+vector 152 FloodSubNetwork.nodes[40].connectionManager activeListUpdate:vector ETV
+vector 153 FloodSubNetwork.nodes[62].connectionManager activeListUpdate:vector ETV
+vector 154 FloodSubNetwork.nodes[71].connectionManager activeListUpdate:vector ETV
+vector 155 FloodSubNetwork.nodes[22].connectionManager activeListUpdate:vector ETV
+vector 156 FloodSubNetwork.nodes[37].connectionManager activeListUpdate:vector ETV
+vector 157 FloodSubNetwork.nodes[11].connectionManager activeListUpdate:vector ETV
+vector 158 FloodSubNetwork.nodes[87].connectionManager activeListUpdate:vector ETV
+vector 159 FloodSubNetwork.nodes[43].connectionManager activeListUpdate:vector ETV
+vector 160 FloodSubNetwork.nodes[5].connectionManager activeListUpdate:vector ETV
+vector 161 FloodSubNetwork.nodes[65].connectionManager activeListUpdate:vector ETV
+vector 162 FloodSubNetwork.nodes[72].connectionManager activeListUpdate:vector ETV
+vector 163 FloodSubNetwork.nodes[4].connectionManager activeListUpdate:vector ETV
+vector 164 FloodSubNetwork.nodes[73].connectionManager activeListUpdate:vector ETV
+vector 165 FloodSubNetwork.nodes[69].connectionManager activeListUpdate:vector ETV
+vector 166 FloodSubNetwork.nodes[51].connectionManager activeListUpdate:vector ETV
+vector 167 FloodSubNetwork.nodes[39].connectionManager activeListUpdate:vector ETV
+vector 168 FloodSubNetwork.nodes[96].connectionManager activeListUpdate:vector ETV
+vector 169 FloodSubNetwork.nodes[64].connectionManager activeListUpdate:vector ETV
+vector 170 FloodSubNetwork.nodes[55].connectionManager activeListUpdate:vector ETV
+vector 171 FloodSubNetwork.nodes[80].connectionManager activeListUpdate:vector ETV
+vector 172 FloodSubNetwork.nodes[98].connectionManager activeListUpdate:vector ETV
+vector 173 FloodSubNetwork.nodes[89].connectionManager activeListUpdate:vector ETV
+vector 174 FloodSubNetwork.nodes[25].connectionManager activeListUpdate:vector ETV
+vector 175 FloodSubNetwork.nodes[56].connectionManager activeListUpdate:vector ETV
+vector 176 FloodSubNetwork.nodes[8].connectionManager activeListUpdate:vector ETV
+vector 177 FloodSubNetwork.nodes[83].connectionManager activeListUpdate:vector ETV
+vector 178 FloodSubNetwork.nodes[76].connectionManager activeListUpdate:vector ETV
+vector 179 FloodSubNetwork.nodes[44].connectionManager activeListUpdate:vector ETV
+vector 180 FloodSubNetwork.nodes[81].connectionManager activeListUpdate:vector ETV
+vector 181 FloodSubNetwork.nodes[41].connectionManager activeListUpdate:vector ETV
+vector 182 FloodSubNetwork.nodes[3].connectionManager activeListUpdate:vector ETV
+vector 183 FloodSubNetwork.nodes[84].connectionManager activeListUpdate:vector ETV
+vector 184 FloodSubNetwork.nodes[86].connectionManager activeListUpdate:vector ETV
+vector 185 FloodSubNetwork.nodes[20].connectionManager activeListUpdate:vector ETV
+vector 186 FloodSubNetwork.nodes[23].connectionManager activeListUpdate:vector ETV
+vector 187 FloodSubNetwork.nodes[91].connectionManager activeListUpdate:vector ETV
+vector 188 FloodSubNetwork.nodes[31].connectionManager activeListUpdate:vector ETV
+vector 189 FloodSubNetwork.nodes[68].connectionManager activeListUpdate:vector ETV
+vector 190 FloodSubNetwork.nodes[93].connectionManager activeListUpdate:vector ETV
+vector 191 FloodSubNetwork.nodes[21].connectionManager activeListUpdate:vector ETV
+vector 192 FloodSubNetwork.nodes[10].connectionManager activeListUpdate:vector ETV
+vector 193 FloodSubNetwork.nodes[27].connectionManager activeListUpdate:vector ETV
+vector 194 FloodSubNetwork.nodes[19].connectionManager activeListUpdate:vector ETV
+vector 195 FloodSubNetwork.nodes[13].connectionManager activeListUpdate:vector ETV
+vector 196 FloodSubNetwork.nodes[17].connectionManager activeListUpdate:vector ETV
+vector 197 FloodSubNetwork.nodes[38].connectionManager activeListUpdate:vector ETV
+vector 198 FloodSubNetwork.nodes[70].connectionManager activeListUpdate:vector ETV
+vector 199 FloodSubNetwork.nodes[52].connectionManager activeListUpdate:vector ETV
+0	17949 20322 2007 20965612 0.339775211888 599.60336379298 672 3 21 14007 293335
+1	38271 14186 2039 20965779 0.34554004207 599.799436808682 473 3 21 9746 203382
+2	52457 20538 2112 20962852 0.361846717989 598.980776540899 680 1 21 14071 294697
+3	72995 13924 2164 20963530 0.369829241815 599.048297096702 464 0 21 9515 198931
+4	86919 13925 2191 20965939 0.372380116543 599.988579247975 464 1 21 9515 198753
+5	100844 12989 2213 20964252 0.38012006938 599.128943129692 434 1 21 8865 185035
+6	113833 14081 2225 20965430 0.383515357636 599.401235246322 469 0 21 9634 201622
+7	127914 15315 2239 20965688 0.390732832691 599.700892876438 512 2 21 10528 220162
+8	143229 14761 2250 20965732 0.395620855885 599.756381357875 491 0 21 10074 210914
+9	157990 14534 2253 20957342 0.395834660952 598.300755890552 485 0 22 10437 228647
+10	172524 13911 2260 20965403 0.398568004857 599.372890390721 447 0 21 9189 192229
+11	186435 21184 2278 20965551 0.408285043578 599.529916686663 679 0 21 14076 294770
+12	207619 14250 2287 20963096 0.410732784595 599.005707707002 460 0 21 9435 197499
+13	221869 13574 2300 20959126 0.412853939747 598.663873602322 438 0 21 8969 187777
+14	235443 14816 2321 20957749 0.417547654431 598.480529993872 479 0 21 9852 206354
+15	250259 15573 2329 20965908 0.420800389061 599.954945606226 502 0 22 10840 237728
+16	265832 21904 2339 20958453 0.426121907085 598.600119585136 703 0 21 14582 305560
+17	287736 27724 2347 20965646 0.427584112364 599.641032647517 887 0 21 18425 386149
+18	315460 14524 2350 20964756 0.428440997931 599.206332341732 468 0 21 9616 201256
+19	329984 22064 2355 20965809 0.429805387512 599.862394468384 706 0 21 14607 306027
+20	352048 14413 2358 20957472 0.431170740342 598.369540556532 465 0 21 9529 199375
+21	366461 13965 2373 20965332 0.433702740849 599.343384733822 450 0 21 9204 192664
+22	380426 15163 2385 20965326 0.436472932128 599.342489319171 488 1 21 10074 210860
+23	395589 14392 2391 20962186 0.439052588767 598.92802580774 464 0 21 9507 198935
+24	409981 14304 2393 20957069 0.439083079678 598.085767260242 462 0 21 9479 198561
+25	424285 19588 2411 20965898 0.442403851557 599.948889323704 627 0 21 12929 270863
+26	443873 13773 2414 20965626 0.443154593304 599.619770156811 442 0 21 9118 190804
+27	457646 13987 2430 20965845 0.444524642167 599.903566787094 452 0 21 9248 193400
+28	471633 15025 2437 20965904 0.445722817029 599.949379815638 484 0 21 9890 206794
+29	486658 15007 2439 20965816 0.446177615218 599.880057247554 484 0 22 10408 227794
+30	501665 29250 2441 20964742 0.446507120277 599.203215965929 936 1 21 19409 406579
+31	530915 21762 2444 20965588 0.44755354862 599.575683805104 698 0 21 14442 302496
+32	552677 21623 2451 20959366 0.449556843161 598.687584285221 694 0 21 14394 301532
+33	574300 14139 2473 20957258 0.451337993271 598.263154209885 455 0 21 9357 195959
+34	588439 14333 2497 20959628 0.455932788535 598.715608216143 461 0 21 9518 199376
+35	602772 13887 2499 20965574 0.455957908552 599.550015021074 449 0 21 9148 191224
+36	616659 14199 2502 20965821 0.456696082987 599.883221187302 458 0 21 9413 197015
+37	630858 27719 2505 20965675 0.457144948349 599.685009079496 885 0 21 18388 385410
+38	658577 21607 2507 20957176 0.457550938237 598.187693001505 693 0 21 14346 300726
+39	680184 14865 2516 20957041 0.460470007783 598.055161961567 480 0 21 9850 205950
+40	695049 14252 2520 20958984 0.461630948167 598.649254290833 460 0 21 9453 197521
+41	709301 14905 2533 20965870 0.463615994505 599.920142455306 481 0 21 9852 206112
+42	724206 14639 2540 20965455 0.465086482032 599.426895098935 471 0 21 9689 202611
+43	738845 13986 2576 20964663 0.469891713487 599.184000347965 449 3 21 9311 194885
+44	752831 22227 2579 20963618 0.470228161011 599.056876383954 713 0 21 14766 309180
+45	775058 21702 2584 20965701 0.471035912959 599.715465601289 696 0 21 14391 301485
+46	796760 14621 2594 20960207 0.474053287427 598.767878348829 470 0 21 9669 202221
+47	811381 14718 2599 20956957 0.47532449635 597.955042685038 475 0 21 9762 203908
+48	826099 21628 2605 20961292 0.477422870854 598.858333959254 695 0 21 14384 301338
+49	847727 21500 2618 20965482 0.479419012042 599.457352349875 688 0 21 14269 298851
+50	869227 22239 2620 20959809 0.479582207427 598.734237462968 713 0 21 14762 309190
+51	891466 15616 2625 20965572 0.480388727093 599.549403887189 506 0 21 10411 217785
+52	907082 21904 2629 20964438 0.481014543537 599.154819811163 703 0 21 14556 304784
+53	928986 14326 2658 20958589 0.484663786218 598.615012558296 462 0 21 9517 198821
+54	943312 21677 2662 20964502 0.485590135976 599.163660036856 696 3 21 14424 301708
+55	964989 14051 2665 20963171 0.486648560236 599.012970148774 453 0 21 9285 194269
+56	979040 14518 2681 20965863 0.489187751145 599.917893683453 468 0 21 9656 201936
+57	993558 14138 2683 20965505 0.489228770142 599.484341425665 454 0 21 9362 195916
+58	1007696 16110 2685 20964796 0.48939472592 599.214330137593 520 0 21 10707 224051
+59	1023806 22299 2687 20963301 0.48960276341 599.024048285395 714 0 22 15498 340108
+60	1046105 15018 2703 20965655 0.49210902402 599.66628403094 484 0 21 9937 207663
+61	1061123 14455 2709 20965604 0.493602684603 599.59788989847 465 0 21 9565 200249
+62	1075578 14113 2712 20965542 0.495649258189 599.524015261894 456 0 21 9338 195078
+63	1089691 21555 2717 20960371 0.496470726491 598.78415395952 690 0 21 14293 299279
+64	1111246 15832 2808 20965362 0.506482829037 599.352045466566 510 2 22 11021 241513
+65	1127078 13792 2820 20957309 0.507768731098 598.287358517149 445 0 21 9140 191152
+66	1140870 15411 2822 20965917 0.508927959555 599.959529974199 498 1 21 10273 214947
+67	1156281 14449 2846 20965544 0.51070542323 599.52471177105 465 0 21 9604 201054
+68	1170730 14110 2919 20965594 0.517819921475 599.580316780478 454 0 21 9343 195599
+69	1184840 14422 2923 20960748 0.517869061269 598.813787604389 464 0 21 9551 199907
+70	1199262 14123 2935 20965769 0.519274389695 599.796796026214 457 0 21 9387 196161
+71	1213385 15514 2952 20965610 0.521811817577 599.598961869549 500 0 21 10232 214086
+72	1228899 21590 2964 20965608 0.524024851403 599.598313061466 692 0 21 14281 298953
+73	1250489 15803 2968 20957747 0.524256120136 598.47985167912 510 0 21 10466 218948
+74	1266292 14579 3007 20960057 0.527884247626 598.755065885246 469 0 21 9641 201873
+75	1280871 13798 3029 20965614 0.528688807469 599.604367881678 444 0 21 9117 190671
+76	1294669 21118 3083 20965796 0.538466026569 599.823478870262 676 0 21 14006 293354
+77	1315787 15307 3089 20965366 0.540606618589 599.354487850706 493 0 21 10127 212023
+78	1331094 15225 3111 20962979 0.541776570427 598.993598139977 491 0 21 10106 211588
+79	1346319 15049 3189 20965449 0.550744815667 599.423472549513 486 0 21 9994 209102
+80	1361368 20785 3236 20965764 0.557471562293 599.793097491768 665 0 21 13756 287856
+81	1382153 15234 3250 20965775 0.558876951793 599.797936378404 492 2 21 10088 210576
+82	1397387 13956 3293 20957291 0.560960365273 598.283334465722 450 0 21 9173 191961
+83	1411343 14340 3297 20965533 0.562181360761 599.516262101011 462 0 21 9524 199450
+84	1425683 82497 3300 20965943 0.562402408516 599.98870775015 2650 0 89 201064 16833368
+85	1508180 78526 3301 20965891 0.562402408516 599.938475988726 2524 0 89 191232 15968880
+86	1586706 15139 3349 20964882 0.570739797596 599.232138188248 487 0 21 10070 210928
+87	1601845 21701 3351 20965856 0.570977697131 599.913418551539 695 0 21 14425 302273
+88	1623546 14793 3353 20957392 0.571054651591 598.334825909526 476 0 21 9779 204803
+89	1638339 13716 3400 20965847 0.57889314458 599.905121826385 442 0 21 9086 190080
+90	1652055 84044 3403 20965771 0.579189248718 599.797597115462 2697 0 89 205165 17156919
+91	1736099 21290 3437 20965818 0.586093663955 599.880247047666 681 0 21 14097 295333
+92	1757389 14575 3442 20965618 0.58674381936 599.605324979878 469 0 21 9635 201761
+93	1771964 22618 3540 20964311 0.603640251817 599.138190895908 724 0 21 14984 314000
+94	1794582 14203 3570 20965906 0.609898777553 599.95378216306 458 0 21 9457 198055
+95	1808785 14933 3600 20957498 0.613566698528 598.385358101008 481 0 21 9882 206578
+96	1823718 14640 3624 20965503 0.618343629695 599.47628854975 472 0 21 9730 203694
+97	1838358 14573 3663 20965668 0.627960793111 599.672992552744 469 0 21 9581 200203
+98	1852931 14233 3674 20965807 0.62937287892 599.858184374211 459 0 21 9454 197668
+99	1867164 15424 3770 20965833 0.645126807366 599.88949858827 498 0 21 10270 214834
+100	1882588 269 4263 864963 0.750575912138 40.720810860141 10 1 10 55 385
+101	1882857 269 4307 20941 0.762105572502 12.270041407732 10 1 10 55 385
+102	1883126 264 4490 16764 0.79471892434 9.041030964483 10 1 10 55 385
+103	1883390 274 4591 85563 0.810683971992 22.525005986017 10 1 10 55 385
+104	1883664 271 4618 23286 0.815785721448 14.088794424181 10 1 10 55 385
+105	1883935 266 4707 25370 0.831265627122 15.723459950699 10 1 10 55 385
+106	1884201 270 4750 19605 0.838056203634 11.222382236636 10 1 10 55 385
+107	1884471 273 4854 23480 0.852491153744 14.228670617381 10 1 10 55 385
+108	1884744 277 4884 1304422 0.862267200132 50.206076096746 10 1 10 55 385
+109	1885021 331 4894 29303 0.862694810266 18.973443444008 12 1 11 76 606
+110	1885352 275 4940 150512 0.868161498076 24.472605759626 10 1 10 55 385
+111	1885627 267 5064 18930 0.887595575518 10.683339735399 10 1 10 55 385
+112	1885894 276 5092 765537 0.892491057552 38.236160446376 10 1 10 55 385
+113	1886170 283 5114 1197540 0.896733367856 47.854425674534 10 1 10 55 385
+114	1886453 272 5160 29369 0.906120797224 19.010703524186 10 1 10 55 385
+115	1886725 5414 5197 6626299 0.912157728879 178.278720396647 188 1 99 9756 646614
+116	1892139 329 5201 63343 0.912626266484 21.796656905212 12 1 11 76 606
+117	1892468 277 5279 285779 0.923269302532 28.197708165262 10 1 10 55 385
+118	1892745 271 5298 68155 0.92619371309 22.033908965768 10 1 10 55 385
+119	1893016 274 5320 655521 0.927907484224 36.531090725976 10 1 10 55 385
+120	1893290 278 5341 313317 0.930636263386 28.949177325152 10 1 10 55 385
+121	1893568 275 5371 932751 0.933366969046 42.252252147493 10 1 10 55 385
+122	1893843 275 5398 234947 0.93843097006 26.629772490955 10 1 10 55 385
+123	1894118 275 5424 514496 0.943971352618 32.60016100119 10 1 10 55 385
+124	1894393 272 5445 22582 0.949130665896 13.520678423514 10 1 10 55 385
+125	1894665 280 5450 1869582 0.949191647718 62.732058004083 10 1 10 55 385
+126	1894945 227 5491 2443447 0.955833191476 76.286248931662 8 1 8 36 204
+127	1895172 285 5497 6604967 0.95733467497 177.542748965918 10 1 10 55 385
+128	1895457 256 5521 3706735 0.960074772696 105.372956950163 9 1 9 45 285
+129	1895713 273 5541 226668 0.96247112242 26.501669188012 10 1 10 55 385
+130	1895986 335 5552 523788 0.963380718798 32.747480042473 12 1 11 76 606
+131	1896321 267 5562 19878 0.964039728916 11.421846384167 10 1 10 55 385
+132	1896588 273 5573 25803 0.966132585602 16.078833130735 10 1 10 55 385
+133	1896861 275 5603 1088074 0.970139174684 45.299605178331 10 1 10 55 385
+134	1897136 283 5616 3173598 0.973701474904 92.938875643974 10 1 10 55 385
+135	1897419 278 5679 848096 0.982891065432 40.452903945603 10 1 10 55 385
+136	1897697 273 5684 27629 0.982941305466 17.546279289738 10 1 10 55 385
+137	1897970 272 5697 22259 0.984417654336 13.287532439929 10 1 10 55 385
+138	1898242 277 5709 3691850 0.98531538506 105.17350378479 10 1 10 55 385
+139	1898519 287 5718 3694392 0.986127364836 105.211638540161 10 1 10 55 385
+140	1898806 282 5752 2135893 0.991965503928 68.621169466936 10 1 10 55 385
+141	1899088 272 5764 30757 0.994287384696 20.19768991757 10 1 10 55 385
+142	1899360 283 5811 3159689 0.998257477372 92.739885771591 10 1 10 55 385
+143	1899643 275 5833 139688 1.001198452426 24.114202525344 10 1 10 55 385
+144	1899918 271 5895 25203 1.010808915336 15.56751786101 10 1 10 55 385
+145	1900189 5417 5903 6634166 1.011463547627 178.578759483098 188 1 99 9756 646614
+146	1905606 280 5906 1815720 1.011481810384 60.330821816637 10 1 10 55 385
+147	1905886 271 5919 45423 1.01309731428 20.961155089693 10 1 10 55 385
+148	1906157 272 5956 25729 1.019132063216 16.028756735173 10 1 10 55 385
+149	1906429 273 5986 25070 1.021674481062 15.473697721786 10 1 10 55 385
+150	1906702 270 6007 23232 1.02587123007 14.05804590372 10 1 10 55 385
+151	1906972 5419 6012 6629713 1.02592480895 178.388709833053 188 1 99 9756 646614
+152	1912391 278 6040 924808 1.029863512446 42.074130874432 10 1 10 55 385
+153	1912669 278 6048 1014723 1.030189903216 43.566036492093 10 1 10 55 385
+154	1912947 272 6058 101730 1.031802942548 23.018273988638 10 1 10 55 385
+155	1913219 274 6071 23457 1.033054575436 14.215052115454 10 1 10 55 385
+156	1913493 279 6156 2289628 1.040353060798 71.739293756509 10 1 10 55 385
+157	1913772 270 6178 21972 1.042205760314 13.039359648982 10 1 10 55 385
+158	1914042 267 6189 14892 1.044322608834 7.591955356138 10 1 10 55 385
+159	1914309 278 6231 893637 1.049400990652 41.152993716632 10 1 10 55 385
+160	1914587 286 6236 1863217 1.049483028646 62.452066785502 10 1 10 55 385
+161	1914873 275 6241 287533 1.049814940202 28.241214139223 10 1 10 55 385
+162	1915148 337 6249 378628 1.050231015182 29.848281669303 12 1 11 76 606
+163	1915485 272 6276 28003 1.055243536402 17.895113016441 10 1 10 55 385
+164	1915757 278 6312 1737472 1.058230857568 58.923752054372 10 1 10 55 385
+165	1916035 270 6323 94663 1.06232400474 22.81032574134 10 1 10 55 385
+166	1916305 285 6340 2132782 1.063966941344 68.527404053346 10 1 10 55 385
+167	1916590 330 6456 28867 1.083991146436 18.597548438957 12 1 11 76 606
+168	1916920 270 6484 83729 1.086562950558 22.480701547411 10 1 10 55 385
+169	1917190 333 6508 298970 1.088881407472 28.55167609088 12 1 11 76 606
+170	1917523 285 6532 6600848 1.092436334822 177.451928444722 10 1 10 55 385
+171	1917808 280 6646 914309 1.106665331312 41.855852946457 10 1 10 55 385
+172	1918088 272 6651 267416 1.1067636109 27.513306400249 10 1 10 55 385
+173	1918360 269 6672 23865 1.109574267752 14.51045630149 10 1 10 55 385
+174	1918629 281 6715 2127111 1.114649123516 68.371179825067 10 1 10 55 385
+175	1918910 281 6745 2271489 1.119075191168 71.227808515005 10 1 10 55 385
+176	1919191 269 6753 65071 1.119537728634 21.887367562663 10 1 10 55 385
+177	1919460 274 6815 210069 1.126793983614 26.241052644178 10 1 10 55 385
+178	1919734 278 6821 2723587 1.1284031033 83.310978899329 10 1 10 55 385
+179	1920012 277 6935 1206168 1.1479575415 48.056602011797 10 1 10 55 385
+180	1920289 278 6946 1109977 1.15223872554 45.620156546301 10 1 10 55 385
+181	1920567 276 6956 276252 1.154578629216 27.910409272774 10 1 10 55 385
+182	1920843 272 7058 117056 1.172515119696 23.359158973565 10 1 10 55 385
+183	1921115 271 7139 25621 1.185968612948 15.93617462393 10 1 10 55 385
+184	1921386 268 7153 26540 1.188779391948 16.67364637727 10 1 10 55 385
+185	1921654 265 7175 14489 1.192946218908 7.295639545034 10 1 10 55 385
+186	1921919 268 7186 15853 1.195388209884 8.357411050155 10 1 10 55 385
+187	1922187 272 7268 29245 1.212505083554 18.906420472767 10 1 10 55 385
+188	1922459 275 7277 541554 1.212980882624 33.154419475571 10 1 10 55 385
+189	1922734 279 7282 338889 1.213134791544 29.254676719073 10 1 10 55 385
+190	1923013 278 7371 437985 1.228811777522 31.000859517121 10 1 10 55 385
+191	1923291 287 7440 2449511 1.243212816272 76.499751376746 10 1 10 55 385
+192	1923578 267 7457 14686 1.244513127082 7.438476806251 10 1 10 55 385
+193	1923845 268 7649 13887 1.278305991996 6.774059746993 10 1 10 55 385
+194	1924113 263 7730 12851 1.290823043468 5.934710979435 10 1 10 55 385
+195	1924376 266 7773 14785 1.298158885418 7.516317152218 10 1 10 55 385
+196	1924642 268 7812 13696 1.307712747752 6.633295004756 10 1 10 55 385
+197	1924910 262 7884 13810 1.326947074584 6.724547142922 10 1 10 55 385
+198	1925172 267 7892 12577 1.329771246202 5.692137922839 10 1 10 55 385
+199	1925439 265 8010 12467 1.361279103094 5.598379937872 10 1 10 55 385
+

@@ -1,0 +1,89 @@
+version 2
+run General-1-20180806-00:27:10-1966
+attr configname General
+attr datetime 20180806-00:27:10
+attr experiment General
+attr inifile gossipsub.ini
+attr iterationvars $0=500
+attr iterationvarsf 500-
+attr measurement $0=500
+attr network sharding.GossipSubNetwork
+attr processid 1966
+attr repetition 0
+attr replication #0
+attr resultdir results-gossipsub
+attr runnumber 1
+attr seedset 1
+param *Network.nodeCount 500
+param *Network.gossipRate 10.0Hz
+param *Network.nodes[*].source.active true
+param *Network.nodes[*].source.startTime 20s
+param *Network.nodes[*].source.stopTime 580s
+param *Network.nodes[*].lazyNotifier.notificationInterval 0.1s
+param *Network.nodes[*].missingTracker.waitTime 2s
+param *Network.nodes[*].connectionManager.numRandomNeighbors 5
+param *Network.nodes[*].connectionManager.numNearNeighbors 5
+param *Network.nodes[*].connectionManager.passiveListSize 20
+param *Network.nodes[*].connectionManager.contactNodes "\"0 1 2\""
+param *Network.nodes[*].connectionManager.activeHeartbeatInterval 2.0
+param *Network.nodes[*].connectionManager.joinTTL 1
+param *Network.nodes[*].connectionManager.forwardJoinTTL 1
+param *Network.nodes[*].connectionManager.shuffleInterval 2.0
+param *Network.nodes[*].connectionManager.activeShufflingSize 5
+param *Network.nodes[*].connectionManager.passiveShufflingSize 5
+param *Network.nodes[*].connectionManager.shuffleTTL 1
+
+scalar GossipSubNetwork messageSent:count 7853692
+scalar GossipSubNetwork newGossipReceived:count 1499156
+statistic GossipSubNetwork newGossipReceived:histogram
+field count 1499156
+field mean 5.2459223723215
+field stddev 4.1950648079261
+field min 0
+field max 39
+field sum 7864456
+field sqrsum 67639308
+bin	-inf	0
+bin	0	44548
+bin	1	216602
+bin	2	209005
+bin	3	172099
+bin	4	157456
+bin	5	133898
+bin	6	109980
+bin	7	93143
+bin	8	75843
+bin	9	62034
+bin	10	49356
+bin	11	40351
+bin	12	32448
+bin	13	26392
+bin	14	19798
+bin	15	15054
+bin	16	11148
+bin	17	8321
+bin	18	6063
+bin	19	4306
+bin	20	3276
+bin	21	2269
+bin	22	1633
+bin	23	1183
+bin	24	862
+bin	25	619
+bin	26	465
+bin	27	326
+bin	28	213
+bin	29	152
+bin	30	110
+bin	31	73
+bin	32	39
+bin	33	43
+bin	34	18
+bin	35	13
+bin	36	9
+bin	37	4
+bin	38	2
+bin	39	2
+bin	40	0
+scalar GossipSubNetwork newGossipEmitted:count 5341
+
