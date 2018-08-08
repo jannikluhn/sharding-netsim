@@ -87,7 +87,7 @@ void PassiveListManager::handleNodes(Nodes *nodes) {
     emit(passive_list_update_signal, peer_list->getPassiveListSize());
 
     if (pending_getnodes_requests.empty()) {
-        EV_INFO << "View initialization complete. Passive list size: "
+        EV_DEBUG << "View initialization complete. Passive list size: "
             << peer_list->getPassiveListSize();
 
         view_initialization_finished = true;
@@ -113,7 +113,7 @@ void PassiveListManager::initiateShuffle() {
     }
 
     int receiver = peer_list->getRandomActivePeer();
-    EV_INFO << "initiateing passive list shuffle with " << receiver << "\n";
+    EV_DEBUG << "initiateing passive list shuffle with " << receiver << endl;
 
     Shuffle *shuffle = new Shuffle();
     shuffle->setReceiver(receiver);

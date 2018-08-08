@@ -49,7 +49,7 @@ void Source::handleMessage(cMessage *scheduler_msg) {
 
     simtime_t next_message_time = simTime() + exponential(1 / rate);
     if (stop_time < 0 || next_message_time < stop_time) {
-        scheduleAt(simTime() + exponential(1 / rate), scheduler_msg);
+        scheduleAt(next_message_time, scheduler_msg);
     } else {
         delete scheduler_msg;
     }

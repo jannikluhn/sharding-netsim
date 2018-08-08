@@ -72,7 +72,7 @@ module ConnectionManager
                 nodeId = nodeId;
                 peerListPath = "^." + peerListPath;
         };
-        active_list_manager: ActiveListManager {
+        activeListManager: ActiveListManager {
             parameters:
                 peerListPath = "^." + peerListPath;
                 nodeId = nodeId;
@@ -97,12 +97,12 @@ module ConnectionManager
         getNodesHandler.getNodesInput <-- getNodesInput;
         getNodesHandler.out --> outputFunnel.inputs++;
 
-        active_list_manager.joinInput <-- joinInput;
-        active_list_manager.neighborInput <-- neighborInput;
-        active_list_manager.disconnectInput <-- disconnectInput;
-        active_list_manager.forwardJoinInput <-- forwardJoinInput;
-        active_list_manager.startInput <-- passiveListManager.viewInitializationFinishedOutputs++;
-        active_list_manager.out --> outputFunnel.inputs++;
-        active_list_manager.addedActivePeerOutput --> addedActivePeerOutput;
-        active_list_manager.removedActivePeerOutput --> removedActivePeerOutput;
+        activeListManager.joinInput <-- joinInput;
+        activeListManager.neighborInput <-- neighborInput;
+        activeListManager.disconnectInput <-- disconnectInput;
+        activeListManager.forwardJoinInput <-- forwardJoinInput;
+        activeListManager.startInput <-- passiveListManager.viewInitializationFinishedOutputs++;
+        activeListManager.out --> outputFunnel.inputs++;
+        activeListManager.addedActivePeerOutput --> addedActivePeerOutput;
+        activeListManager.removedActivePeerOutput --> removedActivePeerOutput;
 }

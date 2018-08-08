@@ -49,7 +49,7 @@ void ActiveListManager::sendInitialJoins() {
         error("No contact nodes to join with");
     }
 
-    EV_INFO << "sending initial joins to " << num_receivers << " nodes\n";
+    EV_DEBUG << "sending initial joins to " << num_receivers << " nodes" << endl;
 
     std::vector<int> shuffling = peer_list->getPassiveListShuffling();
     std::vector<int> receivers(shuffling.begin(), shuffling.begin() + num_receivers);
@@ -72,8 +72,10 @@ void ActiveListManager::startHeartbeat() {
 void ActiveListManager::handleHeartbeat(cMessage *heartbeat) {
     scheduleAt(simTime() + heartbeat_interval, heartbeat);
 
-    if (peer_list->getActiveListSize() > num_neighbors) {
-        EV_DEBUG << "Too many active peers, passivating random one\n";
+    int active_list_size = peer_list->getActiveListSize();
+    if (active_list_size > num_neighbors) {
+        EV_DEBUG << "Too many active peers (" << active_list_size << " > " << num_neighbors << ")"
+                 << endl;
         // disconnect from random peer
         int peer = peer_list->getRandomActivePeer();
         Disconnect *disconnect = new Disconnect();
@@ -86,18 +88,21 @@ void ActiveListManager::handleHeartbeat(cMessage *heartbeat) {
         ActiveListChange *active_list_change = new ActiveListChange();
         active_list_change->setRemoved(peer);
         send(active_list_change, "removedActivePeerOutput");
-    } else if (peer_list->getActiveListSize() < num_neighbors && neighbor_requests.size() == 0) {
-        EV_DEBUG << "Too few active peers, activating random one\n";
+    } else if (active_list_size < num_neighbors && neighbor_requests.size() == 0) {
         // connect to random passive peer
         if (peer_list->getPassiveListSize() > 0) {
             int peer = peer_list->getRandomPassivePeer();
+            EV_DEBUG << "Too few active peers (" << active_list_size << " < " << num_neighbors
+                << "), connecting to " << peer << endl;
+
             Neighbor *neighbor = new Neighbor();
             neighbor->setReceiver(peer);
             send(neighbor, "out");
 
             neighbor_requests.insert(peer);
         } else {
-            EV_WARN << "Passive list empty" << endl;
+            EV_WARN << "Passive list empty, but additional active peers needed ("
+                << active_list_size << " < " << num_neighbors << endl;
         }
     }
 }
@@ -107,7 +112,7 @@ void ActiveListManager::handleJoin(Join *join) {
     int node = join->getNode();
 
     if (ttl > 0 && peer_list->getActiveListSize() >= num_neighbors) {
-        EV_DEBUG << "forwarding received join\n";
+        EV_DEBUG << "forwarding received join" << endl;
 
         // forward join to random active peer
         join->setTtl(ttl - 1);
@@ -117,7 +122,7 @@ void ActiveListManager::handleJoin(Join *join) {
 
         send(join, "out");
     } else if (peer_list->isActive(node)) {
-        EV_DEBUG << "received join from already active peer, forwarding\n";
+        EV_DEBUG << "received join from already active peer, forwarding" << endl;
 
         // forward join to random active peer, without decrementing TTL
         do {
@@ -126,7 +131,7 @@ void ActiveListManager::handleJoin(Join *join) {
 
         send(join, "out");
     } else {
-        EV_DEBUG << "accepting join\n";
+        EV_DEBUG << "accepting join" << endl;
 
         // accept join
         Neighbor *neighbor = new Neighbor();
@@ -151,8 +156,6 @@ void ActiveListManager::handleNeighbor(Neighbor *neighbor) {
     int node = neighbor->getSender();
 
     if (neighbor_requests.count(node) > 0) {
-        EV_DEBUG << "received positive response to neighbor request\n";
-
         // if we requested to connect just add the peer if we haven't already
         neighbor_requests.erase(node);
         if (peer_list->isPassive(node)) {
@@ -160,7 +163,11 @@ void ActiveListManager::handleNeighbor(Neighbor *neighbor) {
         } else if (!peer_list->isActive(node)) {
             peer_list->addActivePeer(node);
         }
-        emit(active_list_update_signal, peer_list->getActiveListSize());
+
+        int active_list_size = peer_list->getActiveListSize();
+        emit(active_list_update_signal, active_list_size);
+        EV_DEBUG << "received positive response to neighbor request from " << node << " ("
+            << active_list_size << " peers)" << endl;
 
         ActiveListChange *active_list_change = new ActiveListChange();
         active_list_change->setAdded(node);
@@ -168,14 +175,17 @@ void ActiveListManager::handleNeighbor(Neighbor *neighbor) {
     } else {
         // if they requested check if we want to connect and send reply accordingly
         if (peer_list->getActiveListSize() < num_neighbors) {
-            EV_DEBUG << "accepting neighbor request\n";
             // accept
             if (peer_list->isPassive(node)) {
                 peer_list->activatePeer(node);
             } else if (!peer_list->isActive(node)) {
                 peer_list->addActivePeer(node);
             }
-            emit(active_list_update_signal, peer_list->getActiveListSize());
+
+            int active_list_size = peer_list->getActiveListSize();
+            emit(active_list_update_signal, active_list_size);
+            EV_DEBUG << "accepted neighbor request by " << node << " (" << active_list_size
+                << " peers)" << endl;
 
             ActiveListChange *active_list_change = new ActiveListChange();
             active_list_change->setAdded(node);
@@ -185,7 +195,9 @@ void ActiveListManager::handleNeighbor(Neighbor *neighbor) {
             reply->setReceiver(node);
             send(reply, "out");
         } else {
-            EV_DEBUG << "rejecting neighbor request\n";
+            EV_DEBUG << "rejected neighbor request by " << node << "("
+                << peer_list->getActiveListSize() << " peers)" << endl;
+
             // reject
             Disconnect *reply = new Disconnect();
             reply->setReceiver(node);
@@ -202,8 +214,18 @@ void ActiveListManager::handleNeighbor(Neighbor *neighbor) {
 }
 
 void ActiveListManager::handleDisconnect(Disconnect *disconnect) {
-    EV_DEBUG << "received disconnect request, removing peer\n";
-    neighbor_requests.erase(disconnect->getSender());
+    int peer_id = disconnect->getSender();
+    if (peer_list->isActive(peer_id)) {
+        EV_DEBUG << "received disconnect request from " << peer_id << ", passivating peer ("
+            << peer_list->getActiveListSize() - 1 << " peers)" << endl;
+        peer_list->passivatePeer(peer_id);
+    } else if (neighbor_requests.count(peer_id) > 0) {
+        EV_DEBUG << "neighbor request rejected by " << peer_id << " ("
+            << peer_list->getActiveListSize() << " peers)" << endl;
+        neighbor_requests.erase(peer_id);
+    } else {
+        error("unexpected disconnect");
+    }
     delete disconnect;
 }
 
@@ -213,7 +235,7 @@ void ActiveListManager::handleForwardJoin(ForwardJoin *forward_join) {
 
     // add node to passive list
     if (!peer_list->isPeer(node)) {
-        EV_DEBUG << "adding passive peer from FORWARDJOIN\n";
+        EV_DEBUG << "adding passive peer from FORWARDJOIN" << endl;
         peer_list->addPassivePeer(node);
     }
 
