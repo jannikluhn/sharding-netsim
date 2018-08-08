@@ -3,6 +3,18 @@ package sharding;
 import sharding.floodsub.FloodSubNode;
 import sharding.gossipsub.GossipSubNode;
 import sharding.utils.hub.Hub;
+import sharding.utils.node_manager.NodeManager;
+
+
+network Network
+{
+    submodules:
+        hub: Hub;
+        nodeManager: NodeManager {
+            hubPath = "^.hub";
+            nodeTypeName = "sharding.floodsub.FloodSubNode";
+        };
+}
 
 
 network FloodSubNetwork

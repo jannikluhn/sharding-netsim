@@ -92,6 +92,7 @@ module ConnectionManager
         passiveListManager.nodesInput <-- nodesInput;
         passiveListManager.shuffleInput <-- shuffleInput;
         passiveListManager.shuffleReplyInput <-- shuffleReplyInput;
+        passiveListManager.forwardJoinInput <-- forwardJoinInput;
         passiveListManager.out --> outputFunnel.inputs++;
 
         getNodesHandler.getNodesInput <-- getNodesInput;
@@ -100,7 +101,6 @@ module ConnectionManager
         activeListManager.joinInput <-- joinInput;
         activeListManager.neighborInput <-- neighborInput;
         activeListManager.disconnectInput <-- disconnectInput;
-        activeListManager.forwardJoinInput <-- forwardJoinInput;
         activeListManager.startInput <-- passiveListManager.viewInitializationFinishedOutputs++;
         activeListManager.out --> outputFunnel.inputs++;
         activeListManager.addedActivePeerOutput --> addedActivePeerOutput;

@@ -18,6 +18,7 @@ simple PassiveListManager
         input nodesInput;
         input shuffleInput;
         input shuffleReplyInput;
+        input forwardJoinInput;
         output viewInitializationFinishedOutputs[];
         output out;
 };

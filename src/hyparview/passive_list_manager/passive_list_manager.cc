@@ -28,7 +28,7 @@ void PassiveListManager::initialize() {
     peer_list = check_and_cast<PeerList *>(getModuleByPath(peer_list_path));
 
     cMessage *heartbeat = new cMessage();
-    scheduleAt(uniform(0, shuffle_interval), heartbeat);
+    scheduleAt(simTime() + uniform(0, shuffle_interval), heartbeat);
 
     startViewInitialization();
 }
@@ -42,6 +42,8 @@ void PassiveListManager::handleMessage(cMessage *msg) {
         handleShuffle(check_and_cast<Shuffle *>(msg));
     } else if (msg->arrivedOn("shuffleReplyInput")) {
         handleShuffleReply(check_and_cast<ShuffleReply *>(msg));
+    } else if (msg->arrivedOn("forwardJoinInput")) {
+        handleForwardJoin(check_and_cast<ForwardJoin *>(msg));
     } else {
         error("unhandled message");
     }
@@ -113,7 +115,7 @@ void PassiveListManager::initiateShuffle() {
     }
 
     int receiver = peer_list->getRandomActivePeer();
-    EV_DEBUG << "initiateing passive list shuffle with " << receiver << endl;
+    EV_DEBUG << "initiating passive list shuffle with " << receiver << endl;
 
     Shuffle *shuffle = new Shuffle();
     shuffle->setReceiver(receiver);
@@ -210,4 +212,24 @@ void PassiveListManager::handleShuffleReply(ShuffleReply *shuffle_reply) {
 
     emit(passive_list_update_signal, peer_list->getPassiveListSize());
     delete shuffle_reply;
+}
+
+void PassiveListManager::handleForwardJoin(ForwardJoin *forward_join) {
+    int node = forward_join->getNode();
+    int ttl = forward_join->getTtl();
+
+    // add node to passive list
+    if (!peer_list->isPeer(node)) {
+        EV_DEBUG << "adding passive peer from FORWARDJOIN" << endl;
+        peer_list->addPassivePeer(node);
+    }
+
+    // forward to random active peer if not dead
+    if (ttl > 0) {
+        forward_join->setTtl(ttl - 1);
+        forward_join->setReceiver(peer_list->getRandomActivePeer());
+        send(forward_join, "out");
+    } else {
+        delete forward_join;
+    }
 }

@@ -32,6 +32,7 @@ class PassiveListManager : public cSimpleModule {
     void initiateShuffle();
     void handleShuffle(Shuffle *shuffle);
     void handleShuffleReply(ShuffleReply *shuffle_reply);
+    void handleForwardJoin(ForwardJoin *forward_join);
 
   protected:
     void initialize();

@@ -35,8 +35,6 @@ void ActiveListManager::handleMessage(cMessage *msg) {
         handleNeighbor(check_and_cast<Neighbor *>(msg));
     } else if (msg->arrivedOn("disconnectInput")) {
         handleDisconnect(check_and_cast<Disconnect *>(msg));
-    } else if (msg->arrivedOn("forwardJoinInput")) {
-        handleForwardJoin(check_and_cast<ForwardJoin *>(msg));
     } else if (msg->arrivedOn("startInput")) {
         sendInitialJoins();
         delete msg;
@@ -74,10 +72,11 @@ void ActiveListManager::handleHeartbeat(cMessage *heartbeat) {
 
     int active_list_size = peer_list->getActiveListSize();
     if (active_list_size > num_neighbors) {
-        EV_DEBUG << "Too many active peers (" << active_list_size << " > " << num_neighbors << ")"
-                 << endl;
         // disconnect from random peer
         int peer = peer_list->getRandomActivePeer();
+        EV_DEBUG << "Too many active peers (" << active_list_size << " > " << num_neighbors
+            << "), disconnecting from " << peer << endl;
+
         Disconnect *disconnect = new Disconnect();
         disconnect->setReceiver(peer);
         send(disconnect, "out");
@@ -102,7 +101,7 @@ void ActiveListManager::handleHeartbeat(cMessage *heartbeat) {
             neighbor_requests.insert(peer);
         } else {
             EV_WARN << "Passive list empty, but additional active peers needed ("
-                << active_list_size << " < " << num_neighbors << endl;
+                << active_list_size << " < " << num_neighbors << ")" << endl;
         }
     }
 }
@@ -184,7 +183,7 @@ void ActiveListManager::handleNeighbor(Neighbor *neighbor) {
 
             int active_list_size = peer_list->getActiveListSize();
             emit(active_list_update_signal, active_list_size);
-            EV_DEBUG << "accepted neighbor request by " << node << " (" << active_list_size
+            EV_DEBUG << "accepted neighbor request from " << node << " (" << active_list_size
                 << " peers)" << endl;
 
             ActiveListChange *active_list_change = new ActiveListChange();
@@ -224,27 +223,9 @@ void ActiveListManager::handleDisconnect(Disconnect *disconnect) {
             << peer_list->getActiveListSize() << " peers)" << endl;
         neighbor_requests.erase(peer_id);
     } else {
-        error("unexpected disconnect");
+        // may happen if two nodes disconnect from each other at the same time
+        EV_DEBUG << "received disconnect request from already unconnected peer " << peer_id
+            << endl;
     }
     delete disconnect;
-}
-
-void ActiveListManager::handleForwardJoin(ForwardJoin *forward_join) {
-    int node = forward_join->getNode();
-    int ttl = forward_join->getTtl();
-
-    // add node to passive list
-    if (!peer_list->isPeer(node)) {
-        EV_DEBUG << "adding passive peer from FORWARDJOIN" << endl;
-        peer_list->addPassivePeer(node);
-    }
-
-    // forward to random active peer if not dead
-    if (ttl > 0) {
-        forward_join->setTtl(ttl - 1);
-        forward_join->setReceiver(peer_list->getRandomActivePeer());
-        send(forward_join, "out");
-    } else {
-        delete forward_join;
-    }
 }

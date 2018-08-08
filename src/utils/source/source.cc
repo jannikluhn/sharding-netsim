@@ -22,7 +22,7 @@ void Source::initialize() {
 
     if (active) {
         cMessage *scheduler_msg = new cMessage();
-        scheduleAt(start_time + exponential(1 / rate), scheduler_msg);
+        scheduleAt(simTime() + start_time + exponential(1 / rate), scheduler_msg);
     }
 }
 

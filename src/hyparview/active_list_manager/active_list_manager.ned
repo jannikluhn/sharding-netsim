@@ -17,7 +17,6 @@ simple ActiveListManager
     gates:
         input joinInput;
         input neighborInput;
-        input forwardJoinInput;
         input disconnectInput;
         input startInput;
         output out;

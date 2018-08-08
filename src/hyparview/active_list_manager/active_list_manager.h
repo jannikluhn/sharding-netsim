@@ -30,7 +30,6 @@ class ActiveListManager : public cSimpleModule {
     void handleJoin(Join *join);
     void handleNeighbor(Neighbor *neighbor);
     void handleDisconnect(Disconnect *disconnect);
-    void handleForwardJoin(ForwardJoin *forward_join);
 
     void startHeartbeat();
     void sendInitialJoins();
