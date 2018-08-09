@@ -117,10 +117,11 @@ int PeerList::getPassiveListSize() {
 int PeerList::getPeerByIndex(int index) {
     Enter_Method_Silent();
 
-    if (index < getActiveListSize()) {
+    int active_list_size = getActiveListSize();
+    if (index < active_list_size) {
         return getActivePeerByIndex(index);
     } else {
-        return getPassivePeerByIndex(index);
+        return getPassivePeerByIndex(index - active_list_size);
     }
 }
 
