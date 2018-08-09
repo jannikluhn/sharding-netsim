@@ -14,15 +14,18 @@ void Source::initialize() {
 
     active = par("active").boolValue();
     rate = par("rate").doubleValue();
-    start_time = par("startTime").doubleValue();
-    stop_time = par("stopTime").doubleValue();
+    warmup_time = par("warmupTime").doubleValue();
+    life_time = par("lifeTime").doubleValue();
     node_id = par("nodeId").intValue();
 
     new_gossip_emitted_signal = registerSignal("newGossipEmitted");
 
+    start_time = simTime() + warmup_time;
+    stop_time = simTime() + warmup_time + life_time;
+
     if (active) {
         cMessage *scheduler_msg = new cMessage();
-        scheduleAt(simTime() + start_time + exponential(1 / rate), scheduler_msg);
+        scheduleAt(start_time + exponential(1 / rate), scheduler_msg);
     }
 }
 
@@ -48,7 +51,7 @@ void Source::handleMessage(cMessage *scheduler_msg) {
     emit(new_gossip_emitted_signal, content_id);
 
     simtime_t next_message_time = simTime() + exponential(1 / rate);
-    if (stop_time < 0 || next_message_time < stop_time) {
+    if (next_message_time < stop_time) {
         scheduleAt(next_message_time, scheduler_msg);
     } else {
         delete scheduler_msg;

@@ -10,8 +10,8 @@ simple Source
         int nodeId;
         bool active = default(false);
         double rate @unit(Hz);
-        double startTime @unit(s) = default(0);
-        double stopTime @unit(s) = default(-1 s);  // ignored if negative
+        double warmupTime @unit(s) = default(0);
+        double lifeTime @unit(s);
 
         @signal[newGossipEmitted](long);
 

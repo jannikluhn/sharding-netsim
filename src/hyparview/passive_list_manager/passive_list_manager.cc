@@ -225,7 +225,7 @@ void PassiveListManager::handleForwardJoin(ForwardJoin *forward_join) {
     }
 
     // forward to random active peer if not dead
-    if (ttl > 0) {
+    if (ttl > 0 && peer_list->getActiveListSize() > 0) {
         forward_join->setTtl(ttl - 1);
         forward_join->setReceiver(peer_list->getRandomActivePeer());
         send(forward_join, "out");

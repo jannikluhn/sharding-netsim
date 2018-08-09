@@ -13,8 +13,10 @@ class Source : public cSimpleModule {
 
     int node_id;
     bool active;
-    double start_time;
-    double stop_time;
+    double warmup_time;
+    double life_time;
+    simtime_t start_time;
+    simtime_t stop_time;
     double rate;
     simsignal_t new_gossip_emitted_signal;
 

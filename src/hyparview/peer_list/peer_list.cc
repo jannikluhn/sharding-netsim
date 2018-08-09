@@ -68,6 +68,9 @@ void PeerList::passivatePeer(int peer_id) {
         active_peers.erase(
             std::remove(active_peers.begin(), active_peers.end(), peer_id)
         );
+        if (active_peers.size() == 0) {
+            EV_WARN << "No active peers" << endl;
+        }
     }
 }
 

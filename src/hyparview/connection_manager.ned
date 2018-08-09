@@ -29,8 +29,8 @@ module ConnectionManager
 
         string peerListPath = "peerList";
 
-        @statistic[passiveListUpdate](record=vector);
-        @statistic[activeListUpdate](record=vector);
+        //@statistic[passiveListUpdate](record=vector);
+        //@statistic[activeListUpdate](record=vector);
 
 
     gates:
