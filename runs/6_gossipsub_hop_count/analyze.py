@@ -16,23 +16,16 @@ from load_results import load_results
 
 
 root_dir = Path(__file__).parent
-floodsub_result_dir = root_dir / "results-floodsub"
-gossipsub_result_dir = root_dir / "results-gossipsub"
-result_filename_format = "General-{node_count}-#0.sca"
+result_dir = root_dir / "results"
+result_filename_format = "GossipSub-nodeCount={node_count},rampUpTime={node_count}_#2a_1s,10Hz_#2f_{node_count},{node_count}_#2a_1s_+_20s-#0.sca"
 
 node_counts = [100, 500, 1000, 5000, 10000, 20000]
 
 
 results = {
-    "floodsub": {
-        node_count: load_results(
-            floodsub_result_dir / result_filename_format.format(node_count=node_count)
-        )
-        for node_count in node_counts
-    },
     "gossipsub": {
         node_count: load_results(
-            gossipsub_result_dir / result_filename_format.format(node_count=node_count)
+            result_dir / result_filename_format.format(node_count=node_count)
         )
         for node_count in node_counts
     }
@@ -40,14 +33,8 @@ results = {
 
 protocols = [
     {
-        "name": "floodsub",
-        "title": "FloodSub",
-        "network": "FloodSubNetwork",
-    },
-    {
         "name": "gossipsub",
         "title": "GossipSub",
-        "network": "GossipSubNetwork",
     },
 ]
 
@@ -70,12 +57,12 @@ def plot_hop_histograms(results, protocols):
         n_plots = len(results[protocol["name"]])
         n_cols = 2
         n_rows = (n_plots - 1) // n_cols + 1
-        axes_nested = fig.subplots(n_rows, n_cols)
+        axes_nested = fig.subplots(n_rows, n_cols, squeeze=False)
         axes = [ax for rows in axes_nested for ax in rows]
 
         for ax, node_count in zip(axes, results[protocol["name"]]):
             hop_data = get_in(
-                [protocol["name"], node_count, protocol["network"], "newGossipReceived"],
+                [protocol["name"], node_count, "Network", "newGossipReceived"],
                 results
             )
             hist, bins = hop_data["histogram"]
@@ -117,7 +104,7 @@ def plot_hop_growth(results, protocols):
         y = []
         for node_count in node_counts:
             hop_data = get_in(
-                [protocol["name"], node_count, protocol["network"], "newGossipReceived"],
+                [protocol["name"], node_count, "Network", "newGossipReceived"],
                 results
             )
             hist, bins = hop_data["histogram"]
@@ -151,7 +138,7 @@ def plot_message_efficiency(results, protocols):
         y = []
         for node_count in node_counts:
             data = get_in(
-                [protocol["name"], node_count, protocol["network"]],
+                [protocol["name"], node_count, "Network"],
                 results
             )
             gossip_emitted = data["newGossipEmitted"]["count"]
@@ -179,7 +166,7 @@ def print_losses(results, protocols):
         losses = []
         for node_count in node_counts:
             data = get_in(
-                [protocol["name"], node_count, protocol["network"]],
+                [protocol["name"], node_count, "Network"],
                 results
             )
             gossip_emitted = data["newGossipEmitted"]["count"]
@@ -201,7 +188,9 @@ if __name__ == "__main__":
     hop_growth = plot_hop_growth(results, protocols)
     hop_growth.savefig("hop_growth.pdf")
 
-    efficiency = plot_message_efficiency(results, protocols)
-    efficiency.savefig("efficiency.pdf")
+    # Efficiency is misleading here because measurement time >> gossiping time (so lots of
+    # discovery overhead)
+    #efficiency = plot_message_efficiency(results, protocols)
+    #efficiency.savefig("efficiency.pdf")
 
     print_losses(results, protocols)

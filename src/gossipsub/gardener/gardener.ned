@@ -6,17 +6,10 @@ simple Gardener
 {
     parameters:
         string cachePath;
-
-        @signal[newGossipReceived](type=long);
+        string peerTrackerPath;
 
     gates:
         input graftInput;
         input pruneInput;
-        input gossipInput;
-        input eagerMulticastInputs[];
-        input lazyMulticastInputs[];
         output out;
-
-        input addedActivePeerInput;
-        input removedActivePeerInput;
 }

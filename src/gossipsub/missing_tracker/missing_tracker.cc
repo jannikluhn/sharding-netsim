@@ -13,6 +13,9 @@ void MissingTracker::initialize() {
     cache = check_and_cast<Cache *>(getModuleByPath(cache_path));
 
     wait_time = par("waitTime").doubleValue();
+
+    missing_signal = registerSignal("missingRequested");
+
     cMessage *scheduler_msg = new cMessage();
     scheduleAt(simTime() + uniform(0, wait_time / 2), scheduler_msg);
 }
@@ -40,16 +43,17 @@ void MissingTracker::handleScheduler(cMessage *msg) {
         they_have_content_ids.erase(content_id);
         custodians.erase(content_id);
         first_seen_timestamps.erase(content_id);
+        emit(missing_signal, content_id);
     }
 
     // select content ids to attempt to download
     std::set<int> content_to_retrieve;
     for (auto content_id : they_have_content_ids) {
+        // TODO: check that last request for that content id is not too recent
         if (first_seen_timestamps[content_id] < simTime() - wait_time) {
             content_to_retrieve.insert(content_id);
         }
     }
-
 
     // find custodian for each content id
     std::map<int, std::vector<int>> content_ids_by_custodian;
@@ -70,7 +74,8 @@ void MissingTracker::handleScheduler(cMessage *msg) {
         int custodian = entry.first;
         std::vector<int> content_ids = entry.second;
 
-        EV_DEBUG << "requesting missed gossip messages from " << custodian << endl;
+        EV_DEBUG << "requesting " << content_ids.size() << " missed gossip messages from "
+            << custodian << endl;
 
         Graft *graft_msg = new Graft();
         graft_msg->setReceiver(custodian);
@@ -86,6 +91,8 @@ void MissingTracker::handleScheduler(cMessage *msg) {
 }
 
 void MissingTracker::handleIHave(IHave *msg) {
+    EV_DEBUG << "received IHAVE from " << msg->getSender() << endl;
+
     int num_content_ids = msg->getContentIdsArraySize();
     for (int i = 0; i < num_content_ids; i++) {
         int content_id = msg->getContentIds(i);

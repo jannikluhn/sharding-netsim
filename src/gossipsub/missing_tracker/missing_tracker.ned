@@ -8,6 +8,8 @@ simple MissingTracker
         string cachePath;
         double waitTime @unit(s);
 
+        @signal[missingRequested](type=long);
+
     gates:
         input iHaveInput;
         output out;

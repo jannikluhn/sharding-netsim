@@ -130,7 +130,7 @@ void ActiveListManager::handleJoin(Join *join) {
 
         send(join, "out");
     } else {
-        EV_DEBUG << "accepting join" << endl;
+        EV_DEBUG << "accepting join from " << node << endl;
 
         // accept join
         Neighbor *neighbor = new Neighbor();
@@ -194,7 +194,7 @@ void ActiveListManager::handleNeighbor(Neighbor *neighbor) {
             reply->setReceiver(node);
             send(reply, "out");
         } else {
-            EV_DEBUG << "rejected neighbor request by " << node << "("
+            EV_DEBUG << "rejected neighbor request by " << node << " ("
                 << peer_list->getActiveListSize() << " peers)" << endl;
 
             // reject

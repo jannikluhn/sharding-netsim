@@ -4,7 +4,7 @@
 #include <omnetpp.h>
 #include <set>
 #include "../../packets_m.h"
-#include "../../hyparview/internal_messages_m.h"
+#include "../peer_tracker/peer_tracker.h"
 #include "../../utils/cache/cache.h"
 
 using namespace omnetpp;
@@ -13,22 +13,12 @@ using namespace omnetpp;
 class Gardener : public cSimpleModule {
   private:
     Cache *cache;
-
-    std::set<int> lazy_receivers;
-    std::set<int> eager_receivers;
+    PeerTracker *peer_tracker;
 
     simsignal_t new_gossip_received_signal;
 
-    void prune(int receiver_id);
-    void graft(int receiver_id);
-
     void handleGraft(Graft *msg);
     void handlePrune(Prune *msg);
-    void handleGossip(Gossip *msg);
-    void handleEagerMulticast(AddressedPacket *msg);
-    void handleLazyMulticast(AddressedPacket *msg);
-    void handleAddedActivePeer(ActiveListChange *msg);
-    void handleRemovedActivePeer(ActiveListChange *msg);
 
   protected:
     virtual void initialize();

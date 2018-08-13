@@ -16,6 +16,8 @@ class MissingTracker : public cSimpleModule {
 
     double wait_time;
 
+    simsignal_t missing_signal;
+
     std::set<int> they_have_content_ids;
     std::map<int, std::queue<int>> custodians;
     std::map<int, simtime_t> first_seen_timestamps;

@@ -6,8 +6,10 @@ import sharding.utils.source.Source;
 import sharding.utils.cache.Cache;
 
 import sharding.gossipsub.gardener.Gardener;
+import sharding.gossipsub.gossip_handler.GossipHandler;
 import sharding.gossipsub.lazy_notifier.LazyNotifier;
 import sharding.gossipsub.missing_tracker.MissingTracker;
+import sharding.gossipsub.peer_tracker.PeerTracker;
 
 import sharding.hyparview.ConnectionManager;
 
@@ -17,6 +19,10 @@ module GossipSubNode
     parameters:
         int nodeId;
 
+        @statistic[newGossipEmitted](record=count);
+        @statistic[newGossipReceived](record=count);
+        @statistic[missingRequested](record=count);
+
     gates:
         inout port;
 
@@ -24,15 +30,20 @@ module GossipSubNode
         outputFunnel: Funnel;
         inputDispatcher: TypeDispatcher;
 
+        cache: Cache;
         source: Source {
             cachePath = "^.cache";
             nodeId = nodeId;
         };
-        cache: Cache;
+        peerTracker: PeerTracker;
         gardener: Gardener {
             cachePath = "^.cache";
+            peerTrackerPath = "^.peerTracker";
         };
-        lazyNotifier: LazyNotifier;
+        gossipHandler: GossipHandler {
+            cachePath = "^.cache";
+            peerTrackerPath = "^.peerTracker";
+        };
         missingTracker: MissingTracker {
             cachePath = "^.cache";
         };
@@ -45,17 +56,17 @@ module GossipSubNode
         port$i --> inputDispatcher.in;
         port$o <-- outputFunnel.out;
 
-        source.outputs++ --> gardener.eagerMulticastInputs++;
-        source.outputs++ --> lazyNotifier.gossipInputs++;
+        source.outputs++ --> gossipHandler.internalGossipInput;
 
         gardener.graftInput <-- inputDispatcher.graftOutputs++;
         gardener.pruneInput <-- inputDispatcher.pruneOutputs++;
-        gardener.gossipInput <-- inputDispatcher.gossipOutputs++;
-        gardener.addedActivePeerInput <-- connectionManager.addedActivePeerOutput;
-        gardener.removedActivePeerInput <-- connectionManager.removedActivePeerOutput;
         gardener.out --> outputFunnel.inputs++;
 
-        lazyNotifier.notificationOutput --> gardener.lazyMulticastInputs++;
+        gossipHandler.externalGossipInput <-- inputDispatcher.gossipOutputs++;
+        gossipHandler.out --> outputFunnel.inputs++;
+
+        peerTracker.addedActivePeerInput <-- connectionManager.addedActivePeerOutput;
+        peerTracker.removedActivePeerInput <-- connectionManager.removedActivePeerOutput;
 
         missingTracker.iHaveInput <-- inputDispatcher.iHaveOutputs++;
         missingTracker.out --> outputFunnel.inputs++;
