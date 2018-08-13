@@ -20,4 +20,8 @@ simple TypeDispatcher
         output iHaveOutputs[];
         output graftOutputs[];
         output pruneOutputs[];
+
+        output publishOutputs[];
+        output connectOutputs[];
+        output iWantOutputs[];
 }

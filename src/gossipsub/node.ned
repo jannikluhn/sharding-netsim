@@ -1,19 +1,29 @@
-package sharding.floodsub;
+package sharding.gossipsub;
 
 import sharding.utils.funnel.Funnel;
 import sharding.utils.type_dispatcher.TypeDispatcher;
 import sharding.utils.source.Source;
-import sharding.utils.cache.Cache;
 
 import sharding.hyparview.ConnectionManager;
 
-import sharding.floodsub.flooder.Flooder;
+import sharding.gossipsub.overlay_manager.OverlayManager;
 
 
-module FloodSubNode
+module GossipSubNode
 {
     parameters:
         int nodeId;
+
+        int targetMeshDegree;
+        int lowWatermark;
+        int highWatermark;
+
+        double heartbeatInterval @unit(s);
+
+        //@statistic[newGossipEmitted](record=count);
+        //@statistic[newGossipReceived](record=count);
+        @statistic[activeListUpdate](record=last);
+        @statistic[peerListUpdate](record=last);
 
     gates:
         inout port;
@@ -22,28 +32,27 @@ module FloodSubNode
         outputFunnel: Funnel;
         inputDispatcher: TypeDispatcher;
 
-        cache: Cache;
         source: Source;
 
-        flooder: Flooder {
-            cachePath = "^.cache";
+        overlayManager: OverlayManager {
+            heartbeatInterval = heartbeatInterval;
+
+            targetMeshDegree = targetMeshDegree; 
+            lowWatermark = lowWatermark; 
+            highWatermark = highWatermark; 
         };
 
         connectionManager: ConnectionManager {
             nodeId = nodeId;
         };
 
-
     connections:
         port$i --> inputDispatcher.in;
         port$o <-- outputFunnel.out;
 
-        source.outputs++ --> flooder.sourceInput;
-
-        flooder.gossipInput <-- inputDispatcher.gossipOutputs++;
-        flooder.addedActivePeerInput <-- connectionManager.addedActivePeerOutput;
-        flooder.removedActivePeerInput <-- connectionManager.removedActivePeerOutput;
-        flooder.out --> outputFunnel.inputs++;
+        overlayManager.addedActivePeerInput <-- connectionManager.addedActivePeerOutput;
+        overlayManager.removedActivePeerInput <-- connectionManager.removedActivePeerOutput;
+        overlayManager.out --> outputFunnel.inputs++;
 
         connectionManager.getNodesInput <-- inputDispatcher.getNodesOutputs++;
         connectionManager.nodesInput <-- inputDispatcher.nodesOutputs++;

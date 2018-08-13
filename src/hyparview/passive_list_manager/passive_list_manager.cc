@@ -22,7 +22,7 @@ void PassiveListManager::initialize() {
 
     num_pending_shuffle_requests = 0;
 
-    passive_list_update_signal = registerSignal("passiveListUpdate");
+    peer_list_update_signal = registerSignal("peerListUpdate");
 
     const char *peer_list_path = par("peerListPath").stringValue();
     peer_list = check_and_cast<PeerList *>(getModuleByPath(peer_list_path));
@@ -61,6 +61,8 @@ void PassiveListManager::handleHeartbeat(cMessage *heartbeat) {
 // View initialization
 //
 void PassiveListManager::startViewInitialization() {
+    emit(peer_list_update_signal, peer_list->getPeerListSize());
+
     // send GETNODES to all passive peers (which at the moment should be just the contact nodes)
     for (int i = 0; i < peer_list->getPassiveListSize(); i++) {
         int receiver = peer_list->getPassivePeerByIndex(i);
@@ -80,13 +82,18 @@ void PassiveListManager::handleNodes(Nodes *nodes) {
 
     pending_getnodes_requests.erase(nodes->getSender());
 
+
+    int initial_peer_list_size = peer_list->getPeerListSize();
     for (int i = 0; i < nodes->getPeersArraySize(); i++) {
         int peer_id = nodes->getPeers(i);
         if (peer_id != node_id && !peer_list->isPeer(peer_id)) {
             peer_list->addPassivePeer(nodes->getPeers(i));
         }
     }
-    emit(passive_list_update_signal, peer_list->getPassiveListSize());
+    int final_peer_list_size = peer_list->getPeerListSize();
+    if (final_peer_list_size != initial_peer_list_size) {
+        emit(peer_list_update_signal, final_peer_list_size);
+    }
 
     if (pending_getnodes_requests.empty()) {
         EV_DEBUG << "View initialization complete. Passive list size: "
@@ -172,6 +179,7 @@ void PassiveListManager::handleShuffle(Shuffle *shuffle) {
         send(shuffle_reply, "out");
 
         // add peers to passive list
+        int initial_peer_list_size = peer_list->getPeerListSize();
         for (int i = 0; i < shuffle->getPeersArraySize(); i++) {
             int peer = shuffle->getPeers(i);
             if (peer_list->isPeer(peer) || peer == node_id) {
@@ -183,7 +191,10 @@ void PassiveListManager::handleShuffle(Shuffle *shuffle) {
             }
             peer_list->addPassivePeer(peer);
         }
-        emit(passive_list_update_signal, peer_list->getPassiveListSize());
+        int final_peer_list_size = peer_list->getPeerListSize();
+        if (final_peer_list_size != initial_peer_list_size) {
+            emit(peer_list_update_signal, final_peer_list_size);
+        }
 
         delete shuffle;
     }
@@ -194,6 +205,7 @@ void PassiveListManager::handleShuffleReply(ShuffleReply *shuffle_reply) {
         error("received unexpected SHUFFLE");
     }
     num_pending_shuffle_requests--;
+    int initial_peer_list_size = peer_list->getPeerListSize();
 
     EV_DEBUG << "received shuffle reply from " << shuffle_reply->getSender() << endl;
 
@@ -210,7 +222,10 @@ void PassiveListManager::handleShuffleReply(ShuffleReply *shuffle_reply) {
         peer_list->addPassivePeer(peer);
     }
 
-    emit(passive_list_update_signal, peer_list->getPassiveListSize());
+    int final_peer_list_size = peer_list->getPeerListSize();
+    if (final_peer_list_size != initial_peer_list_size) {
+        emit(peer_list_update_signal, final_peer_list_size);
+    }
     delete shuffle_reply;
 }
 
@@ -222,6 +237,7 @@ void PassiveListManager::handleForwardJoin(ForwardJoin *forward_join) {
     if (!peer_list->isPeer(node)) {
         EV_DEBUG << "adding passive peer from FORWARDJOIN" << endl;
         peer_list->addPassivePeer(node);
+        emit(peer_list_update_signal, peer_list->getPeerListSize());
     }
 
     // forward to random active peer if not dead

@@ -9,14 +9,10 @@ Define_Module(Source);
 
 
 void Source::initialize() {
-    const char *cache_path = par("cachePath").stringValue();
-    cache = check_and_cast<Cache *>(getModuleByPath(cache_path));
-
     active = par("active").boolValue();
     rate = par("rate").doubleValue();
     warmup_time = par("warmupTime").doubleValue();
     life_time = par("lifeTime").doubleValue();
-    node_id = par("nodeId").intValue();
 
     new_gossip_emitted_signal = registerSignal("newGossipEmitted");
 
@@ -37,7 +33,6 @@ void Source::handleMessage(cMessage *scheduler_msg) {
 
     msg->setContentIdsArraySize(1);
     msg->setContentIds(0, msg->getTreeId());
-    msg->setSender(node_id);
     msg->setHops(0);
 
     int gate_base_id = gateBaseId("outputs");
@@ -47,7 +42,6 @@ void Source::handleMessage(cMessage *scheduler_msg) {
     }
     delete msg;
 
-    cache->insert(content_id);
     emit(new_gossip_emitted_signal, content_id);
 
     simtime_t next_message_time = simTime() + exponential(1 / rate);

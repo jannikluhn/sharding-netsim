@@ -31,6 +31,11 @@ void Flooder::handleMessage(cMessage *msg) {
 }
 
 void Flooder::handleSourceGossip(Gossip *gossip) {
+    for (int i = 0; i < gossip->getContentIdsArraySize(); i++) {
+        int content_id = gossip->getContentIds(i);
+        cache->insert(content_id);
+    }
+
     for (auto peer : peers) {
         Gossip *dup = gossip->dup();
         dup->setReceiver(peer);

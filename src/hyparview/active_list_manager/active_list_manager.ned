@@ -12,6 +12,7 @@ simple ActiveListManager
         int joinTTL;
         int forwardJoinTTL;
 
+        @signal[peerListUpdate](type=long);
         @signal[activeListUpdate](type=long);
 
     gates:

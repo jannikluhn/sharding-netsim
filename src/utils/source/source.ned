@@ -5,9 +5,6 @@ package sharding.utils.source;
 simple Source
 {
     parameters:
-        string cachePath;
-
-        int nodeId;
         bool active = default(false);
         double rate @unit(Hz);
         double warmupTime @unit(s) = default(0);

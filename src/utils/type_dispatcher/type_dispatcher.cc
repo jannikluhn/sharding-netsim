@@ -9,6 +9,9 @@ Define_Module(TypeDispatcher);
 
 
 void TypeDispatcher::handleMessage(cMessage *msg) {
+    //
+    // HyParView
+    //
     GetNodes *getNodes = dynamic_cast<GetNodes *>(msg);
     if (getNodes) {
         return sendToOutputs(gateBaseId("getNodesOutputs"), gateSize("getNodesOutputs"), msg);
@@ -49,6 +52,9 @@ void TypeDispatcher::handleMessage(cMessage *msg) {
         return sendToOutputs(gateBaseId("forwardJoinOutputs"), gateSize("forwardJoinOutputs"), msg);
     }
 
+    //
+    // EpiSub
+    //
     Gossip *gossip = dynamic_cast<Gossip *>(msg);
     if (gossip) {
         return sendToOutputs(gateBaseId("gossipOutputs"), gateSize("gossipOutputs"), msg);
@@ -68,6 +74,25 @@ void TypeDispatcher::handleMessage(cMessage *msg) {
     if (prune) {
         return sendToOutputs(gateBaseId("pruneOutputs"), gateSize("pruneOutputs"), msg);
     }
+
+    //
+    // GossipSub
+    //
+    Connect *connect = dynamic_cast<Connect *>(msg);
+    if (connect) {
+        return sendToOutputs(gateBaseId("connectOutputs"), gateSize("connectOutputs"), msg);
+    }
+
+    Publish *publish = dynamic_cast<Publish *>(msg);
+    if (publish) {
+        return sendToOutputs(gateBaseId("publishOutputs"), gateSize("publishOutputs"), msg);
+    }
+
+    IWant *iWant = dynamic_cast<IWant *>(msg);
+    if (iWant) {
+        return sendToOutputs(gateBaseId("iWantOutputs"), gateSize("iWantOutputs"), msg);
+    }
+
 
     // if we end up here something went wrong
     error("invalid packet type");

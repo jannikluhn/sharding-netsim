@@ -55,7 +55,7 @@ packet ShuffleReply extends AddressedPacket
 
 
 //
-// Broadcast Tree Gossipsub
+// EpiSub
 //
 packet Gossip extends AddressedPacket
 {
@@ -77,3 +77,27 @@ packet Prune extends AddressedPacket
 {
 
 };
+
+
+//
+// GossipSub
+//
+packet Connect extends AddressedPacket
+{
+
+}
+
+packet Publish extends AddressedPacket
+{
+
+}
+
+packet IWant extends AddressedPacket
+{
+
+}
+
+// reused from EpiSub:
+// - IHave
+// - GRAFT
+// - PRUNE

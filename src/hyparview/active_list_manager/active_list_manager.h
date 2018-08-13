@@ -24,6 +24,7 @@ class ActiveListManager : public cSimpleModule {
     std::set<int> neighbor_requests;
     bool is_heart_beating;
 
+    simsignal_t peer_list_update_signal;
     simsignal_t active_list_update_signal;
 
     void handleHeartbeat(cMessage *msg);
@@ -33,6 +34,7 @@ class ActiveListManager : public cSimpleModule {
 
     void startHeartbeat();
     void sendInitialJoins();
+    void acceptNeighborRequest(int node);
 
   protected:
     void initialize();

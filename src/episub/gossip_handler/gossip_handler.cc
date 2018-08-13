@@ -104,6 +104,12 @@ void GossipHandler::handleExternalGossip(Gossip *gossip) {
 }
 
 void GossipHandler::handleInternalGossip(Gossip *gossip) {
+    // add to cache
+    for (int i = 0; i < gossip->getContentIdsArraySize(); i++) {
+        int content_id = gossip->getContentIds(i);
+        cache->insert(content_id);
+    }
+
     // multicast to eager peers
     for (auto receiver : peer_tracker->eager_peers) {
         Gossip *forwarded_gossip = gossip->dup();

@@ -31,10 +31,8 @@ module EpiSubNode
         inputDispatcher: TypeDispatcher;
 
         cache: Cache;
-        source: Source {
-            cachePath = "^.cache";
-            nodeId = nodeId;
-        };
+        source: Source;
+
         peerTracker: PeerTracker;
         gardener: Gardener {
             cachePath = "^.cache";

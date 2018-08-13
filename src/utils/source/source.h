@@ -2,16 +2,12 @@
 #define UTILS_SOURCE_SOURCE_H_
 
 #include <omnetpp.h>
-#include "../cache/cache.h"
 
 using namespace omnetpp;
 
 
 class Source : public cSimpleModule {
   private:
-    Cache *cache;
-
-    int node_id;
     bool active;
     double warmup_time;
     double life_time;
