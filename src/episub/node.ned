@@ -1,20 +1,20 @@
-package sharding.gossipsub;
+package sharding.episub;
 
 import sharding.utils.funnel.Funnel;
 import sharding.utils.type_dispatcher.TypeDispatcher;
 import sharding.utils.source.Source;
 import sharding.utils.cache.Cache;
 
-import sharding.gossipsub.gardener.Gardener;
-import sharding.gossipsub.gossip_handler.GossipHandler;
-import sharding.gossipsub.lazy_notifier.LazyNotifier;
-import sharding.gossipsub.missing_tracker.MissingTracker;
-import sharding.gossipsub.peer_tracker.PeerTracker;
+import sharding.episub.gardener.Gardener;
+import sharding.episub.gossip_handler.GossipHandler;
+import sharding.episub.lazy_notifier.LazyNotifier;
+import sharding.episub.missing_tracker.MissingTracker;
+import sharding.episub.peer_tracker.PeerTracker;
 
 import sharding.hyparview.ConnectionManager;
 
 
-module GossipSubNode
+module EpiSubNode
 {
     parameters:
         int nodeId;

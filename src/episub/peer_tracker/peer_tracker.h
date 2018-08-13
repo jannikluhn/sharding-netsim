@@ -1,5 +1,5 @@
-#ifndef UTILS_PEER_TRACKER_PEER_TRACKER_H_
-#define UTILS_PEER_TRACKER_PEER_TRACKER_H_
+#ifndef EPISUB_PEER_TRACKER_PEER_TRACKER_H_
+#define EPISUB_PEER_TRACKER_PEER_TRACKER_H_
 
 #include <omnetpp.h>
 #include <set>
@@ -23,4 +23,4 @@ class PeerTracker : public cSimpleModule {
 };
 
 
-#endif  // UTILS_PEER_TRACKER_PEER_TRACKER_H_
+#endif  // EPISUB_PEER_TRACKER_PEER_TRACKER_H_

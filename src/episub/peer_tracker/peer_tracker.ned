@@ -1,4 +1,4 @@
-package sharding.gossipsub.peer_tracker;
+package sharding.episub.peer_tracker;
 
 
 // Module that keeps track of which peers are eager and which are lazy.

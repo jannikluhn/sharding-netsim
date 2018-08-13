@@ -1,4 +1,4 @@
-package sharding.gossipsub.gossip_handler;
+package sharding.episub.gossip_handler;
 
 
 simple GossipHandler

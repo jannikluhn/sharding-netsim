@@ -1,5 +1,5 @@
-#ifndef GOSSIPSUB_GARDENER_GARDENER_H_
-#define GOSSIPSUB_GARDENER_GARDENER_H_
+#ifndef EPISUB_GARDENER_GARDENER_H_
+#define EPISUB_GARDENER_GARDENER_H_
 
 #include <omnetpp.h>
 #include <set>
@@ -26,4 +26,4 @@ class Gardener : public cSimpleModule {
 };
 
 
-#endif  // GOSSIPSUB_GARDENER_GARDENER_H_
+#endif  // EPISUB_GARDENER_GARDENER_H_

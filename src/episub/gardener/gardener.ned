@@ -1,4 +1,4 @@
-package sharding.gossipsub.gardener;
+package sharding.episub.gardener;
 
 
 // Module that prunes and grafts connections.
