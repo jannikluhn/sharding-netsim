@@ -1,0 +1,388 @@
+version 2
+run EpiSub-2-20180813-23:18:16-28947
+attr configname EpiSub
+attr datetime 20180813-23:18:16
+attr experiment EpiSub
+attr inifile omnetpp.ini
+attr iterationvars "$nodeCount=100, $rampUpTime=100 * 1s, $0=10Hz / 100, $1=100 * 1s + 20s"
+attr iterationvarsf nodeCount=100,rampUpTime=100_#2a_1s,10Hz_#2f_100,100_#2a_1s_+_20s-
+attr measurement "$nodeCount=100, $rampUpTime=100 * 1s, $0=10Hz / 100, $1=100 * 1s + 20s"
+attr network sharding.Network
+attr processid 28947
+attr repetition 2
+attr replication #2
+attr resultdir results
+attr runnumber 2
+attr seedset 2
+itervar nodeCount 100
+itervar rampUpTime "100 * 1s"
+param Network.nodeManager.nodeTypeName "\"sharding.episub.EpiSubNode\""
+param Network.nodes[*].gossipHandler.notificationInterval 0.1s
+param Network.nodes[*].missingTracker.waitTime 2s
+param Network.nodeManager.bootstrapNodeCount 3
+param Network.nodeManager.targetNodeCount 100
+param Network.nodeManager.rampUpTime "100 * 1s"
+param Network.nodes[*].source.rate "10Hz / 100"
+param Network.nodes[*].source.active true
+param Network.nodes[*].source.warmupTime "100 * 1s + 20s"
+param Network.nodes[*].source.lifeTime 600s
+param Network.nodes[*].connectionManager.numRandomNeighbors 2
+param Network.nodes[*].connectionManager.numNearNeighbors 2
+param Network.nodes[*].connectionManager.passiveListSize 42
+param Network.nodes[*].connectionManager.contactNodes "\"0 1 2\""
+param Network.nodes[*].connectionManager.activeHeartbeatInterval 2.0
+param Network.nodes[*].connectionManager.joinTTL 1
+param Network.nodes[*].connectionManager.forwardJoinTTL 1
+param Network.nodes[*].connectionManager.shuffleInterval 2.0
+param Network.nodes[*].connectionManager.activeShufflingSize 5
+param Network.nodes[*].connectionManager.passiveShufflingSize 5
+param Network.nodes[*].connectionManager.shuffleTTL 1
+
+scalar Network.nodes[0] missingRequested:count 6145
+scalar Network.nodes[0] newGossipReceived:count 6004
+scalar Network.nodes[0] newGossipEmitted:count 60
+scalar Network.nodes[1] missingRequested:count 7775
+scalar Network.nodes[1] newGossipReceived:count 5999
+scalar Network.nodes[1] newGossipEmitted:count 65
+scalar Network.nodes[2] missingRequested:count 7945
+scalar Network.nodes[2] newGossipReceived:count 6007
+scalar Network.nodes[2] newGossipEmitted:count 57
+scalar Network.nodes[3] missingRequested:count 7756
+scalar Network.nodes[3] newGossipReceived:count 6008
+scalar Network.nodes[3] newGossipEmitted:count 56
+scalar Network.nodes[4] missingRequested:count 7834
+scalar Network.nodes[4] newGossipReceived:count 6003
+scalar Network.nodes[4] newGossipEmitted:count 61
+scalar Network.nodes[5] missingRequested:count 9725
+scalar Network.nodes[5] newGossipReceived:count 6001
+scalar Network.nodes[5] newGossipEmitted:count 63
+scalar Network.nodes[6] missingRequested:count 7540
+scalar Network.nodes[6] newGossipReceived:count 6006
+scalar Network.nodes[6] newGossipEmitted:count 58
+scalar Network.nodes[7] missingRequested:count 7692
+scalar Network.nodes[7] newGossipReceived:count 5998
+scalar Network.nodes[7] newGossipEmitted:count 66
+scalar Network.nodes[8] missingRequested:count 7952
+scalar Network.nodes[8] newGossipReceived:count 6005
+scalar Network.nodes[8] newGossipEmitted:count 59
+scalar Network.nodes[9] missingRequested:count 7861
+scalar Network.nodes[9] newGossipReceived:count 6006
+scalar Network.nodes[9] newGossipEmitted:count 58
+scalar Network.nodes[10] missingRequested:count 7713
+scalar Network.nodes[10] newGossipReceived:count 6012
+scalar Network.nodes[10] newGossipEmitted:count 52
+scalar Network.nodes[11] missingRequested:count 7916
+scalar Network.nodes[11] newGossipReceived:count 5993
+scalar Network.nodes[11] newGossipEmitted:count 71
+scalar Network.nodes[12] missingRequested:count 7604
+scalar Network.nodes[12] newGossipReceived:count 6005
+scalar Network.nodes[12] newGossipEmitted:count 59
+scalar Network.nodes[13] missingRequested:count 7741
+scalar Network.nodes[13] newGossipReceived:count 6015
+scalar Network.nodes[13] newGossipEmitted:count 49
+scalar Network.nodes[14] missingRequested:count 7666
+scalar Network.nodes[14] newGossipReceived:count 5998
+scalar Network.nodes[14] newGossipEmitted:count 66
+scalar Network.nodes[15] missingRequested:count 7708
+scalar Network.nodes[15] newGossipReceived:count 6009
+scalar Network.nodes[15] newGossipEmitted:count 55
+scalar Network.nodes[16] missingRequested:count 7913
+scalar Network.nodes[16] newGossipReceived:count 6010
+scalar Network.nodes[16] newGossipEmitted:count 54
+scalar Network.nodes[17] missingRequested:count 7973
+scalar Network.nodes[17] newGossipReceived:count 6001
+scalar Network.nodes[17] newGossipEmitted:count 63
+scalar Network.nodes[18] missingRequested:count 7650
+scalar Network.nodes[18] newGossipReceived:count 6010
+scalar Network.nodes[18] newGossipEmitted:count 54
+scalar Network.nodes[19] missingRequested:count 7772
+scalar Network.nodes[19] newGossipReceived:count 6018
+scalar Network.nodes[19] newGossipEmitted:count 46
+scalar Network.nodes[20] missingRequested:count 7677
+scalar Network.nodes[20] newGossipReceived:count 5997
+scalar Network.nodes[20] newGossipEmitted:count 67
+scalar Network.nodes[21] missingRequested:count 7951
+scalar Network.nodes[21] newGossipReceived:count 6023
+scalar Network.nodes[21] newGossipEmitted:count 41
+scalar Network.nodes[22] missingRequested:count 7234
+scalar Network.nodes[22] newGossipReceived:count 6000
+scalar Network.nodes[22] newGossipEmitted:count 64
+scalar Network.nodes[23] missingRequested:count 7957
+scalar Network.nodes[23] newGossipReceived:count 6002
+scalar Network.nodes[23] newGossipEmitted:count 62
+scalar Network.nodes[24] missingRequested:count 7829
+scalar Network.nodes[24] newGossipReceived:count 6001
+scalar Network.nodes[24] newGossipEmitted:count 63
+scalar Network.nodes[25] missingRequested:count 7734
+scalar Network.nodes[25] newGossipReceived:count 6000
+scalar Network.nodes[25] newGossipEmitted:count 64
+scalar Network.nodes[26] missingRequested:count 7778
+scalar Network.nodes[26] newGossipReceived:count 6017
+scalar Network.nodes[26] newGossipEmitted:count 47
+scalar Network.nodes[27] missingRequested:count 7450
+scalar Network.nodes[27] newGossipReceived:count 6012
+scalar Network.nodes[27] newGossipEmitted:count 52
+scalar Network.nodes[28] missingRequested:count 7849
+scalar Network.nodes[28] newGossipReceived:count 6013
+scalar Network.nodes[28] newGossipEmitted:count 51
+scalar Network.nodes[29] missingRequested:count 7790
+scalar Network.nodes[29] newGossipReceived:count 5996
+scalar Network.nodes[29] newGossipEmitted:count 68
+scalar Network.nodes[30] missingRequested:count 7813
+scalar Network.nodes[30] newGossipReceived:count 5992
+scalar Network.nodes[30] newGossipEmitted:count 72
+scalar Network.nodes[31] missingRequested:count 7797
+scalar Network.nodes[31] newGossipReceived:count 6010
+scalar Network.nodes[31] newGossipEmitted:count 54
+scalar Network.nodes[32] missingRequested:count 7922
+scalar Network.nodes[32] newGossipReceived:count 6007
+scalar Network.nodes[32] newGossipEmitted:count 57
+scalar Network.nodes[33] missingRequested:count 7731
+scalar Network.nodes[33] newGossipReceived:count 5999
+scalar Network.nodes[33] newGossipEmitted:count 65
+scalar Network.nodes[34] missingRequested:count 8018
+scalar Network.nodes[34] newGossipReceived:count 6002
+scalar Network.nodes[34] newGossipEmitted:count 62
+scalar Network.nodes[35] missingRequested:count 7637
+scalar Network.nodes[35] newGossipReceived:count 6001
+scalar Network.nodes[35] newGossipEmitted:count 63
+scalar Network.nodes[36] missingRequested:count 7632
+scalar Network.nodes[36] newGossipReceived:count 6008
+scalar Network.nodes[36] newGossipEmitted:count 56
+scalar Network.nodes[37] missingRequested:count 7599
+scalar Network.nodes[37] newGossipReceived:count 5998
+scalar Network.nodes[37] newGossipEmitted:count 66
+scalar Network.nodes[38] missingRequested:count 7464
+scalar Network.nodes[38] newGossipReceived:count 5997
+scalar Network.nodes[38] newGossipEmitted:count 67
+scalar Network.nodes[39] missingRequested:count 7792
+scalar Network.nodes[39] newGossipReceived:count 5995
+scalar Network.nodes[39] newGossipEmitted:count 69
+scalar Network.nodes[40] missingRequested:count 7827
+scalar Network.nodes[40] newGossipReceived:count 6007
+scalar Network.nodes[40] newGossipEmitted:count 57
+scalar Network.nodes[41] missingRequested:count 7568
+scalar Network.nodes[41] newGossipReceived:count 6016
+scalar Network.nodes[41] newGossipEmitted:count 48
+scalar Network.nodes[42] missingRequested:count 7705
+scalar Network.nodes[42] newGossipReceived:count 6005
+scalar Network.nodes[42] newGossipEmitted:count 59
+scalar Network.nodes[43] missingRequested:count 8166
+scalar Network.nodes[43] newGossipReceived:count 6006
+scalar Network.nodes[43] newGossipEmitted:count 58
+scalar Network.nodes[44] missingRequested:count 7689
+scalar Network.nodes[44] newGossipReceived:count 6002
+scalar Network.nodes[44] newGossipEmitted:count 62
+scalar Network.nodes[45] missingRequested:count 7798
+scalar Network.nodes[45] newGossipReceived:count 5995
+scalar Network.nodes[45] newGossipEmitted:count 69
+scalar Network.nodes[46] missingRequested:count 7806
+scalar Network.nodes[46] newGossipReceived:count 5992
+scalar Network.nodes[46] newGossipEmitted:count 72
+scalar Network.nodes[47] missingRequested:count 7990
+scalar Network.nodes[47] newGossipReceived:count 6009
+scalar Network.nodes[47] newGossipEmitted:count 55
+scalar Network.nodes[48] missingRequested:count 7936
+scalar Network.nodes[48] newGossipReceived:count 6007
+scalar Network.nodes[48] newGossipEmitted:count 57
+scalar Network.nodes[49] missingRequested:count 7689
+scalar Network.nodes[49] newGossipReceived:count 6009
+scalar Network.nodes[49] newGossipEmitted:count 55
+scalar Network.nodes[50] missingRequested:count 7986
+scalar Network.nodes[50] newGossipReceived:count 5995
+scalar Network.nodes[50] newGossipEmitted:count 69
+scalar Network.nodes[51] missingRequested:count 7661
+scalar Network.nodes[51] newGossipReceived:count 5984
+scalar Network.nodes[51] newGossipEmitted:count 80
+scalar Network.nodes[52] missingRequested:count 7574
+scalar Network.nodes[52] newGossipReceived:count 6001
+scalar Network.nodes[52] newGossipEmitted:count 63
+scalar Network.nodes[53] missingRequested:count 7860
+scalar Network.nodes[53] newGossipReceived:count 5987
+scalar Network.nodes[53] newGossipEmitted:count 77
+scalar Network.nodes[54] missingRequested:count 7810
+scalar Network.nodes[54] newGossipReceived:count 6010
+scalar Network.nodes[54] newGossipEmitted:count 54
+scalar Network.nodes[55] missingRequested:count 7806
+scalar Network.nodes[55] newGossipReceived:count 6014
+scalar Network.nodes[55] newGossipEmitted:count 50
+scalar Network.nodes[56] missingRequested:count 7653
+scalar Network.nodes[56] newGossipReceived:count 6004
+scalar Network.nodes[56] newGossipEmitted:count 60
+scalar Network.nodes[57] missingRequested:count 8031
+scalar Network.nodes[57] newGossipReceived:count 5999
+scalar Network.nodes[57] newGossipEmitted:count 65
+scalar Network.nodes[58] missingRequested:count 7762
+scalar Network.nodes[58] newGossipReceived:count 6010
+scalar Network.nodes[58] newGossipEmitted:count 54
+scalar Network.nodes[59] missingRequested:count 7494
+scalar Network.nodes[59] newGossipReceived:count 6017
+scalar Network.nodes[59] newGossipEmitted:count 47
+scalar Network.nodes[60] missingRequested:count 7812
+scalar Network.nodes[60] newGossipReceived:count 5997
+scalar Network.nodes[60] newGossipEmitted:count 67
+scalar Network.nodes[61] missingRequested:count 7742
+scalar Network.nodes[61] newGossipReceived:count 5987
+scalar Network.nodes[61] newGossipEmitted:count 77
+scalar Network.nodes[62] missingRequested:count 7899
+scalar Network.nodes[62] newGossipReceived:count 6005
+scalar Network.nodes[62] newGossipEmitted:count 59
+scalar Network.nodes[63] missingRequested:count 7191
+scalar Network.nodes[63] newGossipReceived:count 5996
+scalar Network.nodes[63] newGossipEmitted:count 68
+scalar Network.nodes[64] missingRequested:count 8121
+scalar Network.nodes[64] newGossipReceived:count 6011
+scalar Network.nodes[64] newGossipEmitted:count 53
+scalar Network.nodes[65] missingRequested:count 8026
+scalar Network.nodes[65] newGossipReceived:count 5997
+scalar Network.nodes[65] newGossipEmitted:count 67
+scalar Network.nodes[66] missingRequested:count 7715
+scalar Network.nodes[66] newGossipReceived:count 6016
+scalar Network.nodes[66] newGossipEmitted:count 48
+scalar Network.nodes[67] missingRequested:count 7371
+scalar Network.nodes[67] newGossipReceived:count 5994
+scalar Network.nodes[67] newGossipEmitted:count 70
+scalar Network.nodes[68] missingRequested:count 7758
+scalar Network.nodes[68] newGossipReceived:count 5998
+scalar Network.nodes[68] newGossipEmitted:count 66
+scalar Network.nodes[69] missingRequested:count 7987
+scalar Network.nodes[69] newGossipReceived:count 6021
+scalar Network.nodes[69] newGossipEmitted:count 43
+scalar Network.nodes[70] missingRequested:count 7674
+scalar Network.nodes[70] newGossipReceived:count 6003
+scalar Network.nodes[70] newGossipEmitted:count 61
+scalar Network.nodes[71] missingRequested:count 7934
+scalar Network.nodes[71] newGossipReceived:count 6008
+scalar Network.nodes[71] newGossipEmitted:count 56
+scalar Network.nodes[72] missingRequested:count 7837
+scalar Network.nodes[72] newGossipReceived:count 6008
+scalar Network.nodes[72] newGossipEmitted:count 56
+scalar Network.nodes[73] missingRequested:count 7903
+scalar Network.nodes[73] newGossipReceived:count 5998
+scalar Network.nodes[73] newGossipEmitted:count 66
+scalar Network.nodes[74] missingRequested:count 7862
+scalar Network.nodes[74] newGossipReceived:count 5985
+scalar Network.nodes[74] newGossipEmitted:count 79
+scalar Network.nodes[75] missingRequested:count 7155
+scalar Network.nodes[75] newGossipReceived:count 5993
+scalar Network.nodes[75] newGossipEmitted:count 71
+scalar Network.nodes[76] missingRequested:count 7873
+scalar Network.nodes[76] newGossipReceived:count 5986
+scalar Network.nodes[76] newGossipEmitted:count 78
+scalar Network.nodes[77] missingRequested:count 7592
+scalar Network.nodes[77] newGossipReceived:count 6007
+scalar Network.nodes[77] newGossipEmitted:count 57
+scalar Network.nodes[78] missingRequested:count 7793
+scalar Network.nodes[78] newGossipReceived:count 6001
+scalar Network.nodes[78] newGossipEmitted:count 63
+scalar Network.nodes[79] missingRequested:count 7626
+scalar Network.nodes[79] newGossipReceived:count 6016
+scalar Network.nodes[79] newGossipEmitted:count 48
+scalar Network.nodes[80] missingRequested:count 7931
+scalar Network.nodes[80] newGossipReceived:count 6006
+scalar Network.nodes[80] newGossipEmitted:count 58
+scalar Network.nodes[81] missingRequested:count 7478
+scalar Network.nodes[81] newGossipReceived:count 6008
+scalar Network.nodes[81] newGossipEmitted:count 56
+scalar Network.nodes[82] missingRequested:count 8031
+scalar Network.nodes[82] newGossipReceived:count 6002
+scalar Network.nodes[82] newGossipEmitted:count 62
+scalar Network.nodes[83] missingRequested:count 7883
+scalar Network.nodes[83] newGossipReceived:count 5997
+scalar Network.nodes[83] newGossipEmitted:count 67
+scalar Network.nodes[84] missingRequested:count 7726
+scalar Network.nodes[84] newGossipReceived:count 5998
+scalar Network.nodes[84] newGossipEmitted:count 66
+scalar Network.nodes[85] missingRequested:count 7875
+scalar Network.nodes[85] newGossipReceived:count 6019
+scalar Network.nodes[85] newGossipEmitted:count 45
+scalar Network.nodes[86] missingRequested:count 7996
+scalar Network.nodes[86] newGossipReceived:count 6009
+scalar Network.nodes[86] newGossipEmitted:count 55
+scalar Network.nodes[87] missingRequested:count 7691
+scalar Network.nodes[87] newGossipReceived:count 5995
+scalar Network.nodes[87] newGossipEmitted:count 69
+scalar Network.nodes[88] missingRequested:count 7824
+scalar Network.nodes[88] newGossipReceived:count 6008
+scalar Network.nodes[88] newGossipEmitted:count 56
+scalar Network.nodes[89] missingRequested:count 8181
+scalar Network.nodes[89] newGossipReceived:count 6002
+scalar Network.nodes[89] newGossipEmitted:count 62
+scalar Network.nodes[90] missingRequested:count 8062
+scalar Network.nodes[90] newGossipReceived:count 6019
+scalar Network.nodes[90] newGossipEmitted:count 45
+scalar Network.nodes[91] missingRequested:count 5934
+scalar Network.nodes[91] newGossipReceived:count 6001
+scalar Network.nodes[91] newGossipEmitted:count 63
+scalar Network.nodes[92] missingRequested:count 7399
+scalar Network.nodes[92] newGossipReceived:count 5986
+scalar Network.nodes[92] newGossipEmitted:count 78
+scalar Network.nodes[93] missingRequested:count 7785
+scalar Network.nodes[93] newGossipReceived:count 6000
+scalar Network.nodes[93] newGossipEmitted:count 64
+scalar Network.nodes[94] missingRequested:count 7918
+scalar Network.nodes[94] newGossipReceived:count 6002
+scalar Network.nodes[94] newGossipEmitted:count 62
+scalar Network.nodes[95] missingRequested:count 7957
+scalar Network.nodes[95] newGossipReceived:count 6013
+scalar Network.nodes[95] newGossipEmitted:count 51
+scalar Network.nodes[96] missingRequested:count 7516
+scalar Network.nodes[96] newGossipReceived:count 5994
+scalar Network.nodes[96] newGossipEmitted:count 70
+scalar Network.nodes[97] missingRequested:count 7822
+scalar Network.nodes[97] newGossipReceived:count 5992
+scalar Network.nodes[97] newGossipEmitted:count 72
+scalar Network.nodes[98] missingRequested:count 6957
+scalar Network.nodes[98] newGossipReceived:count 6013
+scalar Network.nodes[98] newGossipEmitted:count 51
+scalar Network.nodes[99] missingRequested:count 7693
+scalar Network.nodes[99] newGossipReceived:count 5998
+scalar Network.nodes[99] newGossipEmitted:count 66
+scalar Network messageSent:count 15050688
+scalar Network newGossipReceived:count 600336
+statistic Network newGossipReceived:histogram
+field count 600336
+field mean 3.8381806188534
+field stddev 4.1845453563784
+field min 0
+field max 33
+field sum 2304198
+field sqrsum 19356046
+bin	-inf	0
+bin	0	141185
+bin	1	95917
+bin	2	67418
+bin	3	52367
+bin	4	43169
+bin	5	36825
+bin	6	31838
+bin	7	26730
+bin	8	22180
+bin	9	18094
+bin	10	14541
+bin	11	11664
+bin	12	9169
+bin	13	7336
+bin	14	5647
+bin	15	4388
+bin	16	3344
+bin	17	2494
+bin	18	1849
+bin	19	1313
+bin	20	889
+bin	21	646
+bin	22	439
+bin	23	311
+bin	24	219
+bin	25	154
+bin	26	94
+bin	27	45
+bin	28	26
+bin	29	22
+bin	30	11
+bin	31	5
+bin	32	4
+bin	33	3
+bin	34	0
+scalar Network newGossipEmitted:count 6064
+
