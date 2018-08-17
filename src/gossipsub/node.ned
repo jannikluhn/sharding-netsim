@@ -3,10 +3,12 @@ package sharding.gossipsub;
 import sharding.utils.funnel.Funnel;
 import sharding.utils.type_dispatcher.TypeDispatcher;
 import sharding.utils.source.Source;
+import sharding.utils.cache.Cache;
 
 import sharding.hyparview.ConnectionManager;
 
 import sharding.gossipsub.overlay_manager.OverlayManager;
+import sharding.gossipsub.gossiper.Gossiper;
 
 
 module GossipSubNode
@@ -33,7 +35,15 @@ module GossipSubNode
         inputDispatcher: TypeDispatcher;
 
         source: Source;
+        cache: Cache;
 
+        gossiper: Gossiper {
+            heartbeatInterval = heartbeatInterval;
+
+            targetMeshDegree = targetMeshDegree;
+            cachePath = "^.cache";
+            overlayManagerPath = "^.overlayManager";
+        };
         overlayManager: OverlayManager {
             heartbeatInterval = heartbeatInterval;
 
@@ -49,6 +59,10 @@ module GossipSubNode
     connections:
         port$i --> inputDispatcher.in;
         port$o <-- outputFunnel.out;
+
+        gossiper.internalGossipInput <-- source.outputs++;
+        gossiper.externalGossipInput <-- inputDispatcher.gossipOutputs++;
+        gossiper.out --> outputFunnel.inputs++;
 
         overlayManager.addedActivePeerInput <-- connectionManager.addedActivePeerOutput;
         overlayManager.removedActivePeerInput <-- connectionManager.removedActivePeerOutput;

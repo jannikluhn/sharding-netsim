@@ -176,11 +176,6 @@ int PeerList::getRandomPassivePeer() {
 }
 
 
-    std::vector<int> getPeerShuffling();
-    std::vector<int> getActivePeerShuffling();
-    std::vector<int> getPassivePeerShuffling();
-
-
 std::vector<int> PeerList::shuffle(std::vector<int> v) {
     // shuffle manually so that omnet++'s RNGs are used (see
     // https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#The_modern_algorithm)

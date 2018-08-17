@@ -3,23 +3,18 @@
 
 #include <omnetpp.h>
 #include "../../hyparview/internal_messages_m.h"
+#include "../../packets_m.h"
 
 using namespace omnetpp;
 
 
 class OverlayManager : public cSimpleModule {
   private:
-    std::vector<int> mesh_peers;
-    std::vector<int> non_mesh_peers;
 
     double heartbeat_interval;
     int target_mesh_degree;
     int low_watermark;
     int high_watermark;
-
-  protected:
-    virtual void initialize();
-    virtual void handleMessage(cMessage *msg);
 
     void handleHeartbeat(cMessage *msg);
     void handleAddedActivePeer(ActiveListChange *active_list_change);
@@ -30,6 +25,18 @@ class OverlayManager : public cSimpleModule {
     bool isPeer(int node_id);
     bool isMeshPeer(int node_id);
     bool isNonMeshPeer(int node_id);
+
+    std::vector<int> shuffle(std::vector<int> v);
+
+  protected:
+    virtual void initialize();
+    virtual void handleMessage(cMessage *msg);
+
+  public:
+    std::vector<int> mesh_peers;
+    std::vector<int> non_mesh_peers;
+
+    std::vector<int> getNonMeshPeerShuffling();
 };
 
 

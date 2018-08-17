@@ -22,9 +22,9 @@ void OverlayManager::handleMessage(cMessage *msg) {
     if (msg->isSelfMessage()) {
         handleHeartbeat(msg);
     } else if (msg->arrivedOn("graftInput")) {
-        handleGraft(check_and_cast<Graft *>(graft));
+        handleGraft(check_and_cast<Graft *>(msg));
     } else if (msg->arrivedOn("pruneInput")) {
-        handlePrune(check_and_cast<Prune *>(prune));
+        handlePrune(check_and_cast<Prune *>(msg));
     } else if (msg->arrivedOn("addedActivePeerInput")) {
         handleAddedActivePeer(check_and_cast<ActiveListChange *>(msg));
     } else if (msg->arrivedOn("removedActivePeerInput")) {
@@ -176,4 +176,22 @@ bool OverlayManager::isMeshPeer(int node_id) {
 
 bool OverlayManager::isPeer(int node_id) {
     return isMeshPeer(node_id) || isNonMeshPeer(node_id);
+}
+
+std::vector<int> OverlayManager::shuffle(std::vector<int> v) {
+    // shuffle manually so that omnet++'s RNGs are used (see
+    // https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#The_modern_algorithm)
+    for (int i = v.size() - 1; i >= 1; i--) {
+        int j = intuniform(0, i);
+        int value = v[j];
+        v[j] = v[i];
+        v[i] = value;
+    }
+    return v;
+}
+
+std::vector<int> OverlayManager::getNonMeshPeerShuffling() {
+    Enter_Method_Silent();
+
+    return shuffle(non_mesh_peers);
 }
