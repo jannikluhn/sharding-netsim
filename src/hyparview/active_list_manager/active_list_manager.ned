@@ -8,7 +8,7 @@ simple ActiveListManager
         int nodeId;
         int numRandomNeighbors;  // c_rand
         int numNearNeighbors;  // c_near
-        double heartbeatInterval;
+        double heartbeatInterval @unit(s);
         int joinTTL;
         int forwardJoinTTL;
 
@@ -21,6 +21,5 @@ simple ActiveListManager
         input disconnectInput;
         input startInput;
         output out;
-        output addedActivePeerOutput;
-        output removedActivePeerOutput;
+        output activeListChangeOutput;
 }

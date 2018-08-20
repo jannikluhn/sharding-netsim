@@ -1,7 +1,5 @@
 #include <omnetpp.h>
 #include "active_list_manager.h"
-#include "../../packets_m.h"
-#include "../internal_messages_m.h"
 
 using namespace omnetpp;
 
@@ -87,9 +85,10 @@ void ActiveListManager::handleHeartbeat(cMessage *heartbeat) {
         peer_list->passivatePeer(peer);
         emit(active_list_update_signal, peer_list->getActiveListSize());
 
-        ActiveListChange *active_list_change = new ActiveListChange();
-        active_list_change->setRemoved(peer);
-        send(active_list_change, "removedActivePeerOutput");
+        PeerListChange *peer_list_update = new PeerListChange();
+        peer_list_update->setRemovedPeersArraySize(1);
+        peer_list_update->setRemovedPeers(0, peer);
+        send(peer_list_update, "activeListChangeOutput");
     } else if (active_list_size < num_neighbors && neighbor_requests.size() == 0) {
         // connect to random passive peer
         if (peer_list->getPassiveListSize() > 0) {
@@ -209,9 +208,10 @@ void ActiveListManager::acceptNeighborRequest(int node) {
 
     emit(active_list_update_signal, peer_list->getActiveListSize());
 
-    ActiveListChange *active_list_change = new ActiveListChange();
-    active_list_change->setAdded(node);
-    send(active_list_change, "addedActivePeerOutput");
+    PeerListChange *peer_list_change = new PeerListChange();
+    peer_list_change->setAddedPeersArraySize(1);
+    peer_list_change->setAddedPeers(0, node);
+    send(peer_list_change, "activeListChangeOutput");
 }
 
 void ActiveListManager::handleDisconnect(Disconnect *disconnect) {
@@ -222,9 +222,10 @@ void ActiveListManager::handleDisconnect(Disconnect *disconnect) {
         peer_list->passivatePeer(peer_id);
         emit(active_list_update_signal, peer_list->getActiveListSize());
 
-        ActiveListChange *active_list_change = new ActiveListChange();
-        active_list_change->setRemoved(peer_id);
-        send(active_list_change, "removedActivePeerOutput");
+        PeerListChange *peer_list_change = new PeerListChange();
+        peer_list_change->setRemovedPeersArraySize(1);
+        peer_list_change->setRemovedPeers(0, peer_id);
+        send(peer_list_change, "activeListChangeOutput");
     } else if (neighbor_requests.count(peer_id) > 0) {
         EV_DEBUG << "neighbor request rejected by " << peer_id << " ("
             << peer_list->getActiveListSize() << " peers)" << endl;

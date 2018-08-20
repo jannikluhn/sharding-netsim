@@ -1,103 +1,77 @@
+//
+// Internal messages
+//
+message PeerListChange
+{
+    int addedPeers[];
+    int removedPeers[];
+}
+
+
+//
+// Packets
+//
+enum ProtocolClass
+{
+    DISCOVERY_PROTOCOL = 0;
+    GOSSIP_PROTOCOL = 1;
+};
+
+enum DiscoveryProtocol
+{
+    MOCK_DISCOVERY = 0;
+    HYPARVIEW = 1;
+};
+
+enum GossipProtocol
+{
+    SHARED = 0;
+    MOCK_GOSSIP = 1;
+    FLOODSUB = 2;
+    GOSSIPSUB = 3;
+    EPISUB = 4;
+}
+
 packet AddressedPacket
 {
     // default to -1 to not clash with any module ids by accident
     int sender = -1;
     int receiver = -1;
+
+    int protocolClass @enum(ProtocolClass);
+    int protocol = -1;
+    int packetType = -1;
+};
+
+
+packet DiscoveryPacket extends AddressedPacket
+{
+    protocolClass = DISCOVERY_PROTOCOL;
+    protocol @enum(DiscoveryProtocol) = -1;
+};
+
+packet GossipPacket extends AddressedPacket
+{
+    protocolClass = GOSSIP_PROTOCOL;
+    protocol @enum(GossipProtocol) = -1;
 };
 
 
 //
-// HyParView
+// Packets shared between all gossip protocols
 //
-packet GetNodes extends AddressedPacket
-{
-
+packet SharedGossipPacket extends GossipPacket {
+    protocol = SHARED;
 };
 
-packet Nodes extends AddressedPacket
-{
-    int peers[];
+enum SharedPacketType {
+    GOSSIP = 0;
 };
 
-packet Join extends AddressedPacket
+packet Gossip extends GossipPacket
 {
-    int node;
-    int ttl;
-};
+    packetType = GOSSIP;
 
-packet Neighbor extends AddressedPacket
-{
-
-};
-
-packet Disconnect extends AddressedPacket
-{
-
-};
-
-packet ForwardJoin extends AddressedPacket
-{
-    int node;
-    int ttl;
-};
-
-packet Shuffle extends AddressedPacket
-{
-    int node;
-    int peers[];
-    int ttl;
-};
-
-packet ShuffleReply extends AddressedPacket
-{
-    int peers[];
-};
-
-
-//
-// EpiSub
-//
-packet Gossip extends AddressedPacket
-{
     int contentIds[];
     int hops;
 };
-
-packet IHave extends AddressedPacket
-{
-    int contentIds[];
-};
-
-packet Graft extends AddressedPacket
-{
-    int contentIds[];
-};
-
-packet Prune extends AddressedPacket
-{
-
-};
-
-
-//
-// GossipSub
-//
-packet Connect extends AddressedPacket
-{
-
-}
-
-packet Publish extends AddressedPacket
-{
-
-}
-
-packet IWant extends AddressedPacket
-{
-
-}
-
-// reused from EpiSub:
-// - IHave
-// - GRAFT
-// - PRUNE

@@ -5,7 +5,7 @@
 #include <queue>
 #include <map>
 #include "../../utils/cache/cache.h"
-#include "../../packets_m.h"
+#include "../episub_packets_m.h"
 
 using namespace omnetpp;
 
@@ -14,7 +14,7 @@ class MissingTracker : public cSimpleModule {
   private:
     Cache *cache;
 
-    double wait_time;
+    double request_wait_time;
 
     simsignal_t missing_signal;
 
@@ -23,7 +23,7 @@ class MissingTracker : public cSimpleModule {
     std::map<int, simtime_t> first_seen_timestamps;
 
     void handleScheduler(cMessage *msg);
-    void handleIHave(IHave *msg);
+    void handleIHave(IHave2 *msg);
 
   protected:
     virtual void initialize();

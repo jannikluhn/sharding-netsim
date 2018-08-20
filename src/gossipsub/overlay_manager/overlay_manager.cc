@@ -25,10 +25,8 @@ void OverlayManager::handleMessage(cMessage *msg) {
         handleGraft(check_and_cast<Graft *>(msg));
     } else if (msg->arrivedOn("pruneInput")) {
         handlePrune(check_and_cast<Prune *>(msg));
-    } else if (msg->arrivedOn("addedActivePeerInput")) {
-        handleAddedActivePeer(check_and_cast<ActiveListChange *>(msg));
-    } else if (msg->arrivedOn("removedActivePeerInput")) {
-        handleRemovedActivePeer(check_and_cast<ActiveListChange *>(msg));
+    } else if (msg->arrivedOn("peerListChangeInput")) {
+        handlePeerListChange(check_and_cast<PeerListChange *>(msg));
     } else {
         error("unhandled message");
     }
@@ -82,35 +80,37 @@ void OverlayManager::handleHeartbeat(cMessage *heartbeat) {
 //
 // Keep peer list in sync with connection manager
 //
-void OverlayManager::handleAddedActivePeer(ActiveListChange *active_list_change) {
-    int added_peer = active_list_change->getAdded();
-    if (isPeer(added_peer)) {
-        error("tried adding peer more than once");
-    } else {
-        non_mesh_peers.push_back(added_peer);
-        EV_DEBUG << "added new active peer " << added_peer << " as non-mesh peer" << endl;
+void OverlayManager::handlePeerListChange(PeerListChange *peer_list_change) {
+    for (int i = 0; i < peer_list_change->getAddedPeersArraySize(); i++) {
+        int added_peer = peer_list_change->getAddedPeers(i);
+        if (isPeer(added_peer)) {
+            error("tried adding peer more than once");
+        } else {
+            non_mesh_peers.push_back(added_peer);
+            EV_DEBUG << "added new active peer " << added_peer << " as non-mesh peer" << endl;
+        }
     }
-    delete active_list_change;
-}
 
-void OverlayManager::handleRemovedActivePeer(ActiveListChange *active_list_change) {
-    int removed_peer = active_list_change->getRemoved();
-    if (isMeshPeer(removed_peer)) {
-        mesh_peers.erase(
-            std::remove(mesh_peers.begin(), mesh_peers.end(), removed_peer),
-            mesh_peers.end()
-        );
-        EV_DEBUG << "removed mesh peer " << removed_peer << " due to disconnect" << endl;
-    } else if (isNonMeshPeer(removed_peer)) {
-        non_mesh_peers.erase(
-            std::remove(non_mesh_peers.begin(), non_mesh_peers.end(), removed_peer),
-            non_mesh_peers.end()
-        );
-        EV_DEBUG << "removed non mesh peer " << removed_peer << " due to disconnect" << endl;
-    } else {
-        error("Tried removing node that is not a peer");
+    for (int i = 0; i < peer_list_change->getRemovedPeersArraySize(); i++) {
+        int removed_peer = peer_list_change->getRemovedPeers(i);
+        if (isMeshPeer(removed_peer)) {
+            mesh_peers.erase(
+                std::remove(mesh_peers.begin(), mesh_peers.end(), removed_peer),
+                mesh_peers.end()
+            );
+            EV_DEBUG << "removed mesh peer " << removed_peer << " due to disconnect" << endl;
+        } else if (isNonMeshPeer(removed_peer)) {
+            non_mesh_peers.erase(
+                std::remove(non_mesh_peers.begin(), non_mesh_peers.end(), removed_peer),
+                non_mesh_peers.end()
+            );
+            EV_DEBUG << "removed non mesh peer " << removed_peer << " due to disconnect" << endl;
+        } else {
+            error("Tried removing node that is not a peer");
+        }
     }
-    delete active_list_change;
+
+    delete peer_list_change;
 }
 
 
@@ -135,6 +135,8 @@ void OverlayManager::handleGraft(Graft *graft) {
         // might happen if both send GRAFT at the same time
         EV_DEBUG << "ignored GRAFT from " << peer << " as they are mesh peers already" << endl;
     }
+
+    delete graft;
 }
 
 void OverlayManager::handlePrune(Prune *prune) {
@@ -156,6 +158,8 @@ void OverlayManager::handlePrune(Prune *prune) {
         EV_DEBUG << "ignored PRUNE from " << peer << " as the connection is pruned already"
             << endl;
     }
+
+    delete prune;
 }
 
 

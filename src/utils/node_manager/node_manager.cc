@@ -12,9 +12,6 @@ void NodeManager::initialize() {
     const char *hub_path = par("hubPath").stringValue();
     hub = check_and_cast<Hub *>(getModuleByPath(hub_path));
 
-    const char *node_type_name = par("nodeTypeName").stringValue();
-    node_module_type = cModuleType::get(node_type_name);
-
     bootstrap_node_count = par("bootstrapNodeCount").intValue();
     target_node_count = par("targetNodeCount").intValue();
     ramp_up_time = par("rampUpTime").doubleValue();
@@ -56,7 +53,12 @@ void NodeManager::createNode() {
 
     EV_DEBUG << "starting node " << node_id << endl;
 
-    cModule *node = node_module_type->create("nodes", getParentModule(), node_count + 1, node_id);
+    cModule *node = cModuleType::get("sharding.Node")->create(
+        "nodes",
+        getParentModule(),
+        node_count + 1,
+        node_id
+    );
     node->par("nodeId") = node_id;
     node->finalizeParameters();
     node->buildInside();

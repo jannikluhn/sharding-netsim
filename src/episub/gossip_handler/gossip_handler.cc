@@ -1,5 +1,4 @@
 #include <omnetpp.h>
-#include "../../packets_m.h"
 #include "../../utils/cache/cache.h"
 #include "../peer_tracker/peer_tracker.h"
 #include "gossip_handler.h"
@@ -81,7 +80,9 @@ void GossipHandler::handleExternalGossip(Gossip *gossip) {
         // schedule notifications for lazy peers
         for (auto content_id : new_content_ids) {
             for (int peer_id : peer_tracker->lazy_peers) {
-                receivers_to_content_ids[peer_id].insert(content_id);
+                if (peer_id != sender) {
+                    receivers_to_content_ids[peer_id].insert(content_id);
+                }
             }
         }
 
@@ -95,7 +96,7 @@ void GossipHandler::handleExternalGossip(Gossip *gossip) {
             peer_tracker->makeLazy(sender);
         }
 
-        Prune *prune = new Prune();
+        Prune2 *prune = new Prune2();
         prune->setReceiver(sender);
         send(prune, "out");
     }
@@ -138,7 +139,7 @@ void GossipHandler::handleScheduler(cMessage *scheduler_msg) {
             EV_DEBUG << "notifying " << receiver << " about " << content_ids.size()
                 << " gossip messages" << endl;
 
-            IHave *i_have = new IHave();
+            IHave2 *i_have = new IHave2();
             i_have->setReceiver(receiver);
             i_have->setContentIdsArraySize(content_ids.size());
             int i = 0;

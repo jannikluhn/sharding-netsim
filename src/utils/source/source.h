@@ -9,11 +9,9 @@ using namespace omnetpp;
 class Source : public cSimpleModule {
   private:
     bool active;
-    double warmup_time;
-    double life_time;
     simtime_t start_time;
     simtime_t stop_time;
-    double rate;
+    double gossip_rate;
     simsignal_t new_gossip_emitted_signal;
 
   protected:

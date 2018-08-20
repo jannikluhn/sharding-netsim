@@ -10,7 +10,6 @@ simple Flooder
     gates:
         input sourceInput;
         input gossipInput;
-        input addedActivePeerInput;
-        input removedActivePeerInput;
+        input peerListChangeInput;
         output out;
 }

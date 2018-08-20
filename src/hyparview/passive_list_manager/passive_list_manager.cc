@@ -1,6 +1,5 @@
 #include <omnetpp.h>
 #include <algorithm>
-#include "../../packets_m.h"
 #include "../internal_messages_m.h"
 #include "passive_list_manager.h"
 
@@ -103,7 +102,7 @@ void PassiveListManager::handleNodes(Nodes *nodes) {
 
         int gate_base_id = gateBaseId("viewInitializationFinishedOutputs");
         for (int i = 0; i < gateSize("viewInitializationFinishedOutputs"); i++) {
-            send(new ViewInitializationComplete(), gate_base_id + i);
+            send(new ViewInitializationFinished(), gate_base_id + i);
         }
     }
 

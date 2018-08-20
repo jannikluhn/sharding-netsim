@@ -20,8 +20,7 @@ class Flooder : public cSimpleModule {
 
     void handleSourceGossip(Gossip *gossip);
     void handleExternalGossip(Gossip *gossip);
-    void handleAddedActivePeer(ActiveListChange *active_list_change);
-    void handleRemovedActivePeer(ActiveListChange *active_list_change);
+    void handlePeerListChange(PeerListChange *active_list_change);
 
   protected:
     virtual void initialize();

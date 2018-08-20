@@ -1,5 +1,4 @@
 #include <omnetpp.h>
-#include "../../packets_m.h"
 #include "missing_tracker.h"
 
 using namespace omnetpp;
@@ -12,19 +11,19 @@ void MissingTracker::initialize() {
     const char *cache_path = par("cachePath").stringValue();
     cache = check_and_cast<Cache *>(getModuleByPath(cache_path));
 
-    wait_time = par("waitTime").doubleValue();
+    request_wait_time = par("requestWaitTime").doubleValue();
 
     missing_signal = registerSignal("missingRequested");
 
     cMessage *scheduler_msg = new cMessage();
-    scheduleAt(simTime() + uniform(0, wait_time / 2), scheduler_msg);
+    scheduleAt(simTime() + uniform(0, request_wait_time / 2), scheduler_msg);
 }
 
 void MissingTracker::handleMessage(cMessage *msg) {
     if (msg->isSelfMessage()) {
         handleScheduler(msg);
     } else if (msg->arrivedOn("iHaveInput")) {
-        handleIHave(check_and_cast<IHave *>(msg));
+        handleIHave(check_and_cast<IHave2 *>(msg));
         delete msg;
     } else {
         error("unhandled message");
@@ -50,7 +49,7 @@ void MissingTracker::handleScheduler(cMessage *msg) {
     std::set<int> content_to_retrieve;
     for (auto content_id : they_have_content_ids) {
         // TODO: check that last request for that content id is not too recent
-        if (first_seen_timestamps[content_id] < simTime() - wait_time) {
+        if (first_seen_timestamps[content_id] < simTime() - request_wait_time) {
             content_to_retrieve.insert(content_id);
         }
     }
@@ -61,7 +60,7 @@ void MissingTracker::handleScheduler(cMessage *msg) {
         if (custodians[content_id].empty()) {
             error("failed to retrieve content");
             // TODO: could also be that request is still pending (doesn't matter if
-            // wait_time >> latency)
+            // request_wait_time >> latency)
         }
         int next_custodian = custodians[content_id].front();
         custodians[content_id].pop();
@@ -77,7 +76,7 @@ void MissingTracker::handleScheduler(cMessage *msg) {
         EV_DEBUG << "requesting " << content_ids.size() << " missed gossip messages from "
             << custodian << endl;
 
-        Graft *graft_msg = new Graft();
+        Graft2 *graft_msg = new Graft2();
         graft_msg->setReceiver(custodian);
         graft_msg->setContentIdsArraySize(content_ids.size());
         for (int i = 0; i < content_ids.size(); i++) {
@@ -87,10 +86,10 @@ void MissingTracker::handleScheduler(cMessage *msg) {
         send(graft_msg, "out");
     }
 
-    scheduleAt(simTime() + wait_time / 2, msg);
+    scheduleAt(simTime() + request_wait_time / 2, msg);
 }
 
-void MissingTracker::handleIHave(IHave *msg) {
+void MissingTracker::handleIHave(IHave2 *msg) {
     EV_DEBUG << "received IHAVE from " << msg->getSender() << endl;
 
     int num_content_ids = msg->getContentIdsArraySize();

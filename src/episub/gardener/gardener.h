@@ -3,7 +3,7 @@
 
 #include <omnetpp.h>
 #include <set>
-#include "../../packets_m.h"
+#include "../episub_packets_m.h"
 #include "../peer_tracker/peer_tracker.h"
 #include "../../utils/cache/cache.h"
 
@@ -17,8 +17,8 @@ class Gardener : public cSimpleModule {
 
     simsignal_t new_gossip_received_signal;
 
-    void handleGraft(Graft *msg);
-    void handlePrune(Prune *msg);
+    void handleGraft(Graft2 *msg);
+    void handlePrune(Prune2 *msg);
 
   protected:
     virtual void initialize();

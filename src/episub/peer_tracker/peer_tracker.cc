@@ -1,6 +1,6 @@
 #include <omnetpp.h>
 #include "peer_tracker.h"
-#include "../../hyparview/internal_messages_m.h"
+#include "../../packets_m.h"
 
 using namespace omnetpp;
 
@@ -9,15 +9,15 @@ Define_Module(PeerTracker);
 
 
 void PeerTracker::handleMessage(cMessage *msg) {
-    ActiveListChange *active_list_change = check_and_cast<ActiveListChange *>(msg);
-    if (active_list_change->arrivedOn("addedActivePeerInput")) {
-        addEager(active_list_change->getAdded());
-    } else if (active_list_change->arrivedOn("removedActivePeerInput")) {
-        remove(active_list_change->getRemoved());
-    } else {
-        error("unhandled message");
+    PeerListChange *peer_list_change = check_and_cast<PeerListChange *>(msg);
+    for (int i = 0; i < peer_list_change->getAddedPeersArraySize(); i++) {
+        EV_DEBUG << "adding peer " << peer_list_change->getAddedPeers(i) << endl;
+        addEager(peer_list_change->getAddedPeers(i));
     }
-    delete active_list_change;
+    for (int i = 0; i < peer_list_change->getRemovedPeersArraySize(); i++) {
+        remove(peer_list_change->getRemovedPeers(i));
+    }
+    delete peer_list_change;
 }
 
 void PeerTracker::addEager(int node_id) {

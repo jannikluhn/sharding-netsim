@@ -4,6 +4,7 @@
 #include <omnetpp.h>
 #include <set>
 #include "../../packets_m.h"
+#include "../episub_packets_m.h"
 #include "../peer_tracker/peer_tracker.h"
 #include "../../utils/cache/cache.h"
 

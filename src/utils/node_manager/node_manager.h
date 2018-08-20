@@ -10,7 +10,6 @@ using namespace omnetpp;
 class NodeManager : public cSimpleModule {
   private:
     Hub *hub;
-    cModuleType *node_module_type;
 
     int bootstrap_node_count;
     int target_node_count;

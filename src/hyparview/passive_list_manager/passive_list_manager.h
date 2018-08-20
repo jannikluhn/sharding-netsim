@@ -3,7 +3,7 @@
 
 #include <omnetpp.h>
 #include "../peer_list/peer_list.h"
-#include "../../packets_m.h"
+#include "../hyparview_packets_m.h"
 
 using namespace omnetpp;
 

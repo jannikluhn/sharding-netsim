@@ -9,7 +9,8 @@ simple OverlayManager
         int highWatermark;
 
     gates:
-        input addedActivePeerInput;
-        input removedActivePeerInput;
+        input graftInput;
+        input pruneInput;
+        input peerListChangeInput;
         output out;
 }

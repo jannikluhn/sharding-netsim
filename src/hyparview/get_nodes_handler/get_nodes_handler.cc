@@ -1,6 +1,6 @@
 #include <omnetpp.h>
 #include "get_nodes_handler.h"
-#include "../../packets_m.h"
+#include "../hyparview_packets_m.h"
 
 using namespace omnetpp;
 

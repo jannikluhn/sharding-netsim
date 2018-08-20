@@ -21,10 +21,8 @@ void Flooder::handleMessage(cMessage *msg) {
         handleSourceGossip(check_and_cast<Gossip *>(msg));        
     } else if (msg->arrivedOn("gossipInput")) {
         handleExternalGossip(check_and_cast<Gossip *>(msg));        
-    } else if (msg->arrivedOn("addedActivePeerInput")) {
-        handleAddedActivePeer(check_and_cast<ActiveListChange *>(msg));        
-    } else if (msg->arrivedOn("removedActivePeerInput")) {
-        handleRemovedActivePeer(check_and_cast<ActiveListChange *>(msg));        
+    } else if (msg->arrivedOn("peerListChangeInput")) {
+        handlePeerListChange(check_and_cast<PeerListChange *>(msg));        
     } else {
         error("Unhandled message");
     }
@@ -85,12 +83,12 @@ void Flooder::handleExternalGossip(Gossip *gossip) {
     delete gossip;
 }
 
-void Flooder::handleAddedActivePeer(ActiveListChange *active_list_change) {
-    peers.insert(active_list_change->getAdded());
-    delete active_list_change;
-}
-
-void Flooder::handleRemovedActivePeer(ActiveListChange *active_list_change) {
-    peers.erase(active_list_change->getRemoved());
-    delete active_list_change;
+void Flooder::handlePeerListChange(PeerListChange *peer_list_change) {
+    for (int i = 0; i < peer_list_change->getAddedPeersArraySize(); i++) {
+        peers.insert(peer_list_change->getAddedPeers(i));
+    }
+    for (int i = 0; i < peer_list_change->getRemovedPeersArraySize(); i++) {
+        peers.insert(peer_list_change->getRemovedPeers(i));
+    }
+    delete peer_list_change;
 }

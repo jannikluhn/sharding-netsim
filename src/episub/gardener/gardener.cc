@@ -1,6 +1,4 @@
 #include <omnetpp.h>
-#include "../../packets_m.h"
-#include "../../hyparview/internal_messages_m.h"
 #include "../../utils/cache/cache.h"
 #include "../peer_tracker/peer_tracker.h"
 #include "gardener.h"
@@ -24,15 +22,15 @@ void Gardener::initialize() {
 
 void Gardener::handleMessage(cMessage *msg) {
     if (msg->arrivedOn("graftInput")) {
-        handleGraft(check_and_cast<Graft *>(msg));
+        handleGraft(check_and_cast<Graft2 *>(msg));
     } else if (msg->arrivedOn("pruneInput")) {
-        handlePrune(check_and_cast<Prune *>(msg));
+        handlePrune(check_and_cast<Prune2 *>(msg));
     } else {
         error("unhandled message");
     }
 }
 
-void Gardener::handleGraft(Graft *graft) {
+void Gardener::handleGraft(Graft2 *graft) {
     int sender = graft->getSender();
     EV_DEBUG << "received GRAFT from " << sender << endl;
 
@@ -55,7 +53,7 @@ void Gardener::handleGraft(Graft *graft) {
     delete graft;
 }
 
-void Gardener::handlePrune(Prune *prune) {
+void Gardener::handlePrune(Prune2 *prune) {
     int sender = prune->getSender();
     EV_DEBUG << "received PRUNE from " << sender << endl;
     peer_tracker->makeLazy(sender);

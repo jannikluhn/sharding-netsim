@@ -6,9 +6,9 @@ simple Source
 {
     parameters:
         bool active = default(false);
-        double rate @unit(Hz);
-        double warmupTime @unit(s) = default(0);
-        double lifeTime @unit(s);
+        double gossipRate @unit(Hz);
+        double startTime @unit(s) = default(0);
+        double stopTime @unit(s) = default(0);
 
         @signal[newGossipEmitted](long);
 

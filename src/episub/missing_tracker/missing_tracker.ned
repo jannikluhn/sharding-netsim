@@ -6,7 +6,7 @@ simple MissingTracker
 {
     parameters:
         string cachePath;
-        double waitTime @unit(s);
+        double requestWaitTime @unit(s);
 
         @signal[missingRequested](type=long);
 

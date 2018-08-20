@@ -6,7 +6,7 @@ simple PassiveListManager
         string peerListPath;
         int nodeId;
 
-        double shuffleInterval;
+        double shuffleInterval @unit(s);
         int activeShufflingSize;  // k_a
         int passiveShufflingSize;  // k_p
         int shuffleTTL;

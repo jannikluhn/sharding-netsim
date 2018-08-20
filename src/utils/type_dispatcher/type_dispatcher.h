@@ -8,9 +8,10 @@ using namespace omnetpp;
 
 class TypeDispatcher : public cSimpleModule {
   private:
-    void sendToOutputs(int base_id, int size, cMessage *msg);
+    int num_packet_types;
 
   protected:
+    virtual void initialize();
     virtual void handleMessage(cMessage *msg);
 };
 

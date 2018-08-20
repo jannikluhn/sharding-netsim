@@ -4,7 +4,7 @@
 #include <omnetpp.h>
 #include "../overlay_manager/overlay_manager.h"
 #include "../../utils/cache/cache.h"
-#include "../../packets_m.h"
+#include "../gossipsub_packets_m.h"
 
 using namespace omnetpp;
 

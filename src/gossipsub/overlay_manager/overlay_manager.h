@@ -3,7 +3,7 @@
 
 #include <omnetpp.h>
 #include "../../hyparview/internal_messages_m.h"
-#include "../../packets_m.h"
+#include "../gossipsub_packets_m.h"
 
 using namespace omnetpp;
 
@@ -17,8 +17,7 @@ class OverlayManager : public cSimpleModule {
     int high_watermark;
 
     void handleHeartbeat(cMessage *msg);
-    void handleAddedActivePeer(ActiveListChange *active_list_change);
-    void handleRemovedActivePeer(ActiveListChange *active_list_change);
+    void handlePeerListChange(PeerListChange *peer_list_change);
     void handleGraft(Graft *graft);
     void handlePrune(Prune *prune);
 

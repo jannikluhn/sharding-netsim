@@ -32,8 +32,9 @@ void Gossiper::handleMessage(cMessage *msg) {
     }
 }
 
-void Gossiper::handleHeartbeat(cMessage *msg) {
+void Gossiper::handleHeartbeat(cMessage *heartbeat) {
     IHave *i_have = new IHave();
+    i_have->setContentIdsArraySize(window.size());
     int i = 0;
     for (auto content_id : window) {
         i_have->setContentIds(i, content_id);
@@ -59,6 +60,8 @@ void Gossiper::handleHeartbeat(cMessage *msg) {
 
     delete i_have;
     window.clear();
+
+    scheduleAt(simTime() + heartbeat_interval, heartbeat);
 }
 
 void Gossiper::handleInternalGossip(Gossip *gossip) {
@@ -91,6 +94,7 @@ void Gossiper::handleExternalGossip(Gossip *gossip) {
 
     if (!new_gossip.empty()) {
         Gossip *forwarded_gossip = new Gossip();
+        forwarded_gossip->setContentIdsArraySize(new_gossip.size());
         int i = 0;
         for (auto content_id : new_gossip) {
             forwarded_gossip->setContentIds(i, content_id);

@@ -5,6 +5,5 @@ package sharding.episub.peer_tracker;
 simple PeerTracker
 {
     gates:
-        input addedActivePeerInput;
-        input removedActivePeerInput;
+        input peerListChangeInput;
 }

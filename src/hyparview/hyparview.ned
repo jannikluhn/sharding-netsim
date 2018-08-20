@@ -1,6 +1,9 @@
 package sharding.hyparview;
 
+import sharding.IDiscoverer;
+
 import sharding.utils.funnel.Funnel;
+import sharding.utils.type_dispatcher.TypeDispatcher;
 
 import sharding.hyparview.peer_list.PeerList;
 import sharding.hyparview.passive_list_manager.PassiveListManager;
@@ -8,7 +11,7 @@ import sharding.hyparview.get_nodes_handler.GetNodesHandler;
 import sharding.hyparview.active_list_manager.ActiveListManager;
 
 
-module ConnectionManager
+module HyParViewDiscoverer like IDiscoverer
 {
     parameters:
         int nodeId;
@@ -18,38 +21,26 @@ module ConnectionManager
         int numNearNeighbors;
         int passiveListSize;
 
-        double shuffleInterval;
+        double shuffleInterval @unit(s);
         int activeShufflingSize;
         int passiveShufflingSize;
         int shuffleTTL;
 
-        double activeHeartbeatInterval;
+        double activeHeartbeatInterval @unit(s);
         int joinTTL;
         int forwardJoinTTL;
 
-        string peerListPath = "peerList";
-
-        //@statistic[passiveListUpdate](record=vector);
-        //@statistic[activeListUpdate](record=vector);
-
-
     gates:
-        input getNodesInput;
-        input nodesInput;
-        input joinInput;
-        input forwardJoinInput;
-        input neighborInput;
-        input disconnectInput;
-        input shuffleInput;
-        input shuffleReplyInput;
-
+        input in;
         output out;
-
-        output addedActivePeerOutput;
-        output removedActivePeerOutput;
-
+        output peerListChangeOutput;
 
     submodules:
+        outputFunnel: Funnel;
+        typeDispatcher: TypeDispatcher {
+            numPacketTypes = 8;
+        };
+
         peerList: PeerList {
             parameters:
                 nodeId = nodeId;
@@ -59,7 +50,7 @@ module ConnectionManager
         passiveListManager: PassiveListManager {
             parameters:
                 nodeId = nodeId;
-                peerListPath = "^." + peerListPath;
+                peerListPath = "^.peerList";
 
                 shuffleInterval = shuffleInterval;
                 activeShufflingSize = activeShufflingSize;
@@ -70,11 +61,11 @@ module ConnectionManager
         getNodesHandler: GetNodesHandler {
             parameters:
                 nodeId = nodeId;
-                peerListPath = "^." + peerListPath;
+                peerListPath = "^.peerList";
         };
         activeListManager: ActiveListManager {
             parameters:
-                peerListPath = "^." + peerListPath;
+                peerListPath = "^.peerList";
                 nodeId = nodeId;
                 numRandomNeighbors = numRandomNeighbors;
                 numNearNeighbors = numNearNeighbors;
@@ -83,26 +74,23 @@ module ConnectionManager
                 forwardJoinTTL = forwardJoinTTL;
         };
 
-        outputFunnel: Funnel;
-
-
     connections:
-        outputFunnel.out --> out;
+        in --> typeDispatcher.in;
+        outputFunnel.outputs++ --> out;
 
-        passiveListManager.nodesInput <-- nodesInput;
-        passiveListManager.shuffleInput <-- shuffleInput;
-        passiveListManager.shuffleReplyInput <-- shuffleReplyInput;
-        passiveListManager.forwardJoinInput <-- forwardJoinInput;
+        passiveListManager.nodesInput <-- typeDispatcher.outputs[1];
+        passiveListManager.shuffleInput <-- typeDispatcher.outputs[6];
+        passiveListManager.shuffleReplyInput <-- typeDispatcher.outputs[7];
+        passiveListManager.forwardJoinInput <-- typeDispatcher.outputs[3];
         passiveListManager.out --> outputFunnel.inputs++;
 
-        getNodesHandler.getNodesInput <-- getNodesInput;
+        getNodesHandler.getNodesInput <-- typeDispatcher.outputs[0];
         getNodesHandler.out --> outputFunnel.inputs++;
 
-        activeListManager.joinInput <-- joinInput;
-        activeListManager.neighborInput <-- neighborInput;
-        activeListManager.disconnectInput <-- disconnectInput;
+        activeListManager.joinInput <-- typeDispatcher.outputs[2];
+        activeListManager.neighborInput <-- typeDispatcher.outputs[4];
+        activeListManager.disconnectInput <-- typeDispatcher.outputs[5];
         activeListManager.startInput <-- passiveListManager.viewInitializationFinishedOutputs++;
         activeListManager.out --> outputFunnel.inputs++;
-        activeListManager.addedActivePeerOutput --> addedActivePeerOutput;
-        activeListManager.removedActivePeerOutput --> removedActivePeerOutput;
+        activeListManager.activeListChangeOutput --> peerListChangeOutput;
 }
