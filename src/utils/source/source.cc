@@ -16,7 +16,8 @@ void Source::initialize() {
 
     new_gossip_emitted_signal = registerSignal("newGossipEmitted");
 
-    if (active) {
+    simtime_t next_message_time = start_time + exponential(1 / gossip_rate);
+    if (active && (stop_time == 0 || next_message_time < stop_time)) {
         cMessage *scheduler_msg = new cMessage();
         scheduleAt(start_time + exponential(1 / gossip_rate), scheduler_msg);
     }

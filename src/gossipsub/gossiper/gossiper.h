@@ -19,6 +19,8 @@ class Gossiper : public cSimpleModule {
 
     std::set<int> window;
 
+    simsignal_t new_gossip_received_signal;
+
     void handleHeartbeat(cMessage *heartbeat);
     void handleInternalGossip(Gossip *gossip);
     void handleExternalGossip(Gossip *gossip);

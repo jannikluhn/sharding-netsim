@@ -14,9 +14,6 @@ module Node
         string gossiperType;
         string discovererType;
 
-        @statistic[newGossipEmitted](record=count);
-        @statistic[newGossipReceived](record=count);
-
     gates:
         inout port;
 

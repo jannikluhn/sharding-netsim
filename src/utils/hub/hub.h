@@ -13,7 +13,7 @@ class Hub : public cSimpleModule {
     std::map<int, int> in_gate_to_node_ids;
     std::map<int, int> out_gate_to_node_ids;
 
-    simsignal_t message_sent_signal;
+    simsignal_t packet_sent_signal;
 
   protected:
     virtual void initialize();

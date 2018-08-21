@@ -9,7 +9,7 @@ Define_Module(Hub);
 
 
 void Hub::initialize() {
-    message_sent_signal = registerSignal("messageSent");
+    packet_sent_signal = registerSignal("packetSent");
 }
 
 void Hub::handleMessage(cMessage *msg) {
@@ -31,7 +31,10 @@ void Hub::handleMessage(cMessage *msg) {
     int gate_id = node_id_to_out_gates[receiver_id];
     send(addressed_packet, gate_id);
 
-    emit(message_sent_signal, addressed_packet->getId());
+    int packet_type = addressed_packet->getPacketType();
+    int protocol = addressed_packet->getProtocol();
+    int protocol_class = addressed_packet->getProtocolClass();
+    emit(packet_sent_signal, protocol_class + (protocol << 1) + (packet_type << (1 + 7)));
 }
 
 void Hub::registerNode(int node_id, int in_gate_id, int out_gate_id) {

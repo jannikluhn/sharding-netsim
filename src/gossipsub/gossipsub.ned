@@ -28,9 +28,6 @@ module GossipSubGossiper like IGossiper
 
         double heartbeatInterval @unit(s);
 
-        @statistic[newGossipEmitted](record=count);
-        @statistic[newGossipReceived](record=count);
-
     gates:
         input in;
         input peerListChangeInput;

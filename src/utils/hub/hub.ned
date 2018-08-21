@@ -5,7 +5,7 @@ package sharding.utils.hub;
 simple Hub
 {
     parameters:
-        @signal[messageSent](long);
+        @signal[packetSent](long);
 
     gates:
         inout ports[];

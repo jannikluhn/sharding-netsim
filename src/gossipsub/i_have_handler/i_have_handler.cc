@@ -21,10 +21,14 @@ void IHaveHandler::handleMessage(cMessage *msg) {
         int content_id = i_have->getContentIds(i);
         if (!cache->contains(content_id)) {
             missing_content_ids.push_back(content_id);
+            EV_DEBUG << "received IHAVE from " << i_have->getSender()
+                << " about missing content with id " << content_id << endl;
         }
     }
 
     if (!missing_content_ids.empty()) {
+        EV_DEBUG << "requesting " << missing_content_ids.size()
+            << " missing messages with IWANT" << endl;
         IWant *i_want = new IWant();
         i_want->setReceiver(i_have->getSender());
         i_want->setContentIdsArraySize(missing_content_ids.size());
@@ -32,6 +36,8 @@ void IHaveHandler::handleMessage(cMessage *msg) {
             i_want->setContentIds(i, missing_content_ids[i]);
         }
         send(i_want, "out");
+    } else {
+        EV_DEBUG << "received IHAVE from " << i_have->getSender() << " with no news" << endl;
     }
 
     delete i_have;

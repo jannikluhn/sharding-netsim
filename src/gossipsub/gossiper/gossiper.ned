@@ -8,6 +8,8 @@ simple Gossiper
         double heartbeatInterval @unit(s);
         int targetMeshDegree;
 
+        @signal[newGossipReceived](type=long);
+
     gates:
         input internalGossipInput;
         input externalGossipInput;

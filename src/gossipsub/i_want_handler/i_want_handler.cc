@@ -31,7 +31,7 @@ void IWantHandler::handleMessage(cMessage *msg) {
         for (int i = 0; i < available_content_ids.size(); i++) {
             gossip->setContentIds(i, available_content_ids[i]);
         }
-        send(i_want, "out");
+        send(gossip, "out");
     }
 
     delete i_want;
