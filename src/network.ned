@@ -10,7 +10,8 @@ network Network
 {
     parameters:
         @statistic[newGossipEmitted](record=count);
-        @statistic[newGossipReceived](record=count);
+        @statistic[newGossipReceived](record=count,histogram);
+        @statisticTemplate[packetSent](record=count);
 
     submodules:
         hub: Hub;

@@ -8,10 +8,6 @@ using namespace omnetpp;
 Define_Module(Hub);
 
 
-void Hub::initialize() {
-    packet_sent_signal = registerSignal("packetSent");
-}
-
 void Hub::handleMessage(cMessage *msg) {
     AddressedPacket *addressed_packet = check_and_cast<AddressedPacket *>(msg);
 
@@ -34,7 +30,27 @@ void Hub::handleMessage(cMessage *msg) {
     int packet_type = addressed_packet->getPacketType();
     int protocol = addressed_packet->getProtocol();
     int protocol_class = addressed_packet->getProtocolClass();
-    emit(packet_sent_signal, protocol_class + (protocol << 1) + (packet_type << (1 + 7)));
+    std::tuple<int, int, int> packet_tuple = std::make_tuple(protocol_class, protocol, packet_type);
+    if (packet_sent_signals.count(packet_tuple) == 0) {
+        std::string packet_id_suffix = "-" + std::to_string(protocol_class) + "-" +
+            std::to_string(protocol) + "-" + std::to_string(packet_type);
+
+        std::string signal_name = "packetSent" + packet_id_suffix;
+        simsignal_t signal = registerSignal(signal_name.c_str());
+        packet_sent_signals[packet_tuple] = signal;
+
+        std::string statistic_name = "packetSent-" + packet_id_suffix;
+        cProperty *statistic_template = getProperties()->get(
+            "statisticTemplate",
+            "packetSent"
+        );
+        EV_DEBUG << "adding" << endl;
+        getEnvir()->addResultRecorders(this, signal, statistic_name.c_str(), statistic_template);
+        EV_DEBUG << "added" << endl;
+    }
+    EV_DEBUG << "emitting" << endl;
+    emit(packet_sent_signals[packet_tuple], true);
+    EV_DEBUG << "emitted" << endl;
 }
 
 void Hub::registerNode(int node_id, int in_gate_id, int out_gate_id) {

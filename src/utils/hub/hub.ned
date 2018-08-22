@@ -5,7 +5,8 @@ package sharding.utils.hub;
 simple Hub
 {
     parameters:
-        @signal[packetSent](long);
+        @signal[packetSent-*-*-*](type=bool);
+        @statisticTemplate[packetSent](record=count);
 
     gates:
         inout ports[];
