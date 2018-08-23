@@ -9,8 +9,11 @@ packet MockDiscoveryPacket extends DiscoveryPacket
     protocol = MOCK_DISCOVERY;
 }
 
-packet ForceJoin extends MockDiscoveryPacket
-{
-
+enum MockDiscoveryPacketType {
+    FORCE_JOIN = 0;
 };
 
+packet ForceJoin extends MockDiscoveryPacket
+{
+    packetType = FORCE_JOIN;
+};
