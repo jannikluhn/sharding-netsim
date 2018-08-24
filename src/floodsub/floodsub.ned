@@ -15,31 +15,22 @@ module FloodSubGossiper like IGossiper
 {
     parameters:
         int nodeId;
-        double gossipRate @unit(Hz);
-        double startTime @unit(s);
-        double stopTime @unit(s);
-        bool active;
 
     gates:
         input in;
+        input sourceInput;
         input peerListChangeInput;
         output out;
 
     submodules:
         cache: Cache;
-        source: Source {
-            gossipRate = gossipRate;
-            startTime = startTime;
-            stopTime = stopTime;
-            active = active;
-        };
         flooder: Flooder {
             cachePath = "^.cache";
         };
 
     connections:
         in --> flooder.gossipInput;
-        source.outputs++ --> flooder.sourceInput;
+        sourceInput --> flooder.sourceInput;
 
         flooder.peerListChangeInput <-- peerListChangeInput;
 

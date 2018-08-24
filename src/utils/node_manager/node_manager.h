@@ -3,6 +3,7 @@
 
 #include <omnetpp.h>
 #include "../hub/hub.h"
+#include "../source/source.h"
 
 using namespace omnetpp;
 
@@ -10,6 +11,7 @@ using namespace omnetpp;
 class NodeManager : public cSimpleModule {
   private:
     Hub *hub;
+    Source *source;
 
     int bootstrap_node_count;
     int target_node_count;

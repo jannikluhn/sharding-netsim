@@ -13,6 +13,6 @@ simple GossipHandler
 
     gates:
         input externalGossipInput;
-        input internalGossipInput;
+        input sourceInput;
         output out;
 }

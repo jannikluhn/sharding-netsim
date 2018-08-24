@@ -17,10 +17,6 @@ module GossipSubGossiper like IGossiper
 {
     parameters:
         int nodeId;
-        double gossipRate @unit(Hz);
-        double startTime @unit(s);
-        double stopTime @unit(s);
-        bool active;
 
         int targetMeshDegree;
         int lowWatermark;
@@ -30,6 +26,7 @@ module GossipSubGossiper like IGossiper
 
     gates:
         input in;
+        input sourceInput;
         input peerListChangeInput;
         output out;
 
@@ -39,12 +36,6 @@ module GossipSubGossiper like IGossiper
             numPacketTypes = 5;
         };
 
-        source: Source {
-            gossipRate = gossipRate;
-            startTime = startTime;
-            stopTime = stopTime;
-            active = active;
-        };
         cache: Cache;
 
         gossiper: Gossiper {
@@ -73,7 +64,8 @@ module GossipSubGossiper like IGossiper
         in --> inputDispatcher.in;
         out <-- outputFunnel.outputs++;
 
-        gossiper.internalGossipInput <-- source.outputs++;
+        sourceInput --> gossiper.sourceInput;
+
         gossiper.externalGossipInput <-- inputDispatcher.outputs[0];
         gossiper.out --> outputFunnel.inputs++;
 

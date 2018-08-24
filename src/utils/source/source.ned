@@ -5,8 +5,8 @@ package sharding.utils.source;
 simple Source
 {
     parameters:
-        bool active = default(false);
         double gossipRate @unit(Hz);
+        bool periodic;
         double startTime @unit(s) = default(0);
         double stopTime @unit(s) = default(0);
 

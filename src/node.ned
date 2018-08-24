@@ -16,6 +16,7 @@ module Node
 
     gates:
         inout port;
+        input sourceInput;
 
     submodules:
         inputFunnel: Funnel;
@@ -35,6 +36,7 @@ module Node
         protocolDispatcher.gossipOutput --> gossiper.in;
         protocolDispatcher.discoveryOutput --> discoverer.in;
 
+        sourceInput --> gossiper.sourceInput;
         discoverer.peerListChangeOutput --> gossiper.peerListChangeInput;
 
         gossiper.out --> outputFunnel.inputs++;

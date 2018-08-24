@@ -10,10 +10,10 @@ module MockGossiper like IGossiper
 {
     parameters:
         int nodeId;
-        double gossipRate @unit(Hz);
 
     gates:
         input in;
+        input sourceInput;
         output out;
         input peerListChangeInput;
 
@@ -22,5 +22,6 @@ module MockGossiper like IGossiper
 
     connections allowunconnected:
         in --> sink.inputs++;
+        sourceInput --> sink.inputs++;
         peerListChangeInput --> sink.inputs++;
 }

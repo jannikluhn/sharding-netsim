@@ -25,8 +25,8 @@ void Gossiper::initialize() {
 void Gossiper::handleMessage(cMessage *msg) {
     if (msg->isSelfMessage()) {
         handleHeartbeat(msg);
-    } else if (msg->arrivedOn("internalGossipInput")) {
-        handleInternalGossip(check_and_cast<Gossip *>(msg));
+    } else if (msg->arrivedOn("sourceInput")) {
+        handleSourceGossip(check_and_cast<Gossip *>(msg));
     } else if (msg->arrivedOn("externalGossipInput")) {
         handleExternalGossip(check_and_cast<Gossip *>(msg));
     } else {
@@ -56,8 +56,6 @@ void Gossiper::handleHeartbeat(cMessage *heartbeat) {
                 break;
             }
         }
-    } else {
-        EV_DEBUG << "Skipped IHAVE notification due to lack of new messages" << endl;
     }
 
     delete i_have;
@@ -66,7 +64,7 @@ void Gossiper::handleHeartbeat(cMessage *heartbeat) {
     scheduleAt(simTime() + heartbeat_interval, heartbeat);
 }
 
-void Gossiper::handleInternalGossip(Gossip *gossip) {
+void Gossiper::handleSourceGossip(Gossip *gossip) {
     for (int i = 0; i < gossip->getContentIdsArraySize(); i++) {
         int content_id = gossip->getContentIds(i);
         cache->insert(content_id);
@@ -96,6 +94,8 @@ void Gossiper::handleExternalGossip(Gossip *gossip) {
         }
     }
 
+    EV_DEBUG << "received gossip from " << sender << " about " << gossip->getContentIdsArraySize()
+        << " messages, " << new_gossip.size() << " of which are new" << endl;
     if (!new_gossip.empty()) {
         Gossip *forwarded_gossip = new Gossip();
         forwarded_gossip->setHops(gossip->getHops() + 1);
@@ -107,6 +107,7 @@ void Gossiper::handleExternalGossip(Gossip *gossip) {
         }
         for (auto peer : overlay_manager->mesh_peers) {
             if (peer != sender) {
+                EV_DEBUG << "forwarding gossip to " << peer << endl;
                 Gossip *gossip_dup = forwarded_gossip->dup();
                 gossip_dup->setReceiver(peer);
                 send(gossip_dup, "out");

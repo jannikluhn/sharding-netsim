@@ -9,6 +9,7 @@ moduleinterface IGossiper
     gates:
         input in;
         input peerListChangeInput;
+        input sourceInput;
         output out;
 }
 

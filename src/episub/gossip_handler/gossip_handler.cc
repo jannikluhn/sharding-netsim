@@ -31,8 +31,8 @@ void GossipHandler::handleMessage(cMessage *msg) {
         handleScheduler(msg);
     } else if (msg->arrivedOn("externalGossipInput")) {
         handleExternalGossip(check_and_cast<Gossip *>(msg));
-    } else if (msg->arrivedOn("internalGossipInput")) {
-        handleInternalGossip(check_and_cast<Gossip *>(msg));
+    } else if (msg->arrivedOn("sourceInput")) {
+        handleSourceGossip(check_and_cast<Gossip *>(msg));
     } else {
         error("unhandled message");
     }
@@ -104,7 +104,7 @@ void GossipHandler::handleExternalGossip(Gossip *gossip) {
     delete gossip;
 }
 
-void GossipHandler::handleInternalGossip(Gossip *gossip) {
+void GossipHandler::handleSourceGossip(Gossip *gossip) {
     // add to cache
     for (int i = 0; i < gossip->getContentIdsArraySize(); i++) {
         int content_id = gossip->getContentIds(i);

@@ -4,6 +4,7 @@ simple NodeManager
 {
     parameters:
         string hubPath;
+        string sourcePath;
 
         int bootstrapNodeCount;
         int targetNodeCount;

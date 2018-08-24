@@ -22,7 +22,7 @@ class Gossiper : public cSimpleModule {
     simsignal_t new_gossip_received_signal;
 
     void handleHeartbeat(cMessage *heartbeat);
-    void handleInternalGossip(Gossip *gossip);
+    void handleSourceGossip(Gossip *gossip);
     void handleExternalGossip(Gossip *gossip);
 
   protected:

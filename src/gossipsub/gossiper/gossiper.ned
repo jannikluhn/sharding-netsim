@@ -11,7 +11,7 @@ simple Gossiper
         @signal[newGossipReceived](type=long);
 
     gates:
-        input internalGossipInput;
+        input sourceInput;
         input externalGossipInput;
         output out;
 }

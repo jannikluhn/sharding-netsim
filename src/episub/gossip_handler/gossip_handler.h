@@ -24,7 +24,7 @@ class GossipHandler : public cSimpleModule {
 
     void handleScheduler(cMessage *msg);
     void handleExternalGossip(Gossip *gossip);
-    void handleInternalGossip(Gossip *gossip);
+    void handleSourceGossip(Gossip *gossip);
 
   protected:
     virtual void initialize();

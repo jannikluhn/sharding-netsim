@@ -1,6 +1,7 @@
 #include <omnetpp.h>
 #include "node_manager.h"
 #include "../hub/hub.h"
+#include "../source/source.h"
 
 using namespace omnetpp;
 
@@ -11,6 +12,9 @@ Define_Module(NodeManager);
 void NodeManager::initialize() {
     const char *hub_path = par("hubPath").stringValue();
     hub = check_and_cast<Hub *>(getModuleByPath(hub_path));
+
+    const char *source_path = par("sourcePath").stringValue();
+    source = check_and_cast<Source *>(getModuleByPath(source_path));
 
     bootstrap_node_count = par("bootstrapNodeCount").intValue();
     target_node_count = par("targetNodeCount").intValue();
@@ -63,6 +67,9 @@ void NodeManager::createNode() {
     node->finalizeParameters();
     node->buildInside();
 
+    EV_DEBUG << "test" << endl;
+
+    // connect node to hub
     cGate *node_out = node->gate("port$o");
     cGate *node_in = node->gate("port$i");
     cGate *hub_out, *hub_in;
@@ -76,9 +83,16 @@ void NodeManager::createNode() {
     hub_out_channel->setDelay(uniform(0.03 / 2, 0.2 / 2));
     hub_out->connectTo(node_in, hub_out_channel);
 
+    // connect source to node
+    cGate *source_in = node->gate("sourceInput");
+    cGate *source_out = source->getOrCreateFirstUnconnectedGate("outputs", 0, false, true);
+    cIdealChannel *source_channel = cIdealChannel::create("channel");
+    source_out->connectTo(source_in, source_channel);
+
     if (!system_module_initialized) {
         node_out_channel->callInitialize();
         hub_out_channel->callInitialize();
+        source_channel->callInitialize();
     }
 
     hub->registerNode(node_id, hub_in->getId(), hub_out->getId());

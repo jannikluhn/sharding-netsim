@@ -18,10 +18,6 @@ module EpiSubGossiper like IGossiper
 {
     parameters:
         int nodeId;
-        double gossipRate @unit(Hz);
-        double startTime @unit(s);
-        double stopTime @unit(s);
-        bool active;
 
         double notificationInterval @unit(s);
         double requestWaitTime @unit(s);
@@ -32,6 +28,7 @@ module EpiSubGossiper like IGossiper
 
     gates:
         input in;
+        input sourceInput;
         input peerListChangeInput;
         output out;
 
@@ -42,12 +39,6 @@ module EpiSubGossiper like IGossiper
         };
 
         cache: Cache;
-        source: Source {
-            gossipRate = gossipRate;
-            startTime = startTime;
-            stopTime = stopTime;
-            active = active;
-        };
 
         peerTracker: PeerTracker;
         gardener: Gardener {
@@ -68,7 +59,7 @@ module EpiSubGossiper like IGossiper
         in --> inputDispatcher.in;
         out <-- outputFunnel.outputs++;
 
-        source.outputs++ --> gossipHandler.internalGossipInput;
+        sourceInput --> gossipHandler.sourceInput;
 
         gardener.graftInput <-- inputDispatcher.outputs[2];
         gardener.pruneInput <-- inputDispatcher.outputs[3];

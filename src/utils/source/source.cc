@@ -9,41 +9,57 @@ Define_Module(Source);
 
 
 void Source::initialize() {
-    active = par("active").boolValue();
     gossip_rate = par("gossipRate").doubleValue();
+    periodic = par("periodic").boolValue();
+
     start_time = par("startTime").doubleValue();
     stop_time = par("stopTime").doubleValue();
 
+    gossip_counter = 0;
+
     new_gossip_emitted_signal = registerSignal("newGossipEmitted");
 
-    simtime_t next_message_time = start_time + exponential(1 / gossip_rate);
-    if (active && (stop_time == 0 || next_message_time < stop_time)) {
+    simtime_t next_message_time;
+    if (periodic) {
+        next_message_time = start_time + 1 / gossip_rate;
+    } else {
+        next_message_time = start_time + exponential(1 / gossip_rate);
+    }
+    if (next_message_time < stop_time) {
         cMessage *scheduler_msg = new cMessage();
-        scheduleAt(start_time + exponential(1 / gossip_rate), scheduler_msg);
+        scheduleAt(next_message_time, scheduler_msg);
     }
 }
 
 void Source::handleMessage(cMessage *scheduler_msg) {
-    Gossip *msg = new Gossip();
-    int content_id = msg->getTreeId();
+    int gate_base_id = gateBaseId("outputs");
+    int gate_size = gateSize("outputs");
+    if (gate_size == 0) {
+        error("no gossipers connected to source");
+    }
+    int output_gate_id = gate_base_id + intuniform(0, gate_size - 1);
+
+    Gossip *gossip = new Gossip();
+    int content_id = gossip_counter;
+    gossip_counter++;
 
     EV_DEBUG << "emitting new gossip with content id " << content_id << endl;
 
-    msg->setContentIdsArraySize(1);
-    msg->setContentIds(0, msg->getTreeId());
-    msg->setHops(0);
+    gossip->setContentIdsArraySize(1);
+    gossip->setContentIds(0, content_id);
+    gossip->setHops(0);
 
-    int gate_base_id = gateBaseId("outputs");
-    for (int i = 0; i < gateSize("outputs"); i++) {
-        int gate_id = gate_base_id + i;
-        send(msg->dup(), gate_id);
-    }
-    delete msg;
+    send(gossip, output_gate_id);
 
     emit(new_gossip_emitted_signal, content_id);
 
-    simtime_t next_message_time = simTime() + exponential(1 / gossip_rate);
-    if (stop_time == 0 || next_message_time < stop_time) {
+    simtime_t next_message_time;
+    if (periodic) {
+        next_message_time = simTime() + 1 / gossip_rate;
+    } else {
+        next_message_time = simTime() + exponential(1 / gossip_rate);
+    }
+    if (next_message_time < stop_time) {
         scheduleAt(next_message_time, scheduler_msg);
     } else {
         delete scheduler_msg;

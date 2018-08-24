@@ -68,7 +68,7 @@ enum SharedPacketType {
     GOSSIP = 0;
 };
 
-packet Gossip extends GossipPacket
+packet Gossip extends SharedGossipPacket
 {
     packetType = GOSSIP;
 

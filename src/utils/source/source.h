@@ -8,10 +8,13 @@ using namespace omnetpp;
 
 class Source : public cSimpleModule {
   private:
-    bool active;
     simtime_t start_time;
     simtime_t stop_time;
     double gossip_rate;
+    bool periodic;
+
+    int gossip_counter;
+
     simsignal_t new_gossip_emitted_signal;
 
   protected:

@@ -39,18 +39,14 @@ void Hub::handleMessage(cMessage *msg) {
         simsignal_t signal = registerSignal(signal_name.c_str());
         packet_sent_signals[packet_tuple] = signal;
 
-        std::string statistic_name = "packetSent-" + packet_id_suffix;
+        std::string statistic_name = "packetSent" + packet_id_suffix;
         cProperty *statistic_template = getProperties()->get(
             "statisticTemplate",
             "packetSent"
         );
-        EV_DEBUG << "adding" << endl;
         getEnvir()->addResultRecorders(this, signal, statistic_name.c_str(), statistic_template);
-        EV_DEBUG << "added" << endl;
     }
-    EV_DEBUG << "emitting" << endl;
     emit(packet_sent_signals[packet_tuple], true);
-    EV_DEBUG << "emitted" << endl;
 }
 
 void Hub::registerNode(int node_id, int in_gate_id, int out_gate_id) {
