@@ -1,0 +1,99 @@
+
+#
+# This makefile was generated with the following command:
+# /opt/omnetpp-5.4.1/bin/opp_runall ../../sharding-netsim -u Cmdenv -f omnetpp.ini -c General
+#
+
+SIMULATIONCMD = ../../sharding-netsim -u Cmdenv -f omnetpp.ini -c General -s --cmdenv-redirect-output=true
+TARGETS =  batch0 batch1 batch2 batch3 batch4 batch5 batch6 batch7 batch8 batch9 batch10 batch11 batch12 batch13 batch14 batch15 batch16 batch17 batch18 batch19 batch20 batch21 batch22 batch23 batch24 batch25 batch26 batch27
+
+.PHONY: $(TARGETS)
+
+all: $(TARGETS)
+	@echo All runs completed.
+
+batch0:
+	$(SIMULATIONCMD) -r 0,1,2,3,4
+
+batch1:
+	$(SIMULATIONCMD) -r 5,6,7,8,9
+
+batch2:
+	$(SIMULATIONCMD) -r 10,11,12,13,14
+
+batch3:
+	$(SIMULATIONCMD) -r 15,16,17,18,19
+
+batch4:
+	$(SIMULATIONCMD) -r 20,21,22,23,24
+
+batch5:
+	$(SIMULATIONCMD) -r 25,26,27,28,29
+
+batch6:
+	$(SIMULATIONCMD) -r 30,31,32,33,34
+
+batch7:
+	$(SIMULATIONCMD) -r 35,36,37,38,39
+
+batch8:
+	$(SIMULATIONCMD) -r 40,41,42,43,44
+
+batch9:
+	$(SIMULATIONCMD) -r 45,46,47,48,49
+
+batch10:
+	$(SIMULATIONCMD) -r 50,51,52,53,54
+
+batch11:
+	$(SIMULATIONCMD) -r 55,56,57,58,59
+
+batch12:
+	$(SIMULATIONCMD) -r 60,61,62,63,64
+
+batch13:
+	$(SIMULATIONCMD) -r 65,66,67,68,69
+
+batch14:
+	$(SIMULATIONCMD) -r 70,71,72,73,74
+
+batch15:
+	$(SIMULATIONCMD) -r 75,76,77,78,79
+
+batch16:
+	$(SIMULATIONCMD) -r 80,81,82,83,84
+
+batch17:
+	$(SIMULATIONCMD) -r 85,86,87,88,89
+
+batch18:
+	$(SIMULATIONCMD) -r 90,91,92,93,94
+
+batch19:
+	$(SIMULATIONCMD) -r 95,96,97,98,99
+
+batch20:
+	$(SIMULATIONCMD) -r 100,101,102,103,104
+
+batch21:
+	$(SIMULATIONCMD) -r 105,106,107,108,109
+
+batch22:
+	$(SIMULATIONCMD) -r 110,111,112,113,114
+
+batch23:
+	$(SIMULATIONCMD) -r 115,116,117,118,119
+
+batch24:
+	$(SIMULATIONCMD) -r 120,121,122,123,124
+
+batch25:
+	$(SIMULATIONCMD) -r 125,126,127,128,129
+
+batch26:
+	$(SIMULATIONCMD) -r 130,131,132,133,134
+
+batch27:
+	$(SIMULATIONCMD) -r 135,136,137,138,139
+
+
