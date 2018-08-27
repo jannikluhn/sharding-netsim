@@ -21,7 +21,7 @@ void Puller::initialize() {
     push_time_delta = par("pushTimeDelta").doubleValue();
 
 
-    push_time = period / 2;
+    push_time = period / 10;
 
     gapless_synced_until = -1;
 
@@ -69,8 +69,10 @@ void Puller::handleRequestTrigger(cMessage *request_trigger) {
     if (cache->contains(content_id)) {
         request_triggers.erase(request_trigger);
         next_request_time.erase(content_id);
+        delete request_trigger;
     } else {
         request(content_id);
+        scheduleAt(simTime() + request_interval, request_trigger);
     }
 }
 
@@ -98,7 +100,7 @@ void Puller::handleSourceGossip(Gossip *gossip) {
     std::vector<int> forwarded_content_ids;
     for (int i = 0; i < gossip->getContentIdsArraySize(); i++) {
         int content_id = gossip->getContentIds(i);
-        if (getEmissionTime(content_id) + push_time > simTime()) {
+        if (simTime() > getEmissionTime(content_id) + push_time) {
             error("not pushing my own gossip");
         }
         if (!cache->contains(content_id)) {
@@ -121,6 +123,8 @@ void Puller::handleSourceGossip(Gossip *gossip) {
         }
         delete forwarded_gossip;
     }
+
+    delete gossip;
 }
 
 void Puller::handleExternalGossip(Gossip *gossip) {
@@ -149,6 +153,8 @@ void Puller::handleExternalGossip(Gossip *gossip) {
         }
         delete forwarded_gossip;
     }
+
+    delete gossip;
 }
 
 void Puller::handlePeerListChange(PeerListChange *peer_list_change) {

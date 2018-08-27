@@ -1,17 +1,21 @@
+package sharding.pushpull.puller;
+
+
 simple Puller
 {
     parameters:
         string cachePath;
 
-        int pull_fanout;
+        int pullFanout;
 
-        simtime_t startTime;
-        double period;
-        double requestInterval;
+        double startTime @unit(s);
+        double period @unit(s);
+        double requestInterval @unit(s);
         double pushTimeDelta;
 
     gates:
-        input pullInput;
+        input sourceInput;
+        input gossipInput;
         input peerListChangeInput;
         output out;
 };

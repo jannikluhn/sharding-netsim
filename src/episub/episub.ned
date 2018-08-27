@@ -22,10 +22,6 @@ module EpiSubGossiper like IGossiper
         double notificationInterval @unit(s);
         double requestWaitTime @unit(s);
 
-        @statistic[newGossipEmitted](record=count);
-        @statistic[newGossipReceived](record=count);
-        @statistic[missingRequested](record=count);
-
     gates:
         input in;
         input sourceInput;

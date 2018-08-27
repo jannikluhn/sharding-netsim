@@ -21,7 +21,7 @@ void Source::initialize() {
 
     simtime_t next_message_time;
     if (periodic) {
-        next_message_time = start_time + 1 / gossip_rate;
+        next_message_time = start_time;
     } else {
         next_message_time = start_time + exponential(1 / gossip_rate);
     }

@@ -39,4 +39,6 @@ void PullHandler::handleMessage(cMessage *msg) {
         }
         send(gossip, "out");
     }
+
+    delete msg;
 }
