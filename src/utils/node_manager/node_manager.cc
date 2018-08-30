@@ -67,32 +67,48 @@ void NodeManager::createNode() {
     node->finalizeParameters();
     node->buildInside();
 
-    EV_DEBUG << "test" << endl;
+    cModule *queue = cModuleType::get("sharding.utils.queue.Queue")->create(
+        "queues",
+        getParentModule(),
+        node_count + 1,
+        node_id
+    );
+    queue->finalizeParameters();
+    queue->buildInside();
 
-    // connect node to hub
+    // connect node to hub via queue
     cGate *node_out = node->gate("port$o");
     cGate *node_in = node->gate("port$i");
+    cGate *queue_in = queue->gate("in");
+    cGate *queue_out = queue->gate("out");
     cGate *hub_out, *hub_in;
     hub->getOrCreateFirstUnconnectedGatePair("ports", false, true, hub_in, hub_out);
 
-    cDelayChannel *node_out_channel = cDelayChannel::create("channel");
-    node_out_channel->setDelay(uniform(0.03 / 2, 0.2 / 2));
-    node_out->connectTo(hub_in, node_out_channel);
+    cDatarateChannel *node_to_hub = cDatarateChannel::create("channel");
+    node_to_hub->setDelay(uniform(0.03 / 2, 0.2 / 2));
+    node_to_hub->setDatarate(30 * 1024 * 1024);  // upload
+    node_out->connectTo(hub_in, node_to_hub);
 
-    cDelayChannel *hub_out_channel = cDelayChannel::create("channel");
-    hub_out_channel->setDelay(uniform(0.03 / 2, 0.2 / 2));
-    hub_out->connectTo(node_in, hub_out_channel);
+    cIdealChannel *hub_to_queue = cIdealChannel::create("channel");
+    hub_out->connectTo(queue_in, hub_to_queue);
+
+    cDatarateChannel *queue_to_node = cDatarateChannel::create("channel");
+    queue_to_node->setDelay(uniform(0.03 / 2, 0.2 / 2));
+    queue_to_node->setDatarate(3 * 1024 * 1024);  // download
+    queue_out->connectTo(node_in, queue_to_node);
 
     // connect source to node
     cGate *source_in = node->gate("sourceInput");
     cGate *source_out = source->getOrCreateFirstUnconnectedGate("outputs", 0, false, true);
-    cIdealChannel *source_channel = cIdealChannel::create("channel");
-    source_out->connectTo(source_in, source_channel);
+    cIdealChannel *source_to_node = cIdealChannel::create("channel");
+    source_out->connectTo(source_in, source_to_node);
 
     if (!system_module_initialized) {
-        node_out_channel->callInitialize();
-        hub_out_channel->callInitialize();
-        source_channel->callInitialize();
+        node_to_hub->callInitialize();
+        hub_to_queue->callInitialize();
+        queue_to_node->callInitialize();
+
+        source_to_node->callInitialize();
     }
 
     hub->registerNode(node_id, hub_in->getId(), hub_out->getId());
@@ -100,5 +116,6 @@ void NodeManager::createNode() {
     node_count++;
     if (system_module_initialized) {
         node->callInitialize();
+        queue->callInitialize();
     }
 }

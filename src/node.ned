@@ -2,6 +2,7 @@ package sharding;
 
 import sharding.interfaces.IGossiper;
 import sharding.interfaces.IDiscoverer;
+import sharding.utils.queue.Queue;
 import sharding.utils.funnel.Funnel;
 import sharding.utils.protocol_dispatcher.ProtocolDispatcher;
 
@@ -19,7 +20,7 @@ module Node
         input sourceInput;
 
     submodules:
-        inputFunnel: Funnel;
+        queue: Queue;
         outputFunnel: Funnel;
 
         protocolDispatcher: ProtocolDispatcher;
@@ -41,5 +42,6 @@ module Node
 
         gossiper.out --> outputFunnel.inputs++;
         discoverer.out --> outputFunnel.inputs++;
-        outputFunnel.outputs++ --> port$o;
+        outputFunnel.outputs++ --> queue.in;
+        queue.out --> port$o;
 }

@@ -40,6 +40,7 @@ void Source::handleMessage(cMessage *scheduler_msg) {
     int output_gate_id = gate_base_id + intuniform(0, gate_size - 1);
 
     Gossip *gossip = new Gossip();
+    EV_DEBUG << gossip->getBitLength() << endl;
     int content_id = gossip_counter;
     gossip_counter++;
 
