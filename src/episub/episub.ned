@@ -21,6 +21,8 @@ module EpiSubGossiper like IGossiper
 
         double notificationInterval @unit(s);
         double requestWaitTime @unit(s);
+        double requestRoundTripBound @unit(s);
+        double minEagerTime @unit(s);
 
     gates:
         input in;
@@ -45,10 +47,12 @@ module EpiSubGossiper like IGossiper
             cachePath = "^.cache";
             peerTrackerPath = "^.peerTracker";
             notificationInterval = notificationInterval;
+            minEagerTime = minEagerTime;
         };
         missingTracker: MissingTracker {
             cachePath = "^.cache";
             requestWaitTime = requestWaitTime;
+            requestRoundTripBound = requestRoundTripBound;
         };
 
     connections:

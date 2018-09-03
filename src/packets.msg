@@ -30,6 +30,7 @@ enum GossipProtocol
     FLOODSUB = 2;
     GOSSIPSUB = 3;
     EPISUB = 4;
+    PUSHPULL = 5;
 }
 
 packet AddressedPacket
@@ -72,8 +73,9 @@ packet Gossip extends SharedGossipPacket
 {
     packetType = GOSSIP;
 
-    int contentIds[];
+    int contentId;
     int hops;
+    simtime_t creationTime;
 
-    int64_t bitLength = 1 * 1024 * 1024;
+    int64_t bitLength = 1 * 1024 * 1024 * 8;
 };

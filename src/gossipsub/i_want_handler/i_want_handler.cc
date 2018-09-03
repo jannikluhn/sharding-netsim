@@ -13,24 +13,23 @@ void IWantHandler::initialize() {
 
 void IWantHandler::handleMessage(cMessage *msg) {
     IWant *i_want = check_and_cast<IWant *>(msg);
+    int sender = i_want->getSender();
 
     std::vector<int> available_content_ids;
 
     int num_content_ids = i_want->getContentIdsArraySize();
     for (int i = 0; i < num_content_ids; i++) {
         int content_id = i_want->getContentIds(i);
-        if (cache->contains(content_id)) {
-            available_content_ids.push_back(content_id);
-        }
-    }
 
-    if (!available_content_ids.empty()) {
-        Gossip *gossip = new Gossip();
-        gossip->setReceiver(i_want->getSender());
-        gossip->setContentIdsArraySize(available_content_ids.size());
-        for (int i = 0; i < available_content_ids.size(); i++) {
-            gossip->setContentIds(i, available_content_ids[i]);
+        if (!cache->contains(content_id)) {
+            error("received IWANT for unknown gossip");
         }
+
+        Gossip *gossip = new Gossip();
+        gossip->setReceiver(sender);
+        gossip->setContentId(content_id);
+        gossip->setHops(0);
+        gossip->setCreationTime(cache->getCreationTime(content_id));
         send(gossip, "out");
     }
 

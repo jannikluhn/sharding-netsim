@@ -27,8 +27,8 @@ void IHaveHandler::handleMessage(cMessage *msg) {
     }
 
     if (!missing_content_ids.empty()) {
-        EV_WARN << "requesting " << missing_content_ids.size()
-            << " missing messages with IWANT" << endl;
+        EV_DEBUG << "requesting " << missing_content_ids.size() << " missing messages with IWANT"
+            << endl;
         IWant *i_want = new IWant();
         i_want->setReceiver(i_have->getSender());
         i_want->setContentIdsArraySize(missing_content_ids.size());

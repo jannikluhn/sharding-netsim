@@ -17,6 +17,7 @@ void GossipHandler::initialize() {
     peer_tracker = check_and_cast<PeerTracker *>(getModuleByPath(peer_tracker_path));
 
     notification_interval = par("notificationInterval").doubleValue();
+    min_eager_time = par("minEagerTime").doubleValue();
 
     new_gossip_received_signal = registerSignal("newGossipReceived");
 
@@ -40,33 +41,22 @@ void GossipHandler::handleMessage(cMessage *msg) {
 
 void GossipHandler::handleExternalGossip(Gossip *gossip) {
     int sender = gossip->getSender();
-    std::set<int> new_content_ids;
+    int content_id = gossip->getContentId();
+    int hops = gossip->getHops();
+    simtime_t creation_time = gossip->getCreationTime();
 
-    // insert content ids into cache and note which ones are new
-    int n = gossip->getContentIdsArraySize();
-    for (int i = 0; i < n; i++) {
-        int content_id = gossip->getContentIds(i);
-        if (!cache->contains(content_id)) {
-            cache->insert(content_id);
-            new_content_ids.insert(content_id);
-            emit(new_gossip_received_signal, gossip->getHops());
-        }
-    }
+    bool is_new = !cache->contains(content_id);
 
-    if (!new_content_ids.empty()) {
-        EV_DEBUG << "received new gossip from " << sender << endl;
+    if (is_new) {
+        EV_DEBUG << "received new gossip with ID " << content_id << " from " << sender << endl;
+        emit(new_gossip_received_signal, simTime() - gossip->getCreationTime());
+        cache->insert(content_id, gossip->getCreationTime());
 
         // eager multicast new gossip
         Gossip *new_gossip = new Gossip();
-
-        new_gossip->setHops(gossip->getHops() + 1);
-
-        new_gossip->setContentIdsArraySize(new_content_ids.size());
-        int i = 0;
-        for (auto content_id : new_content_ids) {
-            new_gossip->setContentIds(i, content_id);
-            i++;
-        }
+        new_gossip->setContentId(content_id);
+        new_gossip->setHops(hops + 1);
+        new_gossip->setCreationTime(creation_time);
 
         for (auto receiver : peer_tracker->eager_peers) {
             if (receiver != sender) {
@@ -78,21 +68,22 @@ void GossipHandler::handleExternalGossip(Gossip *gossip) {
         delete new_gossip;
 
         // schedule notifications for lazy peers
-        for (auto content_id : new_content_ids) {
-            for (int peer_id : peer_tracker->lazy_peers) {
-                if (peer_id != sender) {
-                    receivers_to_content_ids[peer_id].insert(content_id);
-                }
+        for (int peer_id : peer_tracker->lazy_peers) {
+            if (peer_id != sender) {
+                receivers_to_content_ids[peer_id].insert(content_id);
             }
         }
 
+        // make peer eager
         if (peer_tracker->isPeer(sender)) {
+            peer_tracker->last_gossip_time[sender] = simTime();
             peer_tracker->makeEager(sender);
         }
     } else {
-        EV_DEBUG << "received known gossip from " << sender << endl;
+        EV_DEBUG << "received known gossip with id " << content_id << " from " << sender << endl;
 
-        if (peer_tracker->isPeer(sender)) {
+        if (peer_tracker->isPeer(sender)
+            && peer_tracker->last_gossip_time[sender] > simTime() + min_eager_time) {
             peer_tracker->makeLazy(sender);
         }
 
@@ -105,11 +96,16 @@ void GossipHandler::handleExternalGossip(Gossip *gossip) {
 }
 
 void GossipHandler::handleSourceGossip(Gossip *gossip) {
-    // add to cache
-    for (int i = 0; i < gossip->getContentIdsArraySize(); i++) {
-        int content_id = gossip->getContentIds(i);
-        cache->insert(content_id);
+    int content_id = gossip->getContentId();
+    if (cache->contains(content_id)) {
+        error("Source created gossip with used id");
     }
+
+    EV_DEBUG << "emitting new gossip with content id " << content_id << endl;
+    emit(new_gossip_received_signal, simTime() - gossip->getCreationTime());
+
+    // add to cache
+    cache->insert(content_id, gossip->getCreationTime());
 
     // multicast to eager peers
     for (auto receiver : peer_tracker->eager_peers) {
@@ -119,11 +115,8 @@ void GossipHandler::handleSourceGossip(Gossip *gossip) {
     }
 
     // schedule notifications for lazy peers
-    for (int i = 0; i < gossip->getContentIdsArraySize(); i++) {
-        int content_id = gossip->getContentIds(i);
-        for (int peer_id : peer_tracker->lazy_peers) {
-            receivers_to_content_ids[peer_id].insert(content_id);
-        }
+    for (int peer_id : peer_tracker->lazy_peers) {
+        receivers_to_content_ids[peer_id].insert(content_id);
     }
 
     delete gossip;

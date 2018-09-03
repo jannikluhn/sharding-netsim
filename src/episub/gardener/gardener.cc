@@ -32,22 +32,24 @@ void Gardener::handleMessage(cMessage *msg) {
 
 void Gardener::handleGraft(Graft2 *graft) {
     int sender = graft->getSender();
-    EV_DEBUG << "received GRAFT from " << sender << endl;
-
-    Gossip *gossip = new Gossip();
-    gossip->setReceiver(sender);
-
     int num_content_ids = graft->getContentIdsArraySize();
-    gossip->setContentIdsArraySize(num_content_ids);
+    EV_DEBUG << "received GRAFT from " << sender << " with " << num_content_ids << " content ids"
+        << endl;
+
     for (int i = 0; i < num_content_ids; i++) {
+        Gossip *gossip = new Gossip();
+        gossip->setHops(0);
+        gossip->setReceiver(sender);
+
         int content_id = graft->getContentIds(i);
         if (!cache->contains(content_id)) {
             error("Received GRAFT for content we do not have");
         }
-        gossip->setContentIds(i, content_id);
+        gossip->setContentId(content_id);
+        gossip->setCreationTime(cache->getCreationTime(content_id));
+
+        send(gossip, "out");
     }
-    gossip->setHops(0);  // not optimal but doesn't matter once network has stabilized
-    send(gossip, "out");
 
     peer_tracker->makeEager(sender);
     delete graft;

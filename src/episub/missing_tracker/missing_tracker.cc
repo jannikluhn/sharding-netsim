@@ -12,16 +12,16 @@ void MissingTracker::initialize() {
     cache = check_and_cast<Cache *>(getModuleByPath(cache_path));
 
     request_wait_time = par("requestWaitTime").doubleValue();
+    request_round_trip_bound = par("requestRoundTripBound").doubleValue();
+    heartbeat_interval = request_round_trip_bound / 5;
 
-    missing_signal = registerSignal("missingRequested");
-
-    cMessage *scheduler_msg = new cMessage();
-    scheduleAt(simTime() + uniform(0, request_wait_time / 2), scheduler_msg);
+    cMessage *heartbeat = new cMessage();
+    scheduleAt(simTime() + uniform(0, heartbeat_interval), heartbeat);
 }
 
 void MissingTracker::handleMessage(cMessage *msg) {
     if (msg->isSelfMessage()) {
-        handleScheduler(msg);
+        handleHeartbeat(msg);
     } else if (msg->arrivedOn("iHaveInput")) {
         handleIHave(check_and_cast<IHave2 *>(msg));
         delete msg;
@@ -30,7 +30,7 @@ void MissingTracker::handleMessage(cMessage *msg) {
     }
 }
 
-void MissingTracker::handleScheduler(cMessage *msg) {
+void MissingTracker::handleHeartbeat(cMessage *heartbeat) {
     // remove available content from list
     std::set<int> available_content_ids;
     for (auto content_id : they_have_content_ids) {
@@ -41,16 +41,22 @@ void MissingTracker::handleScheduler(cMessage *msg) {
     for (auto content_id : available_content_ids) {
         they_have_content_ids.erase(content_id);
         custodians.erase(content_id);
-        first_seen_timestamps.erase(content_id);
-        emit(missing_signal, content_id);
+        next_request_timestamps.erase(content_id);
     }
 
     // select content ids to attempt to download
     std::set<int> content_to_retrieve;
     for (auto content_id : they_have_content_ids) {
-        // TODO: check that last request for that content id is not too recent
-        if (first_seen_timestamps[content_id] < simTime() - request_wait_time) {
-            content_to_retrieve.insert(content_id);
+        if (next_request_timestamps[content_id] < simTime()) {
+            if (custodians[content_id].empty()) {
+                EV_WARN << "probably failed to retrieve content with id " << content_id << endl;
+
+                they_have_content_ids.erase(content_id);
+                custodians.erase(content_id);
+                next_request_timestamps.erase(content_id);
+            } else {
+                content_to_retrieve.insert(content_id);
+            }
         }
     }
 
@@ -58,9 +64,7 @@ void MissingTracker::handleScheduler(cMessage *msg) {
     std::map<int, std::vector<int>> content_ids_by_custodian;
     for (auto content_id : content_to_retrieve) {
         if (custodians[content_id].empty()) {
-            error("failed to retrieve content");
-            // TODO: could also be that request is still pending (doesn't matter if
-            // request_wait_time >> latency)
+            break;
         }
         int next_custodian = custodians[content_id].front();
         custodians[content_id].pop();
@@ -81,25 +85,26 @@ void MissingTracker::handleScheduler(cMessage *msg) {
         graft_msg->setContentIdsArraySize(content_ids.size());
         for (int i = 0; i < content_ids.size(); i++) {
             graft_msg->setContentIds(i, content_ids[i]);
+            next_request_timestamps[content_ids[i]] = simTime() + (i + 1) * request_round_trip_bound;
         }
 
         send(graft_msg, "out");
     }
 
-    scheduleAt(simTime() + request_wait_time / 2, msg);
+    scheduleAt(simTime() + heartbeat_interval, heartbeat);
 }
 
-void MissingTracker::handleIHave(IHave2 *msg) {
-    EV_DEBUG << "received IHAVE from " << msg->getSender() << endl;
-
-    int num_content_ids = msg->getContentIdsArraySize();
+void MissingTracker::handleIHave(IHave2 *i_have) {
+    int num_content_ids = i_have->getContentIdsArraySize();
     for (int i = 0; i < num_content_ids; i++) {
-        int content_id = msg->getContentIds(i);
+        int content_id = i_have->getContentIds(i);
+        EV_DEBUG << "received IHAVE with gossip id " << content_id << " from "
+            << i_have->getSender() << endl;
 
         if (they_have_content_ids.count(content_id) == 0) {
             they_have_content_ids.insert(content_id);
-            first_seen_timestamps[content_id] = simTime();
+            next_request_timestamps[content_id] = simTime() + request_wait_time;
         }
-        custodians[content_id].push(msg->getSender());
+        custodians[content_id].push(i_have->getSender());
     }
 }

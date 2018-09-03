@@ -24,6 +24,7 @@ void PeerTracker::addEager(int node_id) {
     Enter_Method_Silent();
     eager_peers.insert(node_id);
     lazy_peers.erase(node_id);
+    last_gossip_time[node_id] = simTime();
 }
 
 void PeerTracker::makeEager(int node_id) {
@@ -33,6 +34,7 @@ void PeerTracker::makeEager(int node_id) {
     }
     eager_peers.insert(node_id);
     lazy_peers.erase(node_id);
+    last_gossip_time[node_id] = simTime();
 }
 
 void PeerTracker::makeLazy(int node_id) {
@@ -42,6 +44,8 @@ void PeerTracker::makeLazy(int node_id) {
     }
     lazy_peers.insert(node_id);
     eager_peers.erase(node_id);
+
+    last_gossip_time.erase(node_id);
 }
 
 void PeerTracker::remove(int node_id) {
@@ -51,6 +55,7 @@ void PeerTracker::remove(int node_id) {
     }
     lazy_peers.erase(node_id);
     eager_peers.erase(node_id);
+    last_gossip_time.erase(node_id);
 }
 
 bool PeerTracker::isPeer(int node_id) {

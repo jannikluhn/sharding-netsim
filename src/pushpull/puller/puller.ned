@@ -13,6 +13,8 @@ simple Puller
         double requestInterval @unit(s);
         double pushTimeDelta;
 
+        @signal[newGossipReceived](type=simtime_t);
+
     gates:
         input sourceInput;
         input gossipInput;

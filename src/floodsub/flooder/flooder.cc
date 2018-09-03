@@ -29,10 +29,14 @@ void Flooder::handleMessage(cMessage *msg) {
 }
 
 void Flooder::handleSourceGossip(Gossip *gossip) {
-    for (int i = 0; i < gossip->getContentIdsArraySize(); i++) {
-        int content_id = gossip->getContentIds(i);
-        cache->insert(content_id);
+    int content_id = gossip->getContentId();
+    if (cache->contains(content_id)) {
+        error("Source created gossip with used id");
     }
+
+    EV_DEBUG << "emitting new gossip with content id " << content_id << endl;
+    emit(new_gossip_received_signal, simTime() - gossip->getCreationTime());
+    cache->insert(content_id, gossip->getCreationTime());
 
     for (auto peer : peers) {
         Gossip *dup = gossip->dup();
@@ -46,29 +50,18 @@ void Flooder::handleSourceGossip(Gossip *gossip) {
 void Flooder::handleExternalGossip(Gossip *gossip) {
     int sender = gossip->getSender();
     int hops = gossip->getHops();
+    simtime_t creation_time = gossip->getCreationTime();
 
-    std::set<int> new_content_ids;
-    for (int i = 0; i < gossip->getContentIdsArraySize(); i++) {
-        int content_id = gossip->getContentIds(i);
-        if (!cache->contains(content_id)) {
-            cache->insert(content_id);
-            new_content_ids.insert(content_id);
-            emit(new_gossip_received_signal, hops);
-        }
-    }
-
-    if (!new_content_ids.empty()) {
-        EV_DEBUG << "received new gossip from " << sender << endl;
+    int content_id = gossip->getContentId();
+    if (!cache->contains(content_id)) {
+        EV_DEBUG << "received new gossip with id " << content_id << " from " << sender << endl;
+        emit(new_gossip_received_signal, simTime() - gossip->getCreationTime());
+        cache->insert(content_id, gossip->getCreationTime());
 
         Gossip *new_gossip = new Gossip();
-        new_gossip->setContentIdsArraySize(new_content_ids.size());
-        int i = 0;
-        for (auto content_id : new_content_ids) {
-            new_gossip->setContentIds(i, content_id);
-            i++;
-        }
         new_gossip->setHops(hops + 1);
-
+        new_gossip->setContentId(content_id);
+        new_gossip->setCreationTime(creation_time);
         for (auto peer : peers) {
             if (peer != sender) {
                 Gossip *dup = new_gossip->dup();
@@ -76,7 +69,6 @@ void Flooder::handleExternalGossip(Gossip *gossip) {
                 send(dup, "out");
             }
         }
-
         delete new_gossip;
     }
 

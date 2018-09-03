@@ -38,3 +38,7 @@ void Queue::handleMessage(cMessage *msg) {
         }
     }
 }
+
+Queue::~Queue() {
+    cancelAndDelete(send_next_packet_msg);
+}

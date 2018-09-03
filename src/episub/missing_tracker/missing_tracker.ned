@@ -7,8 +7,7 @@ simple MissingTracker
     parameters:
         string cachePath;
         double requestWaitTime @unit(s);
-
-        @signal[missingRequested](type=long);
+        double requestRoundTripBound @unit(s);
 
     gates:
         input iHaveInput;

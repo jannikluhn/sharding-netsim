@@ -57,6 +57,7 @@ void NodeManager::createNode() {
 
     EV_DEBUG << "starting node " << node_id << endl;
 
+    // create node and queue
     cModule *node = cModuleType::get("sharding.Node")->create(
         "nodes",
         getParentModule(),
@@ -76,6 +77,39 @@ void NodeManager::createNode() {
     queue->finalizeParameters();
     queue->buildInside();
 
+    // choose latency and bandwidth (see arXiv:1801.03998 [cs.CR])
+    double quality = uniform(0, 1);
+    double millisecond = 0.001;
+    int megabit = 1024 * 1024;
+    double relative_quality;
+    double latency;
+    double bandwidth;
+    if (quality <= 0.1) {
+        relative_quality = 0;
+        bandwidth = 3.4 * megabit;
+        latency = 92 * millisecond;
+    } else if (quality <= 0.33) {
+        relative_quality = (quality - 0.1) / (0.33 - 0.1);
+        bandwidth = (3.4 + (11.2 - 3.4) * relative_quality) * megabit;
+        latency = (92 + (125 - 92) * relative_quality) * millisecond;
+    } else if (quality <= 0.5) {
+        relative_quality = (quality - 0.33) / (0.5 - 0.33);
+        bandwidth = (11.2 + (29.4 - 11.2) * relative_quality) * megabit;
+        latency = (125 + (152 - 125) * relative_quality) * millisecond;
+    } else if (quality <= 0.67) {
+        relative_quality = (quality - 0.5) / (0.67 - 0.5);
+        bandwidth = (29.4 + (68.3 - 29.4) * relative_quality) * megabit;
+        latency = (152 + (200 - 152) * relative_quality) * millisecond;
+    } else if (quality <= 0.90) {
+        relative_quality = (quality - 0.67) / (0.9 - 0.67);
+        bandwidth = (68.3 + (144.4 - 68.3) * relative_quality) * megabit;
+        latency = (200 + (276 - 200) * relative_quality) * millisecond;
+    } else {
+        relative_quality = 0;
+        bandwidth = 144.4 * megabit;
+        latency = 276 * relative_quality * millisecond;
+    }
+
     // connect node to hub via queue
     cGate *node_out = node->gate("port$o");
     cGate *node_in = node->gate("port$i");
@@ -85,16 +119,16 @@ void NodeManager::createNode() {
     hub->getOrCreateFirstUnconnectedGatePair("ports", false, true, hub_in, hub_out);
 
     cDatarateChannel *node_to_hub = cDatarateChannel::create("channel");
-    node_to_hub->setDelay(uniform(0.03 / 2, 0.2 / 2));
-    node_to_hub->setDatarate(30 * 1024 * 1024);  // upload
+    node_to_hub->setDelay(latency / 2);
+    node_to_hub->setDatarate(bandwidth);  // upload
     node_out->connectTo(hub_in, node_to_hub);
 
     cIdealChannel *hub_to_queue = cIdealChannel::create("channel");
     hub_out->connectTo(queue_in, hub_to_queue);
 
     cDatarateChannel *queue_to_node = cDatarateChannel::create("channel");
-    queue_to_node->setDelay(uniform(0.03 / 2, 0.2 / 2));
-    queue_to_node->setDatarate(3 * 1024 * 1024);  // download
+    queue_to_node->setDelay(latency / 2);
+    queue_to_node->setDatarate(bandwidth);  // download
     queue_out->connectTo(node_in, queue_to_node);
 
     // connect source to node

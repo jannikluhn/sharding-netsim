@@ -15,15 +15,15 @@ class MissingTracker : public cSimpleModule {
     Cache *cache;
 
     double request_wait_time;
-
-    simsignal_t missing_signal;
+    double request_round_trip_bound;
+    double heartbeat_interval;
 
     std::set<int> they_have_content_ids;
     std::map<int, std::queue<int>> custodians;
-    std::map<int, simtime_t> first_seen_timestamps;
+    std::map<int, simtime_t> next_request_timestamps;
 
-    void handleScheduler(cMessage *msg);
-    void handleIHave(IHave2 *msg);
+    void handleHeartbeat(cMessage *heartbeat);
+    void handleIHave(IHave2 *i_have);
 
   protected:
     virtual void initialize();

@@ -31,6 +31,8 @@ packet Nodes extends HyParViewPacket
     packetType = NODES;
 
     int peers[];
+
+    int64_t bitLength = 100 + 32 * 3;
 };
 
 packet Join extends HyParViewPacket
@@ -39,6 +41,8 @@ packet Join extends HyParViewPacket
 
     int node;
     int ttl;
+
+    int64_t bitLength = 100 + 32 + 1;
 };
 
 packet ForwardJoin extends HyParViewPacket
@@ -47,16 +51,22 @@ packet ForwardJoin extends HyParViewPacket
 
     int node;
     int ttl;
+
+    int64_t bitLength = 100 + 32 + 1;
 };
 
 packet Neighbor extends HyParViewPacket
 {
     packetType = NEIGHBOR;
+
+    int64_t bitLength = 100;
 };
 
 packet Disconnect extends HyParViewPacket
 {
     packetType = DISCONNECT;
+
+    int64_t bitLength = 100;
 };
 
 packet Shuffle extends HyParViewPacket
@@ -66,6 +76,8 @@ packet Shuffle extends HyParViewPacket
     int node;
     int peers[];
     int ttl;
+
+    int64_t bitLength = 100 + 32 + 1 + 32 * 3;
 };
 
 packet ShuffleReply extends HyParViewPacket
@@ -73,4 +85,6 @@ packet ShuffleReply extends HyParViewPacket
     packetType = SHUFFLEREPLY;
 
     int peers[];
+
+    int64_t bitLength = 100 + 32 * 3;
 };

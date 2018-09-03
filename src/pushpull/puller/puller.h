@@ -33,13 +33,15 @@ class Puller : public cSimpleModule {
     void handlePeerListChange(PeerListChange *peer_list_change);
 
     void request(int content_id);
-    void insertContentId(int content_id);
+    void insertContentId(int content_id, simtime_t creation_time);
 
     std::vector<int> shuffle(std::vector<int> v);
     std::vector<int> getPeerShuffling();
 
     simtime_t getEmissionTime(int content_id);
     int getCurrentContentId();
+
+    simsignal_t new_gossip_received_signal;
 
   protected:
     virtual void initialize();

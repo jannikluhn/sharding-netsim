@@ -14,6 +14,7 @@ class PeerTracker : public cSimpleModule {
   public:
     std::set<int> eager_peers;
     std::set<int> lazy_peers;
+    std::map<int, simtime_t> last_gossip_time;
 
     void addEager(int node_id);
     void makeEager(int node_id);

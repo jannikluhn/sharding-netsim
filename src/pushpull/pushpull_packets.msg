@@ -6,7 +6,7 @@ packet GossipPacket;
 
 packet PushPullPacket extends GossipPacket
 {
-    protocol = GOSSIPSUB;
+    protocol = PUSHPULL;
 }
 
 
@@ -20,4 +20,6 @@ packet Pull extends PushPullPacket {
     packetType = PULL;
 
     int contentIds[];
+
+    int64_t bitLength = (100 + 32) * 8;
 };

@@ -17,6 +17,7 @@ class GossipHandler : public cSimpleModule {
     PeerTracker *peer_tracker;
 
     double notification_interval;
+    double min_eager_time;
 
     simsignal_t new_gossip_received_signal;
 

@@ -65,14 +65,18 @@ void Gossiper::handleHeartbeat(cMessage *heartbeat) {
 }
 
 void Gossiper::handleSourceGossip(Gossip *gossip) {
-    for (int i = 0; i < gossip->getContentIdsArraySize(); i++) {
-        int content_id = gossip->getContentIds(i);
-        cache->insert(content_id);
-        window.insert(content_id);
+    int content_id = gossip->getContentId();
+    if (cache->contains(content_id)) {
+        error("Source created gossip with used id");
     }
 
+    cache->insert(content_id, gossip->getCreationTime());
+    window.insert(content_id);
+    EV_DEBUG << "emitting new gossip with content id " << content_id << endl;
+    emit(new_gossip_received_signal, simTime() - gossip->getCreationTime());
+
     for (auto peer : overlay_manager->mesh_peers) {
-        EV_DEBUG << "sending new gossip to " << peer << endl;
+        EV_DEBUG << "sending new gossip with id " << content_id << " to " << peer << endl;
         Gossip *forwarded_gossip = gossip->dup();
         forwarded_gossip->setReceiver(peer);
         send(forwarded_gossip, "out");
@@ -82,38 +86,32 @@ void Gossiper::handleSourceGossip(Gossip *gossip) {
 
 void Gossiper::handleExternalGossip(Gossip *gossip) {
     int sender = gossip->getSender();
+    int content_id = gossip->getContentId();
+    int hops = gossip->getHops();
+    simtime_t creation_time = gossip->getCreationTime();
 
-    std::set<int> new_gossip;
-    for (int i = 0; i < gossip->getContentIdsArraySize(); i++) {
-        int content_id = gossip->getContentIds(i);
-        if (!cache->contains(content_id)) {
-            cache->insert(content_id);
-            new_gossip.insert(content_id);
-            window.insert(content_id);
-            emit(new_gossip_received_signal, gossip->getHops());
-        }
-    }
+    bool is_new = !cache->contains(content_id);
 
-    EV_DEBUG << "received gossip from " << sender << " about " << gossip->getContentIdsArraySize()
-        << " messages, " << new_gossip.size() << " of which are new" << endl;
-    if (!new_gossip.empty()) {
+    if (is_new) {
+        EV_DEBUG << "received new gossip with ID " << content_id << " from " << sender << endl;
+        emit(new_gossip_received_signal, simTime() - gossip->getCreationTime());
+        cache->insert(content_id, gossip->getCreationTime());
+        window.insert(content_id);
+
         Gossip *forwarded_gossip = new Gossip();
-        forwarded_gossip->setHops(gossip->getHops() + 1);
-        forwarded_gossip->setContentIdsArraySize(new_gossip.size());
-        int i = 0;
-        for (auto content_id : new_gossip) {
-            forwarded_gossip->setContentIds(i, content_id);
-            i++;
-        }
+        forwarded_gossip->setHops(hops + 1);
+        forwarded_gossip->setContentId(content_id);
+        forwarded_gossip->setCreationTime(creation_time);
         for (auto peer : overlay_manager->mesh_peers) {
             if (peer != sender) {
-                EV_DEBUG << "forwarding gossip to " << peer << endl;
-                Gossip *gossip_dup = forwarded_gossip->dup();
-                gossip_dup->setReceiver(peer);
-                send(gossip_dup, "out");
+                Gossip *dup_msg = forwarded_gossip->dup();
+                dup_msg->setReceiver(peer);
+                send(dup_msg, "out");
             }
         }
         delete forwarded_gossip;
+    } else {
+        EV_DEBUG << "received known gossip with ID " << content_id << " from " << sender << endl;
     }
 
     delete gossip;

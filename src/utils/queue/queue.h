@@ -15,6 +15,9 @@ class Queue : public cSimpleModule {
   protected:
     virtual void initialize();
     virtual void handleMessage(cMessage *msg);
+
+  public:
+    ~Queue();
 };
 
 

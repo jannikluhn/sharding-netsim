@@ -8,8 +8,9 @@ simple GossipHandler
         string peerTrackerPath;
 
         double notificationInterval @unit(s);
+        double minEagerTime @unit(s);
 
-        @signal[newGossipReceived](type=long);
+        @signal[newGossipReceived](type=simtime_t);
 
     gates:
         input externalGossipInput;

@@ -22,6 +22,8 @@ packet IHave2 extends EpiSubPacket
     packetType = IHAVE;
 
     int contentIds[];
+
+    int64_t bitLength = (100 + 32) * 8;
 };
 
 packet Graft2 extends EpiSubPacket
@@ -29,9 +31,13 @@ packet Graft2 extends EpiSubPacket
     packetType = GRAFT;
 
     int contentIds[];
+
+    int64_t bitLength = (100 + 32) * 8;
 };
 
 packet Prune2 extends EpiSubPacket
 {
     packetType = PRUNE;
+
+    int64_t bitLength = 100 * 8;
 };
