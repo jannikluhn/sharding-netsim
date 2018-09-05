@@ -1,0 +1,24 @@
+
+#
+# This makefile was generated with the following command:
+# /opt/omnetpp-5.4.1/bin/opp_runall ../../sharding-netsim -u Cmdenv -f omnetpp.ini -c General
+#
+
+SIMULATIONCMD = ../../sharding-netsim -u Cmdenv -f omnetpp.ini -c General -s --cmdenv-redirect-output=true
+TARGETS =  run0 run1 run2
+
+.PHONY: $(TARGETS)
+
+all: $(TARGETS)
+	@echo All runs completed.
+
+run0:
+	$(SIMULATIONCMD) -r 0
+
+run1:
+	$(SIMULATIONCMD) -r 1
+
+run2:
+	$(SIMULATIONCMD) -r 2
+
+
