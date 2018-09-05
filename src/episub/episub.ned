@@ -18,6 +18,7 @@ module EpiSubGossiper like IGossiper
 {
     parameters:
         int nodeId;
+        double datarate;
 
         double notificationInterval @unit(s);
         double requestWaitTime @unit(s);

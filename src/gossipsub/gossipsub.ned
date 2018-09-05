@@ -17,12 +17,18 @@ module GossipSubGossiper like IGossiper
 {
     parameters:
         int nodeId;
+        double datarate;
 
-        int targetMeshDegree;
-        int lowWatermark;
-        int highWatermark;
+        double mbitPerPeer;
+        double lowWatermarkFraction;
+        double highWatermarkFraction;
+        int maxPeers;
 
         double heartbeatInterval @unit(s);
+
+        int targetMeshDegree = min(maxPeers, max(1, int(datarate * 1024 * 1024 / mbitPerPeer + 0.5)));
+        int lowWatermark = min(maxPeers, max(1, int(targetMeshDegree * lowWatermarkFraction + 0.5)));
+        int highWatermark = min(maxPeers, max(1, int(targetMeshDegree * highWatermarkFraction + 0.5)));
 
     gates:
         input in;

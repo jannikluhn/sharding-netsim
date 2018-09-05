@@ -11,6 +11,7 @@ module Node
 {
     parameters:
         int nodeId;
+        double datarate;
 
         string gossiperType;
         string discovererType;
@@ -27,9 +28,11 @@ module Node
 
         gossiper: <gossiperType> like IGossiper {
             nodeId = nodeId;
+            datarate = datarate;
         }
         discoverer: <discovererType> like IDiscoverer {
             nodeId = nodeId;
+            datarate = datarate;
         }
 
     connections:

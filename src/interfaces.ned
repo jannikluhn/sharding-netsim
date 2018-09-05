@@ -5,6 +5,7 @@ moduleinterface IGossiper
 {
     parameters:
         int nodeId;
+        double datarate;
 
     gates:
         input in;
@@ -18,6 +19,7 @@ moduleinterface IDiscoverer
 {
     parameters:
         int nodeId;
+        double datarate;
 
     gates:
         input in;

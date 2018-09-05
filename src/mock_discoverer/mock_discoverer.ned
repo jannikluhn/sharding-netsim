@@ -8,6 +8,8 @@ simple MockDiscoverer like IDiscoverer
 {
     parameters:
         int nodeId;
+        double datarate;
+
         int nodeCount;
         int minPeers;
 

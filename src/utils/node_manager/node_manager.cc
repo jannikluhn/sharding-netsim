@@ -57,26 +57,6 @@ void NodeManager::createNode() {
 
     EV_DEBUG << "starting node " << node_id << endl;
 
-    // create node and queue
-    cModule *node = cModuleType::get("sharding.Node")->create(
-        "nodes",
-        getParentModule(),
-        node_count + 1,
-        node_id
-    );
-    node->par("nodeId") = node_id;
-    node->finalizeParameters();
-    node->buildInside();
-
-    cModule *queue = cModuleType::get("sharding.utils.queue.Queue")->create(
-        "queues",
-        getParentModule(),
-        node_count + 1,
-        node_id
-    );
-    queue->finalizeParameters();
-    queue->buildInside();
-
     // choose latency and bandwidth (see arXiv:1801.03998 [cs.CR])
     double quality = uniform(0, 1);
     double millisecond = 0.001;
@@ -109,6 +89,28 @@ void NodeManager::createNode() {
         bandwidth = 144.4 * megabit;
         latency = 276 * relative_quality * millisecond;
     }
+
+    // create node and queue
+    cModule *node = cModuleType::get("sharding.Node")->create(
+        "nodes",
+        getParentModule(),
+        node_count + 1,
+        node_id
+    );
+    node->par("nodeId") = node_id;
+    node->par("datarate") = bandwidth;
+    node->finalizeParameters();
+    node->buildInside();
+
+    cModule *queue = cModuleType::get("sharding.utils.queue.Queue")->create(
+        "queues",
+        getParentModule(),
+        node_count + 1,
+        node_id
+    );
+    queue->finalizeParameters();
+    queue->buildInside();
+
 
     // connect node to hub via queue
     cGate *node_out = node->gate("port$o");

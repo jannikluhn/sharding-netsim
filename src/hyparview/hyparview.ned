@@ -15,6 +15,7 @@ module HyParViewDiscoverer like IDiscoverer
 {
     parameters:
         int nodeId;
+        double datarate;
         string contactNodes;
 
         int numRandomNeighbors;

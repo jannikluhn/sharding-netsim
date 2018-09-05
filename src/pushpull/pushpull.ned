@@ -14,6 +14,7 @@ module PushPullGossiper like IGossiper
 {
     parameters:
         int nodeId;
+        double datarate;
 
         double startTime @unit(s);
         double period @unit(s);

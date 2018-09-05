@@ -10,6 +10,7 @@ module MockGossiper like IGossiper
 {
     parameters:
         int nodeId;
+        double datarate;
 
     gates:
         input in;
