@@ -120,7 +120,7 @@ void NodeManager::createNode() {
 
     cDatarateChannel *node_to_hub = cDatarateChannel::create("channel");
     node_to_hub->setDelay(latency / 2);
-    node_to_hub->setDatarate(bandwidth);  // upload
+    node_to_hub->setDatarate(bandwidth);  // limited upload
     node_out->connectTo(hub_in, node_to_hub);
 
     cIdealChannel *hub_to_queue = cIdealChannel::create("channel");
@@ -128,7 +128,7 @@ void NodeManager::createNode() {
 
     cDatarateChannel *queue_to_node = cDatarateChannel::create("channel");
     queue_to_node->setDelay(latency / 2);
-    queue_to_node->setDatarate(bandwidth);  // download
+    queue_to_node->setDatarate(0);  // infinite download
     queue_out->connectTo(node_in, queue_to_node);
 
     // connect source to node
