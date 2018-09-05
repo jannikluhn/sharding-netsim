@@ -8,6 +8,8 @@ simple OverlayManager
         int lowWatermark;
         int highWatermark;
 
+        @signal[overlayChanged](type=unsigned long);
+
     gates:
         input graftInput;
         input pruneInput;

@@ -27,6 +27,8 @@ class OverlayManager : public cSimpleModule {
 
     std::vector<int> shuffle(std::vector<int> v);
 
+    simsignal_t overlay_changed_signal;
+
   protected:
     virtual void initialize();
     virtual void handleMessage(cMessage *msg);

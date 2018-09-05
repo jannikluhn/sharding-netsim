@@ -13,6 +13,8 @@ void OverlayManager::initialize() {
     low_watermark = par("lowWatermark").intValue();
     high_watermark = par("highWatermark").intValue();
 
+    overlay_changed_signal = registerSignal("overlayChanged");
+
     cMessage *heartbeat = new cMessage();
     scheduleAt(simTime() + heartbeat_interval, heartbeat);
 }
@@ -49,6 +51,7 @@ void OverlayManager::handleHeartbeat(cMessage *heartbeat) {
 
                 EV_DEBUG << "grafted connection to " << new_peer << " (got " << mesh_peers.size()
                     << " peers now)" << endl;
+                emit(overlay_changed_signal, mesh_peers.size());
 
                 Graft *graft = new Graft();
                 graft->setReceiver(new_peer);
@@ -67,6 +70,7 @@ void OverlayManager::handleHeartbeat(cMessage *heartbeat) {
 
             EV_DEBUG << "pruned connection to " << peer << " (got " << mesh_peers.size()
                 << " peers now)" << endl;
+            emit(overlay_changed_signal, mesh_peers.size());
 
             Prune *prune = new Prune();
             prune->setReceiver(peer);
@@ -99,12 +103,14 @@ void OverlayManager::handlePeerListChange(PeerListChange *peer_list_change) {
                 mesh_peers.end()
             );
             EV_DEBUG << "removed mesh peer " << removed_peer << " due to disconnect" << endl;
+            emit(overlay_changed_signal, mesh_peers.size());
         } else if (isNonMeshPeer(removed_peer)) {
             non_mesh_peers.erase(
                 std::remove(non_mesh_peers.begin(), non_mesh_peers.end(), removed_peer),
                 non_mesh_peers.end()
             );
             EV_DEBUG << "removed non mesh peer " << removed_peer << " due to disconnect" << endl;
+            emit(overlay_changed_signal, mesh_peers.size());
         } else {
             error("Tried removing node that is not a peer");
         }
@@ -131,6 +137,7 @@ void OverlayManager::handleGraft(Graft *graft) {
             non_mesh_peers.end()
         );
         EV_DEBUG << "grafted connection with " << peer << " as requested by them" << endl;
+        emit(overlay_changed_signal, mesh_peers.size());
     } else {
         // might happen if both send GRAFT at the same time
         EV_DEBUG << "ignored GRAFT from " << peer << " as they are mesh peers already" << endl;
@@ -153,6 +160,7 @@ void OverlayManager::handlePrune(Prune *prune) {
         );
         non_mesh_peers.push_back(peer);
         EV_DEBUG << "pruned connection with " << peer << " as requested by them" << endl;
+        emit(overlay_changed_signal, mesh_peers.size());
     } else {
         // might happen if both send PRUNE at the same time
         EV_DEBUG << "ignored PRUNE from " << peer << " as the connection is pruned already"
