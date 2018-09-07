@@ -14,6 +14,7 @@ class Hub : public cSimpleModule {
     std::map<int, int> out_gate_to_node_ids;
 
     std::map<std::tuple<int, int, int>, simsignal_t> packet_sent_signals;
+    std::map<int, simsignal_t> channel_used_signals;
 
   protected:
     virtual void handleMessage(cMessage *msg);

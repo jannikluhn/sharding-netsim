@@ -46,18 +46,24 @@ void MissingTracker::handleHeartbeat(cMessage *heartbeat) {
 
     // select content ids to attempt to download
     std::set<int> content_to_retrieve;
+    std::set<int> retrieval_failed;
     for (auto content_id : they_have_content_ids) {
         if (next_request_timestamps[content_id] < simTime()) {
             if (custodians[content_id].empty()) {
                 EV_WARN << "probably failed to retrieve content with id " << content_id << endl;
+                retrieval_failed.insert(content_id);
 
-                they_have_content_ids.erase(content_id);
-                custodians.erase(content_id);
-                next_request_timestamps.erase(content_id);
             } else {
                 content_to_retrieve.insert(content_id);
             }
         }
+    }
+
+    // forget about content that could not be retrieved
+    for (auto content_id : retrieval_failed) {
+        they_have_content_ids.erase(content_id);
+        custodians.erase(content_id);
+        next_request_timestamps.erase(content_id);
     }
 
     // find custodian for each content id
