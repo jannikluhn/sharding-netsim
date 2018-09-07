@@ -161,23 +161,20 @@ def plot_hists(results):
         if get_in(["Network", "newGossipEmitted", "count"], results.scalars) == 0:
             print(f"warning: no messages emitted in run {results.runnumber}")
 
-        # get peer numbers
-        node_count = int(results.itervars["N"])
-        gossiper_keys = [f"Network.nodes[{i}].gossiper" for i in range(node_count)]
-        peers = [results.scalars[key]["peers"]["last"] for key in gossiper_keys]
+        wait_time = float(results.itervars["t"][:-1])
 
         ax.plot(
             bins[1:],
             cum_hist,
             color=colormap(i),
-            label=f"{np.mean(peers)}",
+            label=f"{wait_time}",
             **plot_kwargs,
         )
 
     ax.set_xlabel("Propagation time [s]")
     ax.set_ylabel("Propagation progress")
-    ax.set_xlim(0, 8)
-    ax.legend(title="Average peer number")
+    ax.set_xlim(0, 10)
+    ax.legend(title="Wait time [s]")
 
     return fig
 
