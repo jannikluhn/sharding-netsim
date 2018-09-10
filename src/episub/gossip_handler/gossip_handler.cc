@@ -85,11 +85,11 @@ void GossipHandler::handleExternalGossip(Gossip *gossip) {
         if (peer_tracker->isPeer(sender)
             && peer_tracker->last_gossip_time[sender] > simTime() + min_eager_time) {
             peer_tracker->makeLazy(sender);
-        }
 
-        Prune2 *prune = new Prune2();
-        prune->setReceiver(sender);
-        send(prune, "out");
+            Prune2 *prune = new Prune2();
+            prune->setReceiver(sender);
+            send(prune, "out");
+        }
     }
 
     delete gossip;

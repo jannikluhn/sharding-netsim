@@ -5,6 +5,7 @@
 #include "../../utils/cache/cache.h"
 #include <vector>
 #include <map>
+#include <deque>
 
 using namespace omnetpp;
 
@@ -14,7 +15,10 @@ class Puller : public cSimpleModule {
     Cache *cache;
     int gapless_synced_until;
 
-    std::vector<int> peers;
+    std::deque<int> idle_peers;
+    std::vector<int> push_peers;
+    std::vector<int> pull_peers;
+    int push_fanout;
     int pull_fanout;
 
     simtime_t start_time;
@@ -34,9 +38,6 @@ class Puller : public cSimpleModule {
 
     void request(int content_id);
     void insertContentId(int content_id, simtime_t creation_time);
-
-    std::vector<int> shuffle(std::vector<int> v);
-    std::vector<int> getPeerShuffling();
 
     simtime_t getEmissionTime(int content_id);
     int getCurrentContentId();

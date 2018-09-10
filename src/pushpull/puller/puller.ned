@@ -6,6 +6,7 @@ simple Puller
     parameters:
         string cachePath;
 
+        int pushFanout;
         int pullFanout;
 
         double startTime @unit(s);

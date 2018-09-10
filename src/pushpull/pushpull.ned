@@ -20,7 +20,12 @@ module PushPullGossiper like IGossiper
         double period @unit(s);
         double requestInterval @unit(s);
         double pushTimeDelta;
-        int pullFanout;
+
+        double mbitPerPeer;
+        int maxPeers;
+
+        int pushFanout = min(maxPeers, max(1, int(datarate / (mbitPerPeer * 1024 * 1024) + 0.5)));
+        int pullFanout = pushFanout;
 
     gates:
         input in;
@@ -43,6 +48,7 @@ module PushPullGossiper like IGossiper
             period = period;
             requestInterval = requestInterval;
             pushTimeDelta = pushTimeDelta;
+            pushFanout = pullFanout;
             pullFanout = pullFanout;
         };
         pull_handler: PullHandler {

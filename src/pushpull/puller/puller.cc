@@ -13,13 +13,14 @@ void Puller::initialize() {
     const char *cache_path = par("cachePath").stringValue();
     cache = check_and_cast<Cache *>(getModuleByPath(cache_path));
 
+    push_fanout = par("pushFanout").intValue();
     pull_fanout = par("pullFanout").intValue();
     start_time = par("startTime").doubleValue();
     period = par("period").doubleValue();
     request_interval = par("requestInterval").doubleValue();
     push_time_delta = par("pushTimeDelta").doubleValue();
 
-    push_time = period / 10;
+    push_time = period / 20;
 
     gapless_synced_until = -1;
 
@@ -57,8 +58,11 @@ void Puller::handleHeartbeat(cMessage *heartbeat) {
         request_triggers[request_trigger] = content_id;
 
         push_time = push_time * (1 + push_time_delta);
+        EV_DEBUG << "requesting content with id " << content_id << endl;
+        EV_DEBUG << "increasing push time to " << push_time << endl;
     } else {
         push_time = push_time * (1 - push_time_delta);
+        EV_DEBUG << "decreasing push time to " << push_time << endl;
     }
 
     scheduleAt(getEmissionTime(content_id + 1) + push_time, heartbeat);
@@ -67,10 +71,12 @@ void Puller::handleHeartbeat(cMessage *heartbeat) {
 void Puller::handleRequestTrigger(cMessage *request_trigger) {
     int content_id = request_triggers[request_trigger];
     if (cache->contains(content_id)) {
+        EV_DEBUG << "pulling content with id " << content_id << " was successful" << endl;
         request_triggers.erase(request_trigger);
         next_request_time.erase(content_id);
         delete request_trigger;
     } else {
+        EV_DEBUG << "requesting content with id " << content_id << " again" << endl;
         request(content_id);
         scheduleAt(simTime() + request_interval, request_trigger);
     }
@@ -82,7 +88,7 @@ void Puller::request(int content_id) {
     pull->setContentIds(0, content_id);
 
     int i = 0;
-    for (auto peer : getPeerShuffling()) {
+    for (auto peer : pull_peers) {
         Pull *dup = pull->dup();
         dup->setReceiver(peer);
         send(dup, "out");
@@ -109,7 +115,7 @@ void Puller::handleSourceGossip(Gossip *gossip) {
     emit(new_gossip_received_signal, simTime() - gossip->getCreationTime());
     insertContentId(content_id, gossip->getCreationTime());
 
-    for (auto peer : peers) {
+    for (auto peer : push_peers) {
         Gossip *forwarded_gossip = gossip->dup();
         forwarded_gossip->setReceiver(peer);
         send(forwarded_gossip, "out");
@@ -128,7 +134,7 @@ void Puller::handleExternalGossip(Gossip *gossip) {
         emit(new_gossip_received_signal, simTime() - gossip->getCreationTime());
         if (simTime() < getEmissionTime(content_id) + push_time) {
             EV_DEBUG << "forwarding it" << endl;
-            for (auto peer : peers) {
+            for (auto peer : push_peers) {
                 if (peer != sender) {
                     Gossip *dup = gossip->dup();
                     dup->setReceiver(peer);
@@ -147,14 +153,31 @@ void Puller::handleExternalGossip(Gossip *gossip) {
 
 void Puller::handlePeerListChange(PeerListChange *peer_list_change) {
     for (int i = 0; i < peer_list_change->getAddedPeersArraySize(); i++) {
-        peers.push_back(peer_list_change->getAddedPeers(i));
+        idle_peers.push_back(peer_list_change->getAddedPeers(i));
     }
 
     for (int i = 0; i < peer_list_change->getRemovedPeersArraySize(); i++) {
-        peers.erase(
-            std::remove(peers.begin(), peers.end(), peer_list_change->getRemovedPeers(i)),
-            peers.end()
+        push_peers.erase(
+            std::remove(push_peers.begin(), push_peers.end(), peer_list_change->getRemovedPeers(i)),
+            push_peers.end()
         );
+        pull_peers.erase(
+            std::remove(pull_peers.begin(), pull_peers.end(), peer_list_change->getRemovedPeers(i)),
+            pull_peers.end()
+        );
+        idle_peers.erase(
+            std::remove(idle_peers.begin(), idle_peers.end(), peer_list_change->getRemovedPeers(i)),
+            idle_peers.end()
+        );
+    }
+
+    while (push_peers.size() < push_fanout && idle_peers.size() > 0) {
+        push_peers.push_back(idle_peers.front());
+        idle_peers.pop_front();
+    }
+    while (pull_peers.size() < pull_fanout && idle_peers.size() > 0) {
+        pull_peers.push_back(idle_peers.front());
+        idle_peers.pop_front();
     }
 
     delete peer_list_change;
@@ -177,20 +200,4 @@ simtime_t Puller::getEmissionTime(int content_id) {
 
 int Puller::getCurrentContentId() {
     return (simTime() - start_time).dbl() / period;
-}
-
-std::vector<int> Puller::shuffle(std::vector<int> v) {
-    // shuffle manually so that omnet++'s RNGs are used (see
-    // https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#The_modern_algorithm)
-    for (int i = v.size() - 1; i >= 1; i--) {
-        int j = intuniform(0, i);
-        int value = v[j];
-        v[j] = v[i];
-        v[i] = value;
-    }
-    return v;
-}
-
-std::vector<int> Puller::getPeerShuffling() {
-    return shuffle(peers);
 }
