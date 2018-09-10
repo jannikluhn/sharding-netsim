@@ -9,4 +9,8 @@ simple NodeManager
         int bootstrapNodeCount;
         int targetNodeCount;
         double rampUpTime @unit(s);
+
+        bool crash = default(false);
+        double crashTime @unit(s) = default(0);
+        double crashProbability = default(0);
 }

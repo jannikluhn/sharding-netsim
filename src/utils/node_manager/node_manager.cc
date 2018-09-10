@@ -19,6 +19,9 @@ void NodeManager::initialize() {
     bootstrap_node_count = par("bootstrapNodeCount").intValue();
     target_node_count = par("targetNodeCount").intValue();
     ramp_up_time = par("rampUpTime").doubleValue();
+    crash = par("crash").boolValue();
+    crash_time = par("crashTime").doubleValue();
+    crash_probability = par("crashProbability").doubleValue();
 
     node_count = 0;
     ramp_up_interval = ramp_up_time / (target_node_count - bootstrap_node_count);
@@ -33,20 +36,35 @@ void NodeManager::initialize() {
     // start ramp up phase
     EV_DEBUG << "starting " << target_node_count - node_count << " nodes over the next "
         << ramp_up_time << "s" << endl;
+    scheduler_msg = new cMessage();
     if (node_count < target_node_count) {
         cMessage *scheduler_msg = new cMessage();
         scheduleAt(simTime() + ramp_up_interval, scheduler_msg);
     }
+
+    // crash
+    crash_msg = new cMessage();
+    scheduleAt(crash_time, crash_msg);
 }
 
 
-void NodeManager::handleMessage(cMessage *scheduler_msg) {
-    createNode();
+void NodeManager::handleMessage(cMessage *msg) {
+    if (msg == scheduler_msg) {
+        createNode();
 
-    if (node_count < target_node_count) {
-        scheduleAt(simTime() + ramp_up_interval, scheduler_msg);
-    } else {
-        delete scheduler_msg;
+        if (node_count < target_node_count) {
+            scheduleAt(simTime() + ramp_up_interval, scheduler_msg);
+        } else {
+            delete scheduler_msg;
+        }
+    } else if (msg == crash_msg) {
+        if (crash) {
+            for (int i = 0; i < nodes.size(); i++) {
+                if (uniform(0, 1) < crash_probability) {
+                    crashNode(nodes[i]);
+                }
+            }
+        }
     }
 }
 
@@ -101,6 +119,7 @@ void NodeManager::createNode() {
     node->par("datarate") = bandwidth;
     node->finalizeParameters();
     node->buildInside();
+    nodes.push_back(node);
 
     cModule *queue = cModuleType::get("sharding.utils.queue.Queue")->create(
         "queues",
@@ -154,4 +173,13 @@ void NodeManager::createNode() {
         node->callInitialize();
         queue->callInitialize();
     }
+}
+
+void NodeManager::crashNode(cModule *node) {
+    node->par("crashed").setBoolValue(true) ;
+}
+
+void NodeManager::finish() {
+    cancelAndDelete(scheduler_msg);
+    cancelAndDelete(crash_msg);
 }

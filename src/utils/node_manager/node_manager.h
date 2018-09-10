@@ -13,6 +13,8 @@ class NodeManager : public cSimpleModule {
     Hub *hub;
     Source *source;
 
+    std::vector<cModule *> nodes;
+
     int bootstrap_node_count;
     int target_node_count;
     double ramp_up_time;
@@ -20,11 +22,20 @@ class NodeManager : public cSimpleModule {
     int node_count;
     double ramp_up_interval;
 
+    bool crash;
+    simtime_t crash_time;
+    double crash_probability;
+
+    cMessage *scheduler_msg;
+    cMessage *crash_msg;
+
     void createNode();
+    void crashNode(cModule *node);
 
   protected:
     virtual void initialize();
     virtual void handleMessage(cMessage *msg);
+    virtual void finish();
 };
 
 

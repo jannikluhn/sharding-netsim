@@ -4,6 +4,7 @@ import sharding.interfaces.IGossiper;
 import sharding.interfaces.IDiscoverer;
 import sharding.utils.queue.Queue;
 import sharding.utils.funnel.Funnel;
+import sharding.utils.crash_switch.CrashSwitch;
 import sharding.utils.protocol_dispatcher.ProtocolDispatcher;
 
 
@@ -12,6 +13,7 @@ module Node
     parameters:
         int nodeId;
         double datarate;
+        volatile bool crashed = default(false);
 
         string gossiperType;
         string discovererType;
@@ -24,6 +26,9 @@ module Node
         queue: Queue;
         outputFunnel: Funnel;
 
+        crashSwitch: CrashSwitch {
+            crashed = crashed;
+        };
         protocolDispatcher: ProtocolDispatcher;
 
         gossiper: <gossiperType> like IGossiper {
@@ -36,11 +41,14 @@ module Node
         }
 
     connections:
-        port$i --> protocolDispatcher.in;
+        port$i --> crashSwitch.in;
+        crashSwitch.out --> protocolDispatcher.in;
         protocolDispatcher.gossipOutput --> gossiper.in;
         protocolDispatcher.discoveryOutput --> discoverer.in;
 
-        sourceInput --> gossiper.sourceInput;
+        sourceInput --> crashSwitch.sourceInput;
+        crashSwitch.sourceOutput --> gossiper.sourceInput;
+
         discoverer.peerListChangeOutput --> gossiper.peerListChangeInput;
 
         gossiper.out --> outputFunnel.inputs++;
