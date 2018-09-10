@@ -173,7 +173,7 @@ def plot_hists(results):
 
     ax.set_xlabel("Propagation time [s]")
     ax.set_ylabel("Propagation progress")
-    ax.set_xlim(0, 10)
+    #ax.set_xlim(0, 10)
     ax.legend(title="Wait time [s]")
 
     return fig

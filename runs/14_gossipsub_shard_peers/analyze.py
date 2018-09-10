@@ -170,7 +170,7 @@ def plot_hists(results):
             bins[1:],
             cum_hist,
             color=colormap(i),
-            label=f"{np.mean(peers)}",
+            label=f"{np.mean(peers):.1f}",
             **plot_kwargs,
         )
 
@@ -197,14 +197,21 @@ def plot_channel_occupancy(results):
 
         hist, bins = np.histogram(channel_occupancy, bins=np.linspace(0, 1, 101))
 
+        # get peer numbers
+        node_count = int(results.itervars["N"])
+        gossiper_keys = [f"Network.nodes[{i}].gossiper" for i in range(node_count)]
+        peers = [results.scalars[key]["peers"]["last"] for key in gossiper_keys]
+
         ax.plot(
             bins[1:],
             hist / np.sum(hist),
             color=colormap(i),
+            label=f"{np.mean(peers):.1f}",
         )
 
     ax.set_xlabel("Channel load")
     ax.set_ylabel("Fraction of nodes")
+    ax.legend(title="Average peer number")
 
     return fig
 
