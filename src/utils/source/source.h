@@ -11,6 +11,7 @@ class Source : public cSimpleModule {
     simtime_t start_time;
     simtime_t stop_time;
     double gossip_rate;
+    int gossip_bit_length;
     bool periodic;
 
     int gossip_counter;

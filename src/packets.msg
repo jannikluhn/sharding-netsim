@@ -76,6 +76,4 @@ packet Gossip extends SharedGossipPacket
     int contentId;
     int hops;
     simtime_t creationTime;
-
-    int64_t bitLength = 1 * 1024 * 1024 * 8;  // 1MB
 };

@@ -44,19 +44,21 @@ void GossipHandler::handleExternalGossip(Gossip *gossip) {
     int content_id = gossip->getContentId();
     int hops = gossip->getHops();
     simtime_t creation_time = gossip->getCreationTime();
+    int bit_length = gossip->getBitLength();
 
     bool is_new = !cache->contains(content_id);
 
     if (is_new) {
         EV_DEBUG << "received new gossip with ID " << content_id << " from " << sender << endl;
-        emit(new_gossip_received_signal, simTime() - gossip->getCreationTime());
-        cache->insert(content_id, gossip->getCreationTime());
+        emit(new_gossip_received_signal, simTime() - creation_time);
+        cache->insert(content_id, creation_time, bit_length);
 
         // eager multicast new gossip
         Gossip *new_gossip = new Gossip();
         new_gossip->setContentId(content_id);
         new_gossip->setHops(hops + 1);
         new_gossip->setCreationTime(creation_time);
+        new_gossip->setBitLength(bit_length);
 
         for (auto receiver : peer_tracker->eager_peers) {
             if (receiver != sender) {
@@ -105,7 +107,7 @@ void GossipHandler::handleSourceGossip(Gossip *gossip) {
     emit(new_gossip_received_signal, simTime() - gossip->getCreationTime());
 
     // add to cache
-    cache->insert(content_id, gossip->getCreationTime());
+    cache->insert(content_id, gossip->getCreationTime(), gossip->getBitLength());
 
     // multicast to eager peers
     for (auto receiver : peer_tracker->eager_peers) {

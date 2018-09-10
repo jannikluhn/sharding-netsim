@@ -30,6 +30,7 @@ void IWantHandler::handleMessage(cMessage *msg) {
         gossip->setContentId(content_id);
         gossip->setHops(0);
         gossip->setCreationTime(cache->getCreationTime(content_id));
+        gossip->setBitLength(cache->getBitLength(content_id));
         send(gossip, "out");
     }
 

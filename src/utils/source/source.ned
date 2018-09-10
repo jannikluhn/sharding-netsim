@@ -6,6 +6,7 @@ simple Source
 {
     parameters:
         double gossipRate @unit(Hz);
+        int gossipBitLength;
         bool periodic;
         double startTime @unit(s) = default(0);
         double stopTime @unit(s) = default(0);

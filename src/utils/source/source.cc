@@ -10,6 +10,7 @@ Define_Module(Source);
 
 void Source::initialize() {
     gossip_rate = par("gossipRate").doubleValue();
+    gossip_bit_length = par("gossipBitLength").intValue();
     periodic = par("periodic").boolValue();
 
     start_time = par("startTime").doubleValue();
@@ -48,6 +49,7 @@ void Source::handleMessage(cMessage *scheduler_msg) {
     gossip->setContentId(content_id);
     gossip->setHops(0);
     gossip->setCreationTime(simTime());
+    gossip->setBitLength(gossip_bit_length);
 
     send(gossip, output_gate_id);
 

@@ -47,6 +47,7 @@ void Gardener::handleGraft(Graft2 *graft) {
         }
         gossip->setContentId(content_id);
         gossip->setCreationTime(cache->getCreationTime(content_id));
+        gossip->setBitLength(cache->getBitLength(content_id));
 
         send(gossip, "out");
     }

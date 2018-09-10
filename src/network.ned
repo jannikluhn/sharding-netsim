@@ -9,6 +9,7 @@ network Network
 {
     parameters:
         double gossipRate @unit(Hz);
+        int gossipBitLength;
         bool periodic;
         double startTime @unit(s);
         double stopTime @unit(s);
@@ -25,6 +26,7 @@ network Network
         };
         source: Source {
             gossipRate = gossipRate;
+            gossipBitLength = gossipBitLength;
             periodic = periodic;
             startTime = startTime;
             stopTime = stopTime;

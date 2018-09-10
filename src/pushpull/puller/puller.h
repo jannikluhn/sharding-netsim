@@ -37,7 +37,7 @@ class Puller : public cSimpleModule {
     void handlePeerListChange(PeerListChange *peer_list_change);
 
     void request(int content_id);
-    void insertContentId(int content_id, simtime_t creation_time);
+    void insertContentId(int content_id, simtime_t creation_time, int bit_length);
 
     simtime_t getEmissionTime(int content_id);
     int getCurrentContentId();

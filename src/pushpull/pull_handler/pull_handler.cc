@@ -27,6 +27,7 @@ void PullHandler::handleMessage(cMessage *msg) {
             gossip->setReceiver(sender);
             gossip->setContentId(content_id);
             gossip->setCreationTime(cache->getCreationTime(content_id));
+            gossip->setBitLength(cache->getBitLength(content_id));
             send(gossip, "out");
         } else {
             EV_DEBUG << "received PULL from " << sender << " for unavailable message "

@@ -70,7 +70,7 @@ void Gossiper::handleSourceGossip(Gossip *gossip) {
         error("Source created gossip with used id");
     }
 
-    cache->insert(content_id, gossip->getCreationTime());
+    cache->insert(content_id, gossip->getCreationTime(), gossip->getBitLength());
     window.insert(content_id);
     EV_DEBUG << "emitting new gossip with content id " << content_id << endl;
     emit(new_gossip_received_signal, simTime() - gossip->getCreationTime());
@@ -89,19 +89,21 @@ void Gossiper::handleExternalGossip(Gossip *gossip) {
     int content_id = gossip->getContentId();
     int hops = gossip->getHops();
     simtime_t creation_time = gossip->getCreationTime();
+    int bit_length = gossip->getBitLength();
 
     bool is_new = !cache->contains(content_id);
 
     if (is_new) {
         EV_DEBUG << "received new gossip with ID " << content_id << " from " << sender << endl;
-        emit(new_gossip_received_signal, simTime() - gossip->getCreationTime());
-        cache->insert(content_id, gossip->getCreationTime());
+        emit(new_gossip_received_signal, simTime() - creation_time);
+        cache->insert(content_id, creation_time, bit_length);
         window.insert(content_id);
 
         Gossip *forwarded_gossip = new Gossip();
         forwarded_gossip->setHops(hops + 1);
         forwarded_gossip->setContentId(content_id);
         forwarded_gossip->setCreationTime(creation_time);
+        forwarded_gossip->setBitLength(bit_length);
         for (auto peer : overlay_manager->mesh_peers) {
             if (peer != sender) {
                 Gossip *dup_msg = forwarded_gossip->dup();

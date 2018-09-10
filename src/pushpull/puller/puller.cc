@@ -113,7 +113,7 @@ void Puller::handleSourceGossip(Gossip *gossip) {
     }
 
     emit(new_gossip_received_signal, simTime() - gossip->getCreationTime());
-    insertContentId(content_id, gossip->getCreationTime());
+    insertContentId(content_id, gossip->getCreationTime(), gossip->getBitLength());
 
     for (auto peer : push_peers) {
         Gossip *forwarded_gossip = gossip->dup();
@@ -130,7 +130,7 @@ void Puller::handleExternalGossip(Gossip *gossip) {
 
     if (!cache->contains(content_id)) {
         EV_DEBUG << "received new gossip with id " << content_id << " from " << sender << endl;
-        insertContentId(content_id, gossip->getCreationTime());
+        insertContentId(content_id, gossip->getCreationTime(), gossip->getContentId());
         emit(new_gossip_received_signal, simTime() - gossip->getCreationTime());
         if (simTime() < getEmissionTime(content_id) + push_time) {
             EV_DEBUG << "forwarding it" << endl;
@@ -183,8 +183,8 @@ void Puller::handlePeerListChange(PeerListChange *peer_list_change) {
     delete peer_list_change;
 }
 
-void Puller::insertContentId(int new_content_id, simtime_t creation_time) {
-    cache->insert(new_content_id, creation_time);
+void Puller::insertContentId(int new_content_id, simtime_t creation_time, int bit_length) {
+    cache->insert(new_content_id, creation_time, bit_length);
     for (int content_id = gapless_synced_until + 1; true; content_id++) {
         if (cache->contains(content_id)) {
             gapless_synced_until++;
