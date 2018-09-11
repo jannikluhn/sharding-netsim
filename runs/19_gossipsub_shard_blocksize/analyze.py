@@ -22,128 +22,11 @@ root_dir = Path(__file__).parent
 result_dir = root_dir / "results"
 result_filename_format = "General-{run}.sca"
 
-runs = list(set(range(9)))
+runs = list(set(range(4)))
 
 PACKET_TYPE_REGEX = r"packetSent-(\d+)-(\d+)-(\d+)"
 
 BLOCK_SIZE = 1 * 1024 * 1024  # MB
-
-
-def plot_load(all_results):
-    fig = plt.figure()
-    ax = fig.subplots(1, 1)
-
-    mesh_degrees = []
-    payload_load = []
-    control_load = []
-
-    for results in all_results:
-        mesh_degree = int(results.itervars["M"])
-        hub_scalars = results.scalars["Network.hub"]
-
-        total_gossip = results.scalars["Network"]["newGossipEmitted"]["count"]
-        node_count = int(results.itervars["N"])
-
-
-        hub_keys = list(results.scalars["Network.hub"].keys())
-        matches = [re.match(PACKET_TYPE_REGEX, key) for key in hub_keys]
-        packets = {
-            tuple(int(i) for i in match.groups()): hub_scalars[match.string]["count"]
-            for match in matches
-            if match
-        }
-
-        gossip = packets[(1, 0, 0)]
-        non_gossip = sum(
-            n for packet_id, n in packets.items()
-            if packet_id[0] == 1 and packet_id != (1, 0, 0)
-        )
-
-        mesh_degrees.append(mesh_degree)
-        payload_load.append(gossip / total_gossip / node_count)
-        control_load.append(non_gossip / total_gossip / node_count)
-
-    colormap = mpl.cm.get_cmap('Set1')
-    plot_kwargs = {
-        "linestyle": "",
-        "marker": "x",
-    }
-    ax.plot(
-        mesh_degrees,
-        payload_load,
-        color=colormap(0),
-        label="Payload",
-        **plot_kwargs
-    )
-    ax.plot(
-        mesh_degrees,
-        control_load,
-        color=colormap(1),
-        label="Control",
-        **plot_kwargs
-    )
-
-    ax.legend()
-    ax.set_xlabel("Target mesh degree")
-    ax.set_ylabel("Messages sent per node and gossip event")
-
-    return fig
-
-
-def plot_prop_time(all_results):
-    fig = plt.figure()
-    ax = fig.subplots(1, 1)
-
-    xs = []
-    ys_time = []
-    ys_loss = []
-
-    for results in all_results:
-        node_count = int(results.itervars["N"])
-        mesh_degree = int(results.itervars["M"])
-        block_time = 1 / float(results.itervars["R"][:-2])
-        hist, bins = get_in(["Network", "newGossipReceived", "histogram"], results.scalars)
-        gossip_emitted = get_in(["Network", "newGossipEmitted", "count"], results.scalars)
-        gossip_received = get_in(["Network", "newGossipReceived", "count"], results.scalars)
-
-        if get_in(["Network", "newGossipEmitted", "count"], results.scalars) == 0:
-            print(f"warning: no messages emitted in run {results.runnumber}")
-
-        xs.append(block_time)
-
-        hops = calc_hops(hist, bins, 0.99)
-        ys_time.append(hops)
-
-        loss = calc_loss(gossip_emitted, gossip_received, node_count)
-        ys_loss.append(loss)
-
-
-    colormap = mpl.cm.get_cmap('Set1')
-    plot_kwargs = {
-        "linestyle": "",
-        "marker": "x",
-    }
-    ax.plot(
-        xs,
-        ys_time,
-        color=colormap(0),
-        **plot_kwargs
-    )
-
-    ax_loss = ax.twinx()
-    ax_loss.plot(
-        xs,
-        ys_loss,
-        color=colormap(1),
-        **plot_kwargs
-    )
-    print(ys_loss)
-
-    ax.set_xlabel("Block time [s]")
-    ax.set_ylabel("Propagation time [s]")
-    ax.set_title("Time to propagate through >99% of the network")
-
-    return fig
 
 
 def plot_hists(results):
@@ -161,20 +44,21 @@ def plot_hists(results):
         if get_in(["Network", "newGossipEmitted", "count"], results.scalars) == 0:
             print(f"warning: no messages emitted in run {results.runnumber}")
 
-        wait_time = float(results.itervars["t"][:-1])
+        block_size = eval(results.itervars["S"].strip("\""))
+        block_time = 1 / eval(results.itervars["R"].rstrip("Hz"))
 
         ax.plot(
             bins[1:],
             cum_hist,
             color=colormap(i),
-            label=f"{wait_time}",
+            label=f"{block_size / 1024 / 1024/ 8:0.1f}MB, {block_time:.1f}s",
             **plot_kwargs,
         )
 
     ax.set_xlabel("Propagation time [s]")
     ax.set_ylabel("Propagation progress")
-    ax.set_xlim(0, 10)
-    ax.legend(title="Wait time [s]")
+    ax.set_xlim(0, 20)
+    ax.legend(title="Blocks")
 
     return fig
 
@@ -194,14 +78,19 @@ def plot_channel_occupancy(results):
 
         hist, bins = np.histogram(channel_occupancy, bins=np.linspace(0, 1, 101))
 
+        block_size = eval(results.itervars["S"].strip("\""))
+        block_time = 1 / eval(results.itervars["R"].rstrip("Hz"))
+
         ax.plot(
             bins[1:],
-            hist / np.sum(hist),
+            np.cumsum(hist) / np.sum(hist),
             color=colormap(i),
+            label=f"{block_size / 1024 / 1024/ 8:0.1f}MB, {block_time:.1f}s",
         )
 
     ax.set_xlabel("Channel load")
     ax.set_ylabel("Fraction of nodes")
+    ax.legend(title="Blocks")
 
     return fig
 
