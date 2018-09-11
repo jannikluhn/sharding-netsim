@@ -166,11 +166,13 @@ def plot_hists(results):
         gossiper_keys = [f"Network.nodes[{i}].gossiper" for i in range(node_count)]
         peers = [results.scalars[key]["peers"]["last"] for key in gossiper_keys]
 
+        mbit_per_peer = float(results.itervars["r"])
+
         ax.plot(
             bins[1:],
             cum_hist,
             color=colormap(i),
-            label=f"{np.mean(peers):.1f}",
+            label=f"{np.mean(peers):.1f}, ({mbit_per_peer:.1f} MBit)",
             **plot_kwargs,
         )
 
@@ -202,11 +204,13 @@ def plot_channel_occupancy(results):
         gossiper_keys = [f"Network.nodes[{i}].gossiper" for i in range(node_count)]
         peers = [results.scalars[key]["peers"]["last"] for key in gossiper_keys]
 
+        mbit_per_peer = float(results.itervars["r"])
+
         ax.plot(
             bins[1:],
             hist / np.sum(hist),
             color=colormap(i),
-            label=f"{np.mean(peers):.1f}",
+            label=f"{np.mean(peers):.1f}, ({mbit_per_peer:.1f} MBit)",
         )
 
     ax.set_xlabel("Channel load")
