@@ -18,6 +18,8 @@ void KademliaPeerTable::initialize() {
 }
 
 int KademliaPeerTable::get_bucket_index(int node_id, int shard_id) {
+    Enter_Method_Silent();
+
     KadId other_id = {node_id, shard_id};
     std::bitset<256> b = other_id.get_bits();
     b ^= home_id.get_bits();
@@ -34,6 +36,8 @@ int KademliaPeerTable::get_bucket_index(int node_id, int shard_id) {
 }
 
 void KademliaPeerTable::insert(int node_id, int shard_id) {
+    Enter_Method_Silent();
+
     if (contains(node_id, shard_id)) {
         error("already in peer table");
     }
@@ -47,6 +51,8 @@ void KademliaPeerTable::insert(int node_id, int shard_id) {
 }
 
 bool KademliaPeerTable::insert_possible(int node_id, int shard_id) {
+    Enter_Method_Silent();
+
     if (contains(node_id, shard_id)) {
         error("already in peer table");
     }
@@ -56,6 +62,8 @@ bool KademliaPeerTable::insert_possible(int node_id, int shard_id) {
 }
 
 void KademliaPeerTable::remove(int node_id, int shard_id) {
+    Enter_Method_Silent();
+
     if (!contains(node_id, shard_id)) {
         error("not in peer table");
     }
@@ -66,6 +74,8 @@ void KademliaPeerTable::remove(int node_id, int shard_id) {
 }
 
 void KademliaPeerTable::update(int node_id, int shard_id) {
+    Enter_Method_Silent();
+
     if (!contains(node_id, shard_id)) {
         error("not in peer table");
     }
@@ -75,12 +85,16 @@ void KademliaPeerTable::update(int node_id, int shard_id) {
 }
 
 void KademliaPeerTable::updateIfKnown(int node_id, int shard_id) {
+    Enter_Method_Silent();
+
     if (contains(node_id, shard_id)) {
         update(node_id, shard_id);
     }
 }
 
 bool KademliaPeerTable::contains(int node_id, int shard_id) {
+    Enter_Method_Silent();
+
     int bucket_index = get_bucket_index(node_id, shard_id);
     KadId kad_id = {node_id, shard_id};
     std::list<KadId> bucket = buckets[bucket_index];
@@ -90,6 +104,8 @@ bool KademliaPeerTable::contains(int node_id, int shard_id) {
 
 
 int KademliaPeerTable::size() {
+    Enter_Method_Silent();
+
     int s = 0;
     for (int i = 0; i < NUM_BUCKETS; i++) {
         s += buckets[i].size();

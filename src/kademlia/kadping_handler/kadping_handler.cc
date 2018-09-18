@@ -21,4 +21,6 @@ void KadpingHandler::handleMessage(cMessage *msg) {
     pong->setShardId(par("shardId").intValue());
     pong->setReceiver(ping->getSender());
     send(pong, "out");
+
+    delete ping;
 }
