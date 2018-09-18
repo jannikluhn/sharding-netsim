@@ -1,2 +1,5 @@
 # suppress warning for statically defining packet bit length in message file
 CXXFLAGS = -Wno-inconsistent-missing-override
+
+# link openssl for hashing
+LIBS += -lcrypto

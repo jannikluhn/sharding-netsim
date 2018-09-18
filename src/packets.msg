@@ -21,6 +21,7 @@ enum DiscoveryProtocol
 {
     MOCK_DISCOVERY = 0;
     HYPARVIEW = 1;
+    KADEMLIA = 2;
 };
 
 enum GossipProtocol
