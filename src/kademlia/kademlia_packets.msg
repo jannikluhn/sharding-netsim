@@ -7,7 +7,9 @@ packet DiscoveryPacket;
 packet KademliaPacket extends DiscoveryPacket
 {
     protocol = KADEMLIA;
-}
+
+    int shardId = -1;
+};
 
 
 enum KademliaPacketType {

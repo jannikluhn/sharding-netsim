@@ -74,6 +74,12 @@ void KademliaPeerTable::update(int node_id, int shard_id) {
     insert(node_id, shard_id);
 }
 
+void KademliaPeerTable::updateIfKnown(int node_id, int shard_id) {
+    if (contains(node_id, shard_id)) {
+        update(node_id, shard_id);
+    }
+}
+
 bool KademliaPeerTable::contains(int node_id, int shard_id) {
     int bucket_index = get_bucket_index(node_id, shard_id);
     KadId kad_id = {node_id, shard_id};

@@ -19,10 +19,6 @@ struct KadId {
 
     bool operator== (const KadId &other);
     std::bitset<256> get_bits();
-
-//    std::bitset<256> get_bits() {
- //               
-  //  }
 };
 
 
@@ -41,6 +37,7 @@ class KademliaPeerTable : public cSimpleModule {
     void insert(int node_id, int shard_id);
     bool insert_possible(int node_id, int shard_id);
     void update(int node_id, int shard_id);
+    void updateIfKnown(int node_id, int shard_id);
     void remove(int node_id, int shard_id);
     bool contains(int node_id, int shard_id);
     int size();
