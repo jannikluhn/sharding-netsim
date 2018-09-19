@@ -1,5 +1,5 @@
-#ifndef KADEMLIA_KADPING_HANDLER_KADPING_HANDLER_H_
-#define KADEMLIA_KADPING_HANDLER_KADPING_HANDLER_H_
+#ifndef KADEMLIA_KAD_PING_HANDLER_KAD_PING_HANDLER_H_
+#define KADEMLIA_KAD_PING_HANDLER_KAD_PING_HANDLER_H_
 
 #include <omnetpp.h>
 #include "../kademlia_peer_table/kademlia_peer_table.h"
@@ -7,7 +7,7 @@
 using namespace omnetpp;
 
 
-class KadpingHandler : public cSimpleModule {
+class KadPingHandler : public cSimpleModule {
   private:
       KademliaPeerTable *peer_table;
 
@@ -17,4 +17,4 @@ class KadpingHandler : public cSimpleModule {
 };
 
 
-#endif  // KADEMLIA_KADPING_HANDLER_KADPING_HANDLER_H_
+#endif  // KADEMLIA_KAD_PING_HANDLER_KAD_PING_HANDLER_H_

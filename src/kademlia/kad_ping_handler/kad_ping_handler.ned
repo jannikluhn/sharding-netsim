@@ -1,6 +1,6 @@
-package sharding.kademlia.kadping_handler;
+package sharding.kademlia.kad_ping_handler;
 
-simple KadpingHandler
+simple KadPingHandler
 {
     parameters:
         string peerTablePath;
