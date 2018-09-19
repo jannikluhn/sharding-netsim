@@ -8,7 +8,7 @@ packet KademliaPacket extends DiscoveryPacket
 {
     protocol = KADEMLIA;
 
-    int shardId = -1;
+    int shard = -1;
 };
 
 
@@ -20,6 +20,22 @@ enum KademliaPacketType {
     ADD_ME = 4;
 };
 
+packet KadFindNode extends KademliaPacket
+{
+    packetType = FIND_NODE;
+
+    int targetNode;
+    int targetShard;
+};
+
+packet KadNeighbors extends KademliaPacket
+{
+    packetType = NEIGHBORS;
+
+    int nodes[];
+    int shards[];
+};
+
 packet KadPing extends KademliaPacket
 {
     packetType = PING;
@@ -28,4 +44,9 @@ packet KadPing extends KademliaPacket
 packet KadPong extends KademliaPacket
 {
     packetType = PONG;
+};
+
+packet KadAddMe extends KademliaPacket
+{
+    packetType = ADD_ME;
 };

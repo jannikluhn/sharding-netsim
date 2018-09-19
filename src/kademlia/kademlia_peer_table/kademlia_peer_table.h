@@ -17,8 +17,8 @@ struct KadId {
     int node_id;
     int shard_id;
 
-    bool operator== (const KadId &other);
-    std::bitset<256> get_bits();
+    bool operator== (const KadId &other) const;
+    std::bitset<256> get_bits() const;
 };
 
 
@@ -28,18 +28,20 @@ class KademliaPeerTable : public cSimpleModule {
 
     std::vector<std::list<KadId>> buckets;
 
-    int get_bucket_index(int node_id, int shard_id);
+    int getBucketIndex(KadId kad_id);
 
   protected:
     void initialize();
 
   public:
-    void insert(int node_id, int shard_id);
-    bool insert_possible(int node_id, int shard_id);
-    void update(int node_id, int shard_id);
-    void updateIfKnown(int node_id, int shard_id);
-    void remove(int node_id, int shard_id);
-    bool contains(int node_id, int shard_id);
+    void insert(KadId kad_id);
+    void update(KadId kad_id);
+    void updateIfKnown(KadId kad_id);
+    void remove(KadId kad_id);
+
+    bool contains(KadId kad_id);
+    bool insertPossible(KadId kad_id);
+    std::vector<KadId> getNeighbors(KadId kad_id);
     int size();
 };
 

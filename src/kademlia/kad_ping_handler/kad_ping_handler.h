@@ -9,7 +9,7 @@ using namespace omnetpp;
 
 class KadPingHandler : public cSimpleModule {
   private:
-      KademliaPeerTable *peer_table;
+    KademliaPeerTable *peer_table;
 
   protected:
     void initialize();

@@ -17,86 +17,82 @@ void KademliaPeerTable::initialize() {
     home_id = KadId{node_id, shard_id};
 }
 
-int KademliaPeerTable::get_bucket_index(int node_id, int shard_id) {
+int KademliaPeerTable::getBucketIndex(KadId kad_id) {
     Enter_Method_Silent();
 
-    KadId other_id = {node_id, shard_id};
-    std::bitset<256> b = other_id.get_bits();
+    std::bitset<NUM_BUCKETS> b = kad_id.get_bits();
     b ^= home_id.get_bits();
 
     // find first nonzero bit
-    for (int i = 0; i < 256; i++) {
+    for (int i = 0; i < NUM_BUCKETS; i++) {
         if (b[i]) {
-            return i;
+            return NUM_BUCKETS - 1 - i;
         }
     }
 
     error("unreachable");
-    return 0;  // supress compiler warning
+    return 0;  // suppress compiler warning
 }
 
-void KademliaPeerTable::insert(int node_id, int shard_id) {
+void KademliaPeerTable::insert(KadId kad_id) {
     Enter_Method_Silent();
 
-    if (contains(node_id, shard_id)) {
+    if (contains(kad_id)) {
         error("already in peer table");
     }
-    if (insert_possible(node_id, shard_id)) {
+    if (insertPossible(kad_id)) {
         error("bucket full");
     }
 
-    KadId kad_id = {node_id, shard_id};
-    int bucket_index = get_bucket_index(node_id, shard_id);
+    int bucket_index = getBucketIndex(kad_id);
     buckets[bucket_index].push_back(kad_id);
 }
 
-bool KademliaPeerTable::insert_possible(int node_id, int shard_id) {
+bool KademliaPeerTable::insertPossible(KadId kad_id) {
     Enter_Method_Silent();
 
-    if (contains(node_id, shard_id)) {
+    if (contains(kad_id)) {
         error("already in peer table");
     }
 
-    int bucket_index = get_bucket_index(node_id, shard_id);
+    int bucket_index = getBucketIndex(kad_id);
     return buckets[bucket_index].size() >= BUCKET_SIZE;
 }
 
-void KademliaPeerTable::remove(int node_id, int shard_id) {
+void KademliaPeerTable::remove(KadId kad_id) {
     Enter_Method_Silent();
 
-    if (!contains(node_id, shard_id)) {
+    if (!contains(kad_id)) {
         error("not in peer table");
     }
 
-    KadId kad_id = {node_id, shard_id};
-    int bucket_index = get_bucket_index(node_id, shard_id);
+    int bucket_index = getBucketIndex(kad_id);
     buckets[bucket_index].remove(kad_id);
 }
 
-void KademliaPeerTable::update(int node_id, int shard_id) {
+void KademliaPeerTable::update(KadId kad_id) {
     Enter_Method_Silent();
 
-    if (!contains(node_id, shard_id)) {
+    if (!contains(kad_id)) {
         error("not in peer table");
     }
 
-    remove(node_id, shard_id);
-    insert(node_id, shard_id);
+    remove(kad_id);
+    insert(kad_id);
 }
 
-void KademliaPeerTable::updateIfKnown(int node_id, int shard_id) {
+void KademliaPeerTable::updateIfKnown(KadId kad_id) {
     Enter_Method_Silent();
 
-    if (contains(node_id, shard_id)) {
-        update(node_id, shard_id);
+    if (contains(kad_id)) {
+        update(kad_id);
     }
 }
 
-bool KademliaPeerTable::contains(int node_id, int shard_id) {
+bool KademliaPeerTable::contains(KadId kad_id) {
     Enter_Method_Silent();
 
-    int bucket_index = get_bucket_index(node_id, shard_id);
-    KadId kad_id = {node_id, shard_id};
+    int bucket_index = getBucketIndex(kad_id);
     std::list<KadId> bucket = buckets[bucket_index];
     bool found = std::find(bucket.begin(), bucket.end(), kad_id) != bucket.end();
     return found;
@@ -113,15 +109,68 @@ int KademliaPeerTable::size() {
     return s;
 }
 
+std::vector<KadId> KademliaPeerTable::getNeighbors(KadId kad_id) {
+    int home_bucket_index = getBucketIndex(kad_id);
+
+    // fill candidates with nodes from buckets until we have enough
+    std::vector<KadId> candidates;
+    for (int bucket_index = home_bucket_index; bucket_index >= 0; bucket_index--) {
+        if (candidates.size() >= BUCKET_SIZE) {
+            break;
+        }
+        candidates.insert(
+            candidates.end(),
+            buckets[bucket_index].begin(),
+            buckets[bucket_index].end()
+        );
+    }
+    for (int bucket_index = home_bucket_index + 1; bucket_index < NUM_BUCKETS; bucket_index++) {
+        if (candidates.size() >= BUCKET_SIZE) {
+            break;
+        }
+        candidates.insert(
+            candidates.end(),
+            buckets[bucket_index].begin(),
+            buckets[bucket_index].end()
+        );
+    }
+
+    // sort candidates by distance to target, closest first
+    std::sort(candidates.begin(), candidates.end(), [this](const KadId& lhs, const KadId& rhs) {
+        std::bitset<NUM_BUCKETS> lhs_xored = lhs.get_bits();
+        lhs_xored ^= home_id.get_bits();
+
+        std::bitset<NUM_BUCKETS> rhs_xored = rhs.get_bits();
+        rhs_xored ^= home_id.get_bits();
+
+        // find first nonzero bit
+        for (int i = 0; i < NUM_BUCKETS; i++) {
+            if (lhs_xored[i]) {
+                return true;
+            } else if (rhs_xored[i]) {
+                return false;
+            }
+        }
+        error("equal");
+        return true; // suppress compiler warning
+    });
+
+    std::vector<KadId> results;
+    for (auto kad_id : candidates) {
+        results.push_back(kad_id);
+    }
+    return results;
+}
+
 
 //
 // KadId
 //
-bool KadId::operator== (const KadId &other) {
+bool KadId::operator== (const KadId &other) const {
     return node_id == other.node_id && shard_id == other.shard_id;
 }
 
-std::bitset<256> KadId::get_bits() {
+std::bitset<NUM_BUCKETS> KadId::get_bits() const {
     // hash shard id
     unsigned char shard_input_buffer[sizeof shard_id];
     std::copy(
@@ -143,14 +192,14 @@ std::bitset<256> KadId::get_bits() {
     SHA1(node_input_buffer, sizeof node_id, node_hashed);
 
     // convert to bitset
-    std::bitset<256> b;
+    std::bitset<NUM_BUCKETS> b;
     // take first 10 bits from hashed shard id
     for (int bit_index = 0; bit_index < 10; bit_index++) {
         char c = shard_hashed[bit_index / 8];
         b[bit_index] = c & (1 << (bit_index % 8));
     }
     // take rest from hashed node id
-    for (int bit_index = 10; bit_index < 256; bit_index++) {
+    for (int bit_index = 10; bit_index < NUM_BUCKETS; bit_index++) {
         char c = node_hashed[bit_index / 8];
         b[bit_index] = c & (1 << (bit_index % 8));
     }

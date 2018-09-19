@@ -15,11 +15,14 @@ void KadPingHandler::initialize() {
 
 void KadPingHandler::handleMessage(cMessage *msg) {
     KadPing *ping = check_and_cast<KadPing *>(msg);
-    peer_table->updateIfKnown(ping->getSender(), ping->getShardId());
+    int sender = ping->getSender();
+    int shard = ping->getShard();
+    KadId kad_id = {sender, shard};
+    peer_table->updateIfKnown(kad_id);
 
     KadPong *pong = new KadPong();
-    pong->setShardId(par("shardId").intValue());
-    pong->setReceiver(ping->getSender());
+    pong->setShard(par("shardId").intValue());
+    pong->setReceiver(sender);
     send(pong, "out");
 
     delete ping;
