@@ -5,6 +5,7 @@ simple KadPingHandler
     parameters:
         string peerTablePath;
         volatile int shardId;
+        bool hidden;
 
     gates:
         input pingInput;

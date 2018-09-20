@@ -10,11 +10,11 @@ Define_Module(KademliaPeerTable);
 
 
 void KademliaPeerTable::initialize() {
-    buckets.resize(NUM_BUCKETS);
-
-    int node_id = par("nodeId");
-    int shard_id = par("shardId");
+    int node_id = par("nodeId").intValue();
+    int shard_id = par("shardId").intValue();
     home_id = KadId{node_id, shard_id};
+
+    buckets.resize(NUM_BUCKETS);
 }
 
 int KademliaPeerTable::getBucketIndex(KadId kad_id) {
@@ -30,7 +30,7 @@ int KademliaPeerTable::getBucketIndex(KadId kad_id) {
         }
     }
 
-    error("unreachable");
+    error("unreachable (home_id == kad_id)");
     return 0;  // suppress compiler warning
 }
 
@@ -40,7 +40,7 @@ void KademliaPeerTable::insert(KadId kad_id) {
     if (contains(kad_id)) {
         error("already in peer table");
     }
-    if (insertPossible(kad_id)) {
+    if (!insertPossible(kad_id)) {
         error("bucket full");
     }
 
@@ -56,7 +56,7 @@ bool KademliaPeerTable::insertPossible(KadId kad_id) {
     }
 
     int bucket_index = getBucketIndex(kad_id);
-    return buckets[bucket_index].size() >= BUCKET_SIZE;
+    return buckets[bucket_index].size() < BUCKET_SIZE;
 }
 
 void KademliaPeerTable::remove(KadId kad_id) {
@@ -109,65 +109,44 @@ int KademliaPeerTable::size() {
     return s;
 }
 
-std::vector<KadId> KademliaPeerTable::getNeighbors(KadId kad_id) {
+std::vector<KadId> KademliaPeerTable::getNeighborsInBuckets(KadId kad_id, int count) {
     int home_bucket_index = getBucketIndex(kad_id);
 
     // fill candidates with nodes from buckets until we have enough
-    std::vector<KadId> candidates;
+    std::set<KadId> candidates;
     for (int bucket_index = home_bucket_index; bucket_index >= 0; bucket_index--) {
-        if (candidates.size() >= BUCKET_SIZE) {
+        if (candidates.size() >= count) {
             break;
         }
-        candidates.insert(
-            candidates.end(),
-            buckets[bucket_index].begin(),
-            buckets[bucket_index].end()
-        );
+        for (auto candidate : buckets[bucket_index]) {
+            candidates.insert(candidate);
+        }
     }
     for (int bucket_index = home_bucket_index + 1; bucket_index < NUM_BUCKETS; bucket_index++) {
-        if (candidates.size() >= BUCKET_SIZE) {
+        if (candidates.size() >= count) {
             break;
         }
-        candidates.insert(
-            candidates.end(),
-            buckets[bucket_index].begin(),
-            buckets[bucket_index].end()
-        );
-    }
-
-    // sort candidates by distance to target, closest first
-    std::sort(candidates.begin(), candidates.end(), [this](const KadId& lhs, const KadId& rhs) {
-        std::bitset<NUM_BUCKETS> lhs_xored = lhs.get_bits();
-        lhs_xored ^= home_id.get_bits();
-
-        std::bitset<NUM_BUCKETS> rhs_xored = rhs.get_bits();
-        rhs_xored ^= home_id.get_bits();
-
-        // find first nonzero bit
-        for (int i = 0; i < NUM_BUCKETS; i++) {
-            if (lhs_xored[i]) {
-                return true;
-            } else if (rhs_xored[i]) {
-                return false;
-            }
+        for (auto candidate : buckets[bucket_index]) {
+            candidates.insert(candidate);
         }
-        error("equal");
-        return true; // suppress compiler warning
-    });
-
-    std::vector<KadId> results;
-    for (auto kad_id : candidates) {
-        results.push_back(kad_id);
     }
-    return results;
+    return kad_id.getNeighbors(candidates, count);
 }
 
 
 //
 // KadId
 //
-bool KadId::operator== (const KadId &other) const {
+bool KadId::operator==(const KadId &other) const {
     return node_id == other.node_id && shard_id == other.shard_id;
+}
+
+bool KadId::operator<(const KadId &other) const {
+    if (shard_id != other.shard_id) {
+        return shard_id < other.shard_id;
+    } else {
+        return node_id < other.node_id;
+    }
 }
 
 std::bitset<NUM_BUCKETS> KadId::get_bits() const {
@@ -178,8 +157,8 @@ std::bitset<NUM_BUCKETS> KadId::get_bits() const {
         static_cast<const unsigned char*>(static_cast<const void*>(&shard_id)) + sizeof shard_id,
         shard_input_buffer
     );
-    unsigned char shard_hashed[20];
-    SHA1(shard_input_buffer, sizeof shard_id, shard_hashed);
+    unsigned char shard_hashed[32];
+    SHA256(shard_input_buffer, sizeof shard_id, shard_hashed);
 
     // hash node id
     unsigned char node_input_buffer[sizeof node_id];
@@ -188,15 +167,15 @@ std::bitset<NUM_BUCKETS> KadId::get_bits() const {
         static_cast<const unsigned char*>(static_cast<const void*>(&node_id)) + sizeof node_id,
         node_input_buffer
     );
-    unsigned char node_hashed[20];
-    SHA1(node_input_buffer, sizeof node_id, node_hashed);
+    unsigned char node_hashed[32];
+    SHA256(node_input_buffer, sizeof node_id, node_hashed);
 
     // convert to bitset
     std::bitset<NUM_BUCKETS> b;
     // take first 10 bits from hashed shard id
     for (int bit_index = 0; bit_index < 10; bit_index++) {
         char c = shard_hashed[bit_index / 8];
-        b[bit_index] = c & (1 << (bit_index % 8));
+        b[bit_index] = (c & (1 << (bit_index % 8))) == 0;
     }
     // take rest from hashed node id
     for (int bit_index = 10; bit_index < NUM_BUCKETS; bit_index++) {
@@ -204,4 +183,34 @@ std::bitset<NUM_BUCKETS> KadId::get_bits() const {
         b[bit_index] = c & (1 << (bit_index % 8));
     }
     return b;
+}
+
+std::vector<KadId> KadId::getNeighbors(std::set<KadId> nodes, int count) {
+    std::vector<KadId> nodes_vec(nodes.begin(), nodes.end());
+
+    // sort candidates by distance to target, closest first
+    std::sort(nodes_vec.begin(), nodes_vec.end(), [this](const KadId& lhs, const KadId& rhs) {
+        return isCloser(lhs, rhs);
+    });
+
+    std::vector<KadId> results;
+    for (int i = 0; i < std::min((unsigned long)count, nodes_vec.size()); i++) {
+        results.push_back(nodes_vec[i]);
+    }
+    return results;
+}
+
+bool KadId::isCloser(KadId other, KadId reference) {
+    std::bitset<NUM_BUCKETS> other_dist = other.get_bits() ^ get_bits();
+    std::bitset<NUM_BUCKETS> reference_dist = other.get_bits() ^ get_bits();
+
+    // find first nonzero bit
+    for (int i = 0; i < NUM_BUCKETS; i++) {
+        if (other_dist[i]) {
+            return false;
+        } else if (reference_dist[i]) {
+            return true;
+        }
+    }
+    return false;
 }

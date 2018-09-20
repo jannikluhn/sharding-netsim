@@ -25,5 +25,12 @@ void KadPingHandler::handleMessage(cMessage *msg) {
     pong->setReceiver(sender);
     send(pong, "out");
 
+    if (!par("hidden").boolValue()) {
+        KadAddMe *add_me = new KadAddMe();
+        add_me->setShard(par("shardId").intValue());
+        add_me->setReceiver(sender);
+        send(add_me, "out");
+    }
+
     delete ping;
 }

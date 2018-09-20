@@ -20,12 +20,9 @@ void KadAddMeHandler::handleMessage(cMessage *msg) {
     KadId kad_id = {sender, shard};
 
     if (peer_table->contains(kad_id)) {
-        EV_ERROR << "received add me from " << shard << "/" << sender << " who is already known"
+        EV_WARN << "received add me from " << shard << "/" << sender << " who is already known"
             << endl;
-        error("received add me from known sender");
-    }
-
-    if (peer_table->insertPossible(kad_id)) {
+    } else if (peer_table->insertPossible(kad_id)) {
         EV_DEBUG << "Inserting node " << shard << "/" << sender << " into peer table" << endl;
         peer_table->insert(kad_id);
     } else {

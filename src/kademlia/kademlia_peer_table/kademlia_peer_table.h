@@ -4,6 +4,7 @@
 #include <omnetpp.h>
 #include <vector>
 #include <list>
+#include <set>
 #include <bitset>
 
 using namespace omnetpp;
@@ -12,13 +13,15 @@ using namespace omnetpp;
 const int BUCKET_SIZE = 16;
 const int NUM_BUCKETS = 256;
 
-
 struct KadId {
     int node_id;
     int shard_id;
 
-    bool operator== (const KadId &other) const;
+    bool operator==(const KadId &other) const;
+    bool operator<(const KadId &other) const;
     std::bitset<256> get_bits() const;
+    std::vector<KadId> getNeighbors(std::set<KadId> kad_id, int count);
+    bool isCloser(KadId other, KadId reference);
 };
 
 
@@ -41,7 +44,7 @@ class KademliaPeerTable : public cSimpleModule {
 
     bool contains(KadId kad_id);
     bool insertPossible(KadId kad_id);
-    std::vector<KadId> getNeighbors(KadId kad_id);
+    std::vector<KadId> getNeighborsInBuckets(KadId kad_id, int count);
     int size();
 };
 

@@ -24,7 +24,7 @@ void KadFindNodeHandler::handleMessage(cMessage *msg) {
 
     peer_table->updateIfKnown(sender_kad_id);
 
-    std::vector<KadId> neighbors = peer_table->getNeighbors(target_kad_id);
+    std::vector<KadId> neighbors = peer_table->getNeighborsInBuckets(target_kad_id, BUCKET_SIZE);
     EV_DEBUG << "received FindNode for " << target_shard << "/" << target_node
         << ", replying with " << neighbors.size() << " neighbors" << endl;
 
