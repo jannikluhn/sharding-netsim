@@ -13,6 +13,9 @@ void KademliaPeerTable::initialize() {
     setHomeId(KadId(r));
 
     buckets.resize(NUM_BUCKETS);
+
+    peer_list_update_signal = registerSignal("peerListUpdate");
+    emit(peer_list_update_signal, 0);
 }
 
 void KademliaPeerTable::setHomeId(KadId kad_id) {
@@ -53,6 +56,8 @@ void KademliaPeerTable::insert(KadId kad_id, int node_id) {
     buckets[bucket_index].push_back(kad_id);
 
     node_ids[kad_id] = node_id;
+
+    emit(peer_list_update_signal, size());
 }
 
 bool KademliaPeerTable::insertPossible(KadId kad_id) {
@@ -77,6 +82,8 @@ void KademliaPeerTable::remove(KadId kad_id) {
     buckets[bucket_index].remove(kad_id);
 
     node_ids.erase(kad_id);
+
+    emit(peer_list_update_signal, size());
 }
 
 void KademliaPeerTable::update(KadId kad_id) {

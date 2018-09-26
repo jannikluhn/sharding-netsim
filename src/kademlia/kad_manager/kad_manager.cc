@@ -56,7 +56,7 @@ void KadManager::initialize(int stage) {
 }
 
 void KadManager::finish() {
-    delete self_msg;
+    cancelAndDelete(self_msg);
 }
 
 void KadManager::handleMessage(cMessage *msg) {

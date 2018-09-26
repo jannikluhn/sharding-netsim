@@ -18,6 +18,8 @@ module Node
         string gossiperType;
         string discovererType;
 
+        @statistic[peerListUpdate](record=last);
+
     gates:
         inout port;
         input sourceInput;

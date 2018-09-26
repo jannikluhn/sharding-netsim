@@ -14,6 +14,8 @@ class KademliaPeerTable : public cSimpleModule {
     std::vector<std::list<KadId>> buckets;
     std::map<KadId, int> node_ids;
 
+    simsignal_t peer_list_update_signal;
+
     int getBucketIndex(KadId kad_id);
 
   protected:
