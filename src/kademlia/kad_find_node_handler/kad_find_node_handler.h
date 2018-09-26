@@ -1,8 +1,8 @@
 #ifndef KADEMLIA_KAD_FIND_NODE_HANDLER_KAD_FIND_NODE_HANDLER_H_
 #define KADEMLIA_KAD_FIND_NODE_HANDLER_KAD_FIND_NODE_HANDLER_H_
 
+#include "../kademlia/peer_table.h"
 #include <omnetpp.h>
-#include "../kademlia_peer_table/kademlia_peer_table.h"
 
 using namespace omnetpp;
 

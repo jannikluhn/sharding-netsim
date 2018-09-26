@@ -15,21 +15,25 @@ void KadPingHandler::initialize() {
 
 void KadPingHandler::handleMessage(cMessage *msg) {
     KadPing *ping = check_and_cast<KadPing *>(msg);
+    KadId kad_id = ping->getSenderKadId();
     int sender = ping->getSender();
-    int shard = ping->getShard();
-    KadId kad_id = {sender, shard};
+
     peer_table->updateIfKnown(kad_id);
 
     KadPong *pong = new KadPong();
-    pong->setShard(par("shardId").intValue());
+    pong->setSenderKadId(peer_table->getHomeId());
     pong->setReceiver(sender);
     send(pong, "out");
 
     if (!par("hidden").boolValue()) {
+        EV_DEBUG << "received PING from " << kad_id << ", replying with PONG and ADD_ME" << endl;
+
         KadAddMe *add_me = new KadAddMe();
-        add_me->setShard(par("shardId").intValue());
+        add_me->setSenderKadId(peer_table->getHomeId());
         add_me->setReceiver(sender);
         send(add_me, "out");
+    } else {
+        EV_DEBUG << "received PING from " << kad_id << ", replying with PONG" << endl;
     }
 
     delete ping;

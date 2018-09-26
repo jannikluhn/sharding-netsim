@@ -4,7 +4,6 @@ simple KadFindNodeHandler
 {
     parameters:
         string peerTablePath;
-        volatile int shardId;
 
     gates:
         input findNodeInput;

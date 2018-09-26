@@ -1,14 +1,17 @@
 cplusplus {{
 #include "../packets_m.h"
+#include "kademlia/kad_id.h"
 }}
+
 packet DiscoveryPacket;
+class noncobject KadId;
 
 
 packet KademliaPacket extends DiscoveryPacket
 {
     protocol = KADEMLIA;
 
-    int shard = -1;
+    KadId senderKadId;
 };
 
 
@@ -24,16 +27,15 @@ packet KadFindNode extends KademliaPacket
 {
     packetType = FIND_NODE;
 
-    int targetNode;
-    int targetShard;
+    KadId targetKadId;
 };
 
 packet KadNeighbors extends KademliaPacket
 {
     packetType = NEIGHBORS;
 
-    int nodes[];
-    int shards[];
+    KadId kadIds[];
+    int nodeIds[];
 };
 
 packet KadPing extends KademliaPacket

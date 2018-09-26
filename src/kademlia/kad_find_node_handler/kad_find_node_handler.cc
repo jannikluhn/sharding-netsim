@@ -15,28 +15,24 @@ void KadFindNodeHandler::initialize() {
 
 void KadFindNodeHandler::handleMessage(cMessage *msg) {
     KadFindNode *find_node = check_and_cast<KadFindNode *>(msg);
-    int sender = find_node->getSender();
-    int shard = find_node->getShard();
-    KadId sender_kad_id = {sender, shard};
-    int target_node = find_node->getTargetNode();
-    int target_shard = find_node->getTargetShard();
-    KadId target_kad_id = {target_node, target_shard};
+    KadId sender_kad_id = find_node->getSenderKadId();
+    KadId target_kad_id = find_node->getTargetKadId();
 
     peer_table->updateIfKnown(sender_kad_id);
 
-    std::vector<KadId> neighbors = peer_table->getNeighborsInBuckets(target_kad_id, BUCKET_SIZE);
-    EV_DEBUG << "received FindNode for " << target_shard << "/" << target_node
-        << ", replying with " << neighbors.size() << " neighbors" << endl;
+    std::vector<KadId> neighbors = peer_table->getClosestPeers(target_kad_id, BUCKET_SIZE);
+    EV_DEBUG << "received FindNode for " << target_kad_id << ", replying with "
+        << neighbors.size() << " neighbors" << endl;
 
     KadNeighbors *reply = new KadNeighbors();
-    reply->setShard(par("shardId"));
-    reply->setNodesArraySize(neighbors.size());
-    reply->setShardsArraySize(neighbors.size());
+    reply->setSenderKadId(peer_table->getHomeId());
+    reply->setKadIdsArraySize(neighbors.size());
+    reply->setNodeIdsArraySize(neighbors.size());
     for (int i = 0; i < neighbors.size(); i++) {
-        reply->setNodes(i, neighbors[i].node_id);
-        reply->setShards(i, neighbors[i].shard_id);
+        reply->setKadIds(i, neighbors[i]);
+        reply->setNodeIds(i, peer_table->getNodeId(neighbors[i]));
     }
-    reply->setReceiver(sender);
+    reply->setReceiver(find_node->getSender());
     send(reply, "out");
 
     delete find_node;

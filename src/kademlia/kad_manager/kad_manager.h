@@ -1,8 +1,9 @@
 #ifndef KADEMLIA_KAD_MANAGER_KAD_MANAGER_H_
 #define KADEMLIA_KAD_MANAGER_KAD_MANAGER_H_
 
+#include "../kademlia/peer_table.h"
+#include "../kademlia_packets_m.h"
 #include <omnetpp.h>
-#include "../kademlia_peer_table/kademlia_peer_table.h"
 
 using namespace omnetpp;
 
@@ -15,10 +16,9 @@ class KadManager : public cSimpleModule {
 
     // module parameters
     int node_id;
-    int shard_id;
+    simtime_t lookup_interval;
     simtime_t max_lookup_round_duration;
     int lookup_concurrency;
-    int max_peers;
     bool hidden;
 
     // lookup state
@@ -30,6 +30,7 @@ class KadManager : public cSimpleModule {
     std::set<KadId> queried;
     std::set<KadId> pending_neighbors;
     std::set<KadId> pending_pongs;
+    std::set<KadId> pending_add_mes;
     std::set<KadId> candidates;
     KadId last_closest_candidate;
 
@@ -37,14 +38,17 @@ class KadManager : public cSimpleModule {
     void handleSelf(cMessage *msg);
     void handleNeighbors(KadNeighbors *neighbors);
     void handlePong(KadPong *pong);
+    void handleAddMe(KadAddMe *add_me);
 
     // lookup methods
     void lookup(KadId kad_id);
     void startNextLookupRound();
 
   protected:
-    void initialize();
+    int numInitStages() const;
+    void initialize(int stage);
     void handleMessage(cMessage *msg);
+    void finish();
 };
 
 

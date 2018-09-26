@@ -1,28 +1,10 @@
 #ifndef KADEMLIA_KADEMLIA_PEER_TABLE_KADEMLIA_PEER_TABLE_H_
 #define KADEMLIA_KADEMLIA_PEER_TABLE_KADEMLIA_PEER_TABLE_H_
 
+#include "kad_id.h"
 #include <omnetpp.h>
-#include <vector>
-#include <list>
-#include <set>
-#include <bitset>
 
 using namespace omnetpp;
-
-
-const int BUCKET_SIZE = 16;
-const int NUM_BUCKETS = 256;
-
-struct KadId {
-    int node_id;
-    int shard_id;
-
-    bool operator==(const KadId &other) const;
-    bool operator<(const KadId &other) const;
-    std::bitset<256> get_bits() const;
-    std::vector<KadId> getNeighbors(std::set<KadId> kad_id, int count);
-    bool isCloser(KadId other, KadId reference);
-};
 
 
 class KademliaPeerTable : public cSimpleModule {
@@ -30,6 +12,7 @@ class KademliaPeerTable : public cSimpleModule {
     KadId home_id;
 
     std::vector<std::list<KadId>> buckets;
+    std::map<KadId, int> node_ids;
 
     int getBucketIndex(KadId kad_id);
 
@@ -37,15 +20,21 @@ class KademliaPeerTable : public cSimpleModule {
     void initialize();
 
   public:
-    void insert(KadId kad_id);
+    KadId getHomeId();
+    void setHomeId(KadId kad_id);
+
+    void insert(KadId kad_id, int node_id);
     void update(KadId kad_id);
     void updateIfKnown(KadId kad_id);
     void remove(KadId kad_id);
 
+    int getNodeId(KadId kad_id);
     bool contains(KadId kad_id);
     bool insertPossible(KadId kad_id);
-    std::vector<KadId> getNeighborsInBuckets(KadId kad_id, int count);
+    std::vector<KadId> getClosestPeers(KadId kad_id, int count);
+
     int size();
+    std::vector<int> bucketSizes();
 };
 
 

@@ -5,18 +5,18 @@ simple KadManager
     parameters:
         string peerTablePath;
         int nodeId;
-        int shardId;
         bool hidden;
 
         int lookupConcurrency;
         double maxLookupRoundDuration @unit(s);
+        double lookupInterval @unit(s);
 
-        int maxPeers;
         int numBootnodes;
 
     gates:
         input neighborsInput;
         input pongInput;
+        input addMeInput;
         output out;
         output peerListChangeOutput;
 }
