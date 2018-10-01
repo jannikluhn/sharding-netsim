@@ -111,6 +111,10 @@ void KadManager::handleNeighbors(KadNeighbors *neighbors) {
         if (peer_table->contains(kad_id)) {
             known += 1;
             peer_table->update(kad_id);
+
+            if (queried.count(kad_id) == 0) {
+                candidates.insert(kad_id);
+            }
         } else {
             unknown += 1;
 
@@ -155,8 +159,7 @@ void KadManager::handlePong(KadPong *pong) {
         EV_DEBUG << "received unexpected PONG from " << kad_id << endl;
     }
 
-    if (lookup_ongoing && pending_neighbors.size() == 0 && pending_pongs.size() == 0 &&
-            pending_add_mes.size() == 0) {
+    if (lookupRoundFinished()) {
         startNextLookupRound();
     }
 
@@ -189,12 +192,20 @@ void KadManager::handleAddMe(KadAddMe *add_me) {
             << endl;
     }
 
-    if (lookup_ongoing && pending_neighbors.size() == 0 && pending_pongs.size() == 0 &&
-            pending_add_mes.size() == 0) {
+    if (lookupRoundFinished()) {
         startNextLookupRound();
     }
 
     delete add_me;
+}
+
+bool KadManager::lookupRoundFinished() {
+    return (
+        lookup_ongoing &&
+        pending_neighbors.size() == 0 &&
+        pending_pongs.size() == 0 &&
+        pending_add_mes.size() == 0
+    );
 }
 
 void KadManager::startNextLookupRound() {

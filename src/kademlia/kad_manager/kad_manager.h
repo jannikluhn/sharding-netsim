@@ -43,6 +43,7 @@ class KadManager : public cSimpleModule {
     // lookup methods
     void lookup(KadId kad_id);
     void startNextLookupRound();
+    bool lookupRoundFinished();
 
   protected:
     int numInitStages() const;
