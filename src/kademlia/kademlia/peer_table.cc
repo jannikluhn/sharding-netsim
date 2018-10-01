@@ -93,9 +93,9 @@ void KademliaPeerTable::update(KadId kad_id) {
         error("not in peer table");
     }
 
-    int node_id = node_ids[kad_id];
-    remove(kad_id);
-    insert(kad_id, node_id);
+    int bucket_index = getBucketIndex(kad_id);
+    buckets[bucket_index].remove(kad_id);
+    buckets[bucket_index].push_back(kad_id);
 }
 
 void KademliaPeerTable::updateIfKnown(KadId kad_id) {
