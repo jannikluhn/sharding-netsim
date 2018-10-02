@@ -65,7 +65,6 @@ def plot_peers(results):
         ax.step(x, y, where="post", label=label)
     ax.set_xlabel("Time [s]")
     ax.set_ylabel("Peer number")
-    ax.legend()
 
     return fig
 
