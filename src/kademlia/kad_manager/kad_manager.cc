@@ -74,6 +74,7 @@ void KadManager::handleMessage(cMessage *msg) {
 }
 
 void KadManager::handleSelf(cMessage *self) {
+    // if a lookup round is ongoing, cancel it due to timeout, otherwise do a new random lookup
     if (lookup_ongoing) {
         startNextLookupRound();
     } else if (peer_table->size() == 0) {
@@ -110,7 +111,6 @@ void KadManager::handleNeighbors(KadNeighbors *neighbors) {
 
         if (peer_table->contains(kad_id)) {
             known += 1;
-            peer_table->update(kad_id);
 
             if (queried.count(kad_id) == 0) {
                 candidates.insert(kad_id);
@@ -187,9 +187,9 @@ void KadManager::handleAddMe(KadAddMe *add_me) {
             << endl;
         peer_table->insert(kad_id, node_id);
     } else {
-        // TODO: check if some node is offline
-        EV_DEBUG << "Ignoring ADD_ME from " << kad_id << " as bucket is full"
+        EV_DEBUG << "Bucket is full, putting " << kad_id << " on replacement list"
             << endl;
+        peer_table->insertReplacement(kad_id, node_id);
     }
 
     if (lookupRoundFinished()) {
@@ -213,6 +213,7 @@ void KadManager::startNextLookupRound() {
         error("No lookup ongoing");
     }
     if (self_msg->isScheduled()) {
+        // cancel lookup round timeout
         cancelEvent(self_msg);
     }
 
@@ -220,12 +221,34 @@ void KadManager::startNextLookupRound() {
     if (is_last_lookup_round) {
         EV_DEBUG << "lookup finished, got " << peer_table->size() << " peers now" << endl;
         lookup_ongoing = false;
+
+        // schedule new random lookup
         scheduleAt(simTime() + lookup_interval, self_msg);
         return;
     }
     EV_DEBUG << "starting next lookup round (pending neighbors: " << pending_neighbors.size()
         << ", pending pongs: " << pending_pongs.size() << ", pending add_mes: "
         << pending_add_mes.size() << ")" << endl;
+
+    // tell peer table about offline peers so that they can be replaced
+    for (auto peer : pending_neighbors) {
+        if (peer_table->contains(peer)) {
+            EV_DEBUG << "removing " << peer << " because it didn't respond in time" << endl;
+            peer_table->remove(peer);
+        }
+    }
+    for (auto peer : pending_pongs) {
+        if (peer_table->contains(peer)) {
+            EV_DEBUG << "removing " << peer << " because it didn't respond in time" << endl;
+            peer_table->remove(peer);
+        }
+    }
+    for (auto peer : pending_add_mes) {
+        if (peer_table->contains(peer)) {
+            EV_DEBUG << "removing " << peer << " because it didn't respond in time" << endl;
+            peer_table->remove(peer);
+        }
+    }
 
     // ignore responses that haven't been received in time
     pending_neighbors.clear();
@@ -236,6 +259,7 @@ void KadManager::startNextLookupRound() {
     // BUCKET_SIZE peers
     std::vector<KadId> receivers;
 
+    // check if the last node has made progress
     bool to_finish;
     if (candidates.size() == 0) {
         to_finish = true;
@@ -249,11 +273,13 @@ void KadManager::startNextLookupRound() {
     }
 
     if (to_finish) {
+        // last round has made no progress, query the closest BUCKET_SIZE candidates and quit
         EV_DEBUG << "last lookup round made no progress, this will be the final one" << endl;
 
         is_last_lookup_round = true;
         receivers = lookup_target.getNeighbors(candidates, BUCKET_SIZE);
     } else {
+        // last round made progress, query the LOOKUP_CONCURRENCY closest candidates
         receivers = lookup_target.getNeighbors(candidates, lookup_concurrency);
     }
 
@@ -271,7 +297,7 @@ void KadManager::startNextLookupRound() {
     }
 
     is_first_lookup_round = false;
-    // set timeout for next lookup round
+    // set timeout for this lookup round
     lookup_round_end_time = simTime() + max_lookup_round_duration;
     scheduleAt(lookup_round_end_time, self_msg);
 }
@@ -293,6 +319,7 @@ void KadManager::lookup(KadId kad_id) {
     pending_add_mes.clear();
     candidates.clear();
 
+    // query the nodes closest to the target in our peer table
     for (auto candidate : peer_table->getClosestPeers(kad_id, lookup_concurrency)) {
         candidates.insert(candidate);
     }

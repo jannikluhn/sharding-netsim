@@ -3,5 +3,6 @@
 
 const int BUCKET_SIZE = 16;
 const int NUM_BUCKETS = 256;
+const int REPLACEMENT_LIST_SIZE = 16;
 
 #endif  // KADEMLIA_KADEMLIA_CONSTANTS_H_

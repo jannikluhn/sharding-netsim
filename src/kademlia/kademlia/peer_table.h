@@ -12,6 +12,7 @@ class KademliaPeerTable : public cSimpleModule {
     KadId home_id;
 
     std::vector<std::list<KadId>> buckets;
+    std::vector<std::list<std::tuple<KadId, int>>> replacements;
     std::map<KadId, int> node_ids;
 
     simsignal_t peer_list_update_signal;
@@ -26,6 +27,7 @@ class KademliaPeerTable : public cSimpleModule {
     void setHomeId(KadId kad_id);
 
     void insert(KadId kad_id, int node_id);
+    void insertReplacement(KadId kad_id, int node_id);
     void update(KadId kad_id);
     void updateIfKnown(KadId kad_id);
     void remove(KadId kad_id);

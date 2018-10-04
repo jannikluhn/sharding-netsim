@@ -13,6 +13,7 @@ void KademliaPeerTable::initialize() {
     setHomeId(KadId(r));
 
     buckets.resize(NUM_BUCKETS);
+    replacements.resize(NUM_BUCKETS);
 
     peer_list_update_signal = registerSignal("peerListUpdate");
     emit(peer_list_update_signal, 0);
@@ -60,6 +61,28 @@ void KademliaPeerTable::insert(KadId kad_id, int node_id) {
     emit(peer_list_update_signal, size());
 }
 
+void KademliaPeerTable::insertReplacement(KadId kad_id, int node_id) {
+    Enter_Method_Silent();
+
+    int bucket_index = getBucketIndex(kad_id);
+    std::tuple<KadId, int> replacement = std::make_tuple(kad_id, node_id);
+    std::list<std::tuple<KadId, int>> bucket_replacements = replacements[bucket_index];
+
+    // insert if new
+    if (std::find(
+        bucket_replacements.begin(),
+        bucket_replacements.end(),
+        replacement
+    ) == bucket_replacements.end()) {
+        // remove old elements if necessary
+        while (bucket_replacements.size() > REPLACEMENT_LIST_SIZE) {
+            bucket_replacements.pop_front();
+        }
+
+        bucket_replacements.push_back(replacement);
+    }
+}
+
 bool KademliaPeerTable::insertPossible(KadId kad_id) {
     Enter_Method_Silent();
 
@@ -80,8 +103,12 @@ void KademliaPeerTable::remove(KadId kad_id) {
 
     int bucket_index = getBucketIndex(kad_id);
     buckets[bucket_index].remove(kad_id);
-
     node_ids.erase(kad_id);
+
+    if (replacements[bucket_index].size() > 0) {
+        std::tuple<KadId, int> replacement = replacements[bucket_index].back();
+        insert(std::get<0>(replacement), std::get<1>(replacement));
+    }
 
     emit(peer_list_update_signal, size());
 }

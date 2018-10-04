@@ -26,12 +26,12 @@ void KadPingHandler::handleMessage(cMessage *msg) {
     send(pong, "out");
 
     if (!par("hidden").boolValue()) {
-        EV_DEBUG << "received PING from " << kad_id << ", replying with PONG and ADD_ME" << endl;
-
         KadAddMe *add_me = new KadAddMe();
         add_me->setSenderKadId(peer_table->getHomeId());
         add_me->setReceiver(sender);
         send(add_me, "out");
+
+        EV_DEBUG << "received PING from " << kad_id << ", replying with PONG and ADD_ME" << endl;
     } else {
         EV_DEBUG << "received PING from " << kad_id << ", replying with PONG" << endl;
     }
