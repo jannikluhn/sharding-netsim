@@ -1,7 +1,8 @@
-#include <omnetpp.h>
 #include "node_manager.h"
 #include "../hub/hub.h"
 #include "../source/source.h"
+#include <omnetpp.h>
+#include <algorithm>
 
 using namespace omnetpp;
 
@@ -17,63 +18,49 @@ void NodeManager::initialize() {
     source = check_and_cast<Source *>(getModuleByPath(source_path));
 
     bootstrap_node_count = par("bootstrapNodeCount").intValue();
-    target_node_count = par("targetNodeCount").intValue();
-    ramp_up_time = par("rampUpTime").doubleValue();
-    crash = par("crash").boolValue();
-    crash_time = par("crashTime").doubleValue();
-    crash_probability = par("crashProbability").doubleValue();
+    node_count = par("nodeCount").intValue();
+    mean_lifetime = par("meanLifetime").doubleValue();
 
-    node_count = 0;
-    ramp_up_interval = ramp_up_time / (target_node_count - bootstrap_node_count);
-
+    next_node_id = 0;
 
     // create bootstrap nodes
     EV_DEBUG << "starting " << bootstrap_node_count << " bootstrap nodes" << endl;
     for (int i = 0; i < bootstrap_node_count; i++) {
-        createNode();
+        createNode(SimTime::getMaxTime());
     }
 
-    // start ramp up phase
-    EV_DEBUG << "starting " << target_node_count - node_count << " nodes over the next "
-        << ramp_up_time << "s" << endl;
-    scheduler_msg = new cMessage();
-    if (node_count < target_node_count) {
-        cMessage *scheduler_msg = new cMessage();
-        scheduleAt(simTime() + ramp_up_interval, scheduler_msg);
+    // create other nodes
+    for (int i = bootstrap_node_count; i < node_count; i++) {
+        createNode(simTime() + exponential(mean_lifetime));
     }
 
-    // crash
-    crash_msg = new cMessage();
-    scheduleAt(crash_time, crash_msg);
+    scheduleAt(nodes.front()->par("timeOfDeath"), new cMessage());
 }
 
 
 void NodeManager::handleMessage(cMessage *msg) {
-    if (msg == scheduler_msg) {
-        createNode();
+    // quit next node
+    cModule *node = nodes.front();
+    int node_id = node->par("nodeId").intValue();
+    queues[node_id]->deleteModule();
+    EV_DEBUG << "killing node " << node_id << endl;
+    hub->deregisterNode(node_id);
+    node->deleteModule();
 
-        if (node_count < target_node_count) {
-            scheduleAt(simTime() + ramp_up_interval, scheduler_msg);
-        } else {
-            delete scheduler_msg;
-        }
-    } else if (msg == crash_msg) {
-        if (crash) {
-            for (int i = 0; i < nodes.size(); i++) {
-                if (uniform(0, 1) < crash_probability) {
-                    crashNode(nodes[i]);
-                }
-            }
-        }
-    }
+    // start another one
+    createNode(simTime() + exponential(mean_lifetime));
+
+    // schedule next node replacement
+    scheduleAt(nodes.front()->par("timeOfDeath"), msg);
 }
 
 
-void NodeManager::createNode() {
+void NodeManager::createNode(simtime_t time_of_death) {
     bool system_module_initialized = getSystemModule()->initialized();
-    int node_id = node_count;
+    int node_id = next_node_id;
 
-    EV_DEBUG << "starting node " << node_id << endl;
+    EV_DEBUG << "starting node " << node_id << " at " << simTime() << " (lives until "
+        << time_of_death << ")" << endl;
 
     // choose latency and bandwidth (see arXiv:1801.03998 [cs.CR])
     double quality = uniform(0, 1);
@@ -112,23 +99,35 @@ void NodeManager::createNode() {
     cModule *node = cModuleType::get("sharding.Node")->create(
         "nodes",
         getParentModule(),
-        node_count + 1,
+        next_node_id + 1,
         node_id
     );
     node->par("nodeId") = node_id;
     node->par("datarate") = bandwidth;
+    node->par("timeOfDeath") = time_of_death.dbl();
     node->finalizeParameters();
     node->buildInside();
-    nodes.push_back(node);
+
+    // insert sorted
+    nodes.insert(std::lower_bound(
+        nodes.begin(),
+        nodes.end(),
+        node,
+        [](const cModule *a, const cModule *b) -> bool {
+            return a->par("timeOfDeath").doubleValue() < b->par("timeOfDeath").doubleValue();
+        }
+    ), node);
 
     cModule *queue = cModuleType::get("sharding.utils.queue.Queue")->create(
         "queues",
         getParentModule(),
-        node_count + 1,
+        next_node_id + 1,
         node_id
     );
     queue->finalizeParameters();
     queue->buildInside();
+
+    queues[node_id] = queue;
 
 
     // connect node to hub via queue
@@ -168,18 +167,9 @@ void NodeManager::createNode() {
 
     hub->registerNode(node_id, hub_in->getId(), hub_out->getId());
 
-    node_count++;
+    next_node_id++;
     if (system_module_initialized) {
         node->callInitialize();
         queue->callInitialize();
     }
-}
-
-void NodeManager::crashNode(cModule *node) {
-    node->par("crashed").setBoolValue(true) ;
-}
-
-void NodeManager::finish() {
-    cancelAndDelete(scheduler_msg);
-    cancelAndDelete(crash_msg);
 }

@@ -21,10 +21,12 @@ void Hub::handleMessage(cMessage *msg) {
     if (receiver_id == -1) {
         error("no receiver specified");
     }
+
     if (node_id_to_out_gates.count(receiver_id) == 0) {
-        EV_FATAL << "received message from " << sender_id << " for " << receiver_id
-            << " who does not exist" << endl;
-        error("receiver does not exist");
+        EV_DEBUG << "dropping message from " << sender_id << " to offline receiver "
+            << receiver_id << endl;
+        delete msg;
+        return;
     }
 
     int gate_id = node_id_to_out_gates[receiver_id];

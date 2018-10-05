@@ -13,29 +13,24 @@ class NodeManager : public cSimpleModule {
     Hub *hub;
     Source *source;
 
-    std::vector<cModule *> nodes;
+    std::list<cModule *> nodes;  // ordered by time of death
+    std::map<int, cModule *> queues;  // maps node id to corresponding queue module
 
     int bootstrap_node_count;
-    int target_node_count;
-    double ramp_up_time;
-
     int node_count;
-    double ramp_up_interval;
+    double mean_lifetime;
 
-    bool crash;
-    simtime_t crash_time;
-    double crash_probability;
+    int next_node_id;
 
-    cMessage *scheduler_msg;
-    cMessage *crash_msg;
+//  bool crash;
+//  simtime_t crash_time;
+//  double crash_probability;
 
-    void createNode();
-    void crashNode(cModule *node);
+    void createNode(simtime_t time_of_death);
 
   protected:
     virtual void initialize();
     virtual void handleMessage(cMessage *msg);
-    virtual void finish();
 };
 
 

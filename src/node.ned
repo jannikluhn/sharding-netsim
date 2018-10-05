@@ -18,6 +18,8 @@ module Node
         string gossiperType;
         string discovererType;
 
+        double timeOfDeath @unit(s);
+
         @statistic[peerListUpdate](record=vector);
 
     gates:

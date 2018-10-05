@@ -7,10 +7,7 @@ simple NodeManager
         string sourcePath;
 
         int bootstrapNodeCount;
-        int targetNodeCount;
-        double rampUpTime @unit(s);
+        int nodeCount;
 
-        bool crash = default(false);
-        double crashTime @unit(s) = default(0);
-        double crashProbability = default(0);
+        double meanLifetime @unit(s);
 }
